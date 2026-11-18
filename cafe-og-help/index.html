@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#f9f5ee">
+<title>무인카페 OG — 이용 안내 & 빠른 문의</title>
+<style>
+  :root {
+    --bg: #f9f5ee;
+    --card: #ffffff;
+    --card-soft: #f3ede2;
+    --ink: #2f251b;
+    --muted: #7a6242;
+    --line: #e4d9c5;
+    --accent: #7a5c38;
+    --accent-dark: #5e4528;
+    --ok-bg: #eef6ef;
+    --ok-ink: #265934;
+    --warn-bg: #fdf1ed;
+    --warn-ink: #9c3d22;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    font-size: 16px; line-height: 1.55;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 18px 16px 56px; }
+  header { text-align: center; padding: 14px 8px 18px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #efe6d6; color: #6d563c; font-size: 13px; font-weight: 600;
+    padding: 5px 12px; border-radius: 999px; margin-bottom: 10px;
+  }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #4c8c5c; }
+  h1 { margin: 0 0 6px; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+  .addr { margin: 0; font-size: 14px; color: var(--muted); }
+  .intro {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 16px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(47,37,27,0.04);
+  }
+  .intro p { margin: 0 0 12px; font-size: 15px; }
+  .call-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; min-height: 50px; background: var(--accent); color: #fff;
+    text-decoration: none; font-weight: 700; font-size: 16px; border-radius: 12px;
+    border: none; cursor: pointer;
+  }
+  .call-btn:active { background: var(--accent-dark); transform: scale(0.99); }
+  h2 {
+    margin: 22px 0 6px; font-size: 18px; font-weight: 800;
+    display: flex; align-items: center; gap: 8px;
+  }
+  h2 .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 50%; background: var(--accent);
+    color: #fff; font-size: 13px; font-weight: 800;
+  }
+  .sub { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+  details {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    margin-bottom: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(47,37,27,0.03);
+  }
+  summary {
+    list-style: none; cursor: pointer; padding: 15px 16px; min-height: 56px;
+    display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary .ico { font-size: 21px; line-height: 1; flex-shrink: 0; }
+  summary .label { flex: 1; }
+  summary .chev {
+    width: 10px; height: 10px; flex-shrink: 0;
+    border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg); transition: transform 0.18s ease; margin-right: 4px;
+  }
+  details[open] summary .chev { transform: rotate(-135deg); margin-top: 4px; }
+  details[open] summary { border-bottom: 1px solid var(--line); background: #fcf9f4; }
+  .body { padding: 14px 16px 16px; font-size: 15px; }
+  .body p { margin: 0 0 10px; }
+  .body p:last-child { margin-bottom: 0; }
+  .body ol { margin: 0 0 10px; padding-left: 20px; }
+  .body li { margin-bottom: 6px; }
+  .wifi-box {
+    background: var(--card-soft); border-radius: 12px; padding: 12px 14px;
+    margin-bottom: 10px; font-size: 15px;
+  }
+  .wifi-box b { display: inline-block; width: 92px; color: var(--muted); font-weight: 600; }
+  .tip-card {
+    background: #f5efe4; border: 1px dashed #d3c2a5; border-radius: 14px;
+    padding: 13px 15px; margin: 14px 0 4px; font-size: 14.5px; color: #534029;
+  }
+  .form-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px 16px; box-shadow: 0 2px 8px rgba(47,37,27,0.04);
+  }
+  .field { margin-bottom: 15px; }
+  label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+  label .opt { font-weight: 500; color: var(--muted); font-size: 13px; }
+  label .req { color: #b5452a; font-size: 13px; margin-left: 3px; }
+  input[type="text"], input[type="tel"], select, textarea {
+    width: 100%; min-height: 48px; padding: 11px 13px;
+    border: 1.5px solid var(--line); border-radius: 12px; background: #fffdf9;
+    font-family: inherit; font-size: 16px; color: var(--ink); outline: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); background: #fff; }
+  textarea { min-height: 92px; resize: vertical; line-height: 1.5; }
+  .submit-btn {
+    width: 100%; min-height: 54px; border: none; border-radius: 13px;
+    background: var(--accent); color: #fff; font-family: inherit;
+    font-size: 17px; font-weight: 800; cursor: pointer; margin-top: 4px;
+  }
+  .submit-btn:active { background: var(--accent-dark); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .status { display: none; margin-top: 14px; padding: 14px 15px; border-radius: 12px; font-size: 15px; font-weight: 600; }
+  .status.ok { display: block; background: var(--ok-bg); color: var(--ok-ink); }
+  .status.err { display: block; background: var(--warn-bg); color: var(--warn-ink); }
+  footer { text-align: center; margin-top: 26px; font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="badge"><span class="dot"></span>아침 7시 ~ 새벽 1시 · 연중무휴</div>
+    <h1>무인카페 OG</h1>
+    <p class="addr">경기도 안성시 공도읍 송원길 35, 1층 102호</p>
+  </header>
+
+  <section class="intro">
+    <p>이용 중 궁금한 점이나 불편한 사항이 있으면 아래 안내를 먼저 확인해 주세요.</p>
+    <p><strong>커피머신 기계가 작동하지 않거나 문제가 생기면 바로 전화 주세요!</strong></p>
+    <a class="call-btn" href="tel:01062292428" id="callBtn">📞 커피머신 오류 · 매장 전화 문의</a>
+  </section>
+
+  <h2><span class="num">1</span><span class="h2t">먼저 확인해 보세요</span></h2>
+  <p class="sub">항목을 누르면 자세한 안내가 펼쳐집니다.</p>
+
+  <details open>
+    <summary>
+      <span class="ico">☕</span>
+      <span class="label">티타임 커피머신 이용방법 (ICE · HOT)</span>
+      <span class="chev"></span>
+    </summary>
+    <div class="body">
+      <p><strong>아이스 음료(ICE) 4단계 순서</strong></p>
+      <ol>
+        <li><strong>음료 선택 및 결제</strong>: 가운데 화면에서 원하시는 음료를 고르고 결제해 주세요.</li>
+        <li><strong>컵 받기</strong>: 오른쪽 컵 배출구에서 아이스 컵이 자동으로 나옵니다. <em>(컵을 강제로 뽑지 마세요!)</em></li>
+        <li><strong>얼음 받기</strong>: 컵을 왼쪽 얼음 배출구에 두면 정량 얼음이 자동으로 나옵니다.</li>
+        <li><strong>음료 받기</strong>: 가운데 음료 배출구에 컵을 두면 선택한 음료가 나와 완성됩니다!</li>
+      </ol>
+      <p><strong>따뜻한 음료(HOT)</strong>: 음료 선택 및 결제 후 컵과 음료가 자동으로 나옵니다.</p>
+      <p>기계가 멈추거나 컵·얼음·음료가 나오지 않으면 무리하게 손대지 마시고 <strong>바로 전화</strong> 주세요.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="ico">📶</span>
+      <span class="label">와이파이 · 화장실 비밀번호</span>
+      <span class="chev"></span>
+    </summary>
+    <div class="body">
+      <div class="wifi-box">
+        <b>와이파이 ID</b>TP-Link_9B4A<br>
+        <b>비밀번호</b>cafeog56789<br>
+        <b>남자 화장실</b>5902<br>
+        <b>여자 화장실</b>5901
+      </div>
+      <p>와이파이 연결이 안 되면 휴대폰의 와이파이를 껐다가 10초 뒤 다시 켜 보세요.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="ico">❄️</span>
+      <span class="label">냉난방기 리모컨 위치 · 사용법</span>
+      <span class="chev"></span>
+    </summary>
+    <div class="body">
+      <p><strong>냉난방기 리모컨은 싱크대 위에 있습니다.</strong></p>
+      <p>리모컨을 <strong>에어컨 방향으로 향하고</strong> 눌러 온도를 조절해 주세요. 사용 후에는 제자리에 놓아주시면 감사합니다.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="ico">📌</span>
+      <span class="label">매장 이용 수칙 (1인 1음료)</span>
+      <span class="chev"></span>
+    </summary>
+    <div class="body">
+      <ol>
+        <li><strong>좌석 이용 시 1인 1음료 필수</strong>입니다.</li>
+        <li><strong>외부 음료 반입 금지</strong> · <strong>좌석 무단 이용 금지</strong>입니다.</li>
+        <li>모두가 함께 사용하는 공간이니 이용 후 자리를 깨끗하게 정리해 주세요.</li>
+      </ol>
+    </div>
+  </details>
+
+  <div class="tip-card">
+    <b>무인카페 OG 이용 팁</b><br>
+    • 영업시간: <b>매일 아침 7시 ~ 새벽 1시</b> (연중무휴)<br>
+    • 커피머신 오류·결제 이상 시 <b>위 전화 버튼으로 바로 연락</b>해 주세요!
+  </div>
+
+  <h2><span class="num">2</span><span class="h2t">간단한 요청 남기기</span></h2>
+  <p class="sub">급한 커피머신 오류는 위 전화 버튼을 눌러주시고, 비품·청결 등 일반 요청은 아래에 남겨 주세요.</p>
+
+  <form class="form-card" id="requestForm" novalidate>
+    <div class="field">
+      <label for="category">문의 항목 <span class="req">필수</span></label>
+      <select id="category" name="category" required>
+        <option value="" selected disabled>어떤 내용인지 골라 주세요</option>
+        <option>커피머신 오류 · 미추출</option>
+        <option>결제 · 영수증</option>
+        <option>와이파이 · 냉난방</option>
+        <option>비품 부족 · 매장 청결</option>
+        <option>기타 문의</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="detail">자세한 내용 <span class="req">필수</span></label>
+      <textarea id="detail" name="detail" maxlength="500" required placeholder="예: 아이스 아메리카노 결제했는데 얼음이 안 나와요"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="phone">연락받으실 번호 <span class="req">필수</span></label>
+      <input type="tel" id="phone" name="phone" required inputmode="tel" maxlength="20" placeholder="010-0000-0000">
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">접수하기</button>
+    <div class="status" id="statusBox" role="status" aria-live="polite"></div>
+  </form>
+
+  <footer>무인카페 OG · Smart Coffee, Your Taste.</footer>
+</div>
+
+<script>
+  const MAKE_WEBHOOK_URL = "";
+  const form = document.getElementById("requestForm");
+  const statusBox = document.getElementById("statusBox");
+  const submitBtn = document.getElementById("submitBtn");
+
+  function showStatus(kind, msg) {
+    statusBox.className = "status " + kind;
+    statusBox.textContent = msg;
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const category = document.getElementById("category").value.trim();
+    const detail = document.getElementById("detail").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+
+    if (!category) { showStatus("err", "문의 항목을 선택해 주세요."); return; }
+    if (!detail) { showStatus("err", "자세한 내용을 간단히 적어 주세요."); return; }
+    if (phone.replace(/[^0-9]/g, "").length < 9) {
+      showStatus("err", "연락받으실 휴대폰 번호를 정확히 입력해 주세요.");
+      return;
+    }
+
+    if (!MAKE_WEBHOOK_URL) {
+      showStatus("err", "접수 시스템 연결 중입니다. 급한 커피머신 오류는 위 전화 버튼을 눌러 바로 연락해 주세요.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "접수 중...";
+    try {
+      const res = await fetch(MAKE_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "QR_CAFE_OG",
+          category: category,
+          detail: detail,
+          phone: phone,
+          submitted_at: new Date().toISOString()
+        })
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      showStatus("ok", "접수되었습니다. 확인 후 빠르게 연락드리겠습니다.");
+      form.reset();
+    } catch (err) {
+      showStatus("err", "전송에 실패했습니다. 위 전화 버튼을 눌러 바로 연락해 주세요.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "접수하기";
+    }
+  });
+</script>
+</body>
+</html>
