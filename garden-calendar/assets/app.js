@@ -512,6 +512,21 @@
 
     $('#calTable').innerHTML = head + body;
 
+    // 좁은 화면에서는 표 대신 목록으로 보여 줍니다.
+    var list = $('#calList');
+    if (list) {
+      list.innerHTML = D.crops.map(function (c) {
+        var on = c.sow.indexOf(nowM) > -1;
+        var months = c.sow.map(function (mm) {
+          return '<span class="' + (mm === nowM ? 'is-now' : '') + '">' + mm + '</span>';
+        }).join('<i>·</i>');
+        return '<li class="cal-row' + (on ? ' is-now' : '') + '">' +
+          '<span class="cal-row-name">' + c.name + '</span>' +
+          '<span class="cal-row-months">' + months + '월</span>' +
+        '</li>';
+      }).join('');
+    }
+
     // 모바일에서는 이번 달 열이 보이도록 표를 살짝 밀어 둡니다.
     var shell = $('.table-shell');
     var nowCol = $('#calTable thead th.is-now');

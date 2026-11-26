@@ -633,7 +633,19 @@ section[id]{scroll-margin-top:84px}
 }
 
 /* ---------- 인쇄/PDF ---------- */
+.cal-list{display:none;background:var(--paper);border:1px solid var(--line-2);border-radius:20px;padding:6px 14px;box-shadow:var(--shadow-sm)}
+.cal-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 2px;border-bottom:1px solid var(--line-2)}
+.cal-row:last-child{border-bottom:0}
+.cal-row-name{font-size:12.5px;font-weight:600;letter-spacing:-.02em;position:relative;padding-left:10px}
+.cal-row-name::before{content:"";position:absolute;left:0;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--sage-300)}
+.cal-row.is-now .cal-row-name::before{background:var(--sage-700);box-shadow:0 0 0 3px rgba(110,143,99,.16)}
+.cal-row-months{font-size:11.5px;color:var(--ink-2);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.cal-row-months i{font-style:normal;color:var(--sage-300);padding:0 3px}
+.cal-row-months .is-now{color:#fff;background:var(--sage-700);border-radius:5px;padding:1px 4px;font-weight:600}
+
 @media (max-width:760px){
+  .table-shell{display:none}
+  .cal-list{display:block}
   .cal-table{width:100%;min-width:0}
   .cal-table th,.cal-table td{height:36px}
   .cal-table thead th{font-size:10px;height:30px}
