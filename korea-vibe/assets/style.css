@@ -344,7 +344,7 @@ ul,ol{padding:0;list-style:none}
 .section-sticker svg{width:100%;height:100%}
 .section-sticker.st-a{width:54px;height:54px;top:26px;left:2.5vw;transform:rotate(-12deg)}
 .section-sticker.st-b{width:44px;height:44px;top:120px;right:3vw;fill:#FFB7C8;transform:rotate(14deg)}
-.section-sticker.st-c{width:46px;height:46px;bottom:56px;right:4vw;transform:rotate(-9deg);opacity:.9}
+.shop-sticker.sh4{width:54px;height:54px;top:104px;right:12vw;transform:rotate(-8deg);opacity:.95}
 .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:26px;flex-wrap:wrap}
 .section-head h2{
   font-family:var(--font-display);font-weight:600;font-size:clamp(28px,3.4vw,44px);
