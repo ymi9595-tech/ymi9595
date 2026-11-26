@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0B1510">
-<meta name="description" content="영수증 사진 한 장으로 날짜·상호·금액·부가세·경비과목을 AI가 읽어 정리하는 사장님 경비장부">
-<title>영수증 AI 경비장부</title>
+<meta name="description" content="영수증 사진을 찍고 금액만 넣으면 부가세·공급가액까지 정리되는 사장님 경비장부">
+<title>영수증 경비장부</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F2218'/%3E%3Cpath d='M20 14h24v37l-6-4-6 4-6-4-6 4z' fill='%23F3EDDD'/%3E%3Cpath d='M26 24h12M26 31h12M26 38h7' stroke='%230F2218' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,7 +94,6 @@ input,select,textarea{font:inherit; color:inherit}
 .btn.ghost{background:transparent}
 .btn.danger{color:#F0B3A6; border-color:rgba(217,123,108,.4); background:rgba(217,123,108,.1)}
 .btn:disabled{opacity:.5; cursor:not-allowed}
-.btn.block{width:100%}
 
 /* ---------- month bar ---------- */
 .monthbar{display:flex; align-items:center; gap:10px; margin:26px 0 16px; flex-wrap:wrap}
@@ -141,7 +140,7 @@ input,select,textarea{font:inherit; color:inherit}
 .bar-row.zero{opacity:.45}
 
 /* ---------- layout ---------- */
-.grid{display:grid; grid-template-columns:minmax(0,410px) minmax(0,1fr); gap:14px; margin-top:14px; align-items:start}
+.grid{display:grid; grid-template-columns:minmax(0,420px) minmax(0,1fr); gap:14px; margin-top:14px; align-items:start}
 
 /* ---------- form ---------- */
 .step{display:flex; align-items:center; gap:9px; margin:16px 0 9px}
@@ -172,19 +171,12 @@ input,select,textarea{font:inherit; color:inherit}
 .preview .meta .acts button{font-size:11px; padding:5px 9px; border-radius:8px; border:1px solid var(--line); color:var(--dim)}
 .preview .meta .acts button:hover{color:var(--cream); border-color:var(--line-strong)}
 
-.aibar{display:grid; grid-template-columns:1fr auto; gap:8px; margin-top:12px}
-.status{font-size:11.5px; color:var(--muted); margin-top:9px; min-height:16px; display:flex; align-items:center; gap:7px}
-.status.busy{color:var(--gold)}
-.status.ok{color:#A9D3B6}
-.status.err{color:#EFB1A4}
-.spin{width:12px;height:12px;border-radius:50%;border:2px solid rgba(217,184,113,.28); border-top-color:var(--gold); animation:sp .8s linear infinite; flex:0 0 12px}
-@keyframes sp{to{transform:rotate(360deg)}}
-
 .fields{display:grid; grid-template-columns:1fr 1fr; gap:10px}
 .field{display:grid; gap:5px; min-width:0}
 .field.wide{grid-column:1/-1}
 .field label{font-size:11px; color:var(--muted); letter-spacing:.02em; display:flex; align-items:center; gap:5px}
 .field label b{color:var(--danger); font-weight:400}
+.field label em{font-style:normal; color:#6F8172}
 .field input,.field select,.field textarea{
   width:100%; padding:10px 11px; border-radius:10px; background:rgba(8,15,11,.55);
   border:1px solid var(--line); font-size:13.5px; outline:none; transition:.15s; color:var(--cream);
@@ -197,14 +189,13 @@ input,select,textarea{font:inherit; color:inherit}
 .field select{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23A6B5A7' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 11px center; padding-right:30px}
 .field select option{background:#12211A; color:var(--cream)}
 .supply{
-  grid-column:1/-1; display:flex; align-items:center; gap:8px; padding:8px 11px; border-radius:10px;
+  grid-column:1/-1; display:flex; align-items:center; gap:8px; padding:9px 12px; border-radius:10px;
   background:rgba(217,184,113,.07); border:1px dashed rgba(217,184,113,.25); font-size:11.5px; color:var(--dim);
 }
-.supply b{color:#F0DDB0; font-variant-numeric:tabular-nums; font-size:13px}
+.supply b{color:#F0DDB0; font-variant-numeric:tabular-nums; font-size:14px; font-family:var(--serif)}
 .supply .fx{margin-left:auto; font-size:10.5px; color:var(--muted)}
 .form-foot{display:flex; gap:8px; margin-top:14px}
-.form-foot .btn{flex:1}
-.form-foot .btn.ghost{flex:0 0 auto}
+.form-foot .btn.save{flex:1}
 .tiny{font-size:10.5px; color:var(--muted); line-height:1.55; margin-top:10px; display:flex; gap:6px; align-items:flex-start}
 .tiny svg{width:12px;height:12px;flex:0 0 12px;margin-top:2px; opacity:.7}
 
@@ -274,14 +265,15 @@ input,select,textarea{font:inherit; color:inherit}
 .settings-sec:first-of-type{border-top:0; padding-top:0}
 .settings-sec h4{margin:0 0 4px; font-size:12.5px; display:flex; align-items:center; gap:6px}
 .settings-sec p{font-size:11px; color:var(--muted); line-height:1.65}
-.settings-sec p a{color:var(--gold)}
 .settings-sec .fields{margin-top:9px; grid-template-columns:1fr}
 .rowbtn{display:flex; gap:8px; margin-top:9px; flex-wrap:wrap; align-items:center}
 .rowbtn .btn{font-size:11.5px; padding:8px 12px}
-.input-wrap{position:relative}
-.input-wrap input{padding-right:56px}
-.input-wrap .eye{position:absolute; right:6px; top:50%; transform:translateY(-50%); font-size:10.5px; color:var(--muted); padding:5px 7px; border-radius:7px}
-.input-wrap .eye:hover{color:var(--cream); background:rgba(255,255,255,.06)}
+.status{font-size:11.5px; color:var(--muted); margin-top:9px; min-height:16px; display:flex; align-items:center; gap:7px}
+.status.busy{color:var(--gold)}
+.status.ok{color:#A9D3B6}
+.status.err{color:#EFB1A4}
+.spin{width:12px;height:12px;border-radius:50%;border:2px solid rgba(217,184,113,.28); border-top-color:var(--gold); animation:sp .8s linear infinite; flex:0 0 12px}
+@keyframes sp{to{transform:rotate(360deg)}}
 #lightbox img{width:100%; border-radius:12px; display:block; background:#fff}
 
 /* ---------- toast ---------- */
@@ -338,8 +330,8 @@ input,select,textarea{font:inherit; color:inherit}
         </svg>
       </div>
       <div style="min-width:0">
-        <h1>영수증 AI 경비장부</h1>
-        <div class="sub">Receipt AI Expense Tracker · 찍으면 경비가 정리됩니다</div>
+        <h1>영수증 경비장부</h1>
+        <div class="sub">사장님 지출 관리 · 찍고, 넣고, 저장하면 끝</div>
       </div>
     </div>
     <div class="topbar-right">
@@ -381,7 +373,7 @@ input,select,textarea{font:inherit; color:inherit}
     <div class="kpi" style="--c:var(--gold)">
       <div class="k">부가세 합계</div>
       <div class="v" id="kpiVat">₩0</div>
-      <div class="note">인쇄·추정값 합산</div>
+      <div class="note">총액 ÷ 11 자동 계산</div>
     </div>
     <div class="kpi" style="--c:var(--clay)">
       <div class="k">공급가액 합계</div>
@@ -404,10 +396,10 @@ input,select,textarea{font:inherit; color:inherit}
     <section class="card" id="formCard" aria-label="영수증 추가">
       <div class="card-head" style="margin-bottom:2px">
         <h2>영수증 추가</h2>
-        <span class="hint">찍으면 AI가 읽습니다</span>
+        <span class="hint">사진은 최대 1000px로 자동 압축</span>
       </div>
 
-      <div class="step"><span class="n">1</span><span class="t">영수증 사진 <em>· 최대 1000px 자동 압축</em></span></div>
+      <div class="step"><span class="n">1</span><span class="t">영수증 사진</span></div>
       <div class="drop" id="drop">
         <div id="dropEmpty">
           <svg class="cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7a1 1 0 0 0 .8-.4l.9-1.2a1 1 0 0 1 .8-.4h4.6a1 1 0 0 1 .8.4l.9 1.2a1 1 0 0 0 .8.4h1.7A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"/><circle cx="12" cy="12.4" r="3.4"/></svg>
@@ -439,40 +431,30 @@ input,select,textarea{font:inherit; color:inherit}
       <input type="file" id="fileCamera" accept="image/*" capture="environment" hidden>
       <input type="file" id="fileGallery" accept="image/*" hidden>
 
-      <div class="step"><span class="n">2</span><span class="t">AI 자동 분석</span></div>
-      <div class="aibar">
-        <button class="btn primary" id="btnAI" type="button">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 4.6L18.5 9l-4.8 1.4L12 15l-1.7-4.6L5.5 9l4.8-1.4z"/><path d="M18 15l.9 2.4 2.1.6-2.1.6L18 21l-.9-2.4-2.1-.6 2.1-.6z"/></svg>
-          AI로 자동 분석
-        </button>
-        <button class="btn" id="btnDemo" type="button" title="API 키 없이 화면 테스트">데모</button>
-      </div>
-      <div class="status" id="aiStatus" aria-live="polite"></div>
-
-      <div class="step"><span class="n">3</span><span class="t">내용 확인 <em>· 필요하면 고치세요</em></span></div>
+      <div class="step"><span class="n">2</span><span class="t">내용 입력 <em>· 금액을 넣으면 부가세·공급가액 자동</em></span></div>
       <div class="fields">
         <div class="field"><label for="f-date">날짜</label><input type="date" id="f-date"></div>
-        <div class="field"><label for="f-total">총액 <b>*</b></label><input type="number" id="f-total" inputmode="numeric" placeholder="0" min="0" step="10"></div>
-        <div class="field wide"><label for="f-vendor">상호명 <b>*</b></label><input type="text" id="f-vendor" placeholder="예) 한마음 식자재 마트"></div>
-        <div class="field"><label for="f-vat">부가세</label><input type="number" id="f-vat" inputmode="numeric" placeholder="자동 추정" min="0" step="10"></div>
         <div class="field"><label for="f-cat">경비 과목</label><select id="f-cat"></select></div>
+        <div class="field wide"><label for="f-vendor">상호명 <b>*</b></label><input type="text" id="f-vendor" placeholder="예) 한마음 식자재 마트"></div>
+        <div class="field"><label for="f-total">총액 <b>*</b></label><input type="number" id="f-total" inputmode="numeric" placeholder="0" min="0" step="10"></div>
+        <div class="field"><label for="f-vat">부가세 <em>자동</em></label><input type="number" id="f-vat" inputmode="numeric" placeholder="자동 계산" min="0" step="10"></div>
         <div class="supply">
           <span>공급가액</span><b id="supplyVal">₩0</b>
           <span class="fx">총액 − 부가세</span>
         </div>
-        <div class="field wide"><label for="f-items">주요 품목</label><textarea id="f-items" rows="2" placeholder="예) 사골 2kg, 국거리 1kg"></textarea></div>
+        <div class="field wide"><label for="f-items">주요 품목 <em>선택</em></label><textarea id="f-items" rows="2" placeholder="예) 사골 2kg, 국거리 1kg"></textarea></div>
       </div>
 
       <div class="form-foot">
         <button class="btn save" id="btnSave" type="button">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
-          장부에 저장
+          장부에 저장하기
         </button>
         <button class="btn ghost" id="btnReset" type="button">초기화</button>
       </div>
       <div class="tiny">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>
-        <span>사진과 기록은 이 브라우저에만 저장됩니다. AI 분석 시 사진은 Google Gemini API로만 전송되고 따로 보관되지 않습니다.</span>
+        <span>사진과 기록은 이 브라우저에만 저장됩니다. 서버로 보내지 않습니다.</span>
       </div>
     </section>
 
@@ -489,14 +471,14 @@ input,select,textarea{font:inherit; color:inherit}
       <div id="emptyBox" class="empty" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
         <strong>아직 저장된 영수증이 없습니다</strong>
-        <span>영수증을 찍고 <b>AI로 자동 분석</b>을 누르면<br>날짜·상호·금액·부가세·경비 과목이 자동으로 채워집니다.</span>
+        <span>영수증을 찍고 상호명·금액을 넣어 저장하면<br>이번 달 집계와 내역에 바로 반영됩니다.</span>
       </div>
     </section>
 
   </div>
 
   <div class="foot">
-    <div>영수증 AI 경비장부 · 부가세는 인쇄값, 없으면 총액 ÷ 11 추정 · 공급가액 = 총액 − 부가세</div>
+    <div>영수증 경비장부 · 부가세 = 총액 ÷ 11 자동 계산 · 공급가액 = 총액 − 부가세</div>
     <span id="footStat">전체 0건</span>
   </div>
 </div>
@@ -516,31 +498,8 @@ input,select,textarea{font:inherit; color:inherit}
       <div class="fields">
         <div class="field"><input type="text" id="s-store" placeholder="예) 스터디카페 OG" maxlength="40"></div>
       </div>
-    </div>
-
-    <div class="settings-sec">
-      <h4>🔑 Gemini API 키 <span style="font-size:10.5px;color:#D9B871;font-weight:400">무료</span></h4>
-      <p>Google AI Studio에서 무료 키를 만들어 한 번만 붙여 넣으면 됩니다. 키는 이 브라우저에만 저장되고 영수증 분석에만 쓰입니다.</p>
-      <div class="fields">
-        <div class="field input-wrap">
-          <input type="password" id="s-key" placeholder="AIza..." autocomplete="off" spellcheck="false">
-          <button class="eye" id="btnEyeKey" type="button">보기</button>
-        </div>
-      </div>
-      <div class="fields" style="grid-template-columns:1fr 1fr">
-        <div class="field"><label for="s-model">분석 모델</label>
-          <select id="s-model">
-            <option value="gemini-2.5-flash">gemini-2.5-flash (권장)</option>
-            <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-          </select>
-        </div>
-        <div class="field"><label>키 발급</label>
-          <a class="btn" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" style="font-size:11.5px;padding:10px 8px;justify-content:center">AI Studio 열기 ↗</a>
-        </div>
-      </div>
       <div class="rowbtn">
         <button class="btn primary" id="btnSaveSettings" type="button">저장</button>
-        <button class="btn danger" id="btnClearKey" type="button">키 삭제</button>
       </div>
     </div>
 
@@ -551,6 +510,7 @@ input,select,textarea{font:inherit; color:inherit}
         <div class="field"><input type="url" id="s-url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" spellcheck="false"></div>
       </div>
       <div class="rowbtn">
+        <button class="btn" id="btnSaveSheet" type="button">저장</button>
         <button class="btn" id="btnTestSheet" type="button">연결 테스트</button>
         <span class="status" id="sheetStatus" style="margin:0"></span>
       </div>
@@ -559,8 +519,8 @@ input,select,textarea{font:inherit; color:inherit}
 
     <div class="settings-sec">
       <h4>ℹ️ 사용 안내</h4>
-      <p>· 영수증 사진은 최대 1000px JPEG로 줄여 분석·보관합니다.<br>
-         · 부가세는 영수증 인쇄값이 없으면 총액 ÷ 11로 추정하고, 공급가액은 총액 − 부가세입니다.<br>
+      <p>· 영수증 사진은 최대 1000px JPEG로 줄여 보관합니다.<br>
+         · 부가세는 총액 ÷ 11, 공급가액은 총액 − 부가세로 자동 계산되며 직접 고칠 수 있습니다.<br>
          · 기록은 이 브라우저에만 남습니다. 기기를 바꾸면 사라지므로 월말마다 CSV로 백업하세요.</p>
     </div>
   </div>
@@ -576,10 +536,10 @@ input,select,textarea{font:inherit; color:inherit}
     </div>
     <div class="fields">
       <div class="field"><label for="e-date">날짜</label><input type="date" id="e-date"></div>
-      <div class="field"><label for="e-total">총액</label><input type="number" id="e-total" inputmode="numeric" step="10" min="0"></div>
-      <div class="field wide"><label for="e-vendor">상호명</label><input type="text" id="e-vendor"></div>
-      <div class="field"><label for="e-vat">부가세</label><input type="number" id="e-vat" inputmode="numeric" step="10" min="0"></div>
       <div class="field"><label for="e-cat">경비 과목</label><select id="e-cat"></select></div>
+      <div class="field wide"><label for="e-vendor">상호명</label><input type="text" id="e-vendor"></div>
+      <div class="field"><label for="e-total">총액</label><input type="number" id="e-total" inputmode="numeric" step="10" min="0"></div>
+      <div class="field"><label for="e-vat">부가세</label><input type="number" id="e-vat" inputmode="numeric" step="10" min="0"></div>
       <div class="field wide"><label for="e-items">주요 품목</label><textarea id="e-items" rows="2"></textarea></div>
     </div>
     <div class="sheet-foot">
@@ -620,43 +580,17 @@ input,select,textarea{font:inherit; color:inherit}
 /* ================= 상수 ================= */
 var CATS = ['재료비','소모품비','수선유지비','식대','교통비','기타'];
 var CAT_COLOR = {'재료비':'#D9B871','소모품비':'#7FAE8C','수선유지비':'#D08E6B','식대':'#A5BE74','교통비':'#8C9DC4','기타':'#9C9C93'};
-var LS_RECEIPTS='rea.v2.receipts', LS_CFG='rea.v2.config', LS_KEY='rea.v2.apikey';
-var GEMINI_URL='https://generativelanguage.googleapis.com/v1beta/models/';
-
-var PROMPT = [
-  '너는 한국 자영업자의 경비 정리를 돕는 영수증 판독기다.',
-  '첨부한 영수증 사진을 읽고 아래 항목을 JSON으로만 답한다.',
-  '- date: 영수증 날짜. YYYY-MM-DD. 연도가 없으면 오늘 날짜의 연도를 쓴다. 읽을 수 없으면 "".',
-  '- vendor: 상호명(가맹점명).',
-  '- total: 결제 총액(원 단위 정수, 쉼표·"원" 없이).',
-  '- vat: 영수증에 부가세가 인쇄되어 있으면 그 금액, 없으면 총액/11을 반올림한 추정값.',
-  '- vatEstimated: 부가세를 추정했으면 true.',
-  '- category: 반드시 다음 중 하나 → 재료비, 소모품비, 수선유지비, 식대, 교통비, 기타.',
-  '  (식자재·원두·부자재=재료비, 사무용품·청소용품·포장재=소모품비, 공구·부품·수리=수선유지비, 식사·커피=식대, 주유·주차·택시=교통비)',
-  '- items: 주요 품목을 "사골 2kg, 국거리 1kg"처럼 쉼표로 간단히.',
-  '- note: 알아두면 좋은 점(선택).',
-  '숫자는 추정이라도 채우고, 사진이 영수증이 아니면 vendor에 "영수증 아님"이라고 쓴다.'
-].join('\n');
-
-var SCHEMA = {
-  type:'OBJECT',
-  properties:{
-    date:{type:'STRING'}, vendor:{type:'STRING'}, total:{type:'INTEGER'},
-    vat:{type:'INTEGER'}, vatEstimated:{type:'BOOLEAN'},
-    category:{type:'STRING', enum:CATS}, items:{type:'STRING'}, note:{type:'STRING'}
-  },
-  required:['vendor','total','category']
-};
+var LS_RECEIPTS='rea.v3.receipts', LS_CFG='rea.v3.config';
 
 /* ================= 상태 ================= */
 var state = {
   receipts: [],
   month: monthKey(new Date()),
   image: null,
-  busy: false,
+  vatManual: false,
   editingId: null
 };
-var cfg = {store:'스터디카페 OG', apiKey:'', model:'gemini-2.5-flash', sheetUrl:''};
+var cfg = {store:'스터디카페 OG', sheetUrl:''};
 
 /* ================= 유틸 ================= */
 function $(id){ return document.getElementById(id); }
@@ -671,6 +605,7 @@ function uid(){ try{ if(window.crypto && crypto.randomUUID) return crypto.random
 function bytesLabel(b){ return b>=1024*1024 ? (b/1048576).toFixed(1)+'MB' : (b>=1024? Math.round(b/1024)+'KB' : b+'B'); }
 function catColor(c){ return CAT_COLOR[c] || CAT_COLOR['기타']; }
 function supplyOf(r){ return Math.max(0, (Number(r.total)||0) - (Number(r.vat)||0)); }
+function estimateVat(total){ return Math.round((Number(total)||0)/11); }
 
 var memStore = {};
 function lsGet(k, d){
@@ -681,7 +616,6 @@ function lsSet(k, v){
   memStore[k]=v;
   try{ window.localStorage.setItem(k, v); return true; }catch(e){ return false; }
 }
-function lsDel(k){ delete memStore[k]; try{ window.localStorage.removeItem(k); }catch(e){} }
 
 /* ================= 이미지 저장(IndexedDB) ================= */
 var imgDB=null, idbState='unknown', imgMem={};
@@ -762,7 +696,7 @@ function compress(file, maxDim, quality){
     if(img.cleanup) img.cleanup();
     if(img.close) try{ img.close(); }catch(e){}
     var b64 = dataUrl.split(',')[1] || '';
-    return {dataUrl:dataUrl, b64:b64, width:w, height:h, bytes:Math.round(b64.length*3/4), origW:sw, origH:sh};
+    return {dataUrl:dataUrl, width:w, height:h, bytes:Math.round(b64.length*3/4), origW:sw, origH:sh};
   });
 }
 function makeThumb(file){
@@ -796,11 +730,9 @@ function loadData(){
     var c = JSON.parse(lsGet(LS_CFG,'{}')||'{}');
     if(c && typeof c==='object'){
       if(c.store) cfg.store = c.store;
-      if(c.model) cfg.model = c.model;
       cfg.sheetUrl = c.sheetUrl || '';
     }
   }catch(e){}
-  cfg.apiKey = lsGet(LS_KEY,'') || '';
 }
 function persist(){
   var ok = lsSet(LS_RECEIPTS, JSON.stringify(state.receipts));
@@ -911,13 +843,23 @@ function fillCatSelect(sel, value){
   CATS.forEach(function(c){ var o=document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o); });
   sel.value = value && CATS.indexOf(value)>=0 ? value : '기타';
 }
+function currentVat(){
+  var total = Number($('f-total').value)||0;
+  return state.vatManual ? (Number($('f-vat').value)||0) : (total? estimateVat(total) : 0);
+}
 function updateSupply(){
-  var t = Number($('f-total').value)||0;
-  var v = $('f-vat').value==='' ? Math.round(t/11) : (Number($('f-vat').value)||0);
-  $('supplyVal').textContent = won(Math.max(0,t-v));
+  var total = Number($('f-total').value)||0;
+  $('supplyVal').textContent = won(Math.max(0, total - currentVat()));
+}
+function syncVatField(){
+  if(!state.vatManual){
+    var total = Number($('f-total').value)||0;
+    $('f-vat').value = total? estimateVat(total) : '';
+  }
+  updateSupply();
 }
 function readForm(){
-  var date=$('f-date').value, vendor=$('f-vendor').value.trim(), total=$('f-total').value, vat=$('f-vat').value;
+  var vendor=$('f-vendor').value.trim(), total=$('f-total').value;
   var bad=null;
   if(!vendor) bad='f-vendor';
   else if(!(Number(total)>0)) bad='f-total';
@@ -927,238 +869,45 @@ function readForm(){
     return null;
   }
   var t = Math.round(Number(total));
-  var estimated = vat==='';
+  var vat = state.vatManual ? Math.round(Number($('f-vat').value)||0) : estimateVat(t);
   return {
     store: cfg.store,
-    date: date || todayStr(),
+    date: $('f-date').value || todayStr(),
     vendor: vendor,
     total: t,
-    vat: estimated ? Math.round(t/11) : Math.round(Number(vat)||0),
-    vatEstimated: estimated,
+    vat: vat,
+    vatEstimated: !state.vatManual,
     category: $('f-cat').value,
     items: $('f-items').value.trim(),
     memo: ''
   };
 }
 function resetForm(){
-  state.image=null;
+  state.image=null; state.vatManual=false;
   $('f-date').value = todayStr();
   $('f-vendor').value=''; $('f-total').value=''; $('f-vat').value=''; $('f-items').value='';
   $('f-cat').value='기타';
   $('dropEmpty').style.display=''; $('preview').classList.remove('on');
   updateSupply();
-  setStatus('');
 }
 
 /* ================= 사진 ================= */
 function setImage(file){
   if(!file) return;
   if(!/^image\//.test(file.type)){ toast('이미지 파일만 올릴 수 있습니다','warn'); return; }
-  setStatus('사진을 압축하는 중…','busy');
+  var info = $('previewInfo');
+  $('previewName').textContent = file.name || 'receipt.jpg';
+  info.textContent = '사진 준비 중…';
   Promise.all([compress(file,1000,0.82), makeThumb(file)]).then(function(res){
     var c=res[0], t=res[1];
-    state.image = {dataUrl:c.dataUrl, b64:c.b64, width:c.width, height:c.height, bytes:c.bytes, thumb:t, name:file.name||'receipt.jpg'};
+    state.image = {dataUrl:c.dataUrl, width:c.width, height:c.height, bytes:c.bytes, thumb:t, name:file.name||'receipt.jpg'};
     $('previewImg').src=c.dataUrl;
-    $('previewName').textContent = state.image.name;
-    $('previewInfo').textContent = c.width+'×'+c.height+'px · '+bytesLabel(c.bytes)+' · '+c.origW+'×'+c.origH+' → 1000px 이내';
+    info.textContent = c.width+'×'+c.height+'px · '+bytesLabel(c.bytes)+' · '+c.origW+'×'+c.origH+' → 1000px 이내 자동 압축';
     $('dropEmpty').style.display='none'; $('preview').classList.add('on');
-    setStatus('사진 준비 완료 · AI 분석을 눌러 주세요','ok');
+    toast('영수증 사진을 준비했습니다','ok');
   }).catch(function(e){
-    setStatus('사진을 처리하지 못했습니다: '+e.message,'err');
+    info.textContent = '사진을 처리하지 못했습니다: '+e.message;
   });
-}
-
-/* ================= AI ================= */
-function setStatus(msg, kind){
-  var s=$('aiStatus');
-  s.className='status'+(kind?(' '+kind):'');
-  s.innerHTML = (kind==='busy'?'<span class="spin"></span>':'') + (msg?('<span>'+esc(msg)+'</span>'):'');
-}
-function mapError(status, body){
-  var b = body || {};
-  var err = (b.error && (b.error.message||b.error.status)) || '';
-  if(status===400 && /API key|API_KEY/i.test(err)) return 'API 키가 올바르지 않습니다. 설정에서 키를 다시 확인해 주세요.';
-  if(status===401 || status===403) return 'API 키 권한이 없습니다. 설정에서 키를 다시 확인해 주세요.';
-  if(status===429) return '무료 사용량 한도에 걸렸습니다. 1~2분 뒤 다시 시도해 주세요.';
-  if(status===404) return '모델을 찾을 수 없습니다. 설정에서 분석 모델을 바꿔 보세요.';
-  if(status>=500) return 'Gemini 서버가 잠시 응답하지 않습니다. 잠시 후 다시 시도해 주세요.';
-  return 'AI 분석 실패' + (err? (': '+err.slice(0,120)) : ' (HTTP '+status+')');
-}
-function parseGemini(data){
-  var cand = (data && data.candidates && data.candidates[0]) || null;
-  if(!cand) throw new Error('분석 결과가 비어 있습니다');
-  var parts = (cand.content && cand.content.parts) || [];
-  var text = parts.filter(function(p){ return p && !p.thought; })
-                  .map(function(p){ return p.text||''; }).join('').trim();
-  if(!text) text = parts.map(function(p){ return p.text||''; }).join('').trim();
-  try{ return JSON.parse(text); }catch(e){}
-  text = text.replace(/^```(?:json)?/i,'').replace(/```$/,'').trim();
-  var m = text.match(/\{[\s\S]*\}/);
-  if(!m) throw new Error('JSON을 찾지 못했습니다');
-  return JSON.parse(m[0]);
-}
-function normDate(s){
-  if(!s) return todayStr();
-  var m = String(s).match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
-  if(m) return m[1]+'-'+pad2(Number(m[2]))+'-'+pad2(Number(m[3]));
-  var m2 = String(s).match(/^(\d{1,2})\D+(\d{1,2})$/);
-  if(m2) return new Date().getFullYear()+'-'+pad2(Number(m2[1]))+'-'+pad2(Number(m2[2]));
-  return todayStr();
-}
-function toInt(v){
-  if(v==null) return 0;
-  var n = Math.round(Number(String(v).replace(/[^\d.-]/g,'')));
-  return isFinite(n)? Math.abs(n) : 0;
-}
-function applyAI(out){
-  $('f-date').value = normDate(out.date);
-  $('f-vendor').value = (out.vendor||'').toString().slice(0,80);
-  var total = toInt(out.total);
-  $('f-total').value = total? total : '';
-  var vat = toInt(out.vat);
-  $('f-vat').value = vat ? vat : (total? Math.round(total/11):'');
-  $('f-cat').value = CATS.indexOf(out.category)>=0 ? out.category : '기타';
-  $('f-items').value = (out.items||'').toString().slice(0,300);
-  updateSupply();
-}
-function callGemini(model, key){
-  var gen = { temperature:0.15, responseMimeType:'application/json', responseSchema:SCHEMA };
-  if(model.indexOf('gemini-2.5')===0) gen.thinkingConfig = { thinkingBudget: 0 };
-  var body = {
-    contents:[{ role:'user', parts:[
-      { text: PROMPT },
-      { inline_data: { mime_type:'image/jpeg', data: state.image.b64 } }
-    ]}],
-    generationConfig: gen
-  };
-  return fetch(GEMINI_URL+model+':generateContent?key='+encodeURIComponent(key), {
-    method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
-  }).then(function(res){
-    return res.text().then(function(txt){
-      var data=null; try{ data = JSON.parse(txt); }catch(e){}
-      if(!res.ok){ var err=new Error(mapError(res.status, data)); err.status=res.status; err.body=data; throw err; }
-      return parseGemini(data);
-    });
-  });
-}
-function analyze(){
-  if(state.busy) return;
-  if(!cfg.apiKey){
-    setStatus('먼저 설정에서 Gemini API 키를 넣어 주세요','err');
-    openSettings(); return;
-  }
-  if(!state.image){
-    setStatus('영수증 사진을 먼저 추가해 주세요','err'); return;
-  }
-  state.busy=true;
-  var btn=$('btnAI'); btn.disabled=true;
-  setStatus('AI가 영수증을 읽는 중… (보통 3~8초)','busy');
-  var first = cfg.model || 'gemini-2.5-flash';
-  var chain = first==='gemini-2.5-flash' ? ['gemini-2.5-flash','gemini-2.0-flash'] : [first,'gemini-2.5-flash'];
-  function attempt(i){
-    if(i>=chain.length) return Promise.reject(new Error('사용 가능한 모델이 없습니다'));
-    return callGemini(chain[i], cfg.apiKey).catch(function(err){
-      var msg = String((err.body && err.body.error && err.body.error.message) || '');
-      if(err.status===404 || (err.status===400 && /model|thinking/i.test(msg) && !/API key/i.test(msg))) return attempt(i+1);
-      throw err;
-    });
-  }
-  attempt(0).then(function(out){
-    applyAI(out);
-    var v = String(out.vendor||'');
-    if(v.indexOf('영수증 아님')>=0) setStatus('영수증으로 보이지 않습니다. 사진을 다시 확인해 주세요','err');
-    else setStatus('분석 완료 · 값을 확인하고 저장하세요'+(out.vatEstimated===true?' (부가세는 추정)':''),'ok');
-    toast('AI 분석 완료','ok');
-  }).catch(function(err){
-    setStatus(err.message||'AI 분석에 실패했습니다','err');
-  }).then(function(){
-    state.busy=false; btn.disabled=false;
-  });
-}
-
-/* ================= 데모 ================= */
-var DEMOS = [
-  {vendor:'한마음 식자재 마트', total:60500, vat:5500, category:'재료비', items:'한우 사골 2kg, 국거리 1kg, 양파 3kg', name:'식자재_영수증.jpg'},
-  {vendor:'공도종합철물', total:23400, vat:2127, category:'수선유지비', items:'도어락 배터리, 실리콘 2개, 타일본드', name:'철물_영수증.jpg'},
-  {vendor:'이마트24 공도점', total:12800, vat:1164, category:'소모품비', items:'커피 필터, 종이컵 100개, 쓰레기봉투', name:'편의점_영수증.jpg'},
-  {vendor:'카페 온도', total:9500, vat:864, category:'식대', items:'아메리카노 2, 크루아상 1', name:'카페_영수증.jpg'},
-  {vendor:'SK주유소 안성점', total:70000, vat:6364, category:'교통비', items:'휘발유 42L', name:'주유_영수증.jpg'}
-];
-function demo(){
-  var d = DEMOS[Math.floor(Math.random()*DEMOS.length)];
-  $('f-date').value = todayStr();
-  $('f-vendor').value = d.vendor;
-  $('f-total').value = d.total;
-  $('f-vat').value = d.vat;
-  $('f-cat').value = d.category;
-  $('f-items').value = d.items;
-  updateSupply();
-  setStatus('데모 값을 채웠습니다 · 사진 없이도 화면을 테스트할 수 있어요','ok');
-  toast('데모 영수증을 채웠습니다','ok');
-  if(!state.image){
-    try{
-      var sample = drawSampleReceipt(d);
-      state.image = sample;
-      $('previewImg').src = sample.dataUrl;
-      $('previewName').textContent = d.name;
-      $('previewInfo').textContent = '샘플 이미지 · '+sample.width+'×'+sample.height+'px · '+bytesLabel(sample.bytes);
-      $('dropEmpty').style.display='none'; $('preview').classList.add('on');
-    }catch(e){}
-  }
-}
-
-/* 샘플 영수증 이미지를 캔버스로 그린다 (테스트용) */
-function drawSampleReceipt(d){
-  var W=760, H=1040;
-  var c=document.createElement('canvas'); c.width=W; c.height=H;
-  var x=c.getContext('2d');
-  x.fillStyle='#FCFAF3'; x.fillRect(0,0,W,H);
-  var g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,'rgba(0,0,0,0.02)'); g.addColorStop(1,'rgba(0,0,0,0.07)');
-  x.fillStyle=g; x.fillRect(0,0,W,H);
-  x.fillStyle='#171310'; x.textAlign='center';
-  x.font='bold 34px "Noto Sans KR", sans-serif';
-  x.fillText('영  수  증', W/2, 92);
-  x.font='22px "Noto Sans KR", sans-serif'; x.fillStyle='#3A332B';
-  x.fillText(d.vendor, W/2, 136);
-  x.font='18px monospace'; x.fillStyle='#5A5248';
-  x.fillText('사업자 123-45-67890   TEL 031-000-0000', W/2, 168);
-  x.strokeStyle='#8C8275'; x.setLineDash([8,7]); x.lineWidth=2;
-  x.beginPath(); x.moveTo(60,200); x.lineTo(W-60,200); x.stroke(); x.setLineDash([]);
-  x.textAlign='left'; x.font='20px monospace'; x.fillStyle='#241F19';
-  x.fillText('거래일시  '+d.dateLabel+'  14:32', 60, 240);
-  x.fillText('결제수단  신용카드(일시불)', 60, 272);
-  x.beginPath(); x.moveTo(60,300); x.lineTo(W-60,300); x.stroke();
-  x.font='bold 20px "Noto Sans KR", sans-serif';
-  x.fillText('품목', 60, 336); x.textAlign='right'; x.fillText('금액', W-60, 336);
-  x.textAlign='left'; x.beginPath(); x.moveTo(60,352); x.lineTo(W-60,352); x.stroke();
-  var rows = (d.items||'').split(',').map(function(s){return s.trim();}).filter(Boolean);
-  x.font='20px "Noto Sans KR", sans-serif';
-  rows.forEach(function(r,i){
-    var y=392+i*36;
-    x.fillStyle='#241F19'; x.textAlign='left'; x.fillText(r, 60, y);
-    x.textAlign='right'; x.fillStyle='#3A332B';
-    x.fillText(Math.round(d.total/rows.length).toLocaleString(), W-60, y);
-  });
-  var base=392+rows.length*36+10;
-  x.beginPath(); x.moveTo(60,base); x.lineTo(W-60,base); x.stroke();
-  x.font='22px "Noto Sans KR", sans-serif'; x.fillStyle='#241F19'; x.textAlign='left';
-  x.fillText('합계 금액', 60, base+46);
-  x.textAlign='right'; x.font='bold 30px monospace';
-  x.fillText(d.total.toLocaleString()+' 원', W-60, base+48);
-  x.font='19px "Noto Sans KR", sans-serif'; x.fillStyle='#3A332B'; x.textAlign='left';
-  x.fillText('부가세 과세물품가액', 60, base+92);
-  x.textAlign='right'; x.fillText((d.total-d.vat).toLocaleString(), W-60, base+92);
-  x.textAlign='left'; x.fillText('부  가  세', 60, base+124);
-  x.textAlign='right'; x.fillText(d.vat.toLocaleString(), W-60, base+124);
-  x.beginPath(); x.moveTo(60,base+150); x.lineTo(W-60,base+150); x.stroke();
-  x.textAlign='center'; x.font='18px "Noto Sans KR", sans-serif'; x.fillStyle='#5A5248';
-  x.fillText('감사합니다.  교환·환불은 7일 이내', W/2, base+192);
-  x.font='16px monospace'; x.fillText('* 위 금액은 테스트용 샘플입니다 *', W/2, base+226);
-  var dataUrl = c.toDataURL('image/jpeg', 0.85);
-  var b64 = dataUrl.split(',')[1];
-  var tc = document.createElement('canvas'); tc.width=260; tc.height=Math.round(H*(260/W));
-  tc.getContext('2d').drawImage(c, 0, 0, tc.width, tc.height);
-  return {dataUrl:dataUrl, b64:b64, width:W, height:H, bytes:Math.round(b64.length*3/4), thumb:tc.toDataURL('image/jpeg',0.62), name:d.name, sample:true};
 }
 
 /* ================= 저장/수정/삭제 ================= */
@@ -1313,24 +1062,25 @@ function openModal(id){ $(id).classList.add('open'); }
 function closeModal(id){ $(id).classList.remove('open'); }
 function openSettings(){
   $('s-store').value = cfg.store||'';
-  $('s-key').value = cfg.apiKey||'';
-  $('s-model').value = cfg.model||'gemini-2.5-flash';
   $('s-url').value = cfg.sheetUrl||'';
   $('sheetStatus').className='status'; $('sheetStatus').textContent='';
   openModal('modalSettings');
 }
-function saveSettings(){
-  var store = $('s-store').value.trim() || '스터디카페 OG';
-  var key = $('s-key').value.trim();
+function saveStoreSetting(){
+  cfg.store = $('s-store').value.trim() || '스터디카페 OG';
+  lsSet(LS_CFG, JSON.stringify({store:cfg.store, sheetUrl:cfg.sheetUrl}));
+  renderStore(); closeModal('modalSettings');
+  toast('매장 이름을 저장했습니다','ok');
+}
+function saveSheetSetting(){
   var url = $('s-url').value.trim();
   if(url && !/^https:\/\/script\.google\.com\//.test(url)){
-    toast('Apps Script 웹 앱 URL(https://script.google.com/…)을 넣어 주세요','warn');
+    toast('Apps Script 웹 앱 URL(https://script.google.com/…)을 넣어 주세요','warn'); return;
   }
-  cfg.store = store; cfg.apiKey = key; cfg.model = $('s-model').value; cfg.sheetUrl = url;
-  if(key) lsSet(LS_KEY, key); else lsDel(LS_KEY);
-  lsSet(LS_CFG, JSON.stringify({store:cfg.store, model:cfg.model, sheetUrl:cfg.sheetUrl}));
-  renderStore(); renderSyncBadge(); closeModal('modalSettings');
-  toast('설정을 저장했습니다','ok');
+  cfg.sheetUrl = url;
+  lsSet(LS_CFG, JSON.stringify({store:cfg.store, sheetUrl:cfg.sheetUrl}));
+  renderSyncBadge(); closeModal('modalSettings');
+  toast(url? '시트 연동을 저장했습니다':'시트 연동을 해제했습니다','ok');
 }
 function testSheet(){
   var url = $('s-url').value.trim();
@@ -1363,15 +1113,14 @@ function bind(){
   $('btnCsv').onclick = exportCSV;
   $('btnCsv2').onclick = exportCSV;
   $('btnSettings').onclick = openSettings;
-  $('btnSaveSettings').onclick = saveSettings;
-  $('btnEyeKey').onclick = function(){ var i=$('s-key'); var show = i.type==='password'; i.type = show?'text':'password'; this.textContent = show?'숨기기':'보기'; };
-  $('btnClearKey').onclick = async function(){ var ok=await askConfirm('저장된 Gemini API 키를 지울까요?','키 삭제'); if(!ok) return; cfg.apiKey=''; lsDel(LS_KEY); $('s-key').value=''; toast('API 키를 지웠습니다'); };
+  $('btnSaveSettings').onclick = saveStoreSetting;
+  $('btnSaveSheet').onclick = saveSheetSetting;
   $('btnTestSheet').onclick = testSheet;
 
   $('btnCamera').onclick = function(){ $('fileCamera').click(); };
   $('btnGallery').onclick = function(){ $('fileGallery').click(); };
   $('btnRepick').onclick = function(){ $('fileGallery').click(); };
-  $('btnRemoveImg').onclick = function(){ state.image=null; $('dropEmpty').style.display=''; $('preview').classList.remove('on'); setStatus(''); };
+  $('btnRemoveImg').onclick = function(){ state.image=null; $('dropEmpty').style.display=''; $('preview').classList.remove('on'); };
   $('fileCamera').onchange = function(e){ if(e.target.files[0]) setImage(e.target.files[0]); e.target.value=''; };
   $('fileGallery').onchange = function(e){ if(e.target.files[0]) setImage(e.target.files[0]); e.target.value=''; };
 
@@ -1380,13 +1129,11 @@ function bind(){
   ['dragleave','drop'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
   drop.addEventListener('drop', function(e){ var f=e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if(f) setImage(f); });
 
-  $('btnAI').onclick = analyze;
-  $('btnDemo').onclick = demo;
   $('btnSave').onclick = saveReceipt;
   $('btnReset').onclick = function(){ resetForm(); toast('입력을 비웠습니다'); };
 
-  $('f-total').addEventListener('input', updateSupply);
-  $('f-vat').addEventListener('input', updateSupply);
+  $('f-total').addEventListener('input', syncVatField);
+  $('f-vat').addEventListener('input', function(){ state.vatManual = this.value.trim()!==''; updateSupply(); });
 
   $('recList').addEventListener('click', function(e){
     var btn = e.target.closest('[data-act]'); if(!btn) return;
@@ -1429,13 +1176,12 @@ fillCatSelect($('f-cat'),'기타');
 $('f-date').value = todayStr();
 updateSupply();
 renderAll();
-setStatus(hasGas()? '구글 시트 앱에 연결되어 있습니다' : '');
 
 // 자동 검증/콘솔용 훅
 window.REA = {
-  state: state, cfg: cfg, buildCSV: buildCSV, compress: compress, sample: drawSampleReceipt, demo: demo,
-  save: saveReceipt, reset: resetForm, setMonth: function(m){ state.month=m; renderAll(); },
-  openSettings: openSettings, exportCSV: exportCSV, supplyOf: supplyOf
+  state: state, cfg: cfg, buildCSV: buildCSV, compress: compress, save: saveReceipt,
+  reset: resetForm, setMonth: function(m){ state.month=m; renderAll(); },
+  exportCSV: exportCSV, supplyOf: supplyOf, addTest: function(o){ state.receipts.unshift(o); persist(); renderAll(); }
 };
 })();
 </script>
