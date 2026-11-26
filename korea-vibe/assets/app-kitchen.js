@@ -152,7 +152,7 @@
             ${shopNotes(r)}
           </div>
           <div class="kitchen-foot">
-            <a class="btn btn-outline btn-sm" href="https://www.youtube.com/@KFoodFarmKitchen" target="_blank" rel="noopener">Watch it cooked on YouTube</a>
+            <a class="btn btn-outline btn-sm" href="https://www.youtube.com/@KFoodFarmKitchen" target="_blank" rel="noopener noreferrer">Watch it cooked on YouTube</a>
             <span class="muted" style="font-size:11.5px">Ingredients are what a Korean kitchen actually keeps.</span>
           </div>
         </div>
