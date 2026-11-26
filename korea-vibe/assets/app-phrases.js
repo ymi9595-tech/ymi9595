@@ -220,7 +220,7 @@
     /* washi tape + stickers */
     washiTape(ctx, 150, 24, 200, 52, -0.06);
     ctx.fillStyle = 'rgba(255,127,162,0.95)';
-    heartShape(ctx, 64, H - 76, 24);
+    heartShape(ctx, 86, H - 196, 26);
     ctx.fill();
     ctx.fillStyle = PC.butter;
     sparkShape(ctx, 1140, H - 70, 20);
