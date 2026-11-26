@@ -113,10 +113,10 @@ input,select,textarea{font:inherit; color:inherit}
 }
 .kpi::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--c,var(--green)); opacity:.75}
 .kpi .k{font-size:11.5px; color:var(--muted); letter-spacing:.02em}
-.kpi .v{font-family:var(--serif); font-size:23px; margin-top:7px; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.2}
-.kpi .v small{font-family:var(--sans); font-size:12px; color:var(--dim); font-weight:500; margin-left:2px}
+.kpi .v{font-family:var(--sans); font-weight:700; font-size:22px; margin-top:7px; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.2}
+.kpi .v small{font-size:12px; color:var(--dim); font-weight:500; margin-left:3px}
 .kpi.hero{background:linear-gradient(160deg, rgba(37,64,46,.95), rgba(18,33,23,.9)); border-color:rgba(217,184,113,.28)}
-.kpi.hero .v{color:#FBEFCF; font-size:26px}
+.kpi.hero .v{color:#FBEFCF; font-size:25px}
 .kpi .note{font-size:11px; color:var(--muted); margin-top:5px}
 
 /* ---------- cards ---------- */
@@ -192,7 +192,7 @@ input,select,textarea{font:inherit; color:inherit}
   grid-column:1/-1; display:flex; align-items:center; gap:8px; padding:9px 12px; border-radius:10px;
   background:rgba(217,184,113,.07); border:1px dashed rgba(217,184,113,.25); font-size:11.5px; color:var(--dim);
 }
-.supply b{color:#F0DDB0; font-variant-numeric:tabular-nums; font-size:14px; font-family:var(--serif)}
+.supply b{color:#F0DDB0; font-variant-numeric:tabular-nums; font-size:14px; font-weight:700}
 .supply .fx{margin-left:auto; font-size:10.5px; color:var(--muted)}
 .form-foot{display:flex; gap:8px; margin-top:14px}
 .form-foot .btn.save{flex:1}
@@ -290,8 +290,8 @@ input,select,textarea{font:inherit; color:inherit}
 @media (max-width:920px){
   .grid{grid-template-columns:1fr}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .kpi .v{font-size:20px}
-  .kpi.hero .v{font-size:22px}
+  .kpi .v{font-size:19px}
+  .kpi.hero .v{font-size:21px}
   .brand .sub{display:none}
   .bar-row{grid-template-columns:8px 72px minmax(0,1fr) 88px}
   .bar-row .pct{display:none}
@@ -303,8 +303,8 @@ input,select,textarea{font:inherit; color:inherit}
   .brand-mark{width:38px;height:38px;flex-basis:38px}
   .kpi{padding:13px 13px 12px}
   .kpi .k{font-size:10.5px}
-  .kpi .v{font-size:18.5px; margin-top:5px}
-  .kpi.hero .v{font-size:21px}
+  .kpi .v{font-size:18px; margin-top:5px}
+  .kpi.hero .v{font-size:20px}
   .card{padding:15px; border-radius:18px}
   .rec{grid-template-columns:42px minmax(0,1fr)}
   .rec-actions{grid-column:2; flex-direction:row; justify-content:flex-end; margin-top:-2px}
