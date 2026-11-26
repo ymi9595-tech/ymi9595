@@ -529,9 +529,19 @@
     ctx.font = '400 37px "Jua", "Noto Sans KR", sans-serif';
     ctx.fillText(ko, x, y + 51);
     const kw = ctx.measureText(ko).width;
+
+    /* keep the English gloss inside the row, shrinking it if it is long */
+    const enX = x + kw + 16;
+    const avail = 836 - enX;
+    let enSize = 24;
+    ctx.font = `600 ${enSize}px "Plus Jakarta Sans", sans-serif`;
+    let enW = ctx.measureText(en).width;
+    if (enW > avail) {
+      enSize = Math.max(15, Math.floor((enSize * avail) / enW));
+      ctx.font = `600 ${enSize}px "Plus Jakarta Sans", sans-serif`;
+    }
     ctx.fillStyle = CC.ink2;
-    ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(en, x + kw + 16, y + 48);
+    ctx.fillText(en, enX, y + 48 + (24 - enSize) * 0.18);
   }
 
   async function renderNameCard(res) {
@@ -600,33 +610,33 @@
     /* ---- the name ---- */
     const glyphs = Array.from(res.given.ko);
     const n = glyphs.length;
-    const nameSize = n <= 1 ? 216 : n === 2 ? 192 : n === 3 ? 148 : 116;
+    const nameSize = n <= 1 ? 210 : n === 2 ? 188 : n === 3 ? 146 : 114;
     ctx.textAlign = 'center';
     ctx.fillStyle = CC.ink;
     ctx.font = `400 ${nameSize}px "Jua", "Noto Sans KR", sans-serif`;
     // soft pink offset shadow
     ctx.fillStyle = 'rgba(255,183,200,0.75)';
-    ctx.fillText(res.given.ko, CARD_W / 2 + 5, 456);
+    ctx.fillText(res.given.ko, CARD_W / 2 + 5, 436);
     ctx.fillStyle = CC.ink;
-    ctx.fillText(res.given.ko, CARD_W / 2, 450);
+    ctx.fillText(res.given.ko, CARD_W / 2, 430);
 
     /* full name + romanisation */
     ctx.fillStyle = CC.ink3;
     ctx.font = '500 34px "Noto Sans KR", sans-serif';
-    drawSpaced(ctx, `${res.surname.ko} ${res.given.ko}`, CARD_W / 2, 518, 9, 'center');
+    drawSpaced(ctx, `${res.surname.ko} ${res.given.ko}`, CARD_W / 2, 498, 9, 'center');
 
     ctx.fillStyle = CC.lilac;
     ctx.font = '700 54px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(`${res.surname.ro} ${res.given.ro}`, CARD_W / 2, 584);
+    ctx.fillText(`${res.surname.ro} ${res.given.ro}`, CARD_W / 2, 562);
 
     /* meaning */
     ctx.fillStyle = CC.ink2;
-    ctx.font = '500 30px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '500 29px "Plus Jakarta Sans", sans-serif';
     const meaning = `${res.given.en} — ${res.given.line}`;
-    let my = 646;
-    wrapLines(ctx, meaning, 690).slice(0, 3).forEach((ln) => {
+    let my = 618;
+    wrapLines(ctx, meaning, 780).slice(0, 3).forEach((ln) => {
       ctx.fillText(ln, CARD_W / 2, my);
-      my += 42;
+      my += 40;
     });
 
     /* dotted divider with a heart */
@@ -647,7 +657,7 @@
 
     /* ---- zodiac card ---- */
     const zTop = divY + 26;
-    const zH = 150;
+    const zH = 146;
     ctx.fillStyle = 'rgba(255,255,255,0.8)';
     roundRect(ctx, 140, zTop, 720, zH, 34);
     ctx.fill();
@@ -682,12 +692,12 @@
     ctx.fillText(res.zodiac.traits.join('  ·  '), 262, zTop + 130);
 
     /* ---- luck rows ---- */
-    let ry = zTop + zH + 26;
+    let ry = zTop + zH + 24;
     drawLuckRow(ctx, 'LUCKY FOOD', res.food.ko, res.food.en, ry, null);
     drawLuckRow(ctx, 'LUCKY COLOUR', res.color.ko, res.color.en, ry + 90, res.color.hex);
 
     /* ---- a word for today ---- */
-    let py = ry + 90 + 78 + 52;
+    let py = ry + 90 + 78 + 46;
     ctx.textAlign = 'left';
     ctx.fillStyle = CC.plum;
     ctx.font = '800 15px "Plus Jakarta Sans", sans-serif';
@@ -782,6 +792,7 @@
     });
   }
 
+  J.renderNameCard = renderNameCard;
   J.activateTab = activateTab;
   J.zodiacForYear = zodiacForYear;
 })();
