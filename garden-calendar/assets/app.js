@@ -286,8 +286,9 @@
     var t = today();
     var ty = t.getFullYear();
     var badDate = sow.getFullYear() < ty - 2 || sow.getFullYear() > ty + 2;
-    if (badDate) {
-      sow = t;
+    if (badDate) sow = t;
+    var invalidRaw = String(dateStr) !== ymd(sow);
+    if (badDate || invalidRaw) {
       dateStr = ymd(sow);
       $('#sowDate').value = dateStr;
     }
@@ -413,7 +414,7 @@
 
     var help = $('#sowHelp');
     var m = sow.getMonth() + 1;
-    if (badDate) help.textContent = '기준일을 확인해 주세요. 오늘 날짜로 계산했어요.';
+    if (badDate || invalidRaw) help.textContent = '날짜를 확인해 주세요. 오늘 날짜로 계산했어요.';
     else if (crop.sow.indexOf(m) > -1) help.textContent = '지금(' + m + '월)이 ' + crop.name + '을 심기 좋은 달이에요.';
     else if (canSow(crop, m, state.space)) help.textContent = m + '월은 노지 적기는 아니지만, 실내 창가·베란다에서는 심을 수 있어요.';
     else if (crop.sow.indexOf(m === 1 ? 12 : m - 1) > -1) help.textContent = m + '월은 조금 늦은 편이지만 실내 창가에서는 가능해요.';
