@@ -234,7 +234,7 @@ body.playing .legend{opacity:1}
 .lantern.cursed{animation:shake .5s ease-in-out 2}
 
 /* idle preview */
-body:not(.playing) .lanterns{opacity:.34;filter:blur(.4px)}
+body:not(.playing) .lanterns{opacity:0;filter:blur(.4px)}
 body:not(.playing) .lantern{pointer-events:none}
 body:not(.playing) .lantern .sway{animation-duration:9s}
 
@@ -289,7 +289,9 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
   caret-color:var(--gold);
 }
 #wishInput::placeholder{color:rgba(251,242,226,.32);font-style:italic}
+#wishInput:focus,#wishInput:focus-visible{outline:none}
 #wishInput:disabled{opacity:.4}
+.composer:focus-within{border-color:rgba(255,214,160,.34);box-shadow:0 26px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.09),0 0 0 1px rgba(255,198,120,.08)}
 .counter{flex:none;font-size:.66rem;letter-spacing:.08em;color:rgba(251,242,226,.28);font-variant-numeric:tabular-nums}
 .meter{height:2px;margin:9px 0 4px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden}
 .meter i{display:block;height:100%;width:100%;transform-origin:left;transform:scaleX(1);
@@ -316,7 +318,7 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
   transform:translate(-50%,-100%);
   animation:sway 7s ease-in-out infinite alternate;
 }
-.mini{position:relative;width:30px;height:38px;display:block}
+.mini{position:relative;width:34px;height:44px;display:block}
 .mini-body{
   position:absolute;inset:0;border-radius:46% 46% 42% 42%/34% 34% 66% 66%;
   background:radial-gradient(90% 70% at 50% 26%,#fff7e0,#ffd493 40%,#f0a34e 78%,#c8781f 100%);
@@ -330,9 +332,9 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
 .floater.odd .mini-body{background:radial-gradient(90% 70% at 50% 26%,#f2ffff,#b9eae6 40%,#77c2c0 78%,#3a7f84 100%);box-shadow:0 0 16px 4px rgba(130,220,215,.32)}
 .floater.odd .mini-glow{background:radial-gradient(circle,rgba(140,225,220,.7),rgba(90,180,190,0) 70%)}
 .tag{
-  margin-top:7px;padding:5px 10px 6px;border-radius:8px;
-  font-family:var(--hand);font-size:15px;line-height:1.15;text-align:center;
-  width:max-content;max-width:172px;
+  margin-top:7px;padding:6px 11px 7px;border-radius:8px;
+  font-family:var(--hand);font-size:16px;line-height:1.15;text-align:center;
+  width:max-content;max-width:190px;
   background:linear-gradient(180deg,#fdf4df,#f1e2c4);
   color:#3b2a18;
   box-shadow:0 6px 18px rgba(0,0,0,.35),inset 0 0 0 1px rgba(120,80,30,.12);
