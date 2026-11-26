@@ -485,6 +485,15 @@
     }).join('') + '</tbody>';
 
     $('#calTable').innerHTML = head + body;
+
+    // 모바일에서는 이번 달 열이 보이도록 표를 살짝 밀어 둡니다.
+    var shell = $('.table-shell');
+    var nowCol = $('#calTable thead th.is-now');
+    if (shell && nowCol && shell.scrollWidth > shell.clientWidth + 8) {
+      var nr = nowCol.getBoundingClientRect();
+      var sr = shell.getBoundingClientRect();
+      shell.scrollLeft += (nr.left - sr.left) - shell.clientWidth * 0.42;
+    }
   }
 
   /* ---------- 렌더: 계절 ---------- */
