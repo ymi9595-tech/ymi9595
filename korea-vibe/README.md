@@ -9,5 +9,13 @@ A free, single-page English portal with four small Korean tools:
 
 Everything runs in the browser. No accounts, no tracking, no network calls except Google Fonts.
 
+## Design (2026-11 renewal)
+
+Seongsu-dong pastel / K-pop photocard mood: milk cream, soft coral, lilac, sky blue and
+sage mint, 24px+ rounded corners, masking tape, hand-placeable stickers and floating
+bubbles. Type is **Plus Jakarta Sans** + **Fredoka** (Latin), **Jua** (Korean display),
+**Gaegu** (handwriting) and **Noto Sans KR** (Korean body) — all from Google Fonts, all
+used by the canvas card and postcard renderers too.
+
 Static site — open `index.html` or visit
 <https://ymi9595-tech.github.io/ymi9595/korea-vibe/>.

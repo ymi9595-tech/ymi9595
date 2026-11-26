@@ -108,22 +108,64 @@
   const W = 1200;
   const H = 800;
 
-  function flower(ctx, cx, cy, r, color) {
+  const PC = {
+    ink: '#3B2E48', ink2: '#5E5070', ink3: '#9A8BAA',
+    coral: '#FF7FA2', coralD: '#EE5E87', lilac: '#9A83F5', mint: '#5FA98A',
+    butter: '#FFD86B', plum: '#C37E9B'
+  };
+
+  function heartShape(ctx, cx, cy, s) {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy + s * 0.62);
+    ctx.bezierCurveTo(cx - s * 1.18, cy - s * 0.16, cx - s * 0.64, cy - s * 1.04, cx, cy - s * 0.4);
+    ctx.bezierCurveTo(cx + s * 0.64, cy - s * 1.04, cx + s * 1.18, cy - s * 0.16, cx, cy + s * 0.62);
+    ctx.closePath();
+  }
+
+  function sparkShape(ctx, cx, cy, r) {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - r);
+    ctx.quadraticCurveTo(cx + r * 0.16, cy - r * 0.16, cx + r, cy);
+    ctx.quadraticCurveTo(cx + r * 0.16, cy + r * 0.16, cx, cy + r);
+    ctx.quadraticCurveTo(cx - r * 0.16, cy + r * 0.16, cx - r, cy);
+    ctx.quadraticCurveTo(cx - r * 0.16, cy - r * 0.16, cx, cy - r);
+    ctx.closePath();
+  }
+
+  function stampFlower(ctx, cx, cy, r) {
     ctx.save();
-    ctx.translate(cx, cy);
-    ctx.fillStyle = color;
-    for (let i = 0; i < 6; i++) {
+    ctx.fillStyle = 'rgba(255,127,162,0.9)';
+    for (let i = 0; i < 5; i++) {
       ctx.save();
-      ctx.rotate((Math.PI / 3) * i);
+      ctx.translate(cx, cy);
+      ctx.rotate((Math.PI * 2 / 5) * i);
       ctx.beginPath();
-      ctx.ellipse(0, -r * 0.58, r * 0.3, r * 0.55, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, -r * 0.62, r * 0.34, r * 0.62, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
     ctx.beginPath();
-    ctx.arc(0, 0, r * 0.26, 0, Math.PI * 2);
-    ctx.fillStyle = '#c9a24a';
+    ctx.arc(cx, cy, r * 0.24, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFD86B';
     ctx.fill();
+    ctx.restore();
+  }
+
+  function washiTape(ctx, x, y, w, h, rot, tint) {
+    ctx.save();
+    ctx.translate(x + w / 2, y + h / 2);
+    ctx.rotate(rot);
+    ctx.fillStyle = tint || 'rgba(232,220,255,0.95)';
+    ctx.fillRect(-w / 2, -h / 2, w, h);
+    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+    for (let i = -w / 2; i < w / 2; i += 22) ctx.fillRect(i, -h / 2, 11, h);
+    ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath();
+    ctx.moveTo(-w / 2, -h / 2); ctx.lineTo(-w / 2, h / 2);
+    ctx.moveTo(w / 2, -h / 2); ctx.lineTo(w / 2, h / 2);
+    ctx.stroke();
     ctx.restore();
   }
 
@@ -135,146 +177,178 @@
     canvas.height = H;
     const ctx = canvas.getContext('2d');
 
-    const bg = ctx.createLinearGradient(0, 0, W, H);
-    bg.addColorStop(0, '#fdf9ef');
-    bg.addColorStop(0.55, '#f7eeda');
-    bg.addColorStop(1, '#f0e2c9');
+    /* pastel paper */
+    const bg = ctx.createLinearGradient(0, 0, W * 0.6, H);
+    bg.addColorStop(0, '#FFF8FC');
+    bg.addColorStop(0.5, '#F8F1FF');
+    bg.addColorStop(1, '#EEF8FF');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
-    let g = ctx.createRadialGradient(W - 40, -20, 40, W - 40, -20, 620);
-    g.addColorStop(0, 'rgba(230,205,164,0.55)');
-    g.addColorStop(1, 'rgba(230,205,164,0)');
+    let g = ctx.createRadialGradient(W - 30, -10, 30, W - 30, -10, 620);
+    g.addColorStop(0, 'rgba(255,199,219,0.55)');
+    g.addColorStop(1, 'rgba(255,199,219,0)');
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, W, H);
-    g = ctx.createRadialGradient(0, H, 20, 0, H, 520);
-    g.addColorStop(0, 'rgba(196,216,202,0.4)');
-    g.addColorStop(1, 'rgba(196,216,202,0)');
+    g = ctx.createRadialGradient(10, H, 10, 10, H, 540);
+    g.addColorStop(0, 'rgba(186,224,255,0.55)');
+    g.addColorStop(1, 'rgba(186,224,255,0)');
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, W, H);
 
-    J.paperTexture(ctx, W, H, 21);
+    ctx.save();
+    ctx.fillStyle = 'rgba(206,172,214,0.32)';
+    for (let y = 26; y < H; y += 28) {
+      for (let x = 26; x < W; x += 28) {
+        ctx.beginPath();
+        ctx.arc(x, y, 1.3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
 
-    ctx.strokeStyle = 'rgba(177,138,82,0.6)';
+    /* white photocard edge */
+    ctx.strokeStyle = 'rgba(255,255,255,0.96)';
+    ctx.lineWidth = 24;
+    J.roundRect(ctx, 12, 12, W - 24, H - 24, 44);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,194,212,0.55)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(36, 36, W - 72, H - 72);
-    ctx.strokeStyle = 'rgba(177,138,82,0.28)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(50, 50, W - 100, H - 100);
+    J.roundRect(ctx, 38, 38, W - 76, H - 76, 32);
+    ctx.stroke();
 
-    // label
+    /* washi tape + stickers */
+    washiTape(ctx, 150, 24, 200, 52, -0.06);
+    ctx.fillStyle = 'rgba(255,127,162,0.95)';
+    heartShape(ctx, 64, H - 76, 24);
+    ctx.fill();
+    ctx.fillStyle = PC.butter;
+    sparkShape(ctx, 1140, H - 70, 20);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(185,167,255,0.95)';
+    sparkShape(ctx, 1092, 330, 16);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,216,107,0.95)';
+    sparkShape(ctx, 1050, 250, 12);
+    ctx.fill();
+
+    /* label */
     ctx.textAlign = 'left';
-    ctx.fillStyle = '#b18a52';
-    ctx.font = '400 17px "Gowun Dodum", sans-serif';
-    J.drawSpaced(ctx, 'A POSTCARD FROM KOREA', 96, 112, 5, 'left');
-    ctx.fillStyle = 'rgba(123,111,96,0.85)';
-    ctx.font = 'italic 400 20px "Cormorant Garamond", serif';
-    ctx.fillText('written slowly, sent warmly', 96, 140);
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = PC.plum;
+    ctx.font = '800 18px "Plus Jakarta Sans", sans-serif';
+    J.drawSpaced(ctx, 'A POSTCARD FROM KOREA', 92, 120, 5, 'left');
+    ctx.fillStyle = '#B08BC0';
+    ctx.font = '400 30px "Gaegu", "Jua", cursive';
+    ctx.fillText('lucky day, sent warmly ✿', 92, 158);
 
-    // stamp
-    const sx = W - 210, sy = 84, sw = 92, sh = 116;
+    /* stamp */
+    const sx = W - 232, sy = 74, sw = 112, sh = 136;
     ctx.save();
-    ctx.strokeStyle = 'rgba(166,62,45,0.45)';
-    ctx.setLineDash([5, 5]);
-    ctx.lineWidth = 1.4;
-    ctx.strokeRect(sx, sy, sw, sh);
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    J.roundRect(ctx, sx, sy, sw, sh, 18);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,127,162,0.6)';
+    ctx.setLineDash([7, 6]);
+    ctx.lineWidth = 2.4;
+    J.roundRect(ctx, sx, sy, sw, sh, 18);
+    ctx.stroke();
     ctx.restore();
-    ctx.fillStyle = 'rgba(255,253,247,0.55)';
-    ctx.fillRect(sx + 4, sy + 4, sw - 8, sh - 8);
-    flower(ctx, sx + sw / 2, sy + sh / 2 - 8, 30, 'rgba(166,62,45,0.78)');
-    ctx.fillStyle = 'rgba(166,62,45,0.85)';
-    ctx.font = '400 11px "Gowun Dodum", sans-serif';
+    stampFlower(ctx, sx + sw / 2, sy + sh / 2 - 12, 30);
+    ctx.fillStyle = PC.coral;
+    ctx.font = '800 11px "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'center';
-    J.drawSpaced(ctx, 'KOREA', sx + sw / 2, sy + sh - 14, 2, 'center');
+    J.drawSpaced(ctx, 'KOREA', sx + sw / 2, sy + sh - 16, 2, 'center');
 
-    // postmark
-    ctx.save();
-    ctx.strokeStyle = 'rgba(90,80,66,0.32)';
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    ctx.arc(sx - 36, sy + 44, 38, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(sx - 36, sy + 44, 29, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.fillStyle = 'rgba(90,80,66,0.42)';
-    ctx.font = '400 10px "Gowun Dodum", sans-serif';
-    J.drawSpaced(ctx, 'SEOUL', sx - 36, sy + 42, 1.6, 'center');
-    ctx.font = '400 9px "Gowun Dodum", sans-serif';
-    ctx.fillText('KOREA', sx - 36, sy + 56);
-    ctx.restore();
-
-    // Korean phrase
-    const maxW = 700;
+    /* Korean phrase */
+    const maxW = 720;
     ctx.textAlign = 'left';
-    ctx.fillStyle = '#241f1a';
-    const koSize = p.ko.length > 30 ? 44 : p.ko.length > 20 ? 52 : 58;
-    ctx.font = `400 ${koSize}px "Gowun Batang", serif`;
+    const koSize = p.ko.length > 30 ? 42 : p.ko.length > 20 ? 50 : 58;
+    ctx.font = `400 ${koSize}px "Jua", "Noto Sans KR", sans-serif`;
     let lines = J.wrapLines(ctx, p.ko, maxW);
-    const blockH = lines.length * (koSize * 1.45);
-    let y = 330 - blockH / 2 + koSize;
-    lines.forEach((ln) => {
-      ctx.fillText(ln, 96, y);
-      y += koSize * 1.45;
+    const blockH = lines.length * (koSize * 1.5);
+    let y = 250 - blockH / 2 + koSize * 1.1;
+    // pink offset shadow
+    lines.forEach((ln, i) => {
+      ctx.fillStyle = 'rgba(255,183,200,0.7)';
+      ctx.fillText(ln, 95, y + i * koSize * 1.5 + 3);
+      ctx.fillStyle = PC.ink;
+      ctx.fillText(ln, 92, y + i * koSize * 1.5);
     });
+    y += (lines.length - 1) * koSize * 1.5;
 
-    // romanisation
-    y += 6;
-    ctx.fillStyle = '#3c6153';
-    ctx.font = 'italic 400 32px "Cormorant Garamond", serif';
-    const romLines = J.wrapLines(ctx, p.ro, maxW);
-    romLines.forEach((ln) => {
-      ctx.fillText(ln, 96, y);
+    /* romanisation */
+    y += 46;
+    ctx.fillStyle = PC.lilac;
+    ctx.font = '600 30px "Plus Jakarta Sans", sans-serif';
+    J.wrapLines(ctx, p.ro, maxW).forEach((ln) => {
+      ctx.fillText(ln, 92, y);
       y += 40;
     });
 
-    // meaning
+    /* meaning */
     y += 12;
-    ctx.fillStyle = '#4b4238';
-    ctx.font = '400 25px "Gowun Dodum", sans-serif';
-    const enLines = J.wrapLines(ctx, '“' + p.en + '”', maxW);
-    enLines.forEach((ln) => {
-      ctx.fillText(ln, 96, y);
+    ctx.fillStyle = PC.ink2;
+    ctx.font = '500 25px "Plus Jakarta Sans", sans-serif';
+    J.wrapLines(ctx, '“' + p.en + '”', maxW).forEach((ln) => {
+      ctx.fillText(ln, 92, y);
       y += 36;
     });
 
-    // small note
-    y += 14;
-    ctx.fillStyle = 'rgba(123,111,96,0.95)';
-    ctx.font = '400 18px "Gowun Dodum", sans-serif';
-    J.wrapLines(ctx, p.note, 620).slice(0, 2).forEach((ln) => {
-      ctx.fillText(ln, 96, y);
-      y += 28;
+    /* note in a soft rounded box */
+    y += 22;
+    const noteLines = J.wrapLines(ctx, p.note, 640).slice(0, 2);
+    const boxH = noteLines.length * 30 + 26;
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    J.roundRect(ctx, 92, y - 20, 700, boxH, 18);
+    ctx.fill();
+    ctx.fillStyle = PC.ink3;
+    ctx.font = '500 20px "Plus Jakarta Sans", sans-serif';
+    noteLines.forEach((ln) => {
+      ctx.fillText(ln, 112, y + 4);
+      y += 30;
     });
 
-    // bottom rule
-    ctx.strokeStyle = 'rgba(177,138,82,0.45)';
-    ctx.lineWidth = 1;
+    /* a handwritten line to fill the card */
+    ctx.fillStyle = PC.plum;
+    ctx.font = '400 34px "Gaegu", "Jua", cursive';
+    ctx.fillText('lucky day · 행운을 빌어요 ✿', 96, y + 46);
+
+    /* bottom divider */
+    ctx.strokeStyle = 'rgba(185,167,255,0.7)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([3, 9]);
     ctx.beginPath();
-    ctx.moveTo(96, H - 132);
-    ctx.lineTo(W - 96, H - 132);
+    ctx.moveTo(92, H - 150);
+    ctx.lineTo(W - 92, H - 150);
     ctx.stroke();
+    ctx.setLineDash([]);
 
-    ctx.fillStyle = 'rgba(123,111,96,0.95)';
-    ctx.font = '400 13px "Gowun Dodum", sans-serif';
-    J.drawSpaced(ctx, 'TO', 96, H - 96, 3, 'left');
+    ctx.fillStyle = PC.ink3;
+    ctx.font = '800 12px "Plus Jakarta Sans", sans-serif';
+    J.drawSpaced(ctx, 'TO', 92, H - 104, 2.6, 'left');
     const toName = toInput.value.trim() || 'you, somewhere';
-    ctx.fillStyle = '#241f1a';
-    ctx.font = '400 30px "Gowun Batang", serif';
-    ctx.fillText(toName, 150, H - 94);
+    ctx.fillStyle = PC.ink;
+    ctx.font = '400 32px "Jua", "Noto Sans KR", sans-serif';
+    ctx.fillText(toName, 138, H - 102);
 
-    ctx.fillStyle = 'rgba(123,111,96,0.95)';
-    ctx.font = '400 13px "Gowun Dodum", sans-serif';
-    J.drawSpaced(ctx, 'FROM', W - 360, H - 96, 3, 'left');
+    ctx.fillStyle = PC.ink3;
+    ctx.font = '800 12px "Plus Jakarta Sans", sans-serif';
+    J.drawSpaced(ctx, 'FROM', W - 372, H - 104, 2.6, 'left');
     const fromName = fromInput.value.trim() || 'jeong';
-    ctx.fillStyle = '#3c6153';
-    ctx.font = 'italic 400 32px "Gowun Batang", serif';
-    ctx.fillText(fromName, W - 290, H - 92);
+    ctx.fillStyle = PC.plum;
+    ctx.font = '400 34px "Gaegu", "Jua", cursive';
+    ctx.fillText(fromName, W - 320, H - 100);
 
-    ctx.fillStyle = 'rgba(123,111,96,0.55)';
-    ctx.font = '400 12px "Gowun Dodum", sans-serif';
+    ctx.fillStyle = 'rgba(154,131,170,0.75)';
+    ctx.font = '800 11px "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'left';
-    J.drawSpaced(ctx, 'JEONG · A LITTLE KOREA, EVERY DAY', 96, H - 58, 2, 'left');
+    J.drawSpaced(ctx, 'JEONG · A LITTLE KOREA, EVERY DAY', 92, H - 62, 2.2, 'left');
+
+    ctx.textAlign = 'right';
+    ctx.fillStyle = PC.coral;
+    ctx.font = '400 24px "Gaegu", "Jua", cursive';
+    ctx.fillText('be happy today ✿', W - 92, H - 58);
 
     return canvas;
   }
