@@ -47,9 +47,10 @@ body::before{
     radial-gradient(60vw 40vw at 50% 108%, rgba(143,169,138,.14), transparent 65%);
 }
 img{max-width:100%;display:block}
+[hidden]{display:none !important}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-h1,h2,h3{font-family:var(--f-display);font-weight:500;letter-spacing:-.015em;line-height:1.1;margin:0}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;letter-spacing:-.012em;line-height:1.1;margin:0}
 p{margin:0}
 :focus-visible{outline:2px solid var(--clay);outline-offset:3px;border-radius:6px}
 
@@ -112,7 +113,7 @@ p{margin:0}
   color:var(--clay-deep);margin-bottom:18px;
 }
 .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--clay);flex:none}
-h1{font-size:clamp(38px,5.4vw,66px);line-height:1.04;letter-spacing:-.025em}
+h1{font-size:clamp(38px,5.2vw,64px);line-height:1.05;letter-spacing:-.022em;text-wrap:balance;max-width:11.5em}
 .h1-em{color:var(--clay);position:relative;z-index:0}
 .h1-em::after{
   content:"";position:absolute;left:2px;right:2px;bottom:.06em;height:.13em;
@@ -233,10 +234,10 @@ h1{font-size:clamp(38px,5.4vw,66px);line-height:1.04;letter-spacing:-.025em}
 .tool:hover{color:var(--ink)}
 .tool.is-active{background:var(--paper);color:var(--clay-deep);box-shadow:0 4px 12px -8px rgba(72,56,40,.5)}
 
-.palette-wrap{display:flex;align-items:center;gap:10px;flex:1 1 260px;min-width:0}
-.palette{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;flex:1}
+.palette-wrap{display:flex;align-items:center;gap:10px;flex:1 1 auto;min-width:0}
+.palette{display:flex;flex-wrap:wrap;gap:6px;max-width:396px}
 .swatch{
-  position:relative;aspect-ratio:1;border-radius:50%;border:1px solid rgba(70,58,45,.14);
+  position:relative;width:26px;height:26px;flex:none;border-radius:50%;border:1px solid rgba(70,58,45,.14);
   transition:transform .14s ease, box-shadow .14s ease;
 }
 .swatch span{position:absolute;inset:0;border-radius:50%}
@@ -410,7 +411,7 @@ details p{margin-top:10px;color:var(--ink-2);font-size:15px;max-width:44em}
   .tools{width:100%;justify-content:space-between}
   .tool{flex:1;justify-content:center;padding:10px 8px}
   .palette-wrap{flex:1 1 100%}
-  .palette{grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}
+  .palette{max-width:100%;gap:6px}
   .brush-size{width:100%;justify-content:flex-start}
   input[type="range"]{flex:1;width:auto}
   .actions{flex-direction:column;align-items:stretch;gap:8px}
