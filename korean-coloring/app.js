@@ -514,7 +514,7 @@
     x.fillText('Cozy Korean Countryside Coloring Book', W / 2, H + foot * 0.52);
     x.fillStyle = '#B0A492';
     x.font = '500 ' + Math.round(W * 0.015) + 'px "Plus Jakarta Sans", system-ui, sans-serif';
-    x.fillText('free sample  ·  danbi lab  ·  @' + SAMPLES[db.cur].slug.replace(/-/g, ' '), W / 2, H + foot * 0.52 + W * 0.032);
+    x.fillText('free sample  ·  ymi9595-tech.github.io/ymi9595/korean-coloring/', W / 2, H + foot * 0.52 + W * 0.032);
 
     var name = 'danbi-lab-' + SAMPLES[db.cur].slug + '-my-coloring.png';
     if (c.toBlob) {
