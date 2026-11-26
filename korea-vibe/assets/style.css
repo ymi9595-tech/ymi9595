@@ -3,6 +3,18 @@
    Mood: Seongsu-dong pastel, K-pop photocard, 다꾸 sticker diary
    ========================================================================== */
 
+/* ============================ self-hosted type =========================== */
+/* Static instances (self-hosted) so every browser shows the same weight —
+   some browsers ignore variable-font weights coming from the CDN. */
+@font-face{font-family:"Plus Jakarta Sans";src:url("fonts/pjs-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Plus Jakarta Sans";src:url("fonts/pjs-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Plus Jakarta Sans";src:url("fonts/pjs-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Plus Jakarta Sans";src:url("fonts/pjs-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Plus Jakarta Sans";src:url("fonts/pjs-800.woff2") format("woff2");font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Fredoka";src:url("fonts/fredoka-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Fredoka";src:url("fonts/fredoka-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Fredoka";src:url("fonts/fredoka-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
 :root{
   --cream:#FFFBF6;
   --milk:#FFF4EC;
@@ -43,7 +55,7 @@
   --font-en:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI","Helvetica Neue",sans-serif;
   --font-display:"Fredoka","Plus Jakarta Sans",system-ui,sans-serif;
   --font-kr:"Jua","Noto Sans KR","Apple SD Gothic Neo",sans-serif;
-  --font-kr-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --font-kr-body:"Plus Jakarta Sans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --font-hand:"Gaegu","Jua",cursive;
   --kr-serif:"Jua","Noto Sans KR",sans-serif; /* kept for older markup */
   --sans:var(--font-en);
