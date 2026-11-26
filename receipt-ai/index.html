@@ -947,7 +947,7 @@ function syncReceipt(r){
       return {ok:true, via:'sheet'};
     });
   }).catch(function(e){
-    return {ok:false, error:'시트 전송 실패('+e.message+')'};
+    return {ok:false, error:'네트워크 오류('+e.message+')'};
   });
 }
 function saveReceipt(){
@@ -968,7 +968,7 @@ function saveReceipt(){
   toast('장부에 저장했습니다 · '+won(rec.total), 'ok');
   syncReceipt(rec).then(function(s){
     if(s.ok && !s.skipped) toast(s.via==='gas'?'구글 시트에 저장했습니다':'구글 시트에도 저장했습니다','ok');
-    else if(s.ok===false) toast('시트 전송 실패: '+s.error,'warn');
+    else if(s.ok===false) toast('구글 시트 전송 실패 · '+s.error,'warn');
   });
 }
 
