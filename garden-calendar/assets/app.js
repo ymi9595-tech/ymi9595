@@ -216,11 +216,11 @@
     }
 
     var sowNow = D.crops.filter(function (c) { return canSow(c, month, state.space) && isFit(c, state.space, state.sun); });
-    var line = spaceById(state.space).label + ' · ' + sunLabel(state.sun) + ' · ' + month + '월 → ';
-    line += sowNow.length
+    var meta = spaceById(state.space).label + ' · ' + sunLabel(state.sun) + ' · ' + month + '월';
+    var lead = sowNow.length
       ? '지금 심기 좋은 작물 <b>' + sowNow.length + '가지</b>'
-      : '지금 바로 뿌리기엔 조금 이른 시기예요. 실내 창가는 가능해요';
-    $('#matchLine').innerHTML = line;
+      : '지금은 실내 창가 재배를 권해요';
+    $('#matchLine').innerHTML = lead + '<span class="match-meta">' + meta + '</span>';
 
     bindCards();
   }

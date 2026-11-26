@@ -251,8 +251,9 @@ section[id]{scroll-margin-top:84px}
 }
 
 .panel-foot{margin-top:20px;padding-top:16px;border-top:1px solid var(--line-2)}
-.match-line{font-size:13.5px;color:var(--ink-2)}
-.match-line b{color:var(--sage-700);font-weight:700}
+.match-line{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.match-line b{color:var(--sage-700);font-weight:700;font-size:15px;letter-spacing:-.02em}
+.match-meta{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
 
 /* ---------- 작물 카드 ---------- */
 .crop-grid{
@@ -608,6 +609,12 @@ section[id]{scroll-margin-top:84px}
 
 /* ---------- 작은 화면 다듬기 ---------- */
 @media (max-width:520px){
+  .seg{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:4px;border-radius:18px;padding:5px}
+  .seg-btn{justify-content:center;border-radius:14px}
+  .crop-card{padding:15px 16px 13px;border-radius:20px}
+  .crop-top{margin-bottom:6px}
+  .crop-top .glyph{width:42px;height:42px;padding:11px;border-radius:14px}
+  .crop-go{margin-top:12px;padding-top:10px}
   .hero h1{letter-spacing:-.045em}
   .hero-actions .btn{flex:1 1 auto}
   .panel,.dday,.mini-card,.book-card{padding:16px}
