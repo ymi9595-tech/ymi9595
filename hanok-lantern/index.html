@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wish Before It Flies · 한옥 다리 소원 풍등</title>
+<meta name="description" content="A one-minute wish game: write your wish fast and send it up on a lantern over a hanok stone bridge. One lantern is a dokkaebi in disguise — be late or pick it, and the sky flies a silly wish instead. Free, no sign-in.">
+<meta name="keywords" content="wish game, lantern, hanok, Korea, dokkaebi, wishing lantern, mini game, 한옥, 풍등, 소원, 도깨비">
+<meta name="author" content="Danbi Lab (단비랩)">
+<meta name="theme-color" content="#070d1c">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://ymi9595-tech.github.io/ymi9595/hanok-lantern/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wish Before It Flies">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:title" content="Wish Before It Flies · a one-minute lantern wish game">
+<meta property="og:description" content="Lanterns drift over a hanok stone bridge. Write your wish fast — if you are late, or pick the dokkaebi's lantern, the sky flies a silly wish instead.">
+<meta property="og:url" content="https://ymi9595-tech.github.io/ymi9595/hanok-lantern/">
+<meta property="og:image" content="https://ymi9595-tech.github.io/ymi9595/hanok-lantern/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A hanok village and a curved stone bridge under a full moon, with warm lanterns reflected in the river.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wish Before It Flies · 한옥 다리 소원 풍등">
+<meta name="twitter:description" content="One minute, seven lanterns, one dokkaebi. Write a wish, send it up before the clock runs out.">
+<meta name="twitter:image" content="https://ymi9595-tech.github.io/ymi9595/hanok-lantern/assets/og-cover.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Wish Before It Flies",
+      "alternateName": "한옥 다리 소원 풍등",
+      "url": "https://ymi9595-tech.github.io/ymi9595/hanok-lantern/",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Any (web browser)",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "inLanguage": ["en", "ko"],
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "creator": { "@type": "Organization", "name": "Danbi Lab", "url": "https://payhip.com/DanbiLab" },
+      "description": "A one-minute wish game set on a hanok stone bridge at night. Write a wish quickly and send it up on a lantern; late wishes and dokkaebi lanterns fly off as harmless, funny sentences instead."
+    },
+    {
+      "@type": "WebSite",
+      "url": "https://ymi9595-tech.github.io/ymi9595/hanok-lantern/",
+      "name": "Wish Before It Flies",
+      "publisher": { "@type": "Organization", "name": "Danbi Lab", "url": "https://payhip.com/DanbiLab" }
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a1226'/%3E%3Cpath d='M32 8c-7 4-11 9-11 16s4 12 11 16c7-4 11-9 11-16S39 12 32 8z' fill='%23ffc06a'/%3E%3Crect x='29' y='40' width='6' height='9' rx='3' fill='%23ffb04d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600&family=Caveat:wght@500;600&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="sky" aria-hidden="true">
+  <picture>
+    <source media="(max-aspect-ratio: 3/4)" srcset="assets/hanok-night-tall.jpg">
+    <img src="assets/hanok-night-wide.jpg" alt="" fetchpriority="high" decoding="async">
+  </picture>
+  <canvas id="fx"></canvas>
+  <div class="sky-scrim"></div>
+</div>
+
+<header class="bar">
+  <div class="brand">
+    <span class="brand-lamp" aria-hidden="true"></span>
+    <span class="brand-text">Wish Before It Flies</span>
+  </div>
+  <div class="bar-actions">
+    <button id="soundBtn" class="icon-btn" type="button" aria-pressed="true" aria-label="Sound on">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.2L12 18.6V5.4L7.2 9.5H4Z"/><path class="wave" d="M15.2 8.4a5 5 0 0 1 0 7.2M17.8 5.9a8.6 8.6 0 0 1 0 12.2"/></svg>
+    </button>
+    <div class="lang" role="group" aria-label="Language / 언어">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ko">KO</button>
+    </div>
+  </div>
+</header>
+
+<main class="stage">
+  <section class="hero" id="hero">
+    <p class="eyebrow" data-i18n="eyebrow"></p>
+    <h1 data-i18n="title"></h1>
+    <p class="lede" data-i18n="lede"></p>
+    <button class="cta" id="beginBtn" type="button">
+      <span data-i18n="cta"></span><span class="cta-arrow" aria-hidden="true">→</span>
+    </button>
+    <p class="note" data-i18n="note"></p>
+    <footer class="foot">
+      <a href="https://payhip.com/b/3pOhb" target="_blank" rel="noopener noreferrer" data-i18n="footBook">Korea After Midnight</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://ko-fi.com/danbilab" target="_blank" rel="noopener noreferrer">Ko-fi</a>
+      <span aria-hidden="true">·</span>
+      <span data-i18n="footCredit">Danbi Lab, Anseong</span>
+    </footer>
+  </section>
+
+  <section class="board" aria-labelledby="boardLabel">
+    <p class="legend" id="boardLabel" data-i18n="legend"></p>
+    <div class="lanterns" id="lanterns" role="group" aria-label="Lanterns"></div>
+  </section>
+
+  <div class="hud" id="hud" aria-live="off">
+    <span class="hud-item"><span class="hud-k" data-i18n="hudRound">Lantern</span><b><span id="roundNum">1</span><i>/</i><span id="roundTotal">7</span></b></span>
+    <span class="hud-sep" aria-hidden="true"></span>
+    <span class="hud-item"><span class="hud-k" data-i18n="hudScore">Score</span><b id="scoreNum">0</b></span>
+    <span class="hud-sep" aria-hidden="true"></span>
+    <span class="hud-item hud-combo" id="comboWrap"><span class="hud-k" data-i18n="hudCombo">Combo</span><b id="comboNum">×1</b></span>
+  </div>
+
+  <section class="composer" id="composer">
+    <div class="composer-top">
+      <p class="hint" id="hint" data-i18n="hintIdle"></p>
+      <div class="clock" id="clock" aria-hidden="true"><span id="timeNum">10</span></div>
+    </div>
+    <div class="field">
+      <input id="wishInput" type="text" maxlength="60" autocomplete="off" autocapitalize="sentences" enterkeyhint="done" spellcheck="false" data-i18n-ph="ph" aria-describedby="msg">
+      <span class="counter" aria-hidden="true"><span id="chars">0</span>/60</span>
+    </div>
+    <div class="meter" aria-hidden="true"><i id="meterFill"></i></div>
+    <div class="composer-bottom">
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+      <button id="skyBtn" class="ghost" type="button" data-i18n="skyBtn"></button>
+    </div>
+  </section>
+</main>
+
+<div class="floaters" id="floaters" aria-hidden="true"></div>
+
+<div class="overlay" id="result" hidden>
+  <div class="result-card glass" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <button class="close" id="closeResult" type="button" aria-label="Close">×</button>
+    <div class="result-grid">
+      <figure class="card-preview">
+        <img id="cardImg" alt="Your night sky result card">
+      </figure>
+      <div class="result-body">
+        <p class="eyebrow" data-i18n="resultEyebrow"></p>
+        <h2 id="resultTitle"></h2>
+        <p class="result-sub" id="resultSub"></p>
+
+        <div class="stats">
+          <div><b id="stGood">0</b><span data-i18n="stWishes">wishes kept</span></div>
+          <div><b id="stBad">0</b><span data-i18n="stTricks">dokkaebi tricks</span></div>
+          <div><b id="stCombo">0</b><span data-i18n="stCombo">best combo</span></div>
+          <div><b id="stScore">0</b><span data-i18n="stScore">score</span></div>
+        </div>
+
+        <div class="lists">
+          <div>
+            <h3 data-i18n="wishesHeading">Your words</h3>
+            <ul id="goodList"></ul>
+          </div>
+          <div>
+            <h3 data-i18n="flopsHeading">The sky's words</h3>
+            <ul id="badList"></ul>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button id="downloadBtn" class="cta sm" type="button" data-i18n="download">Download card</button>
+          <button id="againBtn" class="ghost solid" type="button" data-i18n="again">Play again</button>
+          <button id="shareBtn" class="ghost" type="button" data-i18n="share">Copy link</button>
+        </div>
+        <p class="result-foot">
+          <a href="https://payhip.com/b/3pOhb" target="_blank" rel="noopener noreferrer" data-i18n="footBook">Korea After Midnight</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://ko-fi.com/danbilab" target="_blank" rel="noopener noreferrer">Ko-fi</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><div class="noscript">This little game needs JavaScript. Please turn it on and refresh 🌙</div></noscript>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
