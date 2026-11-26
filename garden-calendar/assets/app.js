@@ -22,7 +22,10 @@
   function parseDate(str) {
     if (!str) return today();
     var p = String(str).split('-');
-    return new Date(+p[0], +p[1] - 1, +p[2]);
+    var y = +p[0], m = +p[1], d = +p[2];
+    if (!y || !m || !d || y < 1990 || y > 2100) return today();
+    var dt = new Date(y, m - 1, d);
+    return isNaN(dt.getTime()) ? today() : dt;
   }
   function addDays(d, n) {
     var x = new Date(d.getTime());
@@ -279,9 +282,16 @@
   function renderDday() {
     var crop = cropById(state.cropId);
     var dateStr = $('#sowDate').value || state.sown;
-    state.sown = dateStr;
     var sow = parseDate(dateStr);
     var t = today();
+    var ty = t.getFullYear();
+    var badDate = sow.getFullYear() < ty - 2 || sow.getFullYear() > ty + 2;
+    if (badDate) {
+      sow = t;
+      dateStr = ymd(sow);
+      $('#sowDate').value = dateStr;
+    }
+    state.sown = dateStr;
     var elapsed = dayDiff(sow, t);
     var st = stageOf(crop, elapsed);
     var entry = state.garden.filter(function (x) { return x.id === crop.id; })[0];
@@ -403,7 +413,8 @@
 
     var help = $('#sowHelp');
     var m = sow.getMonth() + 1;
-    if (crop.sow.indexOf(m) > -1) help.textContent = '지금(' + m + '월)이 ' + crop.name + '을 심기 좋은 달이에요.';
+    if (badDate) help.textContent = '기준일을 확인해 주세요. 오늘 날짜로 계산했어요.';
+    else if (crop.sow.indexOf(m) > -1) help.textContent = '지금(' + m + '월)이 ' + crop.name + '을 심기 좋은 달이에요.';
     else if (canSow(crop, m, state.space)) help.textContent = m + '월은 노지 적기는 아니지만, 실내 창가·베란다에서는 심을 수 있어요.';
     else if (crop.sow.indexOf(m === 1 ? 12 : m - 1) > -1) help.textContent = m + '월은 조금 늦은 편이지만 실내 창가에서는 가능해요.';
     else if (crop.sow.indexOf(m === 12 ? 1 : m + 1) > -1) help.textContent = '다음 달부터 ' + crop.name + '을 심기 좋아요. 미리 흙을 준비해 두세요.';
