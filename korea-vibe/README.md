@@ -21,3 +21,23 @@ renderers use the same families.
 
 Static site — open `index.html` or visit
 <https://ymi9595-tech.github.io/ymi9595/korea-vibe/>.
+
+## Shop & support links (2026-11-26)
+
+Nothing on the page is gated. Four soft CTAs sit at the foot of the tools (phrase pack on
+name / phrases / kitchen, colouring book on the rain timer), and the shop band lists six
+cards — every one opens in a new tab with `rel="noopener noreferrer"`:
+
+| Card | Price | Link |
+|---|---|---|
+| 100 Essential Daily Korean Expressions | $12.99 | <https://payhip.com/b/w0eXl> |
+| Cozy Korean Countryside Coloring Book | $6.99 | <https://payhip.com/b/QHgIV> |
+| The Little Bookshop of the Heart (10 journals) | $49 | <https://3511470888771.gumroad.com/l/little-bookshop-of-the-heart-10-journals> |
+| K-Food Farm Kitchen (YouTube) | free | <https://www.youtube.com/@KFoodFarmKitchen> |
+| Seoul Study Café Ambience (YouTube) | free | <https://www.youtube.com/@SeoulStudyCafeBGM> |
+| Buy Danbi Lab a coffee (Ko-fi) | tip | <https://ko-fi.com/danbilab> |
+
+Ko-fi mirrors (expression pack, colouring book) and the full Payhip store
+(<https://payhip.com/DanbiLab>) sit under the grid. `assets/og-cover.png` (1200×630) is the
+Open Graph / Twitter image; title, description, OG, Twitter and JSON-LD (WebSite +
+WebApplication) live in `<head>`.
