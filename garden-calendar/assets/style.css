@@ -246,7 +246,7 @@ section[id]{scroll-margin-top:84px}
 @media (max-width:640px){
   .months{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
   .month-btn{height:44px}
-  .seg{display:grid;gap:4px;border-radius:20px}
+  .seg{display:grid;grid-auto-flow:row;grid-auto-columns:auto;gap:4px;border-radius:20px}
   .seg[data-group="space"]{grid-template-columns:1fr 1fr}
   .seg[data-group="sun"]{grid-template-columns:repeat(3,minmax(0,1fr))}
   .seg-btn{padding:9px 6px;font-size:12.5px;gap:5px;border-radius:15px}
