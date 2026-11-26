@@ -159,9 +159,9 @@ h1 em{font-style:italic;color:var(--gold)}
 body.playing .hero{margin-top:0;max-width:100%}
 body.playing .eyebrow{opacity:0;max-height:0;margin:0;overflow:hidden}
 body.playing h1{font-size:clamp(1rem,1.9vw,1.32rem);letter-spacing:.02em;margin:0;opacity:.55;font-weight:400}
-body.playing .lede,
-body.playing .cta,
-body.playing .note{opacity:0;max-height:0;margin:0;padding-top:0;padding-bottom:0;pointer-events:none;overflow:hidden}
+body.playing .hero .lede,
+body.playing .hero .cta,
+body.playing .hero .note{opacity:0;max-height:0;margin:0;padding-top:0;padding-bottom:0;pointer-events:none;overflow:hidden}
 body.playing .foot{opacity:0;pointer-events:none}
 
 /* ------------------------------------------------------------ board + lanterns */
@@ -446,9 +446,9 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
   .lanterns{max-width:196px;gap:12px;row-gap:18px}
   .lantern{width:52px;height:74px}
   .composer{border-radius:18px;margin-bottom:env(safe-area-inset-bottom)}
-  .hud{gap:10px}
-  .hud-k{display:none}
-  .hud b{font-size:.92rem}
+  .hud{gap:8px;font-size:.6rem}
+  .hud-k{display:inline;font-size:.52rem;letter-spacing:.1em}
+  .hud b{font-size:.82rem}
   .tag{font-size:14px;max-width:150px}
   .stats{grid-template-columns:repeat(2,1fr);gap:14px}
   .lists{grid-template-columns:1fr;gap:14px}
@@ -473,3 +473,6 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 }
+
+/* disabled primary */
+.cta:disabled{opacity:.42;transform:none;box-shadow:none;pointer-events:none}

@@ -877,9 +877,8 @@
       state.card = card.canvas;
       state.cardUrl = card.url;
       $('#cardImg').src = card.url;
+      $('#downloadBtn').disabled = false;
     }).catch(function () {});
-    var btn = $('#downloadBtn');
-    btn.disabled = false;
   }
 
   /* ---------------------------------------------------------- result card */
@@ -999,14 +998,12 @@
     g.addColorStop(1, 'rgba(3,7,16,.93)');
     x.fillStyle = g; x.fillRect(0, 0, W, H);
 
-    /* moon glow + stars */
-    var moon = x.createRadialGradient(W * .78, 210, 0, W * .78, 210, 320);
-    moon.addColorStop(0, 'rgba(255,240,200,.35)');
-    moon.addColorStop(.25, 'rgba(255,224,160,.14)');
+    /* moonlight glow, kept above the title so nothing collides */
+    var moon = x.createRadialGradient(W * .5, -40, 0, W * .5, -40, 520);
+    moon.addColorStop(0, 'rgba(255,238,200,.28)');
+    moon.addColorStop(.4, 'rgba(255,224,160,.1)');
     moon.addColorStop(1, 'rgba(255,220,150,0)');
-    x.fillStyle = moon; x.beginPath(); x.arc(W * .78, 210, 320, 0, 6.283); x.fill();
-    x.beginPath(); x.arc(W * .78, 210, 34, 0, 6.283);
-    x.fillStyle = 'rgba(255,247,222,.9)'; x.fill();
+    x.fillStyle = moon; x.fillRect(0, 0, W, 520);
 
     var rnd = seeded(7 + state.wishes.length * 13 + state.score);
     for (var i = 0; i < 90; i++) {
