@@ -147,7 +147,7 @@
     mBox.innerHTML = MONTH_SHORT.map(function (label, i) {
       var m = i + 1;
       return '<button type="button" class="month-btn' + (state.month === m ? ' is-active' : '') + (nowM === m ? ' is-today' : '') + '"' +
-        ' data-value="' + m + '" aria-pressed="' + (state.month === m) + '">' + m + '<span class="sr-only">월</span></button>';
+        ' data-value="' + m + '" aria-label="' + m + '월" aria-pressed="' + (state.month === m) + '">' + m + '</button>';
     }).join('');
 
     var spNow = spaceById(state.space);
@@ -324,7 +324,7 @@
         '<div class="dday-count"><b>' + ddayNum + '</b><span>' + st.label + '</span></div>' +
       '</div>' +
 
-      '<div class="timeline" role="list">' +
+      '<div class="timeline">' +
         '<div class="tl-step is-done">' +
           '<span class="tl-dot"></span><b>파종</b><em>' + fmtShort(sow) + (elapsed >= 0 ? ' (완료)' : ' 예정') + '</em>' +
         '</div>' +
