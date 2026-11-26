@@ -784,7 +784,7 @@ function renderBars(){
     row.innerHTML =
       '<span class="dot" style="--c:'+col+'"></span>'+
       '<span class="nm">'+esc(c)+'</span>'+
-      '<span class="track"><i style="--c:'+col+';width:'+(max? Math.max(3,Math.round(amt/max*100)):0)+'%"></i></span>'+
+      '<span class="track"><i style="--c:'+col+';width:'+(amt? Math.max(3,Math.round(amt/max*100)):0)+'%"></i></span>'+
       '<span class="amt">'+won(amt)+'</span>'+
       '<span class="pct">'+(total? Math.round(amt/total*100):0)+'%</span>';
     box.appendChild(row);
@@ -1028,6 +1028,11 @@ async function viewImage(id){
 }
 
 /* ================= CSV ================= */
+function fmtWhen(iso){
+  var d = iso? new Date(iso) : new Date();
+  if(isNaN(d.getTime())) return '';
+  return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+' '+pad2(d.getHours())+':'+pad2(d.getMinutes());
+}
 function csvCell(v){
   var s = (v==null?'':String(v));
   return /[",\n\r]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s;
@@ -1039,7 +1044,7 @@ function buildCSV(list){
     rows.push([
       r.date||'', r.store||cfg.store, r.vendor||'', r.total||0, supplyOf(r), r.vat||0,
       r.vatEstimated? '추정':'표기', r.category||'', r.items||'',
-      (r.createdAt||'').replace('T',' ').slice(0,16)
+      fmtWhen(r.createdAt)
     ].map(csvCell).join(','));
   });
   return rows.join('\r\n');
