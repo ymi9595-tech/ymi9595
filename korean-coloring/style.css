@@ -271,7 +271,7 @@ input[type="range"]::-moz-range-thumb{
   width:14px;height:14px;border-radius:50%;background:#fff;border:1.5px solid var(--clay);cursor:pointer;
 }
 .bs-preview{width:8px;height:8px;border-radius:50%;background:var(--clay);flex:none}
-.brush-size.is-off{opacity:.42}
+.brush-size.is-off{opacity:.58}
 
 .actions{
   display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
@@ -416,9 +416,10 @@ details p{margin-top:10px;color:var(--ink-2);font-size:15px;max-width:44em}
   .toolbar{gap:12px;padding:14px 4px 10px}
   .tools{width:100%;justify-content:space-between}
   .tool{flex:1;justify-content:center;padding:10px 8px}
-  .palette-wrap{order:2;flex:1 1 100%}
-  .palette{max-width:100%;gap:8px}
+  .palette-wrap{order:2;flex:1 1 100%;align-items:flex-end}
+  .palette{max-width:100%;gap:7px}
   .swatch{width:32px;height:32px}
+  .custom-color{align-self:flex-end;margin-bottom:3px}
   .brush-size{order:3;width:100%;justify-content:flex-start;margin-left:0}
   input[type="range"]{flex:1;width:auto}
   .actions{flex-direction:column;align-items:stretch;gap:8px}
