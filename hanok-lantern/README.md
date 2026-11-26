@@ -12,9 +12,9 @@ are replaced by a harmless, funny sentence and the sky flies that instead.
 - No sign-in, no tracking, no external JS
 
 Files
-- `index.html` — page and copy lanes
-- `assets/style.css` — scene, lanterns, panel, overlay
-- `assets/app.js` — game logic, canvas ambience, result card renderer
+- `index.html` — page, copy lanes (EN/KO), SEO and social metadata
+- `assets/style.css` — scene, lanterns, composer, result overlay
+- `assets/app.js` — game logic, ambient canvas, sound, result card renderer
 - `assets/hanok-night-wide.jpg`, `assets/hanok-night-tall.jpg` — AI-generated backgrounds (no people)
 - `assets/og-cover.jpg` — social preview
 
