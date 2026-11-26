@@ -95,6 +95,12 @@
   function glyph(crop) {
     return '<svg class="glyph" aria-hidden="true"><use href="#i-' + (crop.glyph || 'leaf') + '"/></svg>';
   }
+  // 받침 유무에 따라 조사를 고릅니다. (상추를 / 바질을)
+  function josa(word, withBatchim, withoutBatchim) {
+    var c = word.charCodeAt(word.length - 1);
+    var has = (c >= 0xAC00 && c <= 0xD7A3) ? ((c - 0xAC00) % 28) !== 0 : false;
+    return has ? withBatchim : withoutBatchim;
+  }
 
   /* ---------- 물주기 주기 ---------- */
   var WATER_BASE = { high: 2, mid: 3, low: 5 };
@@ -415,10 +421,10 @@
     var help = $('#sowHelp');
     var m = sow.getMonth() + 1;
     if (badDate || invalidRaw) help.textContent = '날짜를 확인해 주세요. 오늘 날짜로 계산했어요.';
-    else if (crop.sow.indexOf(m) > -1) help.textContent = '지금(' + m + '월)이 ' + crop.name + '을 심기 좋은 달이에요.';
+    else if (crop.sow.indexOf(m) > -1) help.textContent = '지금(' + m + '월)이 ' + crop.name + josa(crop.name, '을', '를') + ' 심기 좋은 달이에요.';
     else if (canSow(crop, m, state.space)) help.textContent = m + '월은 노지 적기는 아니지만, 실내 창가·베란다에서는 심을 수 있어요.';
     else if (crop.sow.indexOf(m === 1 ? 12 : m - 1) > -1) help.textContent = m + '월은 조금 늦은 편이지만 실내 창가에서는 가능해요.';
-    else if (crop.sow.indexOf(m === 12 ? 1 : m + 1) > -1) help.textContent = '다음 달부터 ' + crop.name + '을 심기 좋아요. 미리 흙을 준비해 두세요.';
+    else if (crop.sow.indexOf(m === 12 ? 1 : m + 1) > -1) help.textContent = '다음 달부터 ' + crop.name + josa(crop.name, '을', '를') + ' 심기 좋아요. 미리 흙을 준비해 두세요.';
     else help.textContent = '지금은 ' + crop.name + '의 적기가 아니에요. 실내 재배나 모종으로 도전해 보세요.';
   }
 
@@ -625,7 +631,8 @@
       save();
       renderGarden();
       renderDday();
-      toast(cropById(id).name + '을 내 텃밭에 담았어요');
+      var nm = cropById(id).name;
+      toast(nm + josa(nm, '을', '를') + ' 내 텃밭에 담았어요');
     });
 
     // 스크롤 등장 효과 (JS가 있을 때만 적용해, 없을 때도 내용은 그대로 보입니다)
