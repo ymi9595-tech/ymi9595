@@ -185,6 +185,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 /* ---------- 섹션 공통 ---------- */
 .section{padding:clamp(52px,7.4vw,98px) 0}
+.hero + .section{padding-top:clamp(22px,3.2vw,46px)}
 .section-tint{background:linear-gradient(180deg, rgba(242,246,236,.75), rgba(242,246,236,0));}
 .section-head{max-width:660px;margin-bottom:clamp(22px,3vw,34px)}
 .section-head .step{
