@@ -634,6 +634,18 @@ section[id]{scroll-margin-top:84px}
 }
 
 /* ---------- 인쇄/PDF ---------- */
+@media (max-width:760px){
+  .cal-table{width:100%;min-width:0}
+  .cal-table th,.cal-table td{height:36px}
+  .cal-table thead th{font-size:10px;height:30px}
+  .cal-table thead th.cal-title{padding-left:10px}
+  .cal-table tbody th{padding:0 6px 0 10px;font-size:11px}
+  .cal-name{gap:0}
+  .cal-name .glyph{display:none}
+  .dot{width:7px;height:7px}
+  .dot--now{box-shadow:0 0 0 2px rgba(110,143,99,.16)}
+}
+
 @media print{
   .site-head,.head-cta,.hero-actions,.toast{display:none !important}
   .reveal{opacity:1 !important;transform:none !important}
