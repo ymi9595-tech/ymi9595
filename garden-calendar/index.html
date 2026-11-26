@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>베란다 텃밭 파종시기 계산기 | 초보 텃밭 물주기·수확일 계산</title>
+<meta name="description" content="내 베란다 햇빛과 이번 달에 맞는 작물을 12가지 중에서 골라 드려요. 심은 날을 넣으면 싹트는 날·첫 수확 예정일·오늘 물 줄 날까지 계산해 주는 무료 텃밭 계산기입니다.">
+<meta name="keywords" content="베란다 텃밭 파종시기 계산기, 초보 텃밭 물주기, 제철 작물 키우기, 상추 파종시기, 방울토마토 물주기, 베란다 채소 키우기, 주말농장 파종 달력, 텃밭 수확일 계산">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="단비랩 (Danbi Lab)">
+<meta name="theme-color" content="#F7F5EE">
+<link rel="canonical" href="https://ymi9595-tech.github.io/ymi9595/garden-calendar/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="베란다 텃밭 · 단비랩">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="베란다 텃밭 파종시기 계산기 · 물주기·수확일까지">
+<meta property="og:description" content="햇빛·공간·이번 달을 고르면 지금 심기 좋은 작물을 알려 드리고, 심은 날부터 싹트는 날·첫 수확일·다음 물주기를 계산해 드려요.">
+<meta property="og:url" content="https://ymi9595-tech.github.io/ymi9595/garden-calendar/">
+<meta property="og:image" content="https://ymi9595-tech.github.io/ymi9595/garden-calendar/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="햇빛이 드는 베란다에서 자라는 상추와 방울토마토 화분">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="베란다 텃밭 파종시기 계산기 · 단비랩">
+<meta name="twitter:description" content="내 환경에 맞는 작물 추천 + 싹트는 날·첫 수확일·물주기 D-day 계산. 무료, 회원가입 없음.">
+<meta name="twitter:image" content="https://ymi9595-tech.github.io/ymi9595/garden-calendar/assets/og-cover.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236E8F63'/%3E%3Cpath d='M46 16c0 16-10 27-26 27 0-16 10-27 26-27z' fill='%23F7F5EE'/%3E%3Cpath d='M14 52c6-11 14-17 24-21' stroke='%236E8F63' stroke-width='3' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" href="assets/hero.jpg" as="image">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://ymi9595-tech.github.io/ymi9595/garden-calendar/#app",
+      "name": "베란다 텃밭 · 제철 파종 & 물주기 계산기",
+      "url": "https://ymi9595-tech.github.io/ymi9595/garden-calendar/",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any (웹 브라우저)",
+      "inLanguage": "ko",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "description": "공간·햇빛·이번 달을 고르면 지금 심기 좋은 작물을 추천하고, 심은 날부터 싹트는 날·첫 수확 예정일·다음 물주기까지 계산해 주는 무료 텃밭 계산기.",
+      "featureList": ["작물 추천", "파종 시기 계산", "수확일 계산", "물주기 주기 계산"],
+      "publisher": { "@type": "Organization", "name": "단비랩", "url": "https://smartstore.naver.com/danbilab" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "단비랩", "item": "https://smartstore.naver.com/danbilab" },
+        { "@type": "ListItem", "position": 2, "name": "베란다 텃밭 계산기", "item": "https://ymi9595-tech.github.io/ymi9595/garden-calendar/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "파종 시기는 어떤 기준인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "한국 중부지방(수도권·충청)의 평균 기온을 기준으로 잡았습니다. 남부지방은 1~2주 빠르게, 강원 산지는 1~2주 늦게 보시면 됩니다. 실내 창가·베란다는 바깥보다 따뜻해 씨앗 발아가 조금 빠른 편입니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "베란다에서 물은 얼마나 자주 줘야 하나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "작물마다 다르지만 기본은 겉흙 2~3cm가 마르면 흠뻑 주는 것입니다. 계산기는 작물·계절·공간을 반영해 며칠 간격인지 알려 줍니다. 여름에는 1~2일, 겨울에는 5~7일에 한 번으로 크게 차이가 납니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "겨울에도 베란다에서 키울 수 있나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "가능합니다. 겨울 베란다는 해가 짧고 흙이 늦게 마릅니다. 상추·시금치·대파 같은 잎채소를 창가 가장 밝은 자리에 두고, 물은 흙을 만져 보고 마를 때만 주세요. 열매채소는 봄까지 기다리는 편이 좋습니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "씨앗과 모종 중 무엇을 사야 하나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "처음이라면 모종을 권합니다. 상추·루콜라는 씨앗도 쉽지만 방울토마토·고추·딸기·오이는 모종으로 시작하면 2~3주를 아낄 수 있습니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "계산된 수확일은 정확한가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "같은 작물이라도 햇빛·기온·화분 크기에 따라 1~3주 차이가 납니다. 계산기는 평균값을 알려 주는 도구이고, 잎색과 줄기 굵기를 보며 조절하시면 됩니다." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20.5 3.5C10.5 4 4.5 9.5 4.5 17.5c0 1.2.2 2.2.6 3"/><path d="M20.5 3.5c.5 9.5-5 15.5-15 16"/><path d="M4.9 20.9C8 14.5 12 10.5 18 7.6"/></symbol>
+  <symbol id="i-sprig" viewBox="0 0 24 24"><path d="M12 21.5V5"/><path d="M12 12.5c-3.3 0-5.5-2.3-5.5-5.5 3.3 0 5.5 2.2 5.5 5.5z"/><path d="M12 17c3.3 0 5.5-2.3 5.5-5.5-3.3 0-5.5 2.2-5.5 5.5z"/></symbol>
+  <symbol id="i-fruit" viewBox="0 0 24 24"><circle cx="12" cy="15" r="6"/><path d="M12 9V4.5"/><path d="M9 7.4 12 9l3-1.6"/></symbol>
+  <symbol id="i-berry" viewBox="0 0 24 24"><circle cx="9.5" cy="15.5" r="3.4"/><circle cx="15" cy="12.5" r="3.4"/><path d="M12.4 9.2 12 4.5"/><path d="M12 5.6c2-.6 3.6-1.6 4.6-3"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24"><path d="M12 21v-7"/><path d="M12 14c-3.6.4-6-2-6-5.4C6 5.4 8.6 3 12 3s6 2.4 6 5.6c0 3.4-2.4 5.8-6 5.4z"/><path d="M9.5 21h5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.2c3.4 4 5.6 7 5.6 9.8A5.6 5.6 0 0 1 12 18.6a5.6 5.6 0 0 1-5.6-5.6c0-2.8 2.2-5.8 5.6-9.8z"/><path d="M14.6 20.6H9.4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M12 7.6V12l3.2 2"/></symbol>
+  <symbol id="i-window" viewBox="0 0 24 24"><rect x="3.6" y="4" width="16.8" height="16" rx="2.4"/><path d="M12 4v16M3.6 12h16.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.8 12.6l4.6 4.6 9.8-10.4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h14.4"/><path d="M13.4 6.5 19 12l-5.6 5.5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.2 13.7 9l5.8 1.7-5.8 1.7L12 18.2 10.3 12.4 4.5 10.7 10.3 9z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4.5 5.4c2.6-1 5.2-1 7.5.6 2.3-1.6 4.9-1.6 7.5-.6v13c-2.6-1-5.2-1-7.5.6-2.3-1.6-4.9-1.6-7.5-.6z"/><path d="M12 6v13"/></symbol>
+</svg>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"><svg><use href="#i-leaf"/></svg></span>
+      <span class="brand-name">베란다 텃밭<em>단비랩</em></span>
+    </a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <a href="#calc">작물 찾기</a>
+      <a href="#detail">물주기 계산</a>
+      <a href="#calendar">파종 달력</a>
+      <a href="#books">단비랩 책</a>
+    </nav>
+    <a class="head-cta" href="#calc">계산 시작</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span>무료 텃밭 계산기 · 회원가입 없음</p>
+        <h1>베란다 텃밭,<br><span class="hl">언제 심고 언제 물 줄까?</span></h1>
+        <p class="lede">내 창가와 베란다의 햇빛, 그리고 이번 달에 맞는 작물을 골라 드려요. 심은 날을 넣으면 <strong>싹트는 날 · 첫 수확 예정일 · 오늘 물 줄 날</strong>까지 계산해 드립니다.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calc">내 텃밭 조건으로 찾기 <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#calendar">작물별 파종 시기 표</a>
+        </div>
+        <ul class="hero-facts">
+          <li><svg class="ic"><use href="#i-check"/></svg>작물 12가지</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>중부지방 기준</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>휴대폰·PC 모두</li>
+        </ul>
+      </div>
+      <figure class="hero-fig">
+        <img src="assets/hero.jpg" width="1100" height="1375" alt="햇빛이 드는 베란다 창가에서 자라는 상추, 바질, 방울토마토 화분" fetchpriority="high">
+        <figcaption class="float-card">
+          <span class="float-ic" aria-hidden="true"><svg><use href="#i-sun"/></svg></span>
+          <span><b>상추 · D+18</b><em>첫 수확까지 17일 남았어요</em></span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="calc">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="step">01</p>
+        <h2>내 텃밭 조건으로 작물 찾기</h2>
+        <p>세 가지만 고르면 지금 심기 좋은 작물을 순서대로 보여 드려요.</p>
+      </div>
+
+      <div class="panel picker-panel">
+        <div class="field">
+          <div class="field-head">
+            <span class="field-label">키울 공간</span>
+            <span class="field-hint" id="spaceHint"></span>
+          </div>
+          <div class="seg" role="group" aria-label="키울 공간" data-group="space"></div>
+        </div>
+        <div class="field">
+          <div class="field-head">
+            <span class="field-label">햇빛 양</span>
+            <span class="field-hint" id="sunHint"></span>
+          </div>
+          <div class="seg" role="group" aria-label="햇빛 양" data-group="sun"></div>
+        </div>
+        <div class="field">
+          <div class="field-head">
+            <span class="field-label">심으려는 달</span>
+            <span class="field-hint">지금 달이 기본으로 선택돼 있어요</span>
+          </div>
+          <div class="months" role="group" aria-label="심으려는 달" data-group="month"></div>
+        </div>
+        <div class="panel-foot">
+          <p class="match-line" id="matchLine" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="crop-grid" id="cropGrid" aria-live="polite"></div>
+      <p class="grid-note" id="gridNote"></p>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="detail">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="step">02</p>
+        <h2>파종·물주기·수확 D-day 계산</h2>
+        <p>작물과 심은 날을 고르면 날짜로 계산해 드려요. 저장해 두면 물 줄 날을 계속 기억합니다.</p>
+      </div>
+
+      <div class="calc-grid">
+        <aside class="calc-side">
+          <div class="mini-card">
+            <label class="mini-label" for="cropSelect">작물</label>
+            <div class="select-wrap">
+              <select id="cropSelect" class="select"></select>
+            </div>
+
+            <label class="mini-label" for="sowDate">심은 날 (또는 심을 날)</label>
+            <input type="date" id="sowDate" class="input">
+
+            <p class="mini-help" id="sowHelp"></p>
+
+            <button type="button" class="btn btn-primary btn-block" id="saveBtn">
+              <svg class="ic"><use href="#i-check"/></svg> 내 텃밭에 담기
+            </button>
+          </div>
+
+          <div class="mini-card mini-card--list">
+            <div class="mini-card-head">
+              <h3>내 텃밭</h3>
+              <span class="count" id="gardenCount">0</span>
+            </div>
+            <ul class="garden-list" id="gardenList"></ul>
+            <p class="empty-note" id="gardenEmpty">아직 담은 작물이 없어요.<br>위에서 작물을 고르고 <b>내 텃밭에 담기</b>를 눌러 보세요.</p>
+          </div>
+        </aside>
+
+        <div class="dday" id="dday"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="calendar">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="step">03</p>
+        <h2>작물별 파종 시기 한눈에</h2>
+        <p>초록 칸이 씨앗을 뿌리거나 모종을 심기 좋은 달이에요. 이번 달 열은 진하게 표시됩니다.</p>
+      </div>
+      <div class="table-shell">
+        <table class="cal-table" id="calTable">
+          <caption class="sr-only">작물별 파종 가능 월 (한국 중부지방 기준)</caption>
+        </table>
+      </div>
+      <div class="legend">
+        <span><i class="lg lg--sow"></i>파종·모종 적기</span>
+        <span><i class="lg lg--now"></i>이번 달</span>
+        <span class="legend-note">※ 실내 창가·베란다는 1~2주 앞당겨도 좋아요.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="season">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="step">04</p>
+        <h2>계절 체험 & 수확 레시피</h2>
+        <p>그 달에 딴 채소로 무엇을 해 먹을지까지. K푸드농장 블로그에 계절 레시피가 이어집니다.</p>
+      </div>
+      <div class="season-grid" id="seasonGrid"></div>
+
+      <div class="feature">
+        <figure class="feature-fig">
+          <img src="assets/harvest.jpg" width="1200" height="900" alt="린넨 위에 놓인 방울토마토, 바질, 상추, 대파" loading="lazy">
+        </figure>
+        <div class="feature-body">
+          <p class="eyebrow"><span class="dot"></span>수확한 날의 한 접시</p>
+          <h3>딴 채소는 그날 먹는 게 가장 맛있어요</h3>
+          <p>방울토마토는 따서 바로 소금 한 꼬집, 바질은 잎만 손으로 뜯어 올리브오일에. 상추는 물에 담갔다 물기를 털면 아삭함이 살아납니다. 남으면 신문지에 싸 냉장고 야채칸에 두세요.</p>
+          <a class="link-arrow" href="https://blog.naver.com/k-foodfarm" target="_blank" rel="noopener noreferrer">K푸드농장 계절 레시피 보기 <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="books">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="step">05</p>
+        <h2>단비랩 책 & 텃밭 용품</h2>
+        <p>아이와 함께하는 계절 활동지부터 1인 농가 판매 문구까지, 단비랩이 직접 만든 자료예요.</p>
+      </div>
+      <div class="book-grid" id="bookGrid"></div>
+
+      <div class="store-strip">
+        <div>
+          <b>스마트스토어 단비랩</b>
+          <span>전자책·활동지 전체 보기</span>
+        </div>
+        <div class="store-actions">
+          <a class="btn btn-dark" href="https://smartstore.naver.com/danbilab" target="_blank" rel="noopener noreferrer">스마트스토어</a>
+          <a class="btn btn-ghost" href="https://store.kakao.com/danbilab" target="_blank" rel="noopener noreferrer">톡스토어</a>
+        </div>
+      </div>
+
+      <h3 class="sub-head">베란다에서 바로 쓰는 용품</h3>
+      <div class="supply-grid" id="supplyGrid"></div>
+      <p class="fine">가격과 구성은 판매처 기준이며 바뀔 수 있어요. 용품 링크는 쿠팡 검색으로 연결됩니다.</p>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="faq">
+    <div class="wrap wrap-narrow">
+      <div class="section-head">
+        <p class="step">06</p>
+        <h2>자주 묻는 질문</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>파종 시기는 어떤 기준인가요?</summary>
+          <p>한국 중부지방(수도권·충청)의 평균 기온을 기준으로 잡았어요. 남부지방은 1~2주 빠르게, 강원 산지는 1~2주 늦게 보시면 됩니다. 실내 창가·베란다는 바깥보다 따뜻해 씨앗 발아가 조금 빠른 편이에요.</p>
+        </details>
+        <details>
+          <summary>베란다에서 물은 얼마나 자주 줘야 하나요?</summary>
+          <p>작물마다 다르지만 기본은 “겉흙 2~3cm가 마르면 흠뻑”이에요. 계산기는 작물·계절·공간(실내/베란다/옥상)을 반영해 며칠 간격인지 알려 줍니다. 여름엔 1~2일, 겨울엔 5~7일에 한 번으로 크게 차이가 나요.</p>
+        </details>
+        <details>
+          <summary>겨울에도 베란다에서 키울 수 있나요?</summary>
+          <p>됩니다. 다만 겨울 베란다는 해가 짧고 흙이 늦게 말라요. 상추·시금치·대파 같은 잎채소를 창가 가장 밝은 자리에 두고, 물은 흙을 만져 보고 마를 때만 주세요. 열매채소는 봄까지 기다리는 편이 좋아요.</p>
+        </details>
+        <details>
+          <summary>씨앗과 모종 중 무엇을 사야 하나요?</summary>
+          <p>처음이라면 모종을 권해요. 상추·루콜라는 씨앗도 쉽지만, 방울토마토·고추·딸기·오이는 모종으로 시작하면 2~3주를 아낄 수 있어요. 씨앗은 발아까지 물 관리가 필요합니다.</p>
+        </details>
+        <details>
+          <summary>계산된 수확일은 정확한가요?</summary>
+          <p>같은 작물이라도 햇빛·기온·화분 크기에 따라 1~3주 차이가 나요. 계산기는 평균값을 알려 주는 도구이고, 잎색과 줄기 굵기를 보며 조절하시면 됩니다.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <span class="brand-mark" aria-hidden="true"><svg><use href="#i-leaf"/></svg></span>
+      <div>
+        <b>베란다 텃밭 · 단비랩</b>
+        <p>생활에 바로 쓰는 실용서와 작은 도구를 만듭니다.</p>
+      </div>
+    </div>
+    <div class="foot-links">
+      <a href="https://smartstore.naver.com/danbilab" target="_blank" rel="noopener noreferrer">스마트스토어</a>
+      <a href="https://store.kakao.com/danbilab" target="_blank" rel="noopener noreferrer">톡스토어</a>
+      <a href="https://blog.naver.com/k-foodfarm" target="_blank" rel="noopener noreferrer">블로그</a>
+      <a href="https://www.youtube.com/@K%ED%91%B8%EB%93%9C%EB%86%8D%EC%9E%A5" target="_blank" rel="noopener noreferrer">유튜브</a>
+    </div>
+  </div>
+  <div class="wrap fine">
+    작물의 생장은 햇빛·기온·화분 크기·물 주는 습관에 따라 달라집니다. 이 계산기의 날짜는 평균값을 바탕으로 한 참고용 안내입니다.
+    <br>© 2026 단비랩. All rights reserved.
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
