@@ -37,7 +37,8 @@
     return d.getFullYear() + '-' + (m < 10 ? '0' + m : m) + '-' + (day < 10 ? '0' + day : day);
   }
   function fmt(d) {
-    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일(' + WEEKDAY[d.getDay()] + ')';
+    var y = d.getFullYear() === today().getFullYear() ? '' : d.getFullYear() + '년 ';
+    return y + (d.getMonth() + 1) + '월 ' + d.getDate() + '일(' + WEEKDAY[d.getDay()] + ')';
   }
   function fmtShort(d) {
     return (d.getMonth() + 1) + '/' + d.getDate();
@@ -311,6 +312,13 @@
       wCls = 'is-due';
     }
 
+    var harvLabel = perennial
+      ? harvA.getFullYear() + '년 ' + (harvA.getMonth() + 1) + '월'
+      : fmt(harvA);
+    var harvRange = perennial
+      ? Math.round(crop.harvest[0] / 365) + '~' + Math.round(crop.harvest[1] / 365) + '년 후'
+      : fmtShort(harvA) + ' ~ ' + fmtShort(harvB);
+
     var ddayNum = elapsed === 0 ? 'D-DAY' : (elapsed > 0 ? 'D+' + elapsed : 'D' + elapsed);
     var progress = perennial ? 0 : Math.max(0, Math.min(100, Math.round(elapsed / crop.harvest[0] * 100)));
 
@@ -335,7 +343,7 @@
           '<span class="tl-dot"></span><b>생육</b><em>' + (perennial ? '나무 키우기' : '잎·줄기') + '</em>' +
         '</div>' +
         '<div class="tl-step ' + (elapsed >= crop.harvest[1] ? 'is-done' : elapsed >= crop.harvest[0] ? 'is-now' : '') + '">' +
-          '<span class="tl-dot"></span><b>첫 수확</b><em>' + fmtShort(harvA) + ' ~ ' + fmtShort(harvB) + '</em>' +
+          '<span class="tl-dot"></span><b>첫 수확</b><em>' + harvRange + '</em>' +
         '</div>' +
       '</div>' +
 
@@ -350,7 +358,7 @@
         '</div>' +
         '<div class="stat">' +
           '<span class="stat-k"><svg class="ic"><use href="#i-clock"/></svg>첫 수확 예정일</span>' +
-          '<b>' + fmt(harvA) + '</b>' +
+          '<b>' + harvLabel + '</b>' +
           '<em>' + (perennial
             ? '심고 ' + Math.round(crop.harvest[0] / 365) + '~' + Math.round(crop.harvest[1] / 365) + '년 뒤 · ' + crop.harvestNote
             : '심고 ' + crop.harvest[0] + '~' + crop.harvest[1] + '일 뒤') + '</em>' +
