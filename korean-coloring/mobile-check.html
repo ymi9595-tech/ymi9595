@@ -14,27 +14,26 @@
 </style>
 </head>
 <body>
-  <figure><figcaption>390 · studio (tabs + canvas)</figcaption><iframe data-target="#color" data-off="120" src="index.html?11" title="studio"></iframe></figure>
-  <figure><figcaption>390 · toolbar + actions</figcaption><iframe data-target=".actions" data-off="-470" src="index.html?12" title="toolbar"></iframe></figure>
-  <figure><figcaption>390 · print</figcaption><iframe data-target="#print" data-off="0" src="index.html?13" title="print"></iframe></figure>
-  <figure><figcaption>390 · book</figcaption><iframe data-target="#book" data-off="0" src="index.html?14" title="book"></iframe></figure>
-  <figure><figcaption>390 · faq + footer</figcaption><iframe data-target=".faq" data-off="120" src="index.html?15" title="faq"></iframe></figure>
-  <figure><figcaption>360 · studio</figcaption><iframe data-target="#color" data-off="120" src="index.html?16" title="s360"></iframe></figure>
+  <figure><figcaption>390 · studio</figcaption><iframe data-src="index.html" data-target="#color" data-off="120" title="studio"></iframe></figure>
+  <figure><figcaption>390 · toolbar + actions</figcaption><iframe data-src="index.html" data-target=".actions" data-off="-470" title="toolbar"></iframe></figure>
+  <figure><figcaption>390 · print</figcaption><iframe data-src="index.html" data-target="#print" data-off="0" title="print"></iframe></figure>
+  <figure><figcaption>390 · book</figcaption><iframe data-src="index.html" data-target="#book" data-off="0" title="book"></iframe></figure>
+  <figure><figcaption>390 · faq + footer</figcaption><iframe data-src="index.html" data-target=".faq" data-off="120" title="faq"></iframe></figure>
+  <figure><figcaption>360 · studio</figcaption><iframe data-src="index.html" data-target="#color" data-off="120" title="s360"></iframe></figure>
   <script>
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        document.querySelectorAll('iframe').forEach(function (f) {
-          var sel = f.getAttribute('data-target');
-          var off = Number(f.getAttribute('data-off') || 0);
+    var v = 'cb=' + Date.now();
+    document.querySelectorAll('iframe').forEach(function (f) {
+      f.src = f.getAttribute('data-src') + '?' + v;
+      f.addEventListener('load', function () {
+        setTimeout(function () {
           try {
             var d = f.contentDocument, w = f.contentWindow;
-            var t = d.querySelector(sel);
+            var t = d.querySelector(f.getAttribute('data-target'));
             if (!t) return;
-            var y = t.getBoundingClientRect().top + w.scrollY + off;
-            w.scrollTo(0, y);
+            w.scrollTo(0, t.getBoundingClientRect().top + w.scrollY + Number(f.getAttribute('data-off') || 0));
           } catch (e) {}
-        });
-      }, 2500);
+        }, 900);
+      });
     });
   </script>
 </body>
