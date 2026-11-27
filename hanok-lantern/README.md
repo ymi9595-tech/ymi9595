@@ -10,6 +10,8 @@ are replaced by a harmless, funny sentence and the sky flies that instead.
 - English by default with an EN / KO toggle
 - Result screen with a funny title and a downloadable night-sky card (PNG)
 - No sign-in, no tracking, no external JS
+- Type: Jua / Gaegu (Korean) + Fredoka One / Quicksand / Patrick Hand (Latin)
+  from Google Fonts, applied to the UI and the canvas result card alike
 
 Files
 - `index.html` — page, copy lanes (EN/KO), SEO and social metadata
