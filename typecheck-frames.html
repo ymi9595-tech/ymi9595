@@ -54,6 +54,7 @@
             var d = f.contentDocument, win = f.contentWindow, out = [];
             out.push('— ' + url + ' @' + w + ' —');
             out.push('title: ' + d.title);
+            if (q.get('y')) { try { win.scrollTo(0, Number(q.get('y'))); } catch (e) {} }
             var errs = (win.__errs || []);
             out.push('errors: ' + errs.length + (errs.length ? '\n  ' + errs.join('\n  ') : ''));
             var h1 = d.querySelector('h1');
