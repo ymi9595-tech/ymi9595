@@ -963,8 +963,8 @@
     var isKo = state.lang === 'ko';
     var serif = isKo ? '"Jua","Fredoka","Noto Sans KR",sans-serif'
                      : '"Fredoka","Jua","Noto Sans KR",sans-serif';
-    var sans = isKo ? '"Dongle","Quicksand","Noto Sans KR",sans-serif'
-                    : '"Quicksand","Dongle","Noto Sans KR",sans-serif';
+    var sans = isKo ? '"Jua","Dongle","Quicksand","Noto Sans KR",sans-serif'
+                    : '"Quicksand","Jua","Dongle","Noto Sans KR",sans-serif';
     var hand = isKo ? '"Gaegu","Patrick Hand","Dongle",cursive'
                     : '"Patrick Hand","Gaegu",cursive';
     var wD = isKo ? '400' : '600';
@@ -982,6 +982,7 @@
       await Promise.all([
         document.fonts.load(wD + ' 70px "Jua"', cardText),
         document.fonts.load('600 70px "Fredoka"', cardText),
+        document.fonts.load(wB + ' 23px "Jua"', cardText),
         document.fonts.load(wB + ' 23px "Dongle"', cardText),
         document.fonts.load('500 23px "Quicksand"', cardText),
         document.fonts.load(wH + ' 38px "Gaegu"', cardText),
@@ -1035,7 +1036,7 @@
     x.font = wC + ' 21px ' + sans;
     var hd = 'WISH BEFORE IT FLIES';
     x.setTransform(1, 0, 0, 1, 0, 0);
-    drawSpaced(x, hd, W / 2, 108, 7);
+    drawSpaced(x, hd, W / 2, 108, 5);
     x.fillStyle = 'rgba(255,214,160,.35)';
     x.fillRect(W / 2 - 60, 132, 120, 1);
 
@@ -1051,11 +1052,11 @@
     }
     var afterTitle = titleY + (lines.length - 1) * (tSize * 1.2);
 
-    x.font = wB + ' 26px ' + sans;
-    x.fillStyle = 'rgba(251,242,226,.66)';
-    var subLines = wrapText(x, ti.sub, W - 200, wB + ' 26px ' + sans).slice(0, 2);
+    x.font = wB + ' 24px ' + sans;
+    x.fillStyle = 'rgba(251,242,226,.7)';
+    var subLines = wrapText(x, ti.sub, W - 200, wB + ' 24px ' + sans).slice(0, 2);
     for (var si = 0; si < subLines.length; si++) {
-      x.fillText(subLines[si], W / 2, afterTitle + 58 + si * 38);
+      x.fillText(subLines[si], W / 2, afterTitle + 56 + si * 34);
     }
 
     /* stats */
@@ -1077,7 +1078,7 @@
       x.font = wD + ' 58px ' + serif;
       x.fillText(String(stats[k].n), cx, statsY + 26);
       x.fillStyle = 'rgba(251,242,226,.5)';
-      x.font = wC + ' 20px ' + sans;
+      x.font = wC + ' 18px ' + sans;
       x.fillText(stats[k].l.toUpperCase(), cx, statsY + 62);
     }
 
@@ -1104,8 +1105,8 @@
     function section(label, items, cold, startY, max) {
       x.textAlign = 'left';
       x.fillStyle = cold ? 'rgba(160,225,222,.8)' : 'rgba(255,198,120,.8)';
-      x.font = wC + ' 20px ' + sans;
-      drawSpacedLeft(x, label.toUpperCase(), colX, startY, 4);
+      x.font = wC + ' 18px ' + sans;
+      drawSpacedLeft(x, label.toUpperCase(), colX, startY, 3);
       var yy = startY + 52;
       var list = items.slice(0, max);
       if (!list.length) {
@@ -1133,10 +1134,10 @@
     /* footer */
     x.textAlign = 'center';
     x.fillStyle = 'rgba(251,242,226,.36)';
-    x.font = wB + ' 20px ' + sans;
+    x.font = wB + ' 18px ' + sans;
     x.fillText(t('cardTag'), W / 2, 1272);
     x.fillStyle = 'rgba(251,242,226,.28)';
-    x.font = wB + ' 18px ' + sans;
+    x.font = wB + ' 16px ' + sans;
     x.fillText('ymi9595-tech.github.io/ymi9595/hanok-lantern', W / 2, 1302);
 
     var url = c.toDataURL('image/png');
