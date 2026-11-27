@@ -464,6 +464,7 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
   .lanterns{max-width:196px;gap:12px;row-gap:18px}
   .lantern{width:52px;height:74px}
   .composer{border-radius:18px;margin-bottom:env(safe-area-inset-bottom);padding-top:11px;padding-bottom:9px}
+  body:not(.playing) .composer{transform:none}
   #wishInput{font-size:1.35rem;padding:4px 0 6px}
   .hud{gap:8px;font-size:.74rem}
   .hud-k{display:inline;font-size:.66rem;letter-spacing:.04em}
