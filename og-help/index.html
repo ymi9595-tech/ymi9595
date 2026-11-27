@@ -504,7 +504,7 @@
 
   function webhookUrl(identifier, detail) {
     return WEBHOOK_BASE + encodeURIComponent(webhookId) + '/' + encodeURIComponent(identifier) +
-           '?detail=' + encodeURIComponent(detail) + '&ts=' + Date.now();
+           '?detail=' + encodeURIComponent(detail);
   }
 
   /* 한 번의 GET 요청만 보냅니다(중복 알림 방지). 응답은 읽지 않습니다. */
