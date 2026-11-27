@@ -7,12 +7,16 @@
 
    What it adds
    · A slim bar fixed to the bottom of every app page:
-       Playground  ·  Next app  ·  Share  ·  Invite a friend
+       Playground  ·  Next app  ·  Save  ·  Share  ·  Invite a friend
      (the bar stays off the playground home page, which has its own navigation)
    · "Invite a friend": asks for a name (optional), builds .../playground/?invite=Mia,
      and shares it with the Web Share sheet, or copies it on desktop.
    · A warm welcome banner on any page opened through an invite link.
    · A short toast: "Link copied!".
+   · Save: one tap keeps this corner in the playground's "Saved" tab (the same
+     localStorage key the home page reads).
+   · Anonymous visit counts: GA4 (G-2LRGRLEWFW), skipped on local files and
+     whenever the page already carries the tag.
 
    It needs no account and no server: everything lives in the link.
    Public helpers, for buttons on the playground home page:
@@ -46,8 +50,53 @@
     { slug: 'cozy-desk',         name: 'Cozy Seoul Desk',        glyph: '비' },
     { slug: 'checklist-maker',   name: 'Cozy Checklist Maker',   glyph: '꿈' },
     { slug: 'hanbok-studio',     name: 'Dress Your Hanbok',      glyph: '옷' },
+    { slug: 'hanbok-coloring',   name: 'Hanbok Coloring Studio', glyph: '칠' },
     { slug: 'kfood-pdf',         name: 'K-Food Recipe Cards',    glyph: '밥' }
   ];
+
+  /* ------------------------------------------------------------ analytics */
+  /* Google Analytics 4 — one measurement ID for the whole playground site,
+     so every app that loads this kit is counted without extra tags.
+     The playground home also carries this tag in its <head>; the check in
+     trackVisit() keeps a single page from being counted twice. */
+  var GA_ID = 'G-2LRGRLEWFW';
+
+  function trackVisit() {
+    if (window.__danbiTracked) return;
+    window.__danbiTracked = true;
+
+    var host = window.location.hostname;
+    if (!host || host === 'localhost' || host === '127.0.0.1' || host === '[::1]' ||
+        window.location.protocol === 'file:') return;                 /* local previews */
+    if (document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) return;
+
+    window.dataLayer = window.dataLayer || [];
+    if (!window.gtag) {
+      window.gtag = function () { window.dataLayer.push(arguments); };
+    }
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID);
+
+    var tag = document.createElement('script');
+    tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    (document.head || document.documentElement).appendChild(tag);
+  }
+
+  /* Favourites — the playground home reads the same key, so a corner saved
+     from its bottom bar shows up under the "Saved" tab. */
+  var FAV_KEY = 'danbi_favs_v1';
+
+  function readFavs() {
+    try {
+      var list = JSON.parse(window.localStorage.getItem(FAV_KEY) || '[]');
+      return Object.prototype.toString.call(list) === '[object Array]' ? list : [];
+    } catch (err) { return []; }
+  }
+
+  function writeFavs(list) {
+    try { window.localStorage.setItem(FAV_KEY, JSON.stringify(list)); } catch (err) {}
+  }
 
   var SHARE_TEXT = 'Try this cute Korean culture playground! \u2728';
   var INVITE_LEAD = ' invited you to Danbi K-Culture Playground! Pick your hanbok & Korean fortune together \u2728';
@@ -95,6 +144,8 @@
     + '.dbn-tool .dbn-ico{line-height:1;height:20px;display:flex;align-items:center}'
     + '.dbn-tool .dbn-ico svg{display:block}'
     + '.dbn-tool .dbn-txt{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
+    + '@media (max-width:420px){.dbn-tool{font-size:10px;padding-left:2px;padding-right:2px}}'
+    + '@media (max-width:345px){.dbn-tool{font-size:9px;letter-spacing:0}}'
     + '.dbn-tool.dbn-accent{color:#B4462F}'
     + '.dbn-tool.dbn-strong{color:#241E19}'
     + '.dbn-toast{position:fixed;left:50%;transform:translate(-50%,10px);bottom:calc(78px + env(safe-area-inset-bottom,0px));'
@@ -151,7 +202,9 @@
     back: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>',
     next: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg>',
     link: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.8 13.2a3.3 3.3 0 0 0 4.7 0l2.4-2.4a3.3 3.3 0 0 0-4.7-4.7l-1.1 1.1"/><path d="M13.2 10.8a3.3 3.3 0 0 0-4.7 0l-2.4 2.4a3.3 3.3 0 0 0 4.7 4.7l1.1-1.1"/></svg>',
-    gift: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="8.6" width="16.8" height="11.8" rx="2"/><path d="M3.6 12.6h16.8M12 8.6v11.8"/><path d="M12 8.6S11 4.4 8.9 4.4a2.1 2.1 0 0 0 0 4.2M12 8.6s1-4.2 3.1-4.2a2.1 2.1 0 0 1 0 4.2"/></svg>'
+    gift: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="8.6" width="16.8" height="11.8" rx="2"/><path d="M3.6 12.6h16.8M12 8.6v11.8"/><path d="M12 8.6S11 4.4 8.9 4.4a2.1 2.1 0 0 0 0 4.2M12 8.6s1-4.2 3.1-4.2a2.1 2.1 0 0 1 0 4.2"/></svg>',
+    star: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 4.4 2.35 4.76 5.25.76-3.8 3.7.9 5.23L12 16.38l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76z"/></svg>',
+    starOn: '<svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="m12 4.4 2.35 4.76 5.25.76-3.8 3.7.9 5.23L12 16.38l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76z"/></svg>'
   };
 
   function injectStyles() {
@@ -432,6 +485,29 @@
     share.innerHTML = '<span class="dbn-ico">' + ICON.link + '</span><span class="dbn-txt">Share</span>';
     share.addEventListener('click', function () { sharePage(); });
 
+    var save = document.createElement('button');
+    save.className = 'dbn-tool';
+    save.type = 'button';
+    var slug = here ? here.slug : '';
+    var paintSave = function () {
+      var on = !!slug && readFavs().indexOf(slug) !== -1;
+      var label = on ? 'Saved' : 'Save';
+      save.innerHTML = '<span class="dbn-ico">' + (on ? ICON.starOn : ICON.star) + '</span><span class="dbn-txt">' + label + '</span>';
+      save.setAttribute('aria-pressed', on ? 'true' : 'false');
+      save.setAttribute('aria-label', (on ? 'Remove this corner from favourites' : 'Save this corner to favourites'));
+    };
+    save.addEventListener('click', function () {
+      if (!slug) return;
+      var list = readFavs();
+      var at = list.indexOf(slug);
+      if (at === -1) { list.push(slug); writeFavs(list); paintSave(); toast('Saved to favourites'); return; }
+      list.splice(at, 1);
+      writeFavs(list);
+      paintSave();
+      toast('Removed from favourites');
+    });
+    paintSave();
+
     var invite = document.createElement('button');
     invite.className = 'dbn-tool dbn-accent';
     invite.type = 'button';
@@ -440,6 +516,7 @@
 
     bar.appendChild(home);
     bar.appendChild(next);
+    bar.appendChild(save);
     bar.appendChild(share);
     bar.appendChild(invite);
     document.body.appendChild(bar);
@@ -477,6 +554,7 @@
   };
 
   function start() {
+    trackVisit();
     injectStyles();
 
     if (!IS_HOME) buildBar();
