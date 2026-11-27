@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Preview frame · Danbi Lab</title>
+<style>
+  html,body{margin:0;padding:0;background:#E9E2D6}
+  #frame{display:block;border:0;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+</style>
+</head>
+<body>
+<iframe id="frame" title="preview"></iframe>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var u = p.get('u') || '../playground/';
+  var w = Math.max(320, Math.min(1920, parseInt(p.get('w') || '390', 10) || 390));
+  var h = Math.max(400, Math.min(12000, parseInt(p.get('h') || '9000', 10) || 9000));
+  var f = document.getElementById('frame');
+  f.style.width = w + 'px';
+  f.style.height = h + 'px';
+  f.src = u;
+})();
+</script>
+</body>
+</html>
