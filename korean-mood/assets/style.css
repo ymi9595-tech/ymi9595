@@ -134,9 +134,9 @@ main{ position:relative; z-index:1; }
 .eyebrow{
   margin:0 0 14px;
   font-family:var(--kr-sans);
-  font-size:11px; font-weight:500;
+  font-size:11px; font-weight:400;
   letter-spacing:.22em; text-transform:uppercase;
-  color:var(--gold);
+  color:color-mix(in srgb, var(--accent) 62%, var(--gold));
 }
 
 .intro h1{
@@ -147,8 +147,6 @@ main{ position:relative; z-index:1; }
   line-height:1.02;
   letter-spacing:-.012em;
 }
-
-.br-mobile{ display:none; }
 
 .lede{
   max-width:46ch; margin:20px auto 0;
@@ -603,7 +601,6 @@ main{ position:relative; z-index:1; }
 
   .intro{ padding:34px 20px 0; }
   .intro h1{ font-size:clamp(30px, 8.6vw, 40px); }
-  .br-mobile{ display:inline; }
   .lede{ font-size:14.5px; margin-top:16px; }
 
   .moods{
@@ -616,7 +613,7 @@ main{ position:relative; z-index:1; }
   .mood__name{ font-size:12.5px; }
   .mood__desc{ font-size:10px; }
 
-  .today-strip{ font-size:9px; letter-spacing:.16em; margin-bottom:11px; }
+  .today-strip{ font-size:9px; letter-spacing:.16em; margin-bottom:11px; gap:4px 6px; }
 
   .stage{ padding:0 16px; margin-top:24px; }
   .card{ padding:22px 22px 24px; min-height:400px; }
@@ -635,6 +632,10 @@ main{ position:relative; z-index:1; }
   .guides{ margin-top:32px; padding:20px 18px 18px; }
   .guides__row{ grid-template-columns:1fr; }
   .site-foot{ margin-top:48px; padding-bottom:44px; }
+}
+
+@media (max-width:520px){
+  .today-strip__sep{ display:none; }
 }
 
 @media (max-width:360px){

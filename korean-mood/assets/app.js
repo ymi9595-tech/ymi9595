@@ -1065,7 +1065,7 @@
 
     // --- measure the content block so it sits balanced between header and footer
     var isPhrase = /\s/.test(c.hangul);
-    var hg = layoutHangul(ctx, c.hangul, 830, isPhrase ? 108 : 150, 72);
+    var hg = layoutHangul(ctx, c.hangul, 830, isPhrase ? 108 : 164, 72);
     var lineH = hg.size * 1.2;
 
     ctx.font = '500 38px "Plus Jakarta Sans", sans-serif';
