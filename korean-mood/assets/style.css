@@ -493,9 +493,10 @@ main{ position:relative; z-index:1; }
 .guides{
   margin:44px 0 0;
   padding:26px 26px 22px;
-  background:rgba(236,225,202,.46);
-  border:1px solid rgba(176,141,63,.24);
+  background:color-mix(in srgb, var(--accent) 7%, #fffdf6);
+  border:1px solid color-mix(in srgb, var(--accent) 20%, transparent);
   border-radius:var(--radius);
+  transition:background-color .9s ease, border-color .9s ease;
 }
 .guides__label{
   margin:0;
