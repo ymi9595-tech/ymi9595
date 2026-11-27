@@ -1110,10 +1110,10 @@
       var yy = startY + 52;
       var list = items.slice(0, max);
       if (!list.length) {
-        x.fillStyle = 'rgba(251,242,226,.32)';
-        x.font = wD + ' 26px ' + serif;
+        x.fillStyle = 'rgba(251,242,226,.34)';
+        x.font = wH + ' 30px ' + hand;
         x.fillText('—', colX, yy);
-        return yy + 10;
+        return yy + 24;
       }
       for (var i2 = 0; i2 < list.length; i2++) {
         var txt = '“' + list[i2] + '”';
