@@ -460,7 +460,7 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
   .note{font-size:.84rem;margin-top:8px}
   .brand-text{font-size:.8rem;letter-spacing:.05em;max-width:172px}
   .foot{font-size:.82rem;gap:7px}
-  .board{padding:10px 0}
+  .board{padding:2px 0}
   .lanterns{max-width:196px;gap:12px;row-gap:18px}
   .lantern{width:52px;height:74px}
   .composer{border-radius:18px;margin-bottom:env(safe-area-inset-bottom)}
