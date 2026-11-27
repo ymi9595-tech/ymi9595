@@ -57,6 +57,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Dongle:wght@300;400;700&family=Gaegu:wght@300;400;700&family=Fredoka+One&family=Quicksand:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=18">
+<style id="danbi-back-style">
+/* ---- Danbi Playground return link (on dark) ---- */
+.danbi-back{display:inline-flex;align-items:center;gap:7px;flex:none;padding:7px 13px 7px 11px;
+  border:1px solid rgba(255,236,205,.30);border-radius:999px;background:rgba(12,18,34,.34);
+  color:#f7ecd6;font-family:inherit;font-size:11.5px;font-weight:400;line-height:1;
+  letter-spacing:.03em;text-decoration:none;white-space:nowrap;pointer-events:auto;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  transition:background .18s,border-color .18s,transform .18s}
+.danbi-back:hover{background:rgba(22,30,52,.78);border-color:rgba(255,228,182,.62);transform:translateY(-1px)}
+.danbi-back:focus-visible{outline:2px solid #ffd08a;outline-offset:3px}
+.danbi-back .danbi-back-ar{font-size:13px;line-height:1;opacity:.85}
+@media (prefers-reduced-motion:reduce){.danbi-back{transition:none}.danbi-back:hover{transform:none}}
+@media (max-width:620px){.danbi-back{padding:8px;width:34px;height:34px;justify-content:center}.danbi-back .danbi-back-tx{display:none}}
+</style>
 </head>
 <body>
 
@@ -74,7 +88,7 @@
     <span class="brand-lamp" aria-hidden="true"></span>
     <span class="brand-text">Wish Before It Flies</span>
   </div>
-  <div class="bar-actions">
+  <div class="bar-actions"><a class="danbi-back" href="../playground/" aria-label="Back to Danbi K-Culture Playground"><span class="danbi-back-ar" aria-hidden="true">←</span><span class="danbi-back-tx">Danbi Playground</span></a>
     <button id="soundBtn" class="icon-btn" type="button" aria-pressed="true" aria-label="Sound on">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.2L12 18.6V5.4L7.2 9.5H4Z"/><path class="wave" d="M15.2 8.4a5 5 0 0 1 0 7.2M17.8 5.9a8.6 8.6 0 0 1 0 12.2"/></svg>
     </button>

@@ -36,11 +36,26 @@
   footer { padding:28px 22px 46px; color:var(--grey); font-size:13px; line-height:1.6; }
   footer a { color:#1F5136; }
 </style>
+<style id="danbi-back-style">
+/* ---- Danbi Playground return link (on dark) ---- */
+.danbi-back{display:inline-flex;align-items:center;gap:7px;flex:none;padding:7px 13px 7px 11px;
+  border:1px solid rgba(255,236,205,.30);border-radius:999px;background:rgba(12,18,34,.34);
+  color:#f7ecd6;font-family:inherit;font-size:11.5px;font-weight:400;line-height:1;
+  letter-spacing:.03em;text-decoration:none;white-space:nowrap;pointer-events:auto;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  transition:background .18s,border-color .18s,transform .18s}
+.danbi-back:hover{background:rgba(22,30,52,.78);border-color:rgba(255,228,182,.62);transform:translateY(-1px)}
+.danbi-back:focus-visible{outline:2px solid #ffd08a;outline-offset:3px}
+.danbi-back .danbi-back-ar{font-size:13px;line-height:1;opacity:.85}
+@media (prefers-reduced-motion:reduce){.danbi-back{transition:none}.danbi-back:hover{transform:none}}
+header .danbi-back{margin-left:14px;font-size:11px}
+@media (max-width:560px){.danbi-back{padding:6px 10px 6px 9px;font-size:10.5px}.danbi-back .danbi-back-ar{font-size:12px}}
+</style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <div class="brand">DANBI LAB</div>
+    <div class="brand">DANBI LAB</div><a class="danbi-back" href="../playground/" aria-label="Back to Danbi K-Culture Playground"><span class="danbi-back-ar" aria-hidden="true">←</span><span class="danbi-back-tx">Danbi Playground</span></a>
     <div class="tag">K-Food Farm Kitchen &middot; from an Anseong farm kitchen</div>
     <h1>Free Printable Korean Kitchen Cards</h1>
     <p class="lead">One page each, written for a home kitchen outside Korea: what to buy, the three steps that

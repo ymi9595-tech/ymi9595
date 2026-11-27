@@ -648,6 +648,21 @@ input[type="range"]::-moz-range-thumb{ width:13px; height:13px; border-radius:50
   #danbi-apps .danbi-app:hover{ transform:none; }
 }
 </style>
+<style id="danbi-back-style">
+/* ---- Danbi Playground return link ---- */
+.danbi-back{display:inline-flex;align-items:center;gap:7px;flex:none;padding:7px 13px 7px 11px;
+  border:1px solid rgba(80,60,40,.22);border-radius:999px;background:rgba(255,255,255,.55);
+  color:inherit;font-family:inherit;font-size:11.5px;font-weight:400;line-height:1;
+  letter-spacing:.03em;text-decoration:none;white-space:nowrap;pointer-events:auto;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  transition:background .18s,border-color .18s,transform .18s,opacity .18s}
+.danbi-back:hover{background:rgba(255,255,255,.92);border-color:rgba(80,60,40,.42);transform:translateY(-1px)}
+.danbi-back:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.danbi-back .danbi-back-ar{font-size:13px;line-height:1;opacity:.7;transform:translateY(-.5px)}
+@media (prefers-reduced-motion:reduce){.danbi-back{transition:none}.danbi-back:hover{transform:none}}
+.top .danbi-back{margin-right:auto}
+@media (max-width:560px){.danbi-back{padding:6px 10px 6px 9px;font-size:10.5px}.danbi-back .danbi-back-ar{font-size:12px}}
+</style>
 </head>
 <body data-scene="rain">
 <div class="wrap">
@@ -667,7 +682,8 @@ input[type="range"]::-moz-range-thumb{ width:13px; height:13px; border-radius:50
       </span>
     </a>
 
-    <div class="lang" role="group" aria-label="Language">
+    <a class="danbi-back" href="../playground/" aria-label="Back to Danbi K-Culture Playground"><span class="danbi-back-ar" aria-hidden="true">←</span><span class="danbi-back-tx">Danbi Playground</span></a>
+<div class="lang" role="group" aria-label="Language">
       <span class="lang-knob" aria-hidden="true"></span>
       <button type="button" id="langEn" aria-pressed="true" data-lang-btn="en">EN</button>
       <button type="button" id="langKo" aria-pressed="false" data-lang-btn="ko">KO</button>
