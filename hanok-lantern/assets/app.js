@@ -731,8 +731,8 @@
     var sy = rect ? rect.top + rect.height * 0.2 : vh * 0.7;
     var ty = Math.max(vh * 0.13, Math.min(vh * 0.34, sy - vh * 0.3)) + (Math.random() * 28 - 14);
     var tx = sx + (Math.random() * 140 - 70);
-    if (tx < 80) tx = 80;
-    if (tx > vw - 80) tx = vw - 80;
+    if (tx < 96) tx = 96;
+    if (tx > vw - 96) tx = vw - 96;
     var midx = (sx + tx) / 2, midy = (sy + ty) / 2 - 20;
 
     f.style.transform = 'translate3d(' + sx + 'px,' + sy + 'px,0)';

@@ -467,7 +467,7 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
   body:not(.playing) .composer{transform:none}
   #wishInput{font-size:1.35rem;padding:4px 0 6px}
   .hud{gap:8px;font-size:.74rem}
-  .hud-k{display:inline;font-size:.66rem;letter-spacing:.04em}
+  .hud-k{display:inline;font-size:.72rem;letter-spacing:.04em}
   .hud b{font-size:1rem}
   .tag{font-size:16px;max-width:162px;padding:5px 10px 7px}
   .stats{grid-template-columns:repeat(2,1fr);gap:14px}
