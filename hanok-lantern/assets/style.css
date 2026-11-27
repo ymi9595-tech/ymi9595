@@ -136,6 +136,7 @@ h1{
   transition:font-size .7s var(--ease),letter-spacing .7s var(--ease),margin .7s var(--ease),opacity .5s;
 }
 h1 em{font-style:normal;color:var(--gold)}
+body[data-lang="en"] h1{font-size:clamp(2.3rem,4.4vw,4rem);line-height:1.08;letter-spacing:-.005em}
 .lede{
   margin:0 0 26px;max-width:38ch;
   font-size:clamp(1.02rem,1.16vw,1.14rem);line-height:1.72;
