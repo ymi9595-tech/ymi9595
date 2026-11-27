@@ -592,31 +592,42 @@
     ctx.lineTo(W / 2 + 46, 240);
     ctx.stroke();
 
+    // --- measure the content block so it sits balanced between header and footer
+    var hg = layoutHangul(ctx, card.hangul, 820, 2, 150, 76);
+    var lineH = hg.size * 1.2;
+
+    ctx.font = '500 38px "Inter", sans-serif';
+    var mLines = wrap(ctx, card.meaning, 760);
+    ctx.font = '400 28px "Inter", sans-serif';
+    var nLines = wrap(ctx, card.note, 740);
+    var maxNoteLines = 6;
+    var shownNote = Math.min(nLines.length, maxNoteLines);
+
+    var gapAfterHangul = 54, romanH = 42, gapBeforeRule = 46, gapAfterRule = 62,
+        meaningLineH = 50, gapAfterMeaning = 50, noteLineH = 46;
+
+    var totalH = hg.lines.length * lineH + gapAfterHangul + romanH + gapBeforeRule +
+                 gapAfterRule + mLines.length * meaningLineH + gapAfterMeaning +
+                 shownNote * noteLineH;
+
+    var zoneTop = 276, zoneBottom = H - 244;
+    var y = zoneTop + Math.max(0, (zoneBottom - zoneTop - totalH) / 2);
+
     // --- hangul
-    var maxTextW = 820;
-    var hg = layoutHangul(ctx, card.hangul, maxTextW, 2, 150, 78);
     ctx.font = '400 ' + hg.size + 'px "Gowun Batang", "Noto Serif KR", "Nanum Myeongjo", serif';
     ctx.fillStyle = '#221d18';
-    var lineH = hg.size * 1.22;
-    var blockH = lineH * hg.lines.length;
-    var hangulTop = 300 + Math.max(0, (300 - blockH) / 2); // keeps short words low-centre
-    var hy = hangulTop + hg.size * 0.92;
-    if (hg.lines.length === 1) hy = 500;
-    else hy = 520 - (hg.lines.length - 1) * lineH / 2;
-
     for (var l = 0; l < hg.lines.length; l++) {
-      ctx.fillText(hg.lines[l], W / 2, l === 0 ? hy : hy + l * lineH);
+      ctx.fillText(hg.lines[l], W / 2, y + hg.size * 0.86 + l * lineH);
     }
-    var lastLineY = hg.lines.length === 1 ? hy : hy + (hg.lines.length - 1) * lineH;
+    y += hg.lines.length * lineH + gapAfterHangul;
 
     // --- romanisation
-    var romanY = lastLineY + 74;
     ctx.font = 'italic 500 34px "Cormorant Garamond", "Times New Roman", serif';
     ctx.fillStyle = accent;
-    tracked(ctx, card.roman, W / 2, romanY, 2);
+    tracked(ctx, card.roman, W / 2, y + 26, 2);
+    y += romanH + gapBeforeRule;
 
     // --- rule with diamond
-    var ruleY = romanY + 58;
     var grad = ctx.createLinearGradient(W / 2 - 170, 0, W / 2 + 170, 0);
     grad.addColorStop(0, 'rgba(176,141,63,0)');
     grad.addColorStop(0.5, 'rgba(176,141,63,0.85)');
@@ -624,60 +635,60 @@
     ctx.strokeStyle = grad;
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(W / 2 - 170, ruleY);
-    ctx.lineTo(W / 2 - 16, ruleY);
-    ctx.moveTo(W / 2 + 16, ruleY);
-    ctx.lineTo(W / 2 + 170, ruleY);
+    ctx.moveTo(W / 2 - 170, y);
+    ctx.lineTo(W / 2 - 16, y);
+    ctx.moveTo(W / 2 + 16, y);
+    ctx.lineTo(W / 2 + 170, y);
     ctx.stroke();
     ctx.save();
-    ctx.translate(W / 2, ruleY);
+    ctx.translate(W / 2, y);
     ctx.rotate(Math.PI / 4);
     ctx.fillStyle = accent;
     ctx.globalAlpha = 0.8;
     ctx.fillRect(-5, -5, 10, 10);
     ctx.restore();
+    y += gapAfterRule;
 
     // --- English meaning
-    var y = ruleY + 66;
     ctx.font = '500 38px "Inter", sans-serif';
     ctx.fillStyle = '#221d18';
-    var mLines = wrap(ctx, card.meaning, 760);
     for (var mi = 0; mi < mLines.length; mi++) {
-      ctx.fillText(mLines[mi], W / 2, y + mi * 50);
+      ctx.fillText(mLines[mi], W / 2, y + 30 + mi * meaningLineH);
     }
-    y += (mLines.length - 1) * 50 + 62;
+    y += mLines.length * meaningLineH + gapAfterMeaning;
 
-    // --- note
+    // --- note (left-aligned column, easier to read than centred prose)
     ctx.font = '400 28px "Inter", sans-serif';
-    ctx.fillStyle = 'rgba(78,70,60,0.96)';
-    var nLines = wrap(ctx, card.note, 740);
-    var maxNoteLines = 6;
-    for (var ni = 0; ni < Math.min(nLines.length, maxNoteLines); ni++) {
+    ctx.fillStyle = 'rgba(78,70,60,0.95)';
+    ctx.textAlign = 'left';
+    var noteX = W / 2 - 370;
+    for (var ni = 0; ni < shownNote; ni++) {
       var lineText = nLines[ni];
       if (ni === maxNoteLines - 1 && nLines.length > maxNoteLines) {
         lineText = lineText.replace(/[,.;:]?\s*$/, '') + '…';
       }
-      ctx.fillText(lineText, W / 2, y + ni * 46);
+      ctx.fillText(lineText, noteX, y + 28 + ni * noteLineH);
     }
+    ctx.textAlign = 'center';
 
     // --- footer
     ctx.strokeStyle = 'rgba(34,29,24,0.10)';
     ctx.beginPath();
-    ctx.moveTo(150, H - 176);
-    ctx.lineTo(W - 150, H - 176);
+    ctx.moveTo(150, H - 196);
+    ctx.lineTo(W - 150, H - 196);
     ctx.stroke();
 
     ctx.font = '500 24px "Inter", sans-serif';
     ctx.fillStyle = accent;
-    tracked(ctx, 'DanbiLab', W / 2, H - 126, 3);
+    tracked(ctx, 'DanbiLab', W / 2, H - 152, 3);
 
     ctx.font = '400 21px "Inter", sans-serif';
     ctx.fillStyle = 'rgba(124,114,99,0.95)';
-    tracked(ctx, 'danbilab.substack.com', W / 2, H - 92, 1.5);
+    tracked(ctx, 'danbilab.substack.com', W / 2, H - 118, 1.5);
 
-    ctx.font = '400 18px "Inter", sans-serif';
-    ctx.fillStyle = 'rgba(124,114,99,0.75)';
-    tracked(ctx, 'TODAY\u2019S KOREAN MOOD \u00b7 FREE TO SHARE', W / 2, H - 60, 3);
+    ctx.font = '400 16px "Inter", sans-serif';
+    ctx.fillStyle = 'rgba(124,114,99,0.72)';
+    tracked(ctx, 'TODAY\u2019S KOREAN MOOD \u00b7 FREE TO SHARE', W / 2, H - 84, 3);
   }
 
   function slugify(text) {
