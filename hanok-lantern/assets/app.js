@@ -961,14 +961,14 @@
 
   async function buildCard() {
     var isKo = state.lang === 'ko';
-    var serif = isKo ? '"Jua","Fredoka","Noto Sans KR",sans-serif'
-                     : '"Fredoka","Jua","Noto Sans KR",sans-serif';
+    var serif = isKo ? '"Jua","Fredoka One","Noto Sans KR",sans-serif'
+                     : '"Fredoka One","Jua","Noto Sans KR",sans-serif';
     var sans = isKo ? '"Jua","Dongle","Quicksand","Noto Sans KR",sans-serif'
                     : '"Quicksand","Jua","Dongle","Noto Sans KR",sans-serif';
     var hand = isKo ? '"Gaegu","Patrick Hand","Dongle",cursive'
                     : '"Patrick Hand","Gaegu",cursive';
-    var wD = isKo ? '400' : '600';
-    var wB = isKo ? '400' : '500';
+    var wD = '400';
+    var wB = isKo ? '400' : '600';
     var wH = isKo ? '700' : '400';
     var wC = isKo ? '700' : '600';
     var ti0 = resultTitle(state.wishes.length);
@@ -981,7 +981,7 @@
     try {
       await Promise.all([
         document.fonts.load(wD + ' 70px "Jua"', cardText),
-        document.fonts.load('600 70px "Fredoka"', cardText),
+        document.fonts.load('400 70px "Fredoka One"', cardText),
         document.fonts.load(wB + ' 23px "Jua"', cardText),
         document.fonts.load(wB + ' 23px "Dongle"', cardText),
         document.fonts.load('500 23px "Quicksand"', cardText),

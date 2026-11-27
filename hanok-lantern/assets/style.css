@@ -16,7 +16,7 @@
   --teal:#8fd6d2;
   --ease:cubic-bezier(.22,.68,.24,1);
   /* cute rounded type: Jua / Dongle / Gaegu for Korean, Fredoka / Quicksand / Patrick Hand for Latin */
-  --display:"Jua","Fredoka","Noto Sans KR",system-ui,sans-serif;
+  --display:"Jua","Fredoka One","Noto Sans KR",system-ui,sans-serif;
   --sans:"Jua","Dongle","Quicksand","Noto Sans KR",system-ui,sans-serif;
   --hand:"Gaegu","Patrick Hand","Dongle",cursive;
   --w-display:400;
@@ -24,11 +24,11 @@
   --w-hand:700;
 }
 body[data-lang="en"]{
-  --display:"Fredoka","Jua","Noto Sans KR",system-ui,sans-serif;
+  --display:"Fredoka One","Jua","Noto Sans KR",system-ui,sans-serif;
   --sans:"Quicksand","Jua","Dongle","Noto Sans KR",system-ui,sans-serif;
   --hand:"Patrick Hand","Gaegu",cursive;
-  --w-display:600;
-  --w-sans:500;
+  --w-display:400;
+  --w-sans:600;
   --w-hand:400;
 }
 
