@@ -20,16 +20,21 @@
 <meta name="twitter:title" content="Hanbok Coloring Studio · Danbi Lab">
 <meta name="twitter:description" content="Thirteen hanbok pages to color in the browser, then keep a postcard or print the sheets. Free.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23F3EDE2'/%3E%3Ccircle cx='32' cy='30' r='15' fill='none' stroke='%23A8874E' stroke-width='2.4'/%3E%3Ccircle cx='32' cy='30' r='5' fill='%23A8874E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
   --paper:#F3EDE2; --paper-2:#FBF7EF; --paper-3:#EDE5D7;
   --ink:#141210; --ink-2:#3B332B; --muted:#8B7F70; --muted-2:#A2957F;
   --line:#DCD2C1; --line-2:#C9BBA2;
   --gold:#A8874E; --jade:#4E7062; --rose:#B4726B;
-  --serif:"Cormorant Garamond","Playfair Display",Georgia,"Times New Roman",
-          "Nanum Myeongjo","Noto Serif KR","Noto Serif CJK KR",serif;
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,
-         "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  /* Type: one modern sans pair — Plus Jakarta Sans for Latin, Pretendard for hangul. No serifs. */
+  --display:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Malgun Gothic',sans-serif;
+  --sans:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Malgun Gothic',sans-serif;
+  --ko:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -44,8 +49,8 @@ body{
   background-attachment:fixed;
 }
 body.ko{word-break:keep-all}
-h1,h2,h3,h4{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-.01em;line-height:1.08}
-body.ko h1,body.ko h2,body.ko h3{font-family:"Nanum Myeongjo","Noto Serif KR","Noto Serif CJK KR",var(--serif);line-height:1.26;letter-spacing:-.02em}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;margin:0;letter-spacing:-.025em;line-height:1.14}
+body.ko h1,body.ko h2,body.ko h3{font-family:var(--ko);font-weight:700;line-height:1.22;letter-spacing:-.03em}
 p{margin:0}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 input{font:inherit;color:inherit}
@@ -62,10 +67,10 @@ img{display:block;max-width:100%}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;min-width:0}
 .seal{
   width:30px;height:30px;flex:0 0 30px;border-radius:50%;border:1px solid var(--gold);
-  display:grid;place-items:center;font-family:var(--serif);font-size:12px;color:var(--gold);
+  display:grid;place-items:center;font-family:var(--ko);font-weight:700;font-size:12px;color:var(--gold);
   letter-spacing:0;line-height:1;padding-bottom:1px;
 }
-.brand b{font-family:var(--serif);font-weight:600;font-size:14px;letter-spacing:.3em;white-space:nowrap}
+.brand b{font-family:var(--display);font-weight:800;font-size:14.5px;letter-spacing:.12em;white-space:nowrap}
 .brand .div{color:var(--line-2);font-size:13px}
 .brand .sub{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .top-right{margin-left:auto;display:flex;align-items:center;gap:10px}
@@ -74,7 +79,7 @@ img{display:block;max-width:100%}
 .lang button[aria-pressed="true"]{background:var(--ink);color:#F7F2E8}
 .iconbtn{
   width:34px;height:34px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;
-  font-family:var(--serif);font-size:15px;color:var(--ink-2);background:rgba(255,255,255,.5);
+  font-family:var(--display);font-weight:600;font-size:15px;color:var(--ink-2);background:rgba(255,255,255,.5);
 }
 .iconbtn:hover{border-color:var(--gold);color:var(--gold)}
 
@@ -82,8 +87,8 @@ img{display:block;max-width:100%}
 .wrap{max-width:1220px;margin:0 auto;padding:clamp(22px,4vw,54px) clamp(14px,4vw,40px) 70px}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end;margin-bottom:clamp(22px,3.4vw,40px)}
 .eyebrow{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
-.hero h1{font-size:clamp(34px,6vw,62px);line-height:.98;letter-spacing:-.02em}
-.hero h1 em{font-style:italic;color:var(--jade)}
+.hero h1{font-size:clamp(34px,5.6vw,60px);line-height:1.02;letter-spacing:-.035em;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--jade)}
 .hero .lede{margin-top:14px;max-width:50ch;font-size:14.5px;color:var(--ink-2);line-height:1.75}
 .hero .lede b{color:var(--ink);font-weight:600}
 .surprise{
@@ -115,7 +120,7 @@ img{display:block;max-width:100%}
 .dots i.on{background:var(--jade)}
 
 .foot{margin-top:44px;padding-top:20px;border-top:1px solid rgba(201,187,162,.6);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);letter-spacing:.04em}
-.foot b{font-family:var(--serif);letter-spacing:.28em;color:var(--ink-2);font-size:11px}
+.foot b{font-family:var(--display);font-weight:800;letter-spacing:.14em;color:var(--ink-2);font-size:11px}
 
 /* ---------- studio ---------- */
 .view{display:none}
@@ -124,7 +129,7 @@ img{display:block;max-width:100%}
 .back{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.04em;color:var(--ink-2);border:1px solid transparent;border-radius:999px;padding:7px 14px 7px 10px;transition:background .2s,border-color .2s}
 .back:hover{background:rgba(255,255,255,.6);border-color:var(--line-2)}
 .studio-title{margin-left:auto;text-align:right;display:flex;align-items:baseline;gap:12px}
-.studio-title .num{font-family:var(--serif);font-size:11px;letter-spacing:.2em;color:var(--gold)}
+.studio-title .num{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.14em;color:var(--gold)}
 .studio-title h2{font-size:clamp(19px,2.4vw,26px)}
 .studio-title .type{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 
@@ -147,8 +152,8 @@ img{display:block;max-width:100%}
 .stage .refpeek.on{opacity:1}
 .stage .refpeek img{width:100%;height:100%;object-fit:cover}
 .stage .refpeek b{
-  position:absolute;left:0;bottom:0;right:0;padding:5px 8px;font-family:var(--serif);font-size:9px;
-  letter-spacing:.2em;text-transform:uppercase;color:#fff;background:linear-gradient(transparent,rgba(20,15,10,.6));
+  position:absolute;left:0;bottom:0;right:0;padding:5px 8px;font-family:var(--display);font-weight:600;font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;color:#fff;background:linear-gradient(transparent,rgba(20,15,10,.6));
 }
 .stagebar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .stagehint{font-size:11.5px;color:var(--muted);letter-spacing:.03em;text-align:center;margin-top:-2px}
@@ -168,7 +173,7 @@ img{display:block;max-width:100%}
   display:flex;align-items:baseline;gap:9px;font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--muted);margin-bottom:11px;font-weight:500;
 }
-.ctrl h3 em{font-style:normal;margin-left:auto;font-family:var(--serif);font-size:12.5px;letter-spacing:.02em;color:var(--ink-2);text-transform:none}
+.ctrl h3 em{font-style:normal;margin-left:auto;font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:.01em;color:var(--ink-2);text-transform:none}
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .tool{
   border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.6);
@@ -210,7 +215,7 @@ img{display:block;max-width:100%}
 }
 .mix span.dot{width:24px;height:24px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
 .mix input{position:absolute;inset:0;opacity:0;cursor:pointer;border:0;padding:0}
-.hex{font-family:var(--serif);font-size:12px;color:var(--muted);letter-spacing:.08em}
+.hex{font-family:var(--display);font-weight:500;font-size:12px;color:var(--muted);letter-spacing:.06em;font-variant-numeric:tabular-nums}
 
 .actions{display:grid;gap:8px}
 .act{
@@ -247,7 +252,7 @@ img{display:block;max-width:100%}
 .field label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .field input{
   border:0;border-bottom:1px solid var(--line-2);background:transparent;padding:7px 0;font-size:14px;
-  font-family:var(--serif);letter-spacing:.01em;border-radius:0;
+  font-family:var(--display);font-weight:500;letter-spacing:.01em;border-radius:0;
 }
 body.ko .field input{font-family:var(--sans);font-size:13.5px}
 .field input:focus{outline:0;border-bottom-color:var(--ink)}
@@ -468,8 +473,8 @@ var DESIGNS = [{"id": "01_spring", "en": "Spring Promise", "ko": "봄날의 약�
 'use strict';
 
 var W = 1024, H = 1536;
-var SERIF = '"Cormorant Garamond",Georgia,"Nanum Myeongjo","Noto Serif KR","Noto Serif CJK KR",serif';
-var SANS = '"Segoe UI","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+var DISPLAY = "'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Malgun Gothic',sans-serif";
+var SANS = DISPLAY;
 var $ = function(s){ return document.querySelector(s); };
 
 /* ------------------------------------------------------------------ i18n */
@@ -1130,10 +1135,10 @@ function drawCard(cv, opts){
   c.strokeRect(38.5, 38.5, cw - 77, ch - 77);
 
   c.fillStyle = '#A8874E';
-  c.font = '600 13px ' + SERIF;
+  c.font = '800 13px ' + DISPLAY;
   spaced(c, 'DANBI LAB', 62, 74, 5.4, 'left');
   c.fillStyle = '#8B7F70';
-  c.font = '11px ' + SERIF;
+  c.font = '500 11px ' + DISPLAY;
   spaced(c, 'NO. ' + String(cur + 1).padStart(2, '0') + ' / ' + String(DESIGNS.length).padStart(2, '0'), cw - 62, 74, 2.4, 'right');
 
   var aw = 740, ah = 1080, ax = (cw - aw) / 2, ay = 112;
@@ -1155,16 +1160,16 @@ function drawCard(cv, opts){
   spaced(c, typ, 62, by, LANG === 'ko' ? 1.6 : 3.4, 'left');
 
   c.fillStyle = '#191512';
-  c.font = '400 46px ' + SERIF;
+  c.font = '700 46px ' + DISPLAY;
   var title = dname(d);
   var tw = c.measureText(title).width;
-  if (tw > cw - 124){ c.font = '400 ' + Math.floor(46 * (cw - 124) / tw) + 'px ' + SERIF; }
-  if (LANG === 'ko') c.font = '400 40px ' + SERIF;
+  if (tw > cw - 124){ c.font = '700 ' + Math.floor(46 * (cw - 124) / tw) + 'px ' + DISPLAY; }
+  if (LANG === 'ko') c.font = '700 40px ' + DISPLAY;
   c.fillText(title, 62, by + 50);
 
   if (opts.line){
     c.fillStyle = '#6B5E4E';
-    c.font = 'italic 20px ' + SERIF;
+    c.font = '400 19px ' + DISPLAY;
     if (LANG === 'ko'){ c.font = '400 17px ' + SANS; }
     var lines = wrapText(c, opts.line, cw - 124, 2);
     for (var li = 0; li < lines.length; li++) c.fillText(lines[li], 62, by + 86 + li * 27);
@@ -1175,11 +1180,11 @@ function drawCard(cv, opts){
 
   if (opts.name){
     c.fillStyle = '#191512';
-    c.font = '400 17px ' + SERIF;
+    c.font = '500 17px ' + DISPLAY;
     c.fillText(opts.name, 62, by + 162);
   }
   c.fillStyle = '#8B7F70';
-  c.font = '12px ' + SERIF;
+  c.font = '400 12px ' + DISPLAY;
   spaced(c, opts.date || todayStr(), 62, by + 186, 1.4, 'left');
 
   c.save();
@@ -1188,7 +1193,7 @@ function drawCard(cv, opts){
   c.roundRect ? c.roundRect(cw - 100, by + 142, 40, 40, 5) : c.rect(cw - 100, by + 142, 40, 40);
   c.fill();
   c.fillStyle = '#FBF2E4';
-  c.font = '600 14px ' + SERIF;
+  c.font = '700 14px ' + DISPLAY;
   c.textAlign = 'center';
   c.fillText('단', cw - 80, by + 160);
   c.fillText('비', cw - 80, by + 176);
@@ -1250,7 +1255,7 @@ function printCanvas(d, art){
   if (ih > ch - 150){ ih = ch - 150; iw = ih / 1.5; }
   c.drawImage(art, (cw - iw) / 2, 46, iw, ih);
   c.fillStyle = '#7A6A55';
-  c.font = '13px ' + SERIF;
+  c.font = '500 13px ' + DISPLAY;
   c.textAlign = 'center';
   c.fillText('DANBI LAB  ·  HANBOK COLORING STUDIO  ·  NO. ' + String(cur + 1).padStart(2, '0'), cw / 2, ch - 46);
   c.textAlign = 'left';
