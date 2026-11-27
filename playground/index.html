@@ -136,10 +136,11 @@ a{color:inherit}
 .hero{max-width:var(--max);margin:0 auto;padding:clamp(38px,6.4vw,78px) clamp(18px,4vw,34px) 0}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 348px;gap:clamp(24px,4vw,56px);align-items:center}
 .kicker{
-  display:inline-flex;align-items:center;gap:10px;margin:0 0 20px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 20px;
+  max-width:34ch;
   font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);
 }
-.kicker .ko{font-family:var(--ko);font-size:12px;letter-spacing:.06em;text-transform:none;color:var(--seal);opacity:.9}
+.kicker .ko{font-family:var(--ko);font-size:12px;letter-spacing:.06em;text-transform:none;color:var(--seal);opacity:.9;white-space:nowrap}
 .kicker i{width:26px;height:1px;background:var(--line-2);display:block}
 h1{
   margin:0;font-family:var(--serif);font-weight:400;
@@ -177,6 +178,7 @@ h1 .line2{display:block}
 /* ---------------- jump chips ---------------- */
 .jumps{max-width:var(--max);margin:0 auto;padding:clamp(30px,4vw,44px) clamp(18px,4vw,34px) 0}
 .jumps-in{display:flex;flex-wrap:wrap;gap:9px}
+.zone .cards--fit{grid-template-columns:repeat(auto-fit,minmax(292px,1fr))}
 .jump{
   display:inline-flex;align-items:center;gap:9px;text-decoration:none;
   padding:10px 15px 10px 11px;border:1px solid var(--line-2);border-radius:999px;
@@ -260,8 +262,8 @@ h1 .line2{display:block}
   background:radial-gradient(120% 90% at 82% 6%,rgba(255,255,255,.28),rgba(255,255,255,0) 58%);
 }
 .art .glyph{
-  position:absolute;right:8px;bottom:-22px;font-family:var(--ko);font-weight:700;
-  font-size:92px;line-height:1;color:rgba(255,255,255,.24);z-index:1;
+  position:absolute;right:10px;bottom:-12px;font-family:var(--ko);font-weight:700;
+  font-size:88px;line-height:1;color:rgba(255,255,255,.24);z-index:1;
 }
 .art .ic{
   position:absolute;left:14px;top:14px;z-index:2;
@@ -342,9 +344,10 @@ h1 .line2{display:block}
   .brand-sub{font-size:8.6px;letter-spacing:.16em}
   .seal{width:35px;height:35px;font-size:18px;border-radius:10px}
   .badge{padding:7px 10px;font-size:10px}
-  .cards{grid-template-columns:1fr}
+  .cards,.zone .cards--fit{grid-template-columns:1fr}
+  .jumps-in{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .jump{justify-content:flex-start;font-size:11.4px;padding:9px 11px 9px 9px}
   h1{font-size:clamp(38px,11vw,52px)}
-  .jump{font-size:11.8px;padding:9px 13px 9px 10px}
   .today-body{padding:22px}
   .foot-bottom{flex-direction:column;align-items:flex-start;gap:8px}
 }
@@ -398,15 +401,15 @@ h1 .line2{display:block}
     <div class="stack" aria-hidden="true">
       <div class="mini tilt a">
         <span class="m-glyph">등</span>
-        <span><span class="m-rule"></span><span class="m-label">wish · lantern</span></span>
+        <span><span class="m-rule"></span><span class="m-label">wish</span></span>
       </div>
       <div class="mini tilt b">
         <span class="m-glyph">정</span>
-        <span><span class="m-rule"></span><span class="m-label">jeong · warmth</span></span>
+        <span><span class="m-rule"></span><span class="m-label">jeong</span></span>
       </div>
       <div class="mini tilt c">
         <span class="m-glyph">색</span>
-        <span><span class="m-rule"></span><span class="m-label">seoul · colour</span></span>
+        <span><span class="m-rule"></span><span class="m-label">colour</span></span>
       </div>
     </div>
   </div>
@@ -635,7 +638,7 @@ h1 .line2{display:block}
     <p class="zone-note">Free recipes you can print and stick on the fridge — and the books they came out of, if you want more.</p>
   </div>
 
-  <div class="cards">
+  <div class="cards cards--fit">
     <a class="corner" href="../kfood-pdf/en/" style="--g1:#6B4223;--g2:#C98A4B">
       <span class="art" aria-hidden="true">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.2h16"/><path d="M5.4 11.2a6.6 6.6 0 0 0 13.2 0"/><path d="M3.4 20h17.2"/><path d="M9 7.6c0-1.4 1.4-1.8 1.4-3.2M13.4 7.6c0-1.4 1.4-1.8 1.4-3.2"/></svg></span>
