@@ -627,7 +627,7 @@
                  gapAfterRule + mLines.length * meaningLineH + gapAfterMeaning +
                  shownNote * noteLineH;
 
-    var zoneTop = 292, zoneBottom = H - 244;
+    var zoneTop = 300, zoneBottom = H - 224;
     var y = zoneTop + Math.max(0, (zoneBottom - zoneTop - totalH) / 2);
 
     // --- hangul
