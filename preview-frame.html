@@ -36,7 +36,8 @@
   btn.textContent = 'run danbi-nav inside frame';
   btn.addEventListener('click', function () {
     fetch('/ymi9595/playground/danbi-nav.js?harness=1').then(function (r) { return r.text(); }).then(function (src) {
-      var code = src.replace('if (window.top !== window.self) return;', '');
+      var code = src.replace('if (window.__danbiKitReady) return;', '')
+                   .replace('if (window.top !== window.self) return;', '');
       f.contentWindow.eval(code);
       lb.setAttribute('data-done', '1');
     });
