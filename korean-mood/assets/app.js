@@ -493,16 +493,32 @@
     return lines;
   }
 
-  function layoutHangul(ctx, text, maxWidth, maxLines, startSize, minSize) {
+  function balancedWrap(ctx, words, maxWidth) {
+    var single = words.join(' ');
+    if (ctx.measureText(single).width <= maxWidth) return [single];
+
+    var best = null, bestScore = Infinity;
+    for (var k = 1; k < words.length; k++) {
+      var a = words.slice(0, k).join(' ');
+      var b = words.slice(k).join(' ');
+      var wa = ctx.measureText(a).width;
+      var wb = ctx.measureText(b).width;
+      if (wa <= maxWidth && wb <= maxWidth) {
+        var score = Math.max(wa, wb);
+        if (score < bestScore) { bestScore = score; best = [a, b]; }
+      }
+    }
+    return best;
+  }
+
+  function layoutHangul(ctx, text, maxWidth, startSize, minSize) {
+    var words = text.split(/\s+/);
     var size = startSize;
+    var lines = null;
     while (size >= minSize) {
       ctx.font = '400 ' + size + 'px "Gowun Batang", "Noto Serif KR", "Nanum Myeongjo", serif';
-      var lines = wrap(ctx, text, maxWidth);
-      var fits = lines.length <= maxLines;
-      for (var i = 0; fits && i < lines.length; i++) {
-        if (ctx.measureText(lines[i]).width > maxWidth) fits = false;
-      }
-      if (fits) return { size: size, lines: lines };
+      lines = balancedWrap(ctx, words, maxWidth);
+      if (lines) return { size: size, lines: lines };
       size -= 4;
     }
     ctx.font = '400 ' + minSize + 'px "Gowun Batang", "Noto Serif KR", "Nanum Myeongjo", serif';
@@ -593,7 +609,8 @@
     ctx.stroke();
 
     // --- measure the content block so it sits balanced between header and footer
-    var hg = layoutHangul(ctx, card.hangul, 820, 2, 150, 76);
+    var isPhrase = /\s/.test(card.hangul);
+    var hg = layoutHangul(ctx, card.hangul, 830, isPhrase ? 108 : 150, 72);
     var lineH = hg.size * 1.2;
 
     ctx.font = '500 38px "Inter", sans-serif';
@@ -610,7 +627,7 @@
                  gapAfterRule + mLines.length * meaningLineH + gapAfterMeaning +
                  shownNote * noteLineH;
 
-    var zoneTop = 276, zoneBottom = H - 244;
+    var zoneTop = 292, zoneBottom = H - 244;
     var y = zoneTop + Math.max(0, (zoneBottom - zoneTop - totalH) / 2);
 
     // --- hangul
