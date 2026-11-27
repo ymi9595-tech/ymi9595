@@ -960,24 +960,40 @@
   }
 
   async function buildCard() {
-    try { await document.fonts.ready; } catch (e) {}
+    var isKo = state.lang === 'ko';
+    var serif = isKo ? '"Jua","Fredoka","Noto Sans KR",sans-serif'
+                     : '"Fredoka","Jua","Noto Sans KR",sans-serif';
+    var sans = isKo ? '"Dongle","Quicksand","Noto Sans KR",sans-serif'
+                    : '"Quicksand","Dongle","Noto Sans KR",sans-serif';
+    var hand = isKo ? '"Gaegu","Patrick Hand","Dongle",cursive'
+                    : '"Patrick Hand","Gaegu",cursive';
+    var wD = isKo ? '400' : '600';
+    var wB = isKo ? '400' : '500';
+    var wH = isKo ? '700' : '400';
+    var wC = isKo ? '700' : '600';
+    var ti0 = resultTitle(state.wishes.length);
+
+    /* Hangul webfonts arrive as many unicode-range subsets and canvas text does not fetch
+       them on its own: ask every family for the exact strings that will be drawn. */
+    var cardText = ti0.name + ' ' + ti0.sub + ' ' + state.wishes.join(' ') + ' ' + state.flops.join(' ') +
+      ' ' + t('cardWishes') + ' ' + t('cardTricks') + ' ' + t('cardCombo') + ' ' + t('cardScore') +
+      ' ' + t('cardWords') + ' ' + t('cardSky') + ' ' + t('cardTag') + ' WISH BEFORE IT FLIES 0123456789';
     try {
       await Promise.all([
-        document.fonts.load('500 64px "Cormorant Garamond"'),
-        document.fonts.load('400 30px "Noto Serif KR"'),
-        document.fonts.load('400 20px "Inter"'),
-        document.fonts.load('600 40px "Caveat"'),
-        document.fonts.load('400 40px "Gaegu"')
+        document.fonts.load(wD + ' 70px "Jua"', cardText),
+        document.fonts.load('600 70px "Fredoka"', cardText),
+        document.fonts.load(wB + ' 23px "Dongle"', cardText),
+        document.fonts.load('500 23px "Quicksand"', cardText),
+        document.fonts.load(wH + ' 38px "Gaegu"', cardText),
+        document.fonts.load('400 38px "Patrick Hand"', cardText)
       ]);
     } catch (e) {}
+    try { await document.fonts.ready; } catch (e) {}
 
     var W = 1080, H = 1350;
     var c = document.createElement('canvas');
     c.width = W; c.height = H;
     var x = c.getContext('2d');
-    var serif = '"Cormorant Garamond","Noto Serif KR",serif';
-    var sans = '"Inter","Noto Sans KR",sans-serif';
-    var hand = '"Caveat","Gaegu",cursive';
 
     var img = await ensureBg();
     if (img) {
@@ -1016,7 +1032,7 @@
     x.textAlign = 'center';
     x.textBaseline = 'alphabetic';
     x.fillStyle = 'rgba(255,198,120,.92)';
-    x.font = '500 21px ' + sans;
+    x.font = wC + ' 21px ' + sans;
     var hd = 'WISH BEFORE IT FLIES';
     x.setTransform(1, 0, 0, 1, 0, 0);
     drawSpaced(x, hd, W / 2, 108, 7);
@@ -1025,21 +1041,21 @@
 
     /* title */
     var ti = resultTitle(state.wishes.length);
-    var tSize = fitFont(x, ti.name, W - 200, serif, '500', 70, 38);
-    x.font = '500 ' + tSize + 'px ' + serif;
+    var tSize = fitFont(x, ti.name, W - 200, serif, wD, 70, 42);
+    x.font = wD + ' ' + tSize + 'px ' + serif;
     x.fillStyle = '#fdf5e6';
-    var lines = wrapText(x, ti.name, W - 180, '500 ' + tSize + 'px ' + serif).slice(0, 2);
-    var titleY = 236;
+    var lines = wrapText(x, ti.name, W - 180, wD + ' ' + tSize + 'px ' + serif).slice(0, 2);
+    var titleY = 240;
     for (var li = 0; li < lines.length; li++) {
-      x.fillText(lines[li], W / 2, titleY + li * (tSize * 1.07));
+      x.fillText(lines[li], W / 2, titleY + li * (tSize * 1.2));
     }
-    var afterTitle = titleY + (lines.length - 1) * (tSize * 1.07);
+    var afterTitle = titleY + (lines.length - 1) * (tSize * 1.2);
 
-    x.font = '400 23px ' + sans;
-    x.fillStyle = 'rgba(251,242,226,.62)';
-    var subLines = wrapText(x, ti.sub, W - 200, '400 23px ' + sans).slice(0, 2);
+    x.font = wB + ' 26px ' + sans;
+    x.fillStyle = 'rgba(251,242,226,.66)';
+    var subLines = wrapText(x, ti.sub, W - 200, wB + ' 26px ' + sans).slice(0, 2);
     for (var si = 0; si < subLines.length; si++) {
-      x.fillText(subLines[si], W / 2, afterTitle + 54 + si * 33);
+      x.fillText(subLines[si], W / 2, afterTitle + 58 + si * 38);
     }
 
     /* stats */
@@ -1058,10 +1074,10 @@
       var cx = 90 + (W - 180) * (k + 0.5) / stats.length;
       x.textAlign = 'center';
       x.fillStyle = '#ffc678';
-      x.font = '500 58px ' + serif;
+      x.font = wD + ' 58px ' + serif;
       x.fillText(String(stats[k].n), cx, statsY + 26);
-      x.fillStyle = 'rgba(251,242,226,.45)';
-      x.font = '400 17px ' + sans;
+      x.fillStyle = 'rgba(251,242,226,.5)';
+      x.font = wC + ' 20px ' + sans;
       x.fillText(stats[k].l.toUpperCase(), cx, statsY + 62);
     }
 
@@ -1078,7 +1094,7 @@
     var colX = 108, colW = W - 216;
 
     function truncTo(c, text, maxW, size, family) {
-      c.font = '400 ' + size + 'px ' + family;
+      c.font = wH + ' ' + size + 'px ' + family;
       if (c.measureText(text).width <= maxW) return text;
       var cut = text;
       while (cut.length > 2 && c.measureText(cut + '…').width > maxW) cut = cut.slice(0, -1);
@@ -1087,26 +1103,26 @@
 
     function section(label, items, cold, startY, max) {
       x.textAlign = 'left';
-      x.fillStyle = cold ? 'rgba(160,225,222,.75)' : 'rgba(255,198,120,.75)';
-      x.font = '500 17px ' + sans;
+      x.fillStyle = cold ? 'rgba(160,225,222,.8)' : 'rgba(255,198,120,.8)';
+      x.font = wC + ' 20px ' + sans;
       drawSpacedLeft(x, label.toUpperCase(), colX, startY, 4);
-      var yy = startY + 50;
+      var yy = startY + 52;
       var list = items.slice(0, max);
       if (!list.length) {
-        x.fillStyle = 'rgba(251,242,226,.3)';
-        x.font = 'italic 400 24px ' + serif;
+        x.fillStyle = 'rgba(251,242,226,.32)';
+        x.font = wD + ' 26px ' + serif;
         x.fillText('—', colX, yy);
         return yy + 10;
       }
       for (var i2 = 0; i2 < list.length; i2++) {
         var txt = '“' + list[i2] + '”';
-        var size = 34;
-        x.font = '400 ' + size + 'px ' + hand;
-        if (x.measureText(txt).width > colW) { size = 28; x.font = '400 ' + size + 'px ' + hand; }
+        var size = 38;
+        x.font = wH + ' ' + size + 'px ' + hand;
+        if (x.measureText(txt).width > colW) { size = 31; x.font = wH + ' ' + size + 'px ' + hand; }
         txt = truncTo(x, txt, colW, size, hand);
         x.fillStyle = cold ? '#c3ece9' : '#f7ead3';
         x.fillText(txt, colX, yy);
-        yy += 56;
+        yy += 58;
       }
       return yy;
     }
@@ -1116,11 +1132,11 @@
 
     /* footer */
     x.textAlign = 'center';
-    x.fillStyle = 'rgba(251,242,226,.34)';
-    x.font = '400 17px ' + sans;
+    x.fillStyle = 'rgba(251,242,226,.36)';
+    x.font = wB + ' 20px ' + sans;
     x.fillText(t('cardTag'), W / 2, 1272);
-    x.fillStyle = 'rgba(251,242,226,.26)';
-    x.font = '400 16px ' + sans;
+    x.fillStyle = 'rgba(251,242,226,.28)';
+    x.font = wB + ' 18px ' + sans;
     x.fillText('ymi9595-tech.github.io/ymi9595/hanok-lantern', W / 2, 1302);
 
     var url = c.toDataURL('image/png');
@@ -1130,7 +1146,6 @@
   function drawSpaced(c, text, cx, y, spacing) {
     c.save();
     c.textAlign = 'left';
-    c.font = '500 21px "Inter","Noto Sans KR",sans-serif';
     var total = 0, i;
     for (i = 0; i < text.length; i++) total += c.measureText(text[i]).width + spacing;
     total -= spacing;
