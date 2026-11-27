@@ -452,12 +452,12 @@ body.playing .composer{opacity:1;transform:none;pointer-events:auto}
   .result-card{max-height:calc(100dvh - 24px)}
 }
 @media (max-width:640px){
-  .stage{padding-top:clamp(62px,9vh,84px);padding-bottom:clamp(12px,1.8vh,20px);padding-left:16px;padding-right:16px}
+  .stage{padding-top:clamp(56px,8vh,76px);padding-bottom:clamp(12px,1.8vh,20px);padding-left:16px;padding-right:16px}
   .hero{margin-top:0}
   .eyebrow{font-size:.78rem;letter-spacing:.08em}
   h1{font-size:clamp(2.35rem,10.5vw,3.15rem);line-height:1.14;margin-bottom:18px}
   .lede{font-size:1rem;max-width:none;margin-bottom:22px}
-  .note{font-size:.84rem;margin-top:12px}
+  .note{font-size:.84rem;margin-top:8px}
   .brand-text{font-size:.8rem;letter-spacing:.05em;max-width:172px}
   .foot{font-size:.82rem;gap:7px}
   .board{padding:10px 0}
