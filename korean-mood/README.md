@@ -19,10 +19,11 @@ it to share.
 3. **Draw another card** (or → arrow key), **Listen** (`speechSynthesis`, `ko-KR`, with
    fallbacks when no Korean voice exists), **Save card** (1080×1350 PNG drawn on canvas),
    **Copy** (share text + link).
-4. **Explore more of Korea with DanbiLab** — free channels first (YouTube K-Food Farm
-   Kitchen, Seoul Study Café Ambience, Substack, printable K-Food cards), then a quiet
-   "Full digital guides & workbooks" block with the two paid books and no prices in the
-   headline. Nothing on the page is gated.
+4. **Explore more of Korea with DanbiLab** — awareness first: the four free channels (YouTube
+   K-Food Farm Kitchen, Seoul Study Café Ambience, Substack, printable K-Food cards) come
+   first and are the point of the section. Under them sits a quiet "Full digital guides &
+   workbooks" block with the two paid books and no prices or buy buttons in the headline.
+   Nothing on the page is gated, and no card asks for an email.
 
 ## Files
 
@@ -44,13 +45,21 @@ can be saved to Photos, since blob downloads are ignored there.
 
 ## Free / paid links on the page
 
+Free channels first (all `target="_blank" rel="noopener noreferrer"`):
+
 | Where | Link |
 |---|---|
 | K-Food Farm Kitchen | <https://www.youtube.com/@KFoodFarmKitchen> |
 | Seoul Study Café Ambience | <https://www.youtube.com/@SeoulStudyCafeBGM> |
 | Substack | <https://danbilab.substack.com> |
 | Free printable recipe cards | <https://ymi9595-tech.github.io/ymi9595/kfood-pdf/en/> |
-| 100 Essential Daily Korean Expressions | <https://3511470888771.gumroad.com/l/korean-starter-pack> |
-| 100 Days in Korea (4-book bundle) | <https://payhip.com/b/lp4IK> · Ko-fi <https://ko-fi.com/s/c28bf40f5a> |
 
-All external links use `target="_blank" rel="noopener noreferrer"`.
+The two paid guides appear only in the low-key "guides" strip, labelled "Have a look"
+(no price, no Buy button), and the Ko-fi mirror is a small note:
+
+| Guide | Link | Current price |
+|---|---|---|
+| 100 Essential Daily Korean Expressions | <https://3511470888771.gumroad.com/l/korean-starter-pack> | $12.99 |
+| 100 Days in Korea (4-book bundle, 639p) | <https://payhip.com/b/lp4IK> · Ko-fi <https://ko-fi.com/s/c28bf40f5a> | $29.99 |
+
+All four store pages were opened and confirmed live on 2026-11-27.
