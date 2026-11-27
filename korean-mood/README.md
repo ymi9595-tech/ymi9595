@@ -55,7 +55,7 @@ assets/make_og.py   generator for the cover
 
 `drawPoster()` renders 1080×1350 in the mood's own palette: tinted paper wash + grain,
 accent-coloured double frame and corner brackets, the 丹 seal in the mood's ink, mood label,
-adaptive hangul sizing (158px/104px down to 70px, up to 2 lines), Instrument Serif
+adaptive hangul sizing (164px for one word, 108px for a phrase, down to 72px, up to 2 lines), Instrument Serif
 romanisation, rule with a diamond, English meaning, wrapped note (max 6 lines), and the
 footer `DanbiLab · danbilab.substack.com`. On iOS the PNG opens in a new tab so it can be
 saved to Photos, since blob downloads are ignored there. `window.__koreanMood.audit()`
