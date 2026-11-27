@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frame check · Danbi</title>
+<style>
+  body{margin:0;background:#d9d5cf;font:12px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#241E19}
+  #wrap{display:flex;gap:10px;padding:10px;align-items:flex-start}
+  iframe{border:0;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+  #log{position:fixed;right:8px;bottom:8px;max-width:520px;max-height:50vh;overflow:auto;background:#fff;border:1px solid #bbb;border-radius:8px;padding:8px 10px;font:11px/1.45 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;z-index:9}
+</style>
+</head>
+<body>
+<div id="wrap"></div>
+<div id="log">loading…</div>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var target = q.get('p') || 'playground';
+  var widths = (q.get('w') || '1280,390').split(',').map(Number);
+  var height = Number(q.get('h') || 900);
+  var pages = { playground: '/playground/', hanbok: '/hanbok-coloring/' , naver: '/playground/' };
+  var url = pages[target] || pages.playground;
+  var base = '/ymi9595' + url;
+  var log = document.getElementById('log');
+  var lines = [];
+
+  function say(s) { lines.push(s); log.textContent = lines.join('\n'); }
+
+  var hook = '<script>window.__errs=[];'
+    + 'window.addEventListener("error",function(e){window.__errs.push("error: "+(e.message||"")+" @"+(e.filename||"")+":"+(e.lineno||0));});'
+    + 'window.addEventListener("unhandledrejection",function(e){window.__errs.push("rejection: "+((e.reason&&e.reason.message)||e.reason));});'
+    + '<\/script>';
+
+  fetch(url + '?probe=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error('fetch ' + r.status); return r.text(); })
+    .then(function (html) {
+      var doc = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + base + '">' + hook);
+      var frames = [];
+      widths.forEach(function (w) {
+        var f = document.createElement('iframe');
+        f.width = w; f.height = height;
+        f.setAttribute('data-w', w);
+        document.getElementById('wrap').appendChild(f);
+        frames.push(f);
+      });
+      var pending = frames.length;
+      frames.forEach(function (f) {
+        f.addEventListener('load', function () {
+          pending--;
+          var w = Number(f.getAttribute('data-w'));
+          try {
+            var d = f.contentDocument, win = f.contentWindow, out = [];
+            out.push('— ' + url + ' @' + w + ' —');
+            out.push('title: ' + d.title);
+            var errs = (win.__errs || []);
+            out.push('errors: ' + errs.length + (errs.length ? '\n  ' + errs.join('\n  ') : ''));
+            var h1 = d.querySelector('h1');
+            if (h1) out.push('h1 font: ' + win.getComputedStyle(h1).fontFamily + ' / weight ' + win.getComputedStyle(h1).fontWeight);
+            var body = win.getComputedStyle(d.body).fontFamily;
+            out.push('body font: ' + body);
+            var serif = /Georgia|Times|serif|Gowun|Cormorant|Instrument/i.test(win.getComputedStyle(h1 || d.body).fontFamily);
+            out.push('serif on h1: ' + serif);
+            out.push('tabs: ' + d.querySelectorAll('.dbk-tab').length
+              + ' · pressed: ' + (d.querySelector('.dbk-tab[aria-pressed="true"]') || {}).textContent);
+            out.push('visible cards: ' + [].filter.call(d.querySelectorAll('a.corner'), function (c) { return !c.hidden && c.offsetParent !== null; }).length);
+            out.push('hanbok card: ' + !!d.querySelector('a.corner[href*="hanbok-coloring"]'));
+            out.push('danbi bar: ' + !!d.querySelector('.dbn-bar') + ' (' + (d.querySelector('.dbn-bar') ? d.querySelectorAll('.dbn-bar .dbn-tool').length + ' buttons' : '0') + ')');
+            out.push('scrollWidth/clientWidth: ' + d.documentElement.scrollWidth + '/' + d.documentElement.clientWidth);
+            out.push('favs: ' + (function(){ try { return win.localStorage.getItem('danbi_favs_v1'); } catch(e){ return 'n/a'; } })());
+            say(out.join('\n'));
+          } catch (e) {
+            say('probe could not read frame ' + w + ': ' + e.message);
+          }
+          if (pending === 0) say('\nready');
+        });
+        f.srcdoc = doc;
+      });
+    })
+    .catch(function (e) { say('FAILED: ' + e.message); });
+})();
+</script>
+</body>
+</html>
