@@ -339,21 +339,24 @@ h1 .line2{display:block}
   .foot-grid{grid-template-columns:1fr;gap:32px}
 }
 @media (max-width:560px){
-  .top-in{height:64px;gap:10px}
-  .brand-name{font-size:16.5px}
-  .brand-sub{font-size:8.6px;letter-spacing:.16em}
-  .seal{width:35px;height:35px;font-size:18px;border-radius:10px}
-  .badge{padding:7px 10px;font-size:10px}
+  .top-in{height:66px;gap:10px}
+  .brand{gap:9px}
+  .brand-name{font-size:15.5px;white-space:normal;line-height:1.14}
+  .brand-sub{font-size:8.2px;letter-spacing:.13em}
+  .seal{width:34px;height:34px;font-size:17px;border-radius:10px}
+  .badge{display:none}
   .cards,.zone .cards--fit{grid-template-columns:1fr}
-  .jumps-in{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .jump{justify-content:flex-start;font-size:11.4px;padding:9px 11px 9px 9px}
+  .jumps-in{display:grid;grid-template-columns:1fr;gap:7px}
+  .jump{justify-content:space-between;font-size:12px;padding:9px 12px 9px 10px}
+  .jump .ko{margin-left:auto}
   h1{font-size:clamp(38px,11vw,52px)}
   .today-body{padding:22px}
   .foot-bottom{flex-direction:column;align-items:flex-start;gap:8px}
 }
 @media (max-width:400px){
+  .brand-name{font-size:14px}
+  .top-in{height:62px}
   .brand-sub{display:none}
-  .top-in{height:60px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
