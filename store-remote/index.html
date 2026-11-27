@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>매장 방송 리모컨</title>
+<meta name="description" content="무인 매장 안내방송을 휴대폰에서 한 번에 보내는 리모컨">
+<meta name="theme-color" content="#F7F2EA">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="방송 리모컨">
+<style>
+:root{
+  --bg:#F7F2EA; --card:#FFFFFF; --soft:#F4EDE1; --ink:#2C2419; --muted:#8B7a66;
+  --line:#E7DCC9; --accent:#7A5C38; --accent-2:#5E4528;
+  --ok:#2F7D54; --err:#B4512C;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+button,input,select{font-family:inherit}
+button{touch-action:manipulation}
+
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:calc(9px + env(safe-area-inset-top)) 16px 9px;
+  background:rgba(247,242,234,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)}
+.brand{min-width:0}
+.brand-name{font-size:16.5px;font-weight:800;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52vw}
+.conn{display:inline-flex;align-items:center;gap:5px;margin-top:1px;font-size:11.5px;color:var(--muted)}
+.conn .dot{width:7px;height:7px;border-radius:50%;background:#37a169;flex:0 0 auto}
+.conn.off .dot{background:#cf8a35}
+.conn.off{color:#a2701f}
+.acts{display:flex;gap:8px;flex:0 0 auto}
+.icon-btn{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--line);border-radius:12px;background:#fff;font-size:18px;cursor:pointer;
+  line-height:1;padding:0;transition:background .15s}
+.icon-btn:active{background:var(--soft)}
+.icon-btn.on{background:#efe3cd;border-color:#d8c4a4}
+
+.wrap{max-width:460px;margin:0 auto;padding:0 16px calc(36px + env(safe-area-inset-bottom))}
+.hero{padding:16px 2px 12px}
+.hero h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-.03em}
+.hero p{margin:5px 0 0;font-size:13px;color:var(--muted)}
+
+.notice{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:12px 14px;border-radius:14px;
+  background:#FBF3E2;border:1px solid #EBD9B4;font-size:13px;color:#6b5327}
+.notice button{margin-left:auto;flex:0 0 auto;border:none;background:var(--accent);color:#fff;
+  border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(max-width:339px){.grid{grid-template-columns:1fr}}
+
+.card{position:relative;display:flex;flex-direction:column;min-height:152px;width:100%;
+  padding:12px 12px 10px;background:var(--card);border:1px solid var(--line);border-radius:20px;
+  box-shadow:0 2px 10px rgba(70,52,32,.05);text-align:left;font:inherit;color:inherit;cursor:pointer;
+  transition:transform .09s ease,box-shadow .18s ease;overflow:hidden}
+.card:active{transform:scale(.972)}
+.card.sending{box-shadow:0 0 0 3px rgba(122,92,56,.16)}
+.card.ok{box-shadow:0 0 0 3px rgba(47,125,84,.20)}
+.card.err{box-shadow:0 0 0 3px rgba(180,81,44,.20)}
+.c-top{display:flex;align-items:flex-start;justify-content:space-between;gap:4px}
+.c-emoji{font-size:30px;line-height:1.15}
+.c-badge{display:none;flex:0 0 auto;font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;
+  background:#EAF6EE;color:var(--ok);white-space:nowrap}
+.card.ok .c-badge,.card.err .c-badge{display:inline-block}
+.card.err .c-badge{background:#FBEBE4;color:var(--err)}
+.c-label{margin-top:7px;font-size:15px;font-weight:700;letter-spacing:-.02em;line-height:1.3;word-break:keep-all}
+.c-sub{margin-top:auto;padding-top:6px;font-size:10.5px;color:var(--muted);
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-sub.live{font-family:inherit;font-weight:700;color:var(--ok)}
+.c-sub.bad{font-family:inherit;font-weight:700;color:var(--err)}
+.c-tools{display:flex;gap:6px;margin-top:7px}
+.mini{flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;
+  height:29px;padding:0 2px;border:1px solid transparent;border-radius:9px;background:var(--soft);
+  color:var(--accent);font-size:10.5px;font-weight:700;letter-spacing:-.02em;white-space:nowrap;
+  text-decoration:none;cursor:pointer;font-family:inherit}
+.mini:active{background:#EDE0CB}
+.mini.playing{background:#EBDCC4;border-color:#D9C3A0}
+.mini.muted{opacity:.45}
+.c-edit{position:absolute;top:8px;right:8px;width:28px;height:28px;display:none;align-items:center;justify-content:center;
+  border-radius:50%;background:#F1E7D6;border:none;font-size:13px;cursor:pointer}
+body.editing .c-edit{display:inline-flex}
+body.editing .c-badge{display:none}
+
+.add-btn{width:100%;margin-top:10px;min-height:52px;border:1.5px dashed #D8C9B2;background:transparent;
+  border-radius:16px;color:var(--accent);font-size:14.5px;font-weight:700;cursor:pointer}
+.add-btn:active{background:#F2EADB}
+
+.guide{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:0 16px}
+.guide summary{list-style:none;cursor:pointer;padding:15px 0;font-size:14.5px;font-weight:800;letter-spacing:-.02em}
+.guide summary::-webkit-details-marker{display:none}
+.guide summary::after{content:"＋";float:right;color:var(--muted);font-weight:700}
+.guide[open] summary::after{content:"－"}
+.guide-body{padding:0 0 16px;font-size:13.5px;color:#4a3f31;line-height:1.65}
+.step{display:flex;gap:10px;margin-top:12px}
+.step .n{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;
+  font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.step b{display:block;font-size:13.5px;margin-bottom:2px}
+.step p{margin:0;font-size:12.8px;color:#5d5142}
+.audio-list{margin:10px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.audio-list li{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #F1E9DC;font-size:12.5px}
+.audio-list li span{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.audio-list a{flex:0 0 auto;font-size:11.5px;font-weight:700;color:var(--accent);text-decoration:none;
+  border:1px solid var(--line);border-radius:8px;padding:5px 8px}
+.foot{margin-top:18px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6}
+
+.backdrop{position:fixed;inset:0;z-index:40;background:rgba(40,30,20,.36);opacity:0;pointer-events:none;transition:opacity .2s}
+.backdrop.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;max-height:90vh;overflow-y:auto;
+  background:#FFFDF9;border-radius:22px 22px 0 0;padding:6px 18px calc(22px + env(safe-area-inset-bottom));
+  transform:translateY(105%);transition:transform .26s cubic-bezier(.2,.85,.25,1);
+  box-shadow:0 -10px 40px rgba(50,35,20,.20)}
+.sheet.open{transform:translateY(0)}
+@media(min-width:560px){.sheet{left:50%;right:auto;width:440px;margin-left:-220px;border-radius:22px;bottom:20px}
+  .sheet.open{transform:translateY(0)}}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;padding:14px 0 2px;position:sticky;top:0;background:#FFFDF9}
+.sheet-head h2{margin:0;font-size:17px;font-weight:800;letter-spacing:-.02em}
+.close-btn{width:34px;height:34px;border:none;background:var(--soft);border-radius:50%;font-size:15px;color:var(--muted);cursor:pointer}
+.field{margin-top:16px}
+.field > label{display:block;font-size:12.5px;font-weight:700;color:#796a56;margin-bottom:6px}
+.input{width:100%;height:48px;padding:0 13px;font-size:16px;color:var(--ink);background:#F8F3EA;
+  border:1px solid var(--line);border-radius:12px;outline:none;appearance:none}
+.input:focus{border-color:var(--accent);background:#fff}
+.input::placeholder{color:#b3a591}
+textarea.input{height:auto;min-height:64px;padding:11px 13px;resize:none;line-height:1.5}
+.hint{margin-top:6px;font-size:11.5px;color:var(--muted);line-height:1.5}
+.hint b{color:#6b5a44}
+.row{display:flex;align-items:center;gap:10px}
+.row .input{flex:1 1 auto}
+.switch{position:relative;flex:0 0 auto;width:50px;height:30px}
+.switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2}
+.switch i{position:absolute;inset:0;background:#DED2BF;border-radius:999px;transition:background .18s}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;
+  background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .18s}
+.switch input:checked + i{background:#7FA37F}
+.switch input:checked + i::after{transform:translateX(20px)}
+.btn-primary{width:100%;height:52px;margin-top:20px;border:none;border-radius:14px;background:var(--accent);
+  color:#fff;font-size:16px;font-weight:800;cursor:pointer}
+.btn-primary:active{background:var(--accent-2)}
+.btn-line{width:100%;height:48px;margin-top:8px;border:1px solid var(--line);border-radius:14px;background:#fff;
+  color:var(--accent);font-size:14.5px;font-weight:700;cursor:pointer}
+.btn-danger{width:100%;height:44px;margin-top:14px;border:none;border-radius:12px;background:#FBEDE8;
+  color:#A94523;font-size:13.5px;font-weight:700;cursor:pointer}
+.emoji-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.emoji-row button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:18px;cursor:pointer;padding:0}
+.emoji-row button:active{background:var(--soft)}
+.seg{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.seg button{flex:1 1 0;min-width:64px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;
+  font-size:12px;font-weight:700;color:#7b6a55;cursor:pointer}
+.seg button.on{background:#EFE3CD;border-color:#D6BF9B;color:var(--accent-2)}
+
+.lock{position:fixed;inset:0;z-index:60;background:var(--bg);display:none;flex-direction:column;
+  align-items:center;justify-content:center;padding:28px;text-align:center}
+.lock.show{display:flex}
+.lock h2{margin:0;font-size:19px;font-weight:800;letter-spacing:-.02em}
+.lock p{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.pin-input{width:190px;height:62px;margin-top:22px;text-align:center;font-size:26px;letter-spacing:14px;
+  padding-left:14px;border:1px solid var(--line);border-radius:16px;background:#fff;outline:none}
+.pin-input:focus{border-color:var(--accent)}
+.lock .err{margin-top:12px;font-size:12.5px;color:var(--err);height:16px}
+.lock .forgot{margin-top:26px;font-size:11.5px;color:#a89a86}
+
+.toast{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
+  z-index:70;max-width:86vw;padding:11px 16px;border-radius:12px;background:rgba(44,36,25,.94);color:#fff;
+  font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-name" id="brandName">우리 매장</div>
+    <div class="conn off" id="connState"><span class="dot"></span><span id="connText">연결 필요</span></div>
+  </div>
+  <div class="acts">
+    <button class="icon-btn" id="btnEdit" aria-label="버튼 편집" title="버튼 편집">✏️</button>
+    <button class="icon-btn" id="btnSettings" aria-label="매장 연결 설정" title="매장 연결">⚙️</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1>방송 리모컨</h1>
+    <p>버튼을 누르면 매장에서 바로 방송이 나갑니다.</p>
+  </div>
+
+  <div class="notice" id="notice" hidden>
+    <span>기기 ID를 넣으면 바로 쓸 수 있어요.</span>
+    <button id="noticeBtn">연결하기</button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <button class="add-btn" id="btnAdd">＋ 버튼 추가</button>
+
+  <details class="guide" id="guide">
+    <summary>📖 처음 한 번만 — 3단계 연결</summary>
+    <div class="guide-body">
+      <div class="step"><div class="n">1</div><div>
+        <b>공기계에 MacroDroid 설치</b>
+        <p>Play 스토어에서 설치 → 매크로 추가 → 트리거 <b>＋</b> → 연결성 → <b>Webhook (URL)</b> → 식별자에 <b>cafe1</b> 입력 → 화면에 나오는 주소를 복사합니다.</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div>
+        <b>동작에 소리 넣기</b>
+        <p>동작 <b>＋</b> → 미디어 → 사운드 재생/정지 → 아래에서 받은 음성 파일을 고릅니다. 오른쪽 아래 저장을 누르고, 매크로를 길게 눌러 <b>테스트</b>로 소리를 확인하세요.</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div>
+        <b>이 앱 ⚙️에 붙여넣기</b>
+        <p>복사한 주소를 그대로 붙여넣으면 기기 ID만 자동으로 들어갑니다. 나머지 버튼은 식별자만 <b>cafe2 · cafe3 · parking …</b>으로 바꿔 같은 방법으로 만들면 끝입니다.</p>
+      </div></div>
+
+      <p style="margin:16px 0 0;font-size:12.8px;font-weight:700;color:#6b5a44">음성 파일 받기</p>
+      <ul class="audio-list" id="audioList"></ul>
+
+      <p style="margin:14px 0 0;font-size:12px;color:#7b6b57;line-height:1.6">
+        · 공기계는 충전기를 꽂아 두고, 설정에서 MacroDroid를 <b>배터리 제한 없음</b>으로 지정해 주세요.<br>
+        · 식별자는 영문·숫자만 됩니다. 매크로를 다시 설치했거나 앱 데이터를 지웠다면 기기 ID가 바뀌니 다시 연결해 주세요.<br>
+        · 휴대폰 브라우저 메뉴에서 <b>홈 화면에 추가</b>를 누르면 앱처럼 열립니다.
+      </p>
+    </div>
+  </details>
+
+  <div class="foot">음성은 <b>▶</b>로 미리 듣고, <b>⬇️</b>로 받아 공기계에 넣을 수 있어요.</div>
+</main>
+
+<div class="backdrop" id="backdrop"></div>
+
+<!-- 설정 -->
+<section class="sheet" id="sheetSettings" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="sheet-head">
+    <h2 id="setTitle">매장 연결</h2>
+    <button class="close-btn" data-close aria-label="닫기">✕</button>
+  </div>
+  <div class="field">
+    <label for="inName">매장 이름</label>
+    <input class="input" id="inName" maxlength="20" placeholder="우리 매장" autocomplete="off">
+  </div>
+  <div class="field">
+    <label for="inDevice">공기계 기기 ID</label>
+    <textarea class="input" id="inDevice" rows="2" spellcheck="false" autocapitalize="off" autocomplete="off"
+      placeholder="022ae1d6-… 또는 MacroDroid에서 복사한 전체 주소"></textarea>
+    <p class="hint">MacroDroid 웹훅 화면의 주소를 통째로 붙여넣어도 됩니다. <b>기기 ID만 자동으로</b> 남깁니다.</p>
+  </div>
+  <div class="field">
+    <label for="inPin">4자리 PIN 잠금</label>
+    <div class="row">
+      <input class="input" id="inPin" type="tel" inputmode="numeric" maxlength="4" placeholder="비워 두면 잠금 없음" autocomplete="off">
+      <label class="switch" aria-label="PIN 잠금 사용"><input type="checkbox" id="pinToggle"><i></i></label>
+    </div>
+    <p class="hint">켜 두면 앱을 열 때 PIN을 한 번 묻습니다. 같은 폰에서 실수로 눌리는 걸 막는 정도의 가벼운 잠금입니다.</p>
+  </div>
+  <button class="btn-primary" id="saveSettings">저장하기</button>
+  <button class="btn-line" data-close>닫기</button>
+  <button class="btn-danger" id="resetAll">처음 상태로 되돌리기</button>
+</section>
+
+<!-- 버튼 편집 -->
+<section class="sheet" id="sheetEdit" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+  <div class="sheet-head">
+    <h2 id="editTitle">버튼 편집</h2>
+    <button class="close-btn" data-close aria-label="닫기">✕</button>
+  </div>
+  <div class="field">
+    <label for="edIcon">아이콘</label>
+    <div class="row">
+      <input class="input" id="edIcon" maxlength="4" placeholder="☕" autocomplete="off">
+    </div>
+    <div class="emoji-row" id="emojiRow"></div>
+  </div>
+  <div class="field">
+    <label for="edLabel">버튼 이름</label>
+    <input class="input" id="edLabel" maxlength="24" placeholder="예: 1인 1음료 안내" autocomplete="off">
+  </div>
+  <div class="field">
+    <label for="edPath">웹훅 식별자 (경로)</label>
+    <input class="input" id="edPath" maxlength="32" placeholder="예: cafe1" spellcheck="false" autocapitalize="off" autocomplete="off">
+    <p class="hint">MacroDroid 웹훅 트리거의 <b>식별자</b>와 똑같이 적어 주세요. 영문 소문자·숫자만 됩니다.</p>
+  </div>
+  <div class="field">
+    <label for="edAudio">연결할 음성</label>
+    <select class="input" id="edAudio"></select>
+    <div class="seg" id="audioPreviewRow"></div>
+  </div>
+  <button class="btn-primary" id="saveEdit">저장하기</button>
+  <button class="btn-line" data-close>취소</button>
+  <button class="btn-danger" id="deleteBtn" hidden>이 버튼 지우기</button>
+</section>
+
+<!-- PIN 잠금 -->
+<div class="lock" id="lock">
+  <div style="font-size:34px">🔒</div>
+  <h2 id="lockTitle">PIN을 넣어 주세요</h2>
+  <p>매장 방송 리모컨</p>
+  <input class="pin-input" id="pinInput" type="password" inputmode="numeric" pattern="[0-9]*"
+    maxlength="4" autocomplete="off" aria-label="4자리 PIN">
+  <div class="err" id="pinErr"></div>
+  <div class="forgot" id="pinForgot" style="color:#a89a86">PIN을 잊으셨나요? 이 문구를 길게 눌러 주세요.</div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<audio id="player" preload="none"></audio>
+
+<script>
+(function(){
+"use strict";
+
+/* ── 음성 목록 ─────────────────────────────────────────────── */
+var AUDIO = {
+  "01":{file:"audio/01.mp3", dl:"01_1인1음료_정숙안내.mp3", name:"1인 1음료 안내"},
+  "02":{file:"audio/02.mp3", dl:"02_무인카페_장시간_외부음식_안내.mp3", name:"외부음식·음료 안내"},
+  "03":{file:"audio/03.mp3", dl:"03_무인카페_마감_자리정돈.mp3", name:"마감·자리정돈 안내"},
+  "04":{file:"audio/04.mp3", dl:"04_주차장_금연구역_안내.mp3", name:"주차장 금연 안내"},
+  "05":{file:"audio/05.mp3", dl:"05_무인매장_매너_다리올림금지.mp3", name:"매너·발 올림 금지"},
+  "06":{file:"audio/06.mp3", dl:"06_주차장_무단주차_금지안내.mp3", name:"무단 주차 금지"},
+  "07":{file:"audio/07.mp3", dl:"07_무인매장_쓰레기_무단투기금지.mp3", name:"쓰레기 무단투기 금지"}
+};
+
+var DEFAULTS = {
+  name: "우리 매장",
+  deviceId: "",
+  pinHash: "",
+  buttons: [
+    {id:"b1", icon:"☕", label:"1인 1음료 안내",     path:"cafe1",  audio:"01"},
+    {id:"b2", icon:"🍱", label:"외부음식·음료 안내", path:"cafe2",  audio:"02"},
+    {id:"b3", icon:"🌙", label:"마감·자리정돈 안내", path:"cafe3",  audio:"03"},
+    {id:"b4", icon:"🚭", label:"주차장 금연 안내",   path:"parking",audio:"04"},
+    {id:"b5", icon:"🪑", label:"매너·발 올림 금지",  path:"manner", audio:"05"},
+    {id:"b6", icon:"🅿️", label:"무단 주차 금지",     path:"illegal_parking", audio:"06"},
+    {id:"b7", icon:"🗑️", label:"쓰레기 무단투기 금지", path:"trash", audio:"07"}
+  ]
+};
+
+var KEY = "storeRemote.v1";
+var EMOJIS = ["☕","🍱","🌙","🚭","🪑","🅿️","🗑️","📢","🔔","🎵","🚻","🧹","💡","⛔","🕘","🙏"];
+
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function $(s){ return document.querySelector(s); }
+function el(tag, cls, txt){ var e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+
+/* ── 저장 ──────────────────────────────────────────────────── */
+var state = null;
+
+function load(){
+  var raw = null;
+  try { raw = localStorage.getItem(KEY); } catch(e) {}
+  var s = clone(DEFAULTS);
+  if (raw) {
+    try {
+      var p = JSON.parse(raw);
+      if (p && typeof p === "object") {
+        if (typeof p.name === "string") s.name = p.name;
+        if (typeof p.deviceId === "string") s.deviceId = p.deviceId;
+        if (typeof p.pinHash === "string") s.pinHash = p.pinHash;
+        if (Array.isArray(p.buttons)) s.buttons = p.buttons;
+      }
+    } catch(e) {}
+  }
+  return s;
+}
+
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+/* ── PIN ───────────────────────────────────────────────────── */
+function hashPin(pin){
+  if (window.crypto && crypto.subtle) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode("sr:" + pin)).then(function(buf){
+      var a = new Uint8Array(buf), out = "";
+      for (var i=0;i<a.length;i++) out += ("0"+a[i].toString(16)).slice(-2);
+      return out;
+    });
+  }
+  var h = 5381;
+  for (var j=0;j<pin.length;j++) h = ((h*33) ^ pin.charCodeAt(j)) >>> 0;
+  return Promise.resolve("x" + h.toString(16));
+}
+
+/* ── 화면 ──────────────────────────────────────────────────── */
+var grid = document.querySelector("#grid"), player = document.querySelector("#player");
+var playingId = null, editMode = false, editingId = null;
+
+function renderHeader(){
+  $("#brandName").textContent = state.name || "우리 매장";
+  document.title = (state.name || "매장") + " 방송 리모컨";
+  var ok = !!state.deviceId;
+  $("#connState").classList.toggle("off", !ok);
+  $("#connText").textContent = ok ? "연결됨" : "연결 필요";
+  $("#notice").hidden = ok;
+}
+
+function renderGrid(){
+  grid.innerHTML = "";
+  state.buttons.forEach(function(b){
+    var card = el("div","card");
+    card.setAttribute("role", "button");
+    card.tabIndex = 0;
+    card.dataset.id = b.id;
+    card.setAttribute("aria-label", b.label + " 방송 보내기");
+
+    var top = el("div","c-top");
+    var emoji = el("span","c-emoji", b.icon || "📢");
+    var badge = el("span","c-badge","");
+    top.appendChild(emoji); top.appendChild(badge);
+
+    var label = el("div","c-label", b.label);
+    var sub = el("div","c-sub", b.path || "");
+    var tools = el("div","c-tools");
+
+    if (b.audio && AUDIO[b.audio]) {
+      var play = el("button","mini","▶ 미리듣기");
+      play.type = "button";
+      play.dataset.act = "play";
+      play.setAttribute("aria-label", b.label + " 미리듣기");
+      tools.appendChild(play);
+
+      var dl = el("a","mini","⬇️ 음성받기");
+      dl.href = AUDIO[b.audio].file;
+      dl.setAttribute("download", AUDIO[b.audio].dl);
+      dl.dataset.act = "download";
+      dl.setAttribute("aria-label", b.label + " 음성 파일 받기");
+      tools.appendChild(dl);
+    } else {
+      var none = el("span","mini muted","음성 없음");
+      none.style.cursor = "default";
+      tools.appendChild(none);
+    }
+
+    var edit = el("button","c-edit","✏️");
+    edit.type = "button";
+    edit.dataset.act = "edit";
+    edit.setAttribute("aria-label", b.label + " 편집");
+
+    card.appendChild(top); card.appendChild(label); card.appendChild(sub);
+    card.appendChild(tools); card.appendChild(edit);
+    grid.appendChild(card);
+  });
+}
+
+function cardOf(id){
+  var nodes = grid.querySelectorAll(".card");
+  for (var i=0;i<nodes.length;i++) if (nodes[i].dataset.id === id) return nodes[i];
+  return null;
+}
+
+function stamp(){
+  return new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit",hour12:false});
+}
+
+function setStatus(card, kind, text){
+  if (!card) return;
+  card.classList.remove("sending","ok","err");
+  var sub = card.querySelector(".c-sub");
+  var badge = card.querySelector(".c-badge");
+  sub.classList.remove("live","bad");
+  if (kind === "sending") {
+    card.classList.add("sending");
+    sub.textContent = "신호 보내는 중…";
+    badge.textContent = "…";
+  } else if (kind === "ok") {
+    card.classList.add("ok");
+    sub.classList.add("live");
+    sub.textContent = "📡 신호 보냈어요 · " + text;
+    badge.textContent = "전송";
+  } else {
+    card.classList.add("err");
+    sub.classList.add("bad");
+    sub.textContent = "⚠️ " + text;
+    badge.textContent = "실패";
+  }
+  card.dataset.time = String(Date.now());
+}
+
+function restoreSub(card){
+  var b = state.buttons.filter(function(x){ return x.id === card.dataset.id; })[0];
+  if (!b) return;
+  card.classList.remove("ok","err","sending");
+  var sub = card.querySelector(".c-sub");
+  sub.classList.remove("live","bad");
+  sub.textContent = b.path || "";
+}
+
+/* ── 신호 보내기 ───────────────────────────────────────────── */
+function webhookUrl(path){
+  return "https://trigger.macrodroid.com/" + encodeURIComponent(state.deviceId) +
+         "/" + encodeURIComponent(path);
+}
+
+function fire(b, card){
+  if (!state.deviceId) { openSettings(); toast("먼저 기기 ID를 넣어 주세요"); return; }
+  if (!b.path) { openEditor(b.id); toast("웹훅 식별자를 넣어 주세요"); return; }
+  if (navigator.onLine === false) { toast("인터넷이 끊겨 있어요"); return; }
+
+  if (navigator.vibrate) { try { navigator.vibrate(18); } catch(e) {} }
+  setStatus(card, "sending", "");
+
+  var ctrl = window.AbortController ? new AbortController() : null;
+  var timer = ctrl ? setTimeout(function(){ try{ ctrl.abort(); }catch(e){} }, 7000) : null;
+
+  fetch(webhookUrl(b.path), {
+    mode: "no-cors", cache: "no-store", keepalive: true,
+    signal: ctrl ? ctrl.signal : undefined
+  }).then(function(){
+    if (timer) clearTimeout(timer);
+    setStatus(card, "ok", stamp());
+    if (navigator.vibrate) { try { navigator.vibrate([12,40,12]); } catch(e) {} }
+  }).catch(function(){
+    if (timer) clearTimeout(timer);
+    setStatus(card, "err", "연결 실패 · 다시 눌러 주세요");
+  });
+}
+
+/* ── 미리듣기 ──────────────────────────────────────────────── */
+function stopAudio(){
+  if (player) { try { player.pause(); } catch(e) {} }
+  playingId = null;
+  Array.prototype.forEach.call(document.querySelectorAll(".playing"), function(n){
+    n.classList.remove("playing");
+    if (n.dataset.label) n.textContent = n.dataset.label;
+    else if (n.dataset.act === "play") n.textContent = "▶ 미리듣기";
+  });
+}
+
+function toggleAudio(key, btn){
+  var a = AUDIO[key];
+  if (!a) return;
+  if (playingId === key) { stopAudio(); return; }
+  stopAudio();
+  playingId = key;
+  btn.classList.add("playing");
+  btn.textContent = "❚❚ 멈춤";
+  player.src = a.file;
+  var p = player.play();
+  if (p && p.catch) p.catch(function(){ stopAudio(); toast("음성을 재생할 수 없어요"); });
+}
+
+player = document.querySelector("#player");
+player.addEventListener("ended", stopAudio);
+player.addEventListener("error", function(){ if (playingId) { stopAudio(); toast("음성을 불러오지 못했어요"); } });
+
+/* ── 이벤트 ────────────────────────────────────────────────── */
+grid.addEventListener("click", function(ev){
+  var card = ev.target.closest(".card");
+  if (!card) return;
+  var b = state.buttons.filter(function(x){ return x.id === card.dataset.id; })[0];
+  if (!b) return;
+
+  var act = ev.target.closest("[data-act]");
+  if (act) {
+    var a = act.dataset.act;
+    if (a === "play") {
+      ev.preventDefault(); ev.stopPropagation();
+      toggleAudio(b.audio, act); return;
+    }
+    if (a === "download") {
+      ev.stopPropagation();
+      stopAudio();
+      toast(AUDIO[b.audio].name + " 파일을 내려받아요");
+      return; // 기본 다운로드 동작 유지
+    }
+    if (a === "edit") {
+      ev.preventDefault(); ev.stopPropagation();
+      openEditor(b.id); return;
+    }
+  }
+  if (editMode) { openEditor(b.id); return; }
+  fire(b, card);
+});
+
+grid.addEventListener("keydown", function(ev){
+  if (ev.key !== "Enter" && ev.key !== " ") return;
+  var card = ev.target.closest(".card");
+  if (!card || ev.target !== card) return;
+  ev.preventDefault();
+  var b = state.buttons.filter(function(x){ return x.id === card.dataset.id; })[0];
+  if (!b) return;
+  if (editMode) openEditor(b.id); else fire(b, card);
+});
+
+/* ── 시트 ──────────────────────────────────────────────────── */
+function openSheet(sel){
+  $("#backdrop").classList.add("open");
+  $(sel).classList.add("open");
+}
+function closeSheets(){
+  $("#backdrop").classList.remove("open");
+  document.querySelectorAll(".sheet").forEach(function(s){ s.classList.remove("open"); });
+  stopAudio();
+}
+
+$("#backdrop").addEventListener("click", closeSheets);
+document.querySelectorAll("[data-close]").forEach(function(b){ b.addEventListener("click", closeSheets); });
+
+/* 설정 */
+function openSettings(msg){
+  $("#inName").value = state.name === "우리 매장" ? "" : state.name;
+  $("#inName").placeholder = "우리 매장";
+  $("#inDevice").value = state.deviceId;
+  $("#inPin").value = "";
+  $("#inPin").placeholder = state.pinHash ? "PIN 변경 (4자리)" : "비워 두면 잠금 없음";
+  $("#pinToggle").checked = !!state.pinHash;
+  $("#inPin").disabled = !state.pinHash;
+  openSheet("#sheetSettings");
+  if (msg) toast(msg);
+}
+
+$("#pinToggle").addEventListener("change", function(){
+  $("#inPin").disabled = !this.checked;
+  if (this.checked) { $("#inPin").value = ""; $("#inPin").focus(); }
+});
+
+$("#btnSettings").addEventListener("click", function(){ openSettings(); });
+$("#noticeBtn").addEventListener("click", function(){ openSettings(); });
+
+function extractId(v){
+  v = (v || "").trim();
+  if (!v) return "";
+  var m = v.match(/trigger\.macrodroid\.com\/([A-Za-z0-9\-]{8,})/i);
+  if (m) return m[1];
+  m = v.match(/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i);
+  if (m) return m[1];
+  return v.replace(/\s+/g, "");
+}
+
+$("#inDevice").addEventListener("paste", function(){
+  var ta = this;
+  setTimeout(function(){ var id = extractId(ta.value); if (id !== ta.value) ta.value = id; }, 0);
+});
+$("#inDevice").addEventListener("blur", function(){
+  this.value = extractId(this.value);
+});
+
+$("#saveSettings").addEventListener("click", function(){
+  var name = $("#inName").value.trim() || "우리 매장";
+  var id = extractId($("#inDevice").value);
+  var wantPin = $("#pinToggle").checked;
+  var pin = $("#inPin").value.replace(/\D/g, "");
+
+  if (id && !/^[A-Za-z0-9\-]{8,}$/.test(id)) { toast("기기 ID를 다시 확인해 주세요"); return; }
+  if (wantPin && pin.length !== 4) { toast("PIN 4자리를 넣어 주세요"); $("#inPin").focus(); return; }
+
+  state.name = name;
+  state.deviceId = id;
+
+  var finish = function(){
+    save();
+    renderHeader();
+    closeSheets();
+    toast(id ? "연결했어요. 버튼을 눌러 보세요" : "저장했어요 (기기 ID 없음)");
+  };
+
+  if (wantPin) {
+    hashPin(pin).then(function(h){ state.pinHash = h; finish(); });
+  } else {
+    state.pinHash = "";
+    finish();
+  }
+});
+
+$("#resetAll").addEventListener("click", function(){
+  if (!confirm("버튼과 연결 설정을 모두 처음 상태로 되돌릴까요?")) return;
+  state = clone(DEFAULTS);
+  save();
+  renderHeader(); renderGrid(); closeSheets();
+  toast("처음 상태로 되돌렸어요");
+});
+
+/* 편집 */
+function openEditor(id){
+  editingId = id || null;
+  var b = id ? state.buttons.filter(function(x){ return x.id === id; })[0] : null;
+  $("#editTitle").textContent = b ? "버튼 편집" : "버튼 추가";
+  $("#edIcon").value = b ? (b.icon || "") : "📢";
+  $("#edLabel").value = b ? b.label : "";
+  $("#edPath").value = b ? (b.path || "") : "";
+  $("#deleteBtn").hidden = !b;
+
+  var sel = $("#edAudio");
+  sel.innerHTML = "";
+  var opt0 = el("option", null, "음성 없이 신호만 보내기");
+  opt0.value = "";
+  sel.appendChild(opt0);
+  Object.keys(AUDIO).forEach(function(k){
+    var o = el("option", null, k + " · " + AUDIO[k].name);
+    o.value = k;
+    sel.appendChild(o);
+  });
+  sel.value = b && b.audio ? b.audio : "";
+  renderAudioPreviewRow(sel.value);
+  openSheet("#sheetEdit");
+}
+
+function renderAudioPreviewRow(key){
+  var row = $("#audioPreviewRow");
+  stopAudio();
+  row.innerHTML = "";
+  if (!key || !AUDIO[key]) return;
+  var b = el("button", null, "▶ 이 음성 미리 듣기");
+  b.type = "button";
+  b.dataset.label = "▶ 이 음성 미리 듣기";
+  b.addEventListener("click", function(){ toggleAudio(key, b); });
+  row.appendChild(b);
+}
+
+$("#edAudio").addEventListener("change", function(){ renderAudioPreviewRow(this.value); });
+
+var emojiRow = $("#emojiRow");
+EMOJIS.forEach(function(e){
+  var b = el("button", null, e);
+  b.type = "button";
+  b.addEventListener("click", function(){ $("#edIcon").value = e; });
+  emojiRow.appendChild(b);
+});
+
+$("#btnEdit").addEventListener("click", function(){
+  editMode = !editMode;
+  document.body.classList.toggle("editing", editMode);
+  this.classList.toggle("on", editMode);
+  toast(editMode ? "카드를 누르면 이름·경로를 고칠 수 있어요" : "편집을 마쳤어요");
+});
+
+$("#btnAdd").addEventListener("click", function(){ openEditor(null); });
+
+$("#saveEdit").addEventListener("click", function(){
+  var icon = $("#edIcon").value.trim() || "📢";
+  var label = $("#edLabel").value.trim();
+  var path = $("#edPath").value.trim().toLowerCase().replace(/[^a-z0-9_\-]/g, "");
+  var audio = $("#edAudio").value || "";
+
+  if (!label) { toast("버튼 이름을 넣어 주세요"); $("#edLabel").focus(); return; }
+  if (!path) { toast("웹훅 식별자를 넣어 주세요 (영문·숫자)"); $("#edPath").focus(); return; }
+
+  var dup = state.buttons.some(function(x){ return x.path === path && x.id !== editingId; });
+  if (dup && !confirm("같은 식별자(" + path + ")를 쓰는 버튼이 이미 있어요. 그래도 저장할까요?")) return;
+
+  if (editingId) {
+    state.buttons.forEach(function(x){
+      if (x.id === editingId) { x.icon = icon; x.label = label; x.path = path; x.audio = audio; }
+    });
+  } else {
+    state.buttons.push({ id: "b" + Date.now().toString(36), icon: icon, label: label, path: path, audio: audio });
+  }
+  save(); renderGrid(); closeSheets();
+  toast("저장했어요");
+});
+
+$("#deleteBtn").addEventListener("click", function(){
+  if (!editingId) return;
+  if (state.buttons.length <= 1) { toast("버튼이 하나는 있어야 해요"); return; }
+  if (!confirm("이 버튼을 지울까요?")) return;
+  state.buttons = state.buttons.filter(function(x){ return x.id !== editingId; });
+  save(); renderGrid(); closeSheets();
+  toast("지웠어요");
+});
+
+/* ── 음성 파일 목록 ────────────────────────────────────────── */
+function renderAudioList(){
+  var ul = $("#audioList");
+  ul.innerHTML = "";
+  Object.keys(AUDIO).forEach(function(k){
+    var a = AUDIO[k];
+    var li = el("li");
+    li.appendChild(el("span", null, k + ". " + a.name));
+    var dl = el("a", null, "⬇️ 받기");
+    dl.href = a.file;
+    dl.setAttribute("download", a.dl);
+    li.appendChild(dl);
+    ul.appendChild(li);
+  });
+}
+
+/* ── PIN 잠금 ──────────────────────────────────────────────── */
+function showLock(){
+  $("#lock").classList.add("show");
+  setTimeout(function(){ try { $("#pinInput").focus(); } catch(e) {} }, 250);
+}
+
+function unlock(){
+  $("#lock").classList.remove("show");
+  $("#pinInput").value = "";
+  $("#pinErr").textContent = "";
+}
+
+$("#pinInput").addEventListener("input", function(){
+  this.value = this.value.replace(/\D/g, "").slice(0, 4);
+  $("#pinErr").textContent = "";
+  if (this.value.length === 4) {
+    var entered = this.value;
+    hashPin(entered).then(function(h){
+      if (h === state.pinHash) { unlock(); }
+      else {
+        $("#pinErr").textContent = "PIN이 맞지 않아요";
+        $("#pinInput").value = "";
+        if (navigator.vibrate) { try { navigator.vibrate(60); } catch(e) {} }
+      }
+    });
+  }
+});
+
+var pressTimer = null;
+function startPress(){
+  pressTimer = setTimeout(function(){
+    pressTimer = null;
+    if (confirm("PIN 잠금을 해제할까요? (잊으셨을 때만 사용하세요)")) {
+      state.pinHash = "";
+      save(); unlock(); toast("PIN 잠금을 풀었어요");
+    }
+  }, 1500);
+}
+function endPress(){ if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } }
+["mousedown","touchstart"].forEach(function(ev){ $("#pinForgot").addEventListener(ev, startPress); });
+["mouseup","mouseleave","touchend","touchcancel"].forEach(function(ev){ $("#pinForgot").addEventListener(ev, endPress); });
+
+/* ── 토스트 ────────────────────────────────────────────────── */
+var toastTimer = null;
+function toast(msg){
+  var t = $("#toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2200);
+}
+
+/* ── 주소 파라미터로 자동 연결 ─────────────────────────────── */
+function applyUrlParams(){
+  var q;
+  try { q = new URLSearchParams(location.search); } catch(e) { return false; }
+  var id = q.get("id") || q.get("device") || "";
+  var name = q.get("name") || q.get("store") || "";
+  var changed = false;
+  if (id) {
+    id = extractId(id);
+    if (id && /^[A-Za-z0-9\-]{8,}$/.test(id)) { state.deviceId = id; changed = true; }
+  }
+  if (name) { state.name = name.slice(0, 20); changed = true; }
+  if (changed) {
+    save();
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch(e) {}
+  }
+  return changed;
+}
+
+/* ── 시작 ──────────────────────────────────────────────────── */
+state = load();
+var fromLink = applyUrlParams();
+renderHeader();
+renderGrid();
+renderAudioList();
+
+if (state.pinHash) {
+  showLock();
+} else if (fromLink) {
+  toast("연결 완료 · 버튼을 눌러 보세요");
+}
+
+window.addEventListener("online", function(){ toast("다시 연결됐어요"); });
+})();
+</script>
+</body>
+</html>
