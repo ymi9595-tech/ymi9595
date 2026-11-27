@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import random
 
 W, H = 1200, 630
-SERIF_KR = "/usr/share/fonts/opentype/pickle-hwp/NotoSerifCJKkr-Regular.otf"
+SERIF_KR = "/usr/share/fonts/pickle-hwp/NotoSansCJKkr-Regular.otf"
 SANS = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
 SANS_B = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"
@@ -64,7 +64,7 @@ def tracked_w(draw, text, font, spacing):
 
 f_eyebrow = ImageFont.truetype(SANS_B, 17)
 f_mood = ImageFont.truetype(SANS_B, 19)
-f_hangul = ImageFont.truetype(SERIF_KR, 132)
+f_hangul = ImageFont.truetype(SERIF_KR, 122)
 f_roman = ImageFont.truetype(SERIF_I, 34)
 f_meaning = ImageFont.truetype(SANS, 26)
 f_foot = ImageFont.truetype(SANS_B, 20)
@@ -72,7 +72,7 @@ f_foot2 = ImageFont.truetype(SANS, 15)
 
 y = 84
 t = "TODAY'S KOREAN MOOD"
-tracked(d, ((W - tracked_w(d, t, f_eyebrow, 6)) / 2, y), t, f_eyebrow, FAINT, 6)
+tracked(d, ((W - tracked_w(d, t, f_eyebrow, 7)) / 2, y), t, f_eyebrow, FAINT, 7)
 
 t = "MIDNIGHT IN SEOUL"
 tracked(d, ((W - tracked_w(d, t, f_mood, 4)) / 2, y + 26), t, f_mood, ACCENT, 4)
@@ -80,7 +80,7 @@ tracked(d, ((W - tracked_w(d, t, f_mood, 4)) / 2, y + 26), t, f_mood, ACCENT, 4)
 d.line([(W / 2 - 34, 152), (W / 2 + 34, 152)], fill=(176, 141, 63, 120), width=1)
 
 # hangul
-d.text((W / 2, 272), "윤슬", font=f_hangul, fill=INK, anchor="mm")
+d.text((W / 2, 274), "윤슬", font=f_hangul, fill=INK, anchor="mm")
 
 # romanisation
 d.text((W / 2, 378), "yunseul", font=f_roman, fill=ACCENT, anchor="mm")

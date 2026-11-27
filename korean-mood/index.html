@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Today's Korean Mood · Daily Hangul Cards by DanbiLab</title>
-<meta name="description" content="Pick the mood you're in and receive a Korean word or line written for it — hangul, romanisation, and a short note on the feeling behind it. Listen to it, keep it as a poster card, and keep learning with DanbiLab.">
+<meta name="description" content="Pick the mood you're in and receive a Korean word or line written for it — hangul, romanisation, and a short note on the feeling behind it. Eight moods, eighty cards, a different one every day. Listen to it, keep it as a poster card, and keep learning with DanbiLab.">
 <meta name="keywords" content="Korean phrases, hangul, learn Korean, Korean mood, Korean aesthetic, hanji, Korean culture, DanbiLab, daily Korean">
 <meta name="author" content="DanbiLab">
 <meta name="theme-color" content="#f6efe1">
@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Today's Korean Mood">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Today's Korean Mood · a Korean card for how you feel">
-<meta property="og:description" content="Six moods, thirty Korean words and lines. Hangul, romanisation, the feeling behind it — listen, save it as a card, keep it.">
+<meta property="og:description" content="Eight moods, eighty Korean words and lines, and a different one each day — matched to the weather in Seoul. Hangul, romanisation, the feeling behind it — listen, save it as a card, keep it.">
 <meta property="og:url" content="https://ymi9595-tech.github.io/ymi9595/korean-mood/">
 <meta property="og:image" content="https://ymi9595-tech.github.io/ymi9595/korean-mood/assets/og-cover.png">
 <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
 <meta property="og:image:alt" content="A cream hanji card with the Korean word 윤슬 in dark ink, a thin gold rule and the words Today's Korean Mood by DanbiLab.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Today's Korean Mood · Daily Hangul Cards">
-<meta name="twitter:description" content="Six moods, thirty Korean words and lines. Listen to them, save them as cards, keep them.">
+<meta name="twitter:description" content="Eight moods, eighty Korean cards, one picked for today. Listen to them, save them as posters, keep them.">
 <meta name="twitter:image" content="https://ymi9595-tech.github.io/ymi9595/korean-mood/assets/og-cover.png">
 
 <script type="application/ld+json">
@@ -42,7 +42,7 @@
       "inLanguage": ["en", "ko"],
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "creator": { "@type": "Organization", "name": "DanbiLab", "url": "https://danbilab.substack.com" },
-      "description": "Daily Korean mood cards: choose one of six feelings and receive a curated Korean word or line with romanisation, an English meaning and a short note on the feeling behind it, with audio playback and a downloadable poster card."
+      "description": "Daily Korean mood cards: choose one of eight feelings and receive a curated Korean word or line with romanisation, an English meaning and a short note on the feeling behind it, with audio playback and a downloadable poster card. A new pick waits at the top of the page each day, chosen from the date and the weather in Seoul."
     },
     {
       "@type": "WebSite",
@@ -57,8 +57,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f7f1e3'/%3E%3Crect x='11' y='11' width='42' height='42' rx='4' fill='%23a8433a'/%3E%3Cpath d='M32 19v26M22 32h20M25 25c4 7 4 7 14 14' stroke='%23fdf8ec' stroke-width='3' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Gowun+Batang:wght@400;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=8">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9">
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -78,7 +78,7 @@
   <section class="intro">
     <p class="eyebrow">한국어 · a little Korea, every day</p>
     <h1>How are you feeling<br class="br-mobile"> right now?</h1>
-    <p class="lede">Choose a mood below. You&rsquo;ll get one Korean word or line written for that feeling &mdash; the hangul, how to say it, and the small culture behind it. Free, no sign-up, nothing to install.</p>
+    <p class="lede">Choose a mood below &mdash; there are eight, and eighty Korean words or lines between them. You&rsquo;ll get one written for that feeling: the hangul, how to say it, and the small culture behind it. The card at the top is already picked for today, from the date and the weather in Seoul. Free, no sign-up, nothing to install.</p>
   </section>
 
   <nav class="moods" aria-label="Choose a mood">
@@ -112,9 +112,22 @@
       <span class="mood__name">Warm Jeong</span>
       <span class="mood__desc">정 &middot; love &amp; thankfulness</span>
     </button>
+    <button class="mood" type="button" data-mood="kitchen" aria-pressed="false">
+      <span class="mood__emoji" aria-hidden="true">🍜</span>
+      <span class="mood__name">Kitchen &amp; Nostalgia</span>
+      <span class="mood__desc">집밥 &middot; care on a table</span>
+    </button>
+    <button class="mood" type="button" data-mood="seasons" aria-pressed="false">
+      <span class="mood__emoji" aria-hidden="true">🍃</span>
+      <span class="mood__name">Seasons &amp; Nature</span>
+      <span class="mood__desc">계절 &middot; 여백 &middot; weather</span>
+    </button>
   </nav>
 
   <section class="stage" aria-label="Your card">
+    <p class="today-strip" id="todayStrip" aria-live="polite">
+      <span class="today-strip__seg">Today&rsquo;s pick &middot; <time id="todayDate"></time></span>
+    </p>
     <div class="card-shell">
       <article class="card" id="card" aria-live="polite">
         <div class="card__frame" aria-hidden="true"></div>
@@ -216,6 +229,6 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="assets/app.js?v=8" defer></script>
+<script src="assets/app.js?v=9" defer></script>
 </body>
 </html>
