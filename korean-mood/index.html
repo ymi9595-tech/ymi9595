@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Today's Korean Mood · Daily Hangul Cards by DanbiLab</title>
+<meta name="description" content="Pick the mood you're in and receive a Korean word or line written for it — hangul, romanisation, and a short note on the feeling behind it. Listen to it, keep it as a poster card, and keep learning with DanbiLab.">
+<meta name="keywords" content="Korean phrases, hangul, learn Korean, Korean mood, Korean aesthetic, hanji, Korean culture, DanbiLab, daily Korean">
+<meta name="author" content="DanbiLab">
+<meta name="theme-color" content="#f6efe1">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://ymi9595-tech.github.io/ymi9595/korean-mood/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Today's Korean Mood">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Today's Korean Mood · a Korean card for how you feel">
+<meta property="og:description" content="Six moods, thirty Korean words and lines. Hangul, romanisation, the feeling behind it — listen, save it as a card, keep it.">
+<meta property="og:url" content="https://ymi9595-tech.github.io/ymi9595/korean-mood/">
+<meta property="og:image" content="https://ymi9595-tech.github.io/ymi9595/korean-mood/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A cream hanji card with the Korean word 윤슬 in dark ink, a thin gold rule and the words Today's Korean Mood by DanbiLab.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Today's Korean Mood · Daily Hangul Cards">
+<meta name="twitter:description" content="Six moods, thirty Korean words and lines. Listen to them, save them as cards, keep them.">
+<meta name="twitter:image" content="https://ymi9595-tech.github.io/ymi9595/korean-mood/assets/og-cover.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Today's Korean Mood",
+      "alternateName": "오늘의 한국 무드",
+      "url": "https://ymi9595-tech.github.io/ymi9595/korean-mood/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any (web browser)",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "inLanguage": ["en", "ko"],
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "creator": { "@type": "Organization", "name": "DanbiLab", "url": "https://danbilab.substack.com" },
+      "description": "Daily Korean mood cards: choose one of six feelings and receive a curated Korean word or line with romanisation, an English meaning and a short note on the feeling behind it, with audio playback and a downloadable poster card."
+    },
+    {
+      "@type": "WebSite",
+      "url": "https://ymi9595-tech.github.io/ymi9595/korean-mood/",
+      "name": "Today's Korean Mood",
+      "publisher": { "@type": "Organization", "name": "DanbiLab", "url": "https://danbilab.substack.com" }
+    }
+  ]
+}
+</script>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f7f1e3'/%3E%3Crect x='11' y='11' width='42' height='42' rx='4' fill='%23a8433a'/%3E%3Cpath d='M32 19v26M22 32h20M25 25c4 7 4 7 14 14' stroke='%23fdf8ec' stroke-width='3' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Gowun+Batang:wght@400;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=1">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-head">
+  <a class="brand" href="./">
+    <span class="brand__seal" aria-hidden="true">丹</span>
+    <span class="brand__text">
+      <span class="brand__name">Today&rsquo;s Korean Mood</span>
+      <span class="brand__by">Daily hangul cards by DanbiLab</span>
+    </span>
+  </a>
+  <a class="head-link" href="#more">More from DanbiLab</a>
+</header>
+
+<main>
+  <section class="intro">
+    <p class="eyebrow">한국어 · a little Korea, every day</p>
+    <h1>How are you feeling<br class="br-mobile"> right now?</h1>
+    <p class="lede">Choose a mood below. You&rsquo;ll get one Korean word or line written for that feeling &mdash; the hangul, how to say it, and the small culture behind it. Free, no sign-up, nothing to install.</p>
+  </section>
+
+  <nav class="moods" aria-label="Choose a mood">
+    <button class="mood" type="button" data-mood="midnight" aria-pressed="false">
+      <span class="mood__emoji" aria-hidden="true">🌙</span>
+      <span class="mood__name">Midnight in Seoul</span>
+      <span class="mood__desc">night &middot; quiet thought</span>
+    </button>
+    <button class="mood" type="button" data-mood="rain" aria-pressed="false">
+      <span class="mood__emoji" aria-hidden="true">🌧️</span>
+      <span class="mood__name">Rainy &amp; Reflective</span>
+      <span class="mood__desc">rain &middot; missing someone</span>
+    </button>
+    <button class="mood" type="button" data-mood="cozy" aria-pressed="false">
+      <span class="mood__emoji" aria-hidden="true">🍵</span>
+      <span class="mood__name">Cozy &amp; Slow</span>
+      <span class="mood__desc">unhurried &middot; rest</span>
+    </button>
+    <button class="mood" type="button" data-mood="hopeful" aria-pressed="false">
+      <span class="mood__emoji" aria-hidden="true">🌸</span>
+      <span class="mood__name">Hopeful &amp; New</span>
+      <span class="mood__desc">a fresh start &middot; courage</span>
+    </button>
+    <button class="mood" type="button" data-mood="tired" aria-pressed="false">
+      <span class="mood__emoji" aria-hidden="true">🔥</span>
+      <span class="mood__name">Tired, Need Comfort</span>
+      <span class="mood__desc">you did enough today</span>
+    </button>
+    <button class="mood" type="button" data-mood="jeong" aria-pressed="false">
+      <span class="mood__emoji" aria-hidden="true">💌</span>
+      <span class="mood__name">Warm Jeong</span>
+      <span class="mood__desc">정 &middot; love &amp; thankfulness</span>
+    </button>
+  </nav>
+
+  <section class="stage" aria-label="Your card">
+    <div class="card-shell">
+      <article class="card" id="card" aria-live="polite">
+        <div class="card__frame" aria-hidden="true"></div>
+        <header class="card__head">
+          <span class="card__mood" id="cardMood">Midnight in Seoul</span>
+          <span class="card__counter" id="cardCounter">1 / 5</span>
+        </header>
+
+        <h2 class="card__hangul" id="cardHangul">윤슬</h2>
+        <p class="card__roman" id="cardRoman">yunseul</p>
+
+        <div class="card__rule" aria-hidden="true"><span></span></div>
+
+        <p class="card__meaning" id="cardMeaning">moonlight scattered on moving water</p>
+        <p class="card__note" id="cardNote"></p>
+
+        <footer class="card__foot">
+          <span class="card__foot-left">Today&rsquo;s Korean Mood</span>
+          <span class="card__foot-right">DanbiLab &middot; danbilab.substack.com</span>
+        </footer>
+      </article>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary" type="button" id="drawBtn">Draw another card ✨</button>
+      <button class="btn" type="button" id="listenBtn"><span aria-hidden="true">🔊</span> Listen</button>
+      <button class="btn" type="button" id="saveBtn"><span aria-hidden="true">📸</span> Save card</button>
+      <button class="btn" type="button" id="copyBtn"><span aria-hidden="true">🔗</span> Copy</button>
+    </div>
+    <p class="hint" id="hint">Your card is a poster you can keep &mdash; tap <em>Save card</em> for an image made for your phone, or share it with someone who needs it today.</p>
+  </section>
+
+  <section class="more" id="more">
+    <div class="more__head">
+      <p class="eyebrow">Free to wander</p>
+      <h2>Explore more of Korea with DanbiLab</h2>
+      <p class="more__lede">This card page is free, and it stays free &mdash; no account, no email, no catch. If you&rsquo;d like more of the same quiet Korea, here is where I keep it. All of it is open to you right now.</p>
+    </div>
+
+    <div class="channels">
+      <a class="channel" href="https://www.youtube.com/@KFoodFarmKitchen" target="_blank" rel="noopener noreferrer">
+        <span class="channel__icon" aria-hidden="true">🍳</span>
+        <span class="channel__name">K-Food Farm Kitchen</span>
+        <span class="channel__desc">Korean home cooking, made in an English kitchen &mdash; short videos, real ingredients.</span>
+        <span class="channel__go">Watch on YouTube &rarr;</span>
+      </a>
+      <a class="channel" href="https://www.youtube.com/@SeoulStudyCafeBGM" target="_blank" rel="noopener noreferrer">
+        <span class="channel__icon" aria-hidden="true">🎧</span>
+        <span class="channel__name">Seoul Study Caf&eacute; Ambience</span>
+        <span class="channel__desc">Rain on the window, a quiet room in Seoul &mdash; for working, studying, or sleeping.</span>
+        <span class="channel__go">Listen on YouTube &rarr;</span>
+      </a>
+      <a class="channel" href="https://danbilab.substack.com" target="_blank" rel="noopener noreferrer">
+        <span class="channel__icon" aria-hidden="true">✉️</span>
+        <span class="channel__name">DanbiLab on Substack</span>
+        <span class="channel__desc">Short letters about Korean words, seasons and small daily things. Free to read.</span>
+        <span class="channel__go">Read the letters &rarr;</span>
+      </a>
+      <a class="channel" href="https://ymi9595-tech.github.io/ymi9595/kfood-pdf/en/" target="_blank" rel="noopener noreferrer">
+        <span class="channel__icon" aria-hidden="true">🍲</span>
+        <span class="channel__name">Printable K-Food Recipe Cards</span>
+        <span class="channel__desc">Ten Korean home dishes as kitchen cards you can print at home. No email needed.</span>
+        <span class="channel__go">Open the cards &rarr;</span>
+      </a>
+    </div>
+
+    <div class="guides">
+      <p class="guides__label">Full digital guides &amp; workbooks</p>
+      <p class="guides__intro">For anyone who wants to go further than a card a day. Both are complete, downloadable, yours to keep.</p>
+      <div class="guides__row">
+        <a class="guide" href="https://3511470888771.gumroad.com/l/korean-starter-pack" target="_blank" rel="noopener noreferrer">
+          <span class="guide__title">100 Essential Daily Korean Expressions</span>
+          <span class="guide__desc">Hangul workbook, warm everyday phrases, and audio &mdash; the first month of Korean in one place.</span>
+          <span class="guide__go">Have a look &rarr;</span>
+        </a>
+        <a class="guide" href="https://payhip.com/b/lp4IK" target="_blank" rel="noopener noreferrer">
+          <span class="guide__title">100 Days in Korea &mdash; 4-book bundle</span>
+          <span class="guide__desc">Four volumes on the language, the food, the seasons and the quiet things. 639 pages.</span>
+          <span class="guide__go">Have a look &rarr;</span>
+        </a>
+      </div>
+      <p class="guides__note">Also on <a href="https://ko-fi.com/s/c28bf40f5a" target="_blank" rel="noopener noreferrer">Ko-fi</a> &middot; nothing on this page requires a purchase.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <p class="site-foot__seal" aria-hidden="true">丹</p>
+  <p><strong>DanbiLab</strong> &mdash; small books about Korea, made in Korea.</p>
+  <p class="site-foot__links">
+    <a href="https://danbilab.substack.com" target="_blank" rel="noopener noreferrer">danbilab.substack.com</a>
+    <span aria-hidden="true">&middot;</span>
+    <a href="#more">More from DanbiLab</a>
+    <span aria-hidden="true">&middot;</span>
+    <a href="https://ymi9595-tech.github.io/ymi9595/korea-vibe/" target="_blank" rel="noopener noreferrer">More little Korea</a>
+  </p>
+  <p class="site-foot__note">Cards are free to save and share. No accounts, no tracking.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/app.js?v=1" defer></script>
+</body>
+</html>
