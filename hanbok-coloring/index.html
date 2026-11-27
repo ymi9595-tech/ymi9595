@@ -1088,7 +1088,7 @@ function hasPaint(){
 function spaced(ctx, text, x, y, sp, align){
   var width = 0, i;
   for (i = 0; i < text.length; i++) width += ctx.measureText(text[i]).width + (i < text.length - 1 ? sp : 0);
-  var cx = align === 'right' ? x - width : x;
+  var cx = align === 'right' ? x - width : (align === 'center' ? x - width / 2 : x);
   for (i = 0; i < text.length; i++){
     ctx.fillText(text[i], cx, y);
     cx += ctx.measureText(text[i]).width + sp;
@@ -1255,10 +1255,8 @@ function printCanvas(d, art){
   if (ih > ch - 150){ ih = ch - 150; iw = ih / 1.5; }
   c.drawImage(art, (cw - iw) / 2, 46, iw, ih);
   c.fillStyle = '#7A6A55';
-  c.font = '500 13px ' + DISPLAY;
-  c.textAlign = 'center';
-  c.fillText('DANBI LAB  ·  HANBOK COLORING STUDIO  ·  NO. ' + String(cur + 1).padStart(2, '0'), cw / 2, ch - 46);
-  c.textAlign = 'left';
+  c.font = '500 12px ' + DISPLAY;
+  spaced(c, 'DANBI LAB · HANBOK COLORING STUDIO · NO. ' + String(cur + 1).padStart(2, '0'), cw / 2, ch - 46, 1.5, 'center');
   return cv;
 }
 function toBlob(cv, type, q){
