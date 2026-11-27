@@ -170,7 +170,13 @@ main{
 .sw.on .swname{color:var(--ink)}
 .swatch i{position:absolute; inset:7px; border:1px solid; opacity:.55; border-radius:3px; display:block}
 
-.note{margin:0; font-family:var(--serif); font-size:15px; line-height:1.78; color:#4A4038; letter-spacing:.002em}
+.note{margin:0; font-family:var(--serif); font-size:16px; line-height:1.86; color:#4A4038; letter-spacing:.002em}
+
+.note{position:relative; padding-left:22px}
+.note::before{content:"\201C"; position:absolute; left:-2px; top:-10px; font-family:var(--serif);
+  font-size:40px; line-height:1; color:var(--accent); opacity:.34}
+.note{font-size:16px; line-height:1.86}
+
 .word{margin-top:13px; padding:12px 14px; border-radius:10px; background:rgba(255,255,255,.46); border:1px solid var(--line-soft)}
 .wordtop{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap}
 .wlabel{font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft)}
@@ -202,6 +208,50 @@ main{
 .savebtn > span{display:flex; align-items:center; gap:9px}
 .copyrow{display:flex; gap:8px; margin-top:3px}
 .copyrow .btn{flex:1; font-size:12px; padding:10px 8px}
+
+
+/* deck essay, card library, word listen */
+.decknote{margin:0; font-family:var(--serif); font-size:13.5px; line-height:1.82; color:#5B5047; letter-spacing:.002em}
+.wsay{
+  margin-left:auto; flex:none; width:26px; height:26px; border-radius:50%; cursor:pointer;
+  border:1px solid var(--line); background:rgba(255,255,255,.7); color:var(--ink-soft);
+  display:grid; place-items:center; transition:.16s;
+}
+.wsay:hover{color:var(--ink); border-color:rgba(92,74,54,.4); transform:translateY(-1px)}
+.wsay svg{width:13px; height:13px}
+.libhint{margin:-4px 0 10px; font-size:11px; color:var(--ink-soft); letter-spacing:.01em}
+.lib{display:flex; flex-direction:column; max-height:264px; overflow-y:auto; padding-right:4px;
+  scrollbar-width:thin; scrollbar-color:rgba(92,74,54,.25) transparent}
+.lib::-webkit-scrollbar{width:6px}
+.lib::-webkit-scrollbar-thumb{background:rgba(92,74,54,.22); border-radius:99px}
+.libitem{
+  display:flex; gap:9px; align-items:baseline; width:100%; text-align:left; cursor:pointer;
+  border:0; border-bottom:1px solid var(--line-soft); background:transparent; font:inherit;
+  padding:8px 6px 8px 4px; border-radius:6px; transition:background .15s;
+}
+.libitem:hover{background:rgba(255,255,255,.62)}
+.libitem[aria-current="true"]{background:rgba(255,255,255,.9)}
+.libitem .ln{font-size:9.5px; color:var(--ink-soft); letter-spacing:.06em; flex:none; width:20px}
+.libitem .ltxt{display:flex; flex-direction:column; gap:2px; min-width:0; flex:1}
+.libitem .lko{font-family:var(--serif); font-size:13px; color:var(--ink); line-height:1.45}
+.libitem .len{font-size:10.5px; color:var(--ink-soft); line-height:1.4}
+.libitem[aria-current="true"] .lko{font-weight:600}
+
+
+/* practice block under the card */
+.practice{margin-top:22px; padding:16px 18px 15px; border:1px solid var(--line-soft); border-radius:12px;
+  background:rgba(255,255,255,.42); max-width:410px; margin-left:auto; margin-right:auto}
+.pr-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:10px}
+.pr-kicker{font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft)}
+.pr-meta{font-size:9.5px; letter-spacing:.08em; color:var(--ink-soft); opacity:.85}
+.pr-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; counter-reset:p}
+.pr-list li{position:relative; padding-left:20px; font-size:11.5px; line-height:1.6; color:#61564C}
+.pr-list li::before{counter-increment:p; content:counter(p,decimal-leading-zero); position:absolute; left:0; top:0;
+  font-size:9.5px; letter-spacing:.08em; color:var(--accent)}
+.pr-list b{display:block; font-weight:400; font-family:var(--serif); font-size:12.5px; color:var(--ink); margin-bottom:1px}
+.libwrap{position:relative}
+.libwrap::after{content:""; position:absolute; left:0; right:0; bottom:0; height:26px; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(247,241,230,0), var(--paper))}
 
 /* ---------- footer ---------- */
 footer{
@@ -314,12 +364,29 @@ footer{
         <span id="listenLabel" data-i18n="listen">Listen</span>
       </button>
     </div>
+
+    <div class="practice" id="practice">
+      <div class="pr-head">
+        <span class="pr-kicker" data-i18n="practiceKicker">Three ways to use it</span>
+        <span class="pr-meta" id="prMeta"></span>
+      </div>
+      <ol class="pr-list">
+        <li><b data-i18n="pr1t">Read it aloud</b><span data-i18n="pr1d">Slowly, once. The pronunciation guide is there for the vowels, not for perfection.</span></li>
+        <li><b data-i18n="pr2t">Keep one word</b><span data-i18n="pr2d">Take the key word with you and use it once today, even in English.</span></li>
+        <li><b data-i18n="pr3t">Pin the card</b><span data-i18n="pr3d">Save the 2:3 image and put it where you will see it tonight.</span></li>
+      </ol>
+    </div>
   </section>
 
   <aside class="panel">
     <div class="pblock">
       <h3 data-i18n="designTitle">Card design</h3>
       <div class="swatches" id="swatches" role="group" aria-label="Card design"></div>
+    </div>
+
+    <div class="pblock" id="blockDeck">
+      <h3 data-i18n="deckTitle">About this deck</h3>
+      <p class="decknote" id="deckNote"></p>
     </div>
 
     <div class="pblock" id="blockNote">
@@ -330,6 +397,9 @@ footer{
           <span class="wlabel" data-i18n="wordLabel">Key word</span>
           <span class="wko" id="wKo"></span>
           <span class="wro" id="wRo"></span>
+          <button class="wsay" id="wSay" type="button" aria-label="Listen to the key word">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3l4.2 3.4V6.1L7 9.5H4Z"/><path d="M15.4 8.6a4.6 4.6 0 0 1 0 6.8"/></svg>
+          </button>
         </div>
         <span class="wen" id="wEn"></span>
       </div>
@@ -341,6 +411,12 @@ footer{
         <span class="luckyitem" id="luckyText"></span>
         <span class="luckynum" id="luckyNum" title="Lucky number"></span>
       </div>
+    </div>
+
+    <div class="pblock" id="blockLib">
+      <h3 data-i18n="libTitle">Card library</h3>
+      <p class="libhint" data-i18n="libHint">Every card in this deck — press one to read it.</p>
+      <div class="libwrap"><div class="lib" id="lib"></div></div>
     </div>
 
     <div class="pblock saves">
@@ -387,10 +463,18 @@ footer{
 
 /* ---------- decks ---------- */
 var DECKS = {
-  love:    {en:'Love & Warmth', ko:'사랑과 온기', design:'blossom'},
-  calm:    {en:'Calm Mind',     ko:'고요한 마음', design:'sage'},
-  courage: {en:'Courage & Luck',ko:'용기와 행운', design:'midnight'},
-  seoul:   {en:'Cozy Seoul Day',ko:'서울의 하루', design:'hanji'}
+  love:    {en:'Love & Warmth', ko:'사랑과 온기', design:'blossom',
+    note:{ en:'Eleven lines about the quiet side of affection: a text at noon, a coat held open, the courage of saying something first. These are not love letters. They are the small proof that someone is paying attention.',
+           ko:'다정함의 조용한 쪽을 담은 열한 문장. 점심때 도착한 문자, 벗겨 준 외투, 먼저 말해 보는 용기. 연애편지가 아니라 누군가 당신을 살피고 있다는 작은 증거입니다.' }},
+  calm:    {en:'Calm Mind',     ko:'고요한 마음', design:'sage',
+    note:{ en:'For the hour when the day is technically over but your head has not agreed. Korean has unusually precise words for settling down — 가라앉다, 놓아주다, 괜찮다 — and each card teaches one.',
+           ko:'하루는 끝났는데 머리는 아직 동의하지 않은 시간을 위해. 한국어에는 가라앉다, 놓아주다, 괜찮다처럼 마음을 진정시키는 정확한 단어가 있습니다. 카드마다 그중 하나를 가르칩니다.' }},
+  courage: {en:'Courage & Luck',ko:'용기와 행운', design:'midnight',
+    note:{ en:'Courage in Korean is often small: 한 걸음 (one step), 해 보다 (to try and see). These cards are for the beginning of things — the first message, the unfamiliar road, the decision made at midnight.',
+           ko:'한국어의 용기는 대개 작습니다. 한 걸음, 해 보다. 이 카드들은 무언가를 시작하는 사람을 위한 것 — 첫 문자, 낯선 길, 자정에 내린 결정.' }},
+  seoul:   {en:'Cozy Seoul Day',ko:'서울의 하루', design:'hanji',
+    note:{ en:'A city written in small type: an alley, a window seat, a warm can of coffee at eleven. Read these as postcards from a place that is loud in general and gentle in particular.',
+           ko:'작은 글씨로 쓰인 도시. 골목, 창가 자리, 밤 열한 시의 따뜻한 캔커피. 크게는 시끄럽고 작게는 다정한 곳에서 온 엽서처럼 읽어 보세요.' }}
 };
 
 /* ---------- card designs ---------- */
@@ -713,7 +797,75 @@ var CARDS = [
  noteEn:'\uC790\uB9AC is both \u2018a seat\u2019 and \u2018a place in the world\u2019 \u2014 Korean uses one word for both.',
  noteKo:'\u2018자리\u2019는 앉는 곳이자 내가 있어야 할 곳입니다. 당신 자리는 비어 있습니다.',
  luckyEn:'a corner seat by the window', luckyKo:'창가 구석 자리',
- wKo:'자리', wRo:'jari', wEn:'a seat \u2014 also one\u2019s rightful place.'}
+ wKo:'자리', wRo:'jari', wEn:'a seat \u2014 also one\u2019s rightful place.'},
+
+/* LOVE — two more */
+{th:'love', ko:'좋아하는 사람 앞에서는 말이 느려집니다',
+ ro:'joahaneun saram ap-eseoneun mal-i neuryeojimnida',
+ en:'In front of someone you like, your words slow down.',
+ noteEn:'느리다 (to be slow) is not a complaint here. Korean uses it for speech that is chosen carefully rather than delivered quickly.',
+ noteKo:'‘느리다’는 여기서 흠이 아닙니다. 빨리 내뱉는 말이 아니라 골라서 하는 말이라는 뜻입니다.',
+ luckyEn:'a message typed, deleted, typed again', luckyKo:'썼다 지웠다 다시 쓴 문자',
+ wKo:'느리다', wRo:'neuryeoda', wEn:'to be slow — of speech, and of a good day.'},
+
+{th:'love', ko:'함께 있는 시간은 말하지 않아도 됩니다',
+ ro:'hamkke inneun sigan-eun malhaji anado doemnida',
+ en:'Time spent together does not need to be narrated.',
+ noteEn:'-아/어도 되다 means ‘it is alright to’. Korean permission is usually this gentle — a door left open, not a rule.',
+ noteKo:'‘-아도 되다’는 허락의 말입니다. 한국어의 허락은 대개 이렇게 부드럽습니다. 문을 잠그지 않고 열어 두는 쪽이지요.',
+ luckyEn:'two cups on one tray', luckyKo:'한 쟁반 위의 두 잔',
+ wKo:'함께', wRo:'hamkke', wEn:'together — a word that carries no obligation.'},
+
+/* CALM — two more */
+{th:'calm', ko:'창문을 열면 마음에도 바람이 듭니다',
+ ro:'changmun-eul yeolmyeon ma-eum-edo baram-i deumnida',
+ en:'Open the window and the wind gets into your mind too.',
+ noteEn:'바람이 들다 literally means ‘wind enters’. Korean lets weather verbs work on feelings, which is why this line needs no explanation.',
+ noteKo:'‘바람이 들다’는 그냥 바람이 들어오는 그림입니다. 한국어는 날씨를 마음에까지 쓰기 때문에 이 문장은 설명이 필요 없습니다.',
+ luckyEn:'a window open for ten minutes', luckyKo:'십 분 동안 열어 둔 창문',
+ wKo:'바람', wRo:'baram', wEn:'wind — and also a wish, a hope.'},
+
+{th:'calm', ko:'오늘은 어제보다 조금 덜 애쓰면 됩니다',
+ ro:'oneul-eun eoje-boda jogeum deol aesseumyeon doemnida',
+ en:'Today, try a little less than yesterday.',
+ noteEn:'애쓰다 is effort with feeling in it — the word Koreans use for working hard on someone’s behalf. Today, you are that someone.',
+ noteKo:'‘애쓰다’는 마음이 담긴 수고입니다. 누군가를 위해 힘쓴다는 뜻이지요. 오늘은 그 누군가가 자기 자신이면 됩니다.',
+ luckyEn:'one task crossed off, not three', luckyKo:'세 개가 아니라 하나 지운 할 일',
+ wKo:'애쓰다', wRo:'aesseuda', wEn:'to put your heart into the effort.'},
+
+/* COURAGE — two more */
+{th:'courage', ko:'한 걸음이면 충분합니다',
+ ro:'han georeum-imyeon chungbunhamnida',
+ en:'One step is enough.',
+ noteEn:'충분하다 means ‘to be sufficient’. It is also how Koreans close a conversation kindly — nothing more is needed from you.',
+ noteKo:'‘충분하다’는 넉넉하다는 뜻입니다. 대화를 다정하게 닫는 말로도 씁니다. 더 하지 않아도 된다는 안심이지요.',
+ luckyEn:'shoes left by the door', luckyKo:'현관에 놓인 신발',
+ wKo:'충분하다', wRo:'chungbunhada', wEn:'to be enough, to be sufficient.'},
+
+{th:'courage', ko:'모르는 길도 걸으면 길이 됩니다',
+ ro:'moreuneun gil-do georeumyeon gil-i doemnida',
+ en:'An unknown road becomes a road once you walk it.',
+ noteEn:'길 is a street, a way, and a life’s path. This card leans on all three at once.',
+ noteKo:'‘길’은 도로이자 방법이고 인생의 길입니다. 이 카드는 세 가지 뜻을 한꺼번에 겹쳐 놓습니다.',
+ luckyEn:'a map folded the wrong way', luckyKo:'잘못 접힌 지도',
+ wKo:'길', wRo:'gil', wEn:'road, way — the street and the path.'},
+
+/* SEOUL — two more */
+{th:'seoul', ko:'서울은 걸어야 보입니다',
+ ro:'seo-ul-eun georeoya boimnida',
+ en:'Seoul only shows itself on foot.',
+ noteEn:'-아야 보이다: ‘only visible if you…’. The grammar itself insists that you walk.',
+ noteKo:'‘-아야 보이다’는 그렇게 해야만 보인다는 뜻입니다. 문법이 걷기를 요구합니다.',
+ luckyEn:'a side street with no name on the map', luckyKo:'지도에 없는 골목',
+ wKo:'골목', wRo:'golmok', wEn:'alley — narrower than a street, more honest.'},
+
+{th:'seoul', ko:'오늘의 저녁은 오늘의 공기에 맡겨 두세요',
+ ro:'oneul-ui jeonyeok-eun oneul-ui gong-gi-e matgyeo duseyo',
+ en:'Leave tonight’s dinner to tonight’s air.',
+ noteEn:'맡기다 is to entrust. Use it for a decision handed to the day — not giving up, but trusting the evening to suggest something.',
+ noteKo:'‘맡기다’는 믿고 넘긴다는 말입니다. 포기가 아니라 오늘 저녁이 무엇인가를 제안할 것이라는 믿음입니다.',
+ luckyEn:'a table found by accident', luckyKo:'우연히 발견한 식탁',
+ wKo:'맡기다', wRo:'matgida', wEn:'to entrust something to someone.'}
 ];
 
 /* ---------- UI strings ---------- */
@@ -731,6 +883,12 @@ var STR = {
     noSpeech:'This browser cannot read Korean aloud. Try Chrome or Safari.',
     tap:'Tap to draw', todayLine:'Today\u2019s line', luckyCard:'Lucky charm',
     deckLabel:'Deck',
+    practiceKicker:'Three ways to use it',
+    pr1t:'Read it aloud', pr1d:'Slowly, once. The pronunciation guide is there for the vowels, not for perfection.',
+    pr2t:'Keep one word', pr2d:'Take the key word with you and use it once today, even in English.',
+    pr3t:'Pin the card', pr3d:'Save the 2:3 image and put it where you will see it tonight.',
+    deckTitle:'About this deck', libTitle:'Card library',
+    libHint:'Every card in this deck \u2014 press one to read it.',
     noteEmpty:'Draw a card to read today\u2019s note \u2014 the small story behind the Korean line.',
     luckyEmpty:'Something small and lucky is waiting.'
   },
@@ -747,6 +905,12 @@ var STR = {
     noSpeech:'이 브라우저에서는 한국어 읽기를 지원하지 않아요. 크롬이나 사파리에서 열어 보세요.',
     tap:'눌러서 카드 뽑기', todayLine:'오늘의 문장', luckyCard:'행운의 아이템',
     deckLabel:'덱',
+    practiceKicker:'이렇게 써 보세요',
+    pr1t:'소리 내어 읽기', pr1d:'한 번, 천천히. 발음 표기는 완벽이 아니라 모음을 위한 안내입니다.',
+    pr2t:'단어 하나 가져가기', pr2d:'오늘의 단어를 하나 정해 하루에 한 번 써 보세요. 영어 문장 속에서도 괜찮아요.',
+    pr3t:'카드 붙여 두기', pr3d:'2:3 이미지로 저장해 오늘 밤 눈에 닿는 곳에 두세요.',
+    deckTitle:'이 덱에 대하여', libTitle:'카드 도서관',
+    libHint:'이 덱의 모든 카드입니다. 눌러서 바로 읽어 보세요.',
     noteEmpty:'카드를 뽑으면 오늘의 문장에 담긴 이야기가 나옵니다.',
     luckyEmpty:'작고 다정한 행운이 기다리고 있어요.'
   }
@@ -831,11 +995,10 @@ function setDeck(id){
   state.deck = id;
   if(id !== 'all'){ state.design = DECKS[id].design; }
   buildChips(); buildSwatches(); applyDesignToBack();
-  if(state.entry){
+  if(state.entry && (id !== 'all' ? state.entry.th !== id : false)){
     state.entry = pickEntry(state.entry);
-    renderAll();
   }
-  renderCard();
+  renderDeckNote(); renderLib(); renderAll();
 }
 
 function setDesign(key){
@@ -892,8 +1055,52 @@ function renderAll(){
   $('drawLabel').textContent = state.entry ? t('redraw') : t('draw');
 }
 
+function renderDeckNote(){
+  var id = state.deck === 'all' ? null : state.deck;
+  var box = $('deckNote');
+  if (!box) return;
+  if (!id){
+    box.textContent = state.lang === 'ko'
+      ? '네 개의 덱, 마흔네 장의 카드. 사랑과 온기, 고요한 마음, 용기와 행운, 서울의 하루. 카드를 누르면 그 문장에 담긴 작은 이야기가 함께 나옵니다.'
+      : 'Four decks, forty-four cards: love, calm, courage, and an ordinary Seoul day. Open any card and the small story behind the Korean line comes with it.';
+    return;
+  }
+  var n = DECKS[id].note;
+  box.textContent = state.lang === 'ko' ? n.ko : n.en;
+}
+
+function renderLib(){
+  var box = $('lib');
+  if (!box) return;
+  box.innerHTML = '';
+  var list = pool();
+  list.forEach(function(e){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'libitem';
+    b.setAttribute('aria-current', e === state.entry ? 'true' : 'false');
+    var idx = CARDS.indexOf(e) + 1;
+    var n = document.createElement('span'); n.className = 'ln'; n.textContent = (idx < 10 ? '0' : '') + idx;
+    var box2 = document.createElement('span'); box2.className = 'ltxt';
+    var ko = document.createElement('span'); ko.className = 'lko'; ko.textContent = e.ko;
+    var en = document.createElement('span'); en.className = 'len'; en.textContent = e.en;
+    box2.appendChild(ko); box2.appendChild(en);
+    b.appendChild(n); b.appendChild(box2);
+    b.addEventListener('click', function(){ showEntry(e); });
+    box.appendChild(b);
+  });
+}
+
+function showEntry(e){
+  state.entry = e;
+  renderAll();
+  card.classList.add('flipped');
+}
+
 function renderPanel(){
   var drawn = !!state.entry;
+  renderDeckNote();
+  renderLib();
   var e = state.entry || CARDS[0];
   var ko = state.lang === 'ko';
   $('noteText').textContent = drawn ? (ko ? e.noteKo : e.noteEn) : t('noteEmpty');
@@ -902,6 +1109,10 @@ function renderPanel(){
   $('wEn').textContent = e.wEn;
   $('luckyText').textContent = drawn ? (ko ? e.luckyKo : e.luckyEn) : t('luckyEmpty');
   $('luckyNum').textContent = drawn ? ('No. ' + luckyNumber(e)) : '';
+  var meta = $('prMeta');
+  if (meta) meta.textContent = drawn
+    ? (DECKS[e.th][state.lang] || DECKS[e.th].en) + ' · ' + String(CARDS.indexOf(e) + 1).padStart(2, '0') + ' / ' + CARDS.length
+    : (state.lang === 'ko' ? '카드를 뽑아 보세요' : 'Draw a card');
   document.querySelector('.word').style.display = drawn ? '' : 'none';
   document.getElementById('blockNote').classList.toggle('empty', !drawn);
   document.getElementById('luckyNum').style.visibility = drawn ? 'visible' : 'hidden';
@@ -1338,6 +1549,19 @@ async function drawCard(){
   } finally { busy = false; }
 }
 
+function speakWord(){
+  if(!('speechSynthesis' in window)){ toast(t('noSpeech')); return; }
+  if(!state.entry){ toast(t('draw')); return; }
+  try{
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(state.entry.wKo);
+    u.lang = 'ko-KR'; u.rate = 0.72; u.pitch = 1.02;
+    var vs = window.speechSynthesis.getVoices() || [];
+    for(var i = 0; i < vs.length; i++){ if(/^ko/i.test(vs[i].lang)){ u.voice = vs[i]; break; } }
+    window.speechSynthesis.speak(u);
+  } catch(err){ toast(t('noSpeech')); }
+}
+
 function speak(){
   if(!('speechSynthesis' in window)){ toast(t('noSpeech')); return; }
   if(!state.entry){ toast(t('draw')); return; }
@@ -1421,6 +1645,7 @@ function bind(){
   });
   $('drawBtn').addEventListener('click', drawCard);
   $('listenBtn').addEventListener('click', speak);
+  var wsay = $('wSay'); if (wsay) wsay.addEventListener('click', function(ev){ ev.stopPropagation(); speakWord(); });
   $('save23').addEventListener('click', function(){ exportPNG(1000, 1500); });
   $('save916').addEventListener('click', function(){ exportPNG(1080, 1920); });
   $('copyTags').addEventListener('click', function(){ copyText(HASHTAGS); });

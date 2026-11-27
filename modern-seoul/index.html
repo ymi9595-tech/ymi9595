@@ -349,7 +349,9 @@ main{padding-bottom:40px;position:relative;z-index:1}
 .cul-body .do{display:block;border-left:2px solid var(--coffee);padding-left:9px;font-size:12px;color:var(--muted)}
 @media (max-width:520px){.cul-body > div{padding-left:15px}}
 
-.phrases{display:grid;gap:8px}
+.phrases{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:720px){.phrases{grid-template-columns:1fr}}
+.phrase .idx{font-family:var(--f-mono);font-size:9.5px;color:var(--muted);flex:none;width:18px;align-self:flex-start;padding-top:3px}
 .phrase{
   display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);
   border-radius:13px;background:var(--paper2);transition:border-color .15s, box-shadow .15s;
@@ -514,6 +516,14 @@ h2 .kacc{font-size:.38em;vertical-align:.34em;margin-left:2px}
 .sel-count{font-family:var(--f-mono);font-size:9.5px;color:var(--muted);letter-spacing:.06em}
 
 /* ---------------- small screens ---------------- */
+@media (max-width:620px){
+  .btn-hash .lbl{display:none}
+  .btn-hash{padding:7px 9px}
+  .top-actions{gap:7px}
+  .brand-txt b{font-size:15px;letter-spacing:.1em}
+  .brand-txt span{font-size:7.6px;letter-spacing:.1em}
+}
+
 @media (max-width:560px){
   .topbar-in{padding:9px 14px;gap:8px}
   .brand-txt span{display:none}
@@ -586,11 +596,11 @@ h2 .kacc{font-size:.38em;vertical-align:.34em;margin-left:2px}
   <section class="hero wrap">
     <div class="hero-top">
       <span class="pill" id="heroKicker"><span class="dot" aria-hidden="true"></span>DANBI LAB · FIELD NOTES No.04</span>
-      <span class="mono" id="heroDate">2026.11.27 · SEOUL</span>
+      <span class="mono" id="heroDate">SEOUL · FIELD NOTES</span>
     </div>
     <h1 id="heroTitle">MODERN<br>SEOUL PLAYBOOK</h1>
     <div class="sticker" aria-hidden="true">
-      <span><span id="stickerYear">2026</span><br><b>SEOUL</b>FIELD NOTES</span>
+      <span><span id="stickerYear"></span><br><b>SEOUL</b>FIELD NOTES</span>
     </div>
     <div class="hero-sub">
       <p id="heroSub"></p>
@@ -1397,7 +1407,9 @@ function drawReceipt(ctx, W, data) {
 
   text(ctx, data.totalLabel, pad, y + 4, { size: 9.5, family: FM, ls: 2.2, color: PAL.inkSoft });
   bigMoney(ctx, data.total, W - pad, y + 2, 27, PAL.ink);
-  y += 34;
+  y += 22;
+  text(ctx, 'VAT INCL. · CARD · ' + data.items.length + (data.items.length === 1 ? ' ITEM' : ' ITEMS'), pad, y + 8, { size: 8.6, family: FM, ls: 1.6, color: '#A79C88' });
+  y += 22;
   dashed(ctx, pad, y, W - pad, y);
   y += 22;
 
@@ -1577,11 +1589,22 @@ function drawNight(ctx, W, data) {
   ctx.globalAlpha = 1;
 
   /* readability scrim over city + river */
-  const sc = ctx.createLinearGradient(0, 380, 0, H);
+  const sc = ctx.createLinearGradient(0, 300, 0, H);
   sc.addColorStop(0, 'rgba(8,10,32,0)');
-  sc.addColorStop(.32, 'rgba(8,10,32,.70)');
-  sc.addColorStop(1, 'rgba(6,8,24,.94)');
-  ctx.fillStyle = sc; ctx.fillRect(0, 380, W, H - 380);
+  sc.addColorStop(.16, 'rgba(8,10,32,.30)');
+  sc.addColorStop(.38, 'rgba(8,10,32,.62)');
+  sc.addColorStop(.72, 'rgba(7,9,28,.86)');
+  sc.addColorStop(1, 'rgba(6,8,24,.92)');
+  ctx.fillStyle = sc; ctx.fillRect(0, 300, W, H - 300);
+
+  /* ghost watermark, sits behind every word */
+  ctx.save();
+  ctx.globalAlpha = .05;
+  setFont(ctx, 92, FD, '400', 10);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.textAlign = 'center';
+  ctx.fillText('SEOUL', W / 2, H - 132);
+  ctx.restore();
 
   const pad = 36;
   let y = 52;
@@ -1590,13 +1613,14 @@ function drawNight(ctx, W, data) {
   y += 34;
   const nameLines = wrapLines(ctx, data.name, W - pad * 2, 34, FD);
   nameLines.slice(0, 2).forEach(l => { text(ctx, l, pad, y, { size: 34, family: FD, color: '#FFF8EC' }); y += 38; });
-  if (data.nameKo) text(ctx, data.nameKo, pad, y + 2, { size: 14, family: FB, color: '#C9C1F0' });
-  y += 34;
+  if (data.nameKo) { text(ctx, data.nameKo, pad, y + 2, { size: 14, family: FB, color: '#C9C1F0' }); y += 24; }
+  text(ctx, data.moodLine, pad, y + 2, { size: 9.5, family: FM, ls: 2.2, color: '#9E96CC' });
+  y += 30;
 
   /* setup panel (receipt-style, total inside) */
   const boxY = 200, boxH = 194;
   ctx.save();
-  ctx.fillStyle = 'rgba(8,10,32,.55)';
+  ctx.fillStyle = 'rgba(10,13,36,.86)';
   rr(ctx, pad, boxY, W - pad * 2, boxH, 14); ctx.fill();
   ctx.strokeStyle = 'rgba(255,255,255,.13)'; ctx.lineWidth = 1; ctx.stroke();
   ctx.restore();
@@ -1613,21 +1637,9 @@ function drawNight(ctx, W, data) {
   text(ctx, data.totalLabel, pad + 20, boxY + 174, { size: 9.5, family: FM, ls: 2.2, color: '#9E96CC' });
   bigMoney(ctx, data.totalNum, W - pad - 18, boxY + 176, 26, '#FFD166');
 
-  y = boxY + boxH + 28;
-  text(ctx, data.moodLine, pad, y, { size: 11.5, family: FB, color: '#C9C1F0' });
-
-  y += 30;
+  y = boxY + boxH + 26;
   if (data.healEn) y = paragraph(ctx, data.healEn, pad, y, W - pad * 2, 13, { lh: 20, color: '#EDE7FF' });
   if (data.healKo) y = paragraph(ctx, data.healKo, pad, y + (data.healEn ? 2 : 0), W - pad * 2, 13, { lh: 20, color: '#B7AFF0' });
-
-  /* ghost watermark, fills the river */
-  ctx.save();
-  ctx.globalAlpha = .055;
-  setFont(ctx, 96, FD, '400', 10);
-  ctx.fillStyle = '#FFFFFF';
-  ctx.textAlign = 'center';
-  ctx.fillText('SEOUL', W / 2, H - 118);
-  ctx.restore();
 
   dashed(ctx, pad, H - 96, W - pad, H - 96, 'rgba(255,255,255,.16)', [4, 6]);
   text(ctx, data.caption, W / 2, H - 70, { size: 8.5, family: FM, ls: 2.6, color: '#8D85BE', align: 'center' });
@@ -1874,7 +1886,7 @@ function renderTray() {
       ${stepHTML}
     </div>
     <div class="tray-actions">
-      <button class="btn" data-act="savereceipt" ${items.length ? '' : 'disabled'}>🧾 ${L(STORE_UI.saveBtn)}</button>
+      <button class="btn" data-act="savereceipt" ${items.length ? '' : 'disabled'}><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:6px"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>${L(STORE_UI.saveBtn)}</button>
       <button class="btn alt" data-act="clearstore" ${items.length ? '' : 'disabled'}>${L(STORE_UI.clear)}</button>
       <div class="save-hint">${L(UI.saveHint)}</div>
     </div>
@@ -2004,9 +2016,10 @@ function renderCafe() {
     </div>
     <div class="sec-title"><h3>${L(CAFE.cultureHead)}</h3><span class="rule"></span><span class="tag">TAP TO OPEN</span></div>
     <div class="culture-grid">${cultures}</div>
-    <div class="sec-title"><h3>${L(CAFE.phraseHead)}${kacc('주문 표현')}</h3><span class="rule"></span><span class="tag">🔊 ko-KR</span></div>
+    <div class="sec-title"><h3>${L(CAFE.phraseHead)}${kacc('주문 표현')}</h3><span class="rule"></span><span class="tag">ko-KR · TTS</span></div>
     <div class="phrases">${CAFE.phrases.map((p, i) => `
       <div class="phrase" data-i="${i}">
+        <span class="idx">${String(i + 1).padStart(2, '0')}</span>
         <div class="body">
           <div class="ko" lang="ko">${p.ko}</div>
           <div class="rom">${p.rom}</div>
@@ -2061,7 +2074,7 @@ function renderPhoto() {
     const order = S.strip.poses.indexOf(p.id) + 1;
     return `<button class="pose" data-act="pose" data-id="${p.id}" aria-pressed="${on}">
       ${on ? `<span class="ord">${order}</span>` : ''}
-      <canvas data-pose-canvas="${p.id}" width="300" height="220"></canvas>
+      <canvas data-pose-canvas="${p.id}" width="300" height="176"></canvas>
       <b>${L(p.nm)}${S.lang === 'en' ? ` <span class="kacc" lang="ko">${p.nm.ko}</span>` : ''}</b>
       <span>${L(p.tip)}</span>
     </button>`;
@@ -2094,7 +2107,7 @@ function renderPhoto() {
       </div>
       <div>
         <div class="canvas-holder"><canvas id="stripCanvas"></canvas></div>
-        <button class="btn" data-act="savestrip" style="margin-top:10px">📸 ${L(PHOTO.saveStrip)}</button>
+        <button class="btn" data-act="savestrip" style="margin-top:10px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:6px"><rect x="3" y="7" width="18" height="13" rx="2.5"/><circle cx="12" cy="13.5" r="3.4"/><path d="M8.5 7l1.2-2.4h4.6L15.5 7"/></svg>${L(PHOTO.saveStrip)}</button>
         <div class="save-hint">${L(UI.saveHint)}</div>
       </div>
     </div>`;
@@ -2265,7 +2278,7 @@ function renderNight() {
       </div>
       <div>
         <div class="canvas-holder"><canvas id="nightCanvas"></canvas></div>
-        <button class="btn" data-act="savenight" style="margin-top:10px">🌙 ${L(NIGHT.saveNight)}</button>
+        <button class="btn" data-act="savenight" style="margin-top:10px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:6px"><path d="M20 14.5A8.2 8.2 0 1 1 9.5 4a6.6 6.6 0 0 0 10.5 10.5Z"/></svg>${L(NIGHT.saveNight)}</button>
         <div class="save-hint">${L(UI.saveHint)}</div>
       </div>
     </div>`;

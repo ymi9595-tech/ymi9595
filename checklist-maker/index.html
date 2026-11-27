@@ -272,6 +272,58 @@ input,button{-webkit-tap-highlight-color:transparent}
 .copybtn:hover{background:#F7EDDD;color:var(--accent-2);border-color:#D9C3A2}
 .copybtn svg{width:13px;height:13px}
 
+
+/* ---------- stage rail ---------- */
+.stage{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+@media (min-width:1240px){
+  .stage{grid-template-columns:minmax(0,1fr) 272px;align-items:start}
+}
+.rail{display:flex;flex-direction:column;gap:14px}
+.rail-card{
+  background:rgba(255,252,245,.72);
+  border:1px solid var(--line);border-radius:16px;padding:16px 16px 15px;
+  box-shadow:0 16px 32px -30px rgba(60,40,20,.6);
+}
+.rail-quiet{background:transparent;border-style:dashed;box-shadow:none}
+.rail-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+.rail-kicker{font-size:9.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--accent)}
+.rail-count{font-family:"Lora",Georgia,serif;font-size:10px;letter-spacing:.12em;color:var(--ink-3);border:1px solid var(--line);border-radius:999px;padding:1px 7px}
+.rail-title{font-family:"Playfair Display",Georgia,"Noto Serif KR",serif;font-weight:400;font-size:18px;line-height:1.22;margin:0 0 6px}
+.rail-lede{font-size:11.5px;line-height:1.55;color:var(--ink-2);margin:0 0 12px}
+.rail-notes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;counter-reset:n}
+.rail-notes li{
+  position:relative;padding-left:22px;font-size:11.5px;line-height:1.62;color:var(--ink-2);
+}
+.rail-notes li::before{
+  counter-increment:n;content:counter(n,decimal-leading-zero);
+  position:absolute;left:0;top:1px;font-family:"Lora",Georgia,serif;font-size:9.5px;
+  letter-spacing:.06em;color:var(--accent);
+}
+.rail-notes li + li{border-top:1px solid var(--line-soft);padding-top:11px}
+.rail-notes li + li::before{top:12px}
+.rail-list{display:flex;flex-direction:column;gap:2px}
+.rail-item{
+  display:flex;align-items:center;gap:9px;width:100%;text-align:left;cursor:pointer;
+  border:0;background:transparent;border-radius:9px;padding:6px 6px;font:inherit;
+  transition:background .15s ease;
+}
+.rail-item:hover{background:#FBF4E8}
+.rail-item[aria-current="true"]{background:#F7EBDD}
+.rail-item .rn{font-family:"Lora",Georgia,serif;font-size:9.5px;color:var(--ink-3);width:15px;flex:none}
+.rail-item .rt{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.rail-item .rt b{font-size:11.5px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+.rail-item .rt small{font-size:9.5px;color:var(--ink-3);margin-top:2px}
+.rail-item .sw{width:16px;height:16px;border-radius:50%;flex:none;margin-left:auto;box-shadow:inset 0 0 0 1px rgba(60,45,30,.18)}
+.rail-quote{margin:0 0 10px;font-family:"Lora",Georgia,serif;font-style:italic;font-size:12px;line-height:1.6;color:var(--ink-2)}
+.rail-sign{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+@media (max-width:1239px){
+  .rail{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .rail-quiet{grid-column:1/-1}
+}
+@media (max-width:760px){
+  .rail{grid-template-columns:1fr}
+}
+
 /* ---------- stage ---------- */
 .stage{position:sticky;top:88px;align-self:start}
 .stage-inner{
@@ -337,8 +389,10 @@ input,button{-webkit-tap-highlight-color:transparent}
   .wrap{grid-template-columns:minmax(0,1fr);gap:20px;padding:16px 14px 108px}
   .topbar{padding:10px 16px}
   .brand-sub{display:none}
-  .stage{position:static;order:1}
+  .stage{display:contents}
+  .stage-inner{order:1}
   .panel{order:2}
+  .rail{order:3}
   .stage-inner{padding:12px 12px 10px;border-radius:18px}
   .poster{max-width:100%}
   .stage-hint{display:none}
@@ -516,6 +570,31 @@ input,button{-webkit-tap-highlight-color:transparent}
       <div class="poster"><canvas id="poster" role="img" aria-label="Checklist poster preview"></canvas></div>
       <p class="stage-cap" data-i18n="stageCap">2:3 · 1000 × 1500 px for Pinterest · A4 export at 300 dpi</p>
     </div>
+
+    <aside class="rail">
+      <div class="rail-card">
+        <div class="rail-head">
+          <span class="rail-kicker" data-i18n="railKicker">Field notes</span>
+          <span class="rail-count" id="railCount">3</span>
+        </div>
+        <h2 class="rail-title" id="railTitle">Seoul Bucket List</h2>
+        <p class="rail-lede" id="railLede"></p>
+        <ol class="rail-notes" id="railNotes"></ol>
+      </div>
+
+      <div class="rail-card">
+        <div class="rail-head">
+          <span class="rail-kicker" data-i18n="railMoreKicker">In this set</span>
+          <span class="rail-count">09</span>
+        </div>
+        <div class="rail-list" id="railList"></div>
+      </div>
+
+      <div class="rail-card rail-quiet">
+        <p class="rail-quote" data-i18n="railQuote">A good list is short, specific, and a little bit difficult — that is what makes it worth finishing.</p>
+        <span class="rail-sign">Danbi Lab · Seoul</span>
+      </div>
+    </aside>
   </section>
 </main>
 
@@ -557,7 +636,9 @@ const PALETTES = {
   hanji: { bg1:'#FDF8EC', bg2:'#F1E4CB', ink:'#3A322A', accent:'#B0693C', muted:'#8A7A63', rule:'#D8C8AB', tex:'#7A6448', dark:false, name:{en:'Hanji Cream', ko:'한지 크림'} },
   sage:  { bg1:'#F6F7EC', bg2:'#E2E7D2', ink:'#2E3A2C', accent:'#6C8757', muted:'#7C8873', rule:'#C6CFB4', tex:'#5B6A4E', dark:false, name:{en:'Sage Matcha', ko:'세이지 말차'} },
   lilac: { bg1:'#3A3156', bg2:'#221D33', ink:'#F3ECF9', accent:'#C9B2EC', muted:'#A99DC4', rule:'#4E4569', tex:'#EFE6FF', dark:true,  name:{en:'Lilac Night', ko:'라일락 밤'} },
-  terra: { bg1:'#FBECDF', bg2:'#F0D3BC', ink:'#472B20', accent:'#B4552F', muted:'#8C6350', rule:'#E1C1A8', tex:'#7A4630', dark:false, name:{en:'Terracotta Vintage', ko:'테라코타 빈티지'} }
+  terra: { bg1:'#FBECDF', bg2:'#F0D3BC', ink:'#472B20', accent:'#B4552F', muted:'#8C6350', rule:'#E1C1A8', tex:'#7A4630', dark:false, name:{en:'Terracotta Vintage', ko:'테라코타 빈티지'} },
+  dusk:  { bg1:'#F1F3F8', bg2:'#D5DFEC', ink:'#232C3B', accent:'#4A6C8E', muted:'#6E7C90', rule:'#BAC6D8', tex:'#4E5E76', dark:false, name:{en:'Dusk Blue', ko:'저녁 강빛'} },
+  bloom: { bg1:'#FDF2EE', bg2:'#F5DAD4', ink:'#432B2C', accent:'#B2676C', muted:'#8B6A6C', rule:'#E6C6C0', tex:'#7A4D4F', dark:false, name:{en:'Blossom Milk', ko:'벚꽃 밀크'} }
 };
 
 const STICKERS = [
@@ -565,70 +646,245 @@ const STICKERS = [
   { id:'coffee', name:{en:'Coffee', ko:'커피잔'} },
   { id:'star',   name:{en:'Star', ko:'별'} },
   { id:'hanok',  name:{en:'Hanok', ko:'한옥'} },
-  { id:'moon',   name:{en:'Moon', ko:'달'} }
+  { id:'moon',   name:{en:'Moon', ko:'달'} },
+  { id:'bloom',  name:{en:'Blossom', ko:'벚꽃'} },
+  { id:'pen',    name:{en:'Pen', ko:'펜'} }
 ];
 
 const PRESETS = [
   {
-    id:'seoul', no:'01', palette:'hanji', sticker:'hanok',
-    tags:'#SeoulBucketList #CozyChecklist #Printable #DanbiLab',
+    id:'seoul', no:'01', palette:'hanji', sticker:'hanok', motif:'hanok',
+    tags:'#SeoulBucketList #KoreaTravel #CozyChecklist #DanbiLab',
     name:{ en:'Seoul Bucket List', ko:'서울 버킷리스트' },
-    desc:{ en:'Han River ramyeon, Namsan lights, hanok cafés', ko:'한강 라면, 남산 야경, 한옥 카페' },
+    desc:{ en:'Han River ramyeon, Namsan lights, hanok alleys', ko:'한강 라면, 남산 야경, 한옥 골목' },
     title:'Seoul Bucket List',
     subtitle:'slow days, city lights & small wonders',
     note:'the city is better on foot.',
     items:[
       'Slurp ramyeon by the Han River at sunset',
-      'See the city lights from Namsan at dusk',
-      'Sip an iced americano in a hanok café',
-      'Wander the alleys of Seongsu-dong',
-      'Eat a winter bungeoppang straight from the cart',
+      'Watch the city lights come on from Namsan',
+      'Order an iced americano in a hanok café',
+      'Get lost in the alleys of Ikseon-dong',
+      'Eat a bungeoppang straight from the cart',
       'Ride the subway to a stop you can’t pronounce',
-      'Find a quiet bookshop in Insa-dong',
-      'Photograph a palace wall on film'
+      'Find a secondhand bookshop in Insa-dong',
+      'Photograph a palace wall on film',
+      'Share tteokbokki at Gwangjang Market',
+      'Walk Cheonggyecheon from end to end'
+    ],
+    notes:[
+      { en:'Every Hangang park has a convenience store a few minutes from the water, and the ramyeon kiosk with the hot-water taps usually sits right outside it. Buy, cook, carry it to the steps.',
+        ko:'한강공원마다 물가에서 몇 분 거리에 편의점이 있고, 온수 나오는 라면 조리대는 보통 그 문 앞에 있어요. 사고, 끓이고, 계단으로 가져가면 됩니다.' },
+      { en:'Namsan at dusk: the cable car queue from Myeongdong can run 30–50 minutes at sunset. The 02 shuttle bus from Chungmuro, or the trail up from Huam-dong, gets you there with a better view on the way.',
+        ko:'남산은 해질녘 명동 케이블카 줄이 30~50분까지 길어져요. 충무로에서 02번 순환버스를 타거나 후암동 쪽 산책로로 오르면 가는 길도 풍경입니다.' },
+      { en:'Ikseon-dong and Bukchon are both hanok, but they behave differently: Ikseon-dong is narrow, loud and full of cafés; Bukchon is still people’s homes, so lower your voice after six.',
+        ko:'익선동과 북촌은 둘 다 한옥이지만 성격이 달라요. 익선동은 좁고 활기차고 카페가 가득하고, 북촌은 아직 주거지라 저녁 여섯 시 이후엔 목소리를 낮춥니다.' }
     ]
   },
   {
-    id:'cozy', no:'02', palette:'sage', sticker:'coffee',
-    tags:'#CozySundayReset #CozyChecklist #Printable #DanbiLab',
+    id:'hanriver', no:'02', palette:'dusk', sticker:'moon', motif:'river',
+    tags:'#HanRiver #SeoulPicnic #Chimaek #DanbiLab',
+    name:{ en:'Han River Picnic', ko:'한강 피크닉' },
+    desc:{ en:'Chimaek, a rented mat, the seven o’clock light', ko:'치맥, 빌린 돗자리, 일곱 시의 빛' },
+    title:'Han River Picnic',
+    subtitle:'a mat, a paper cup & the seven o’clock light',
+    note:'the river does the entertaining.',
+    items:[
+      'Claim a spot on the grass before sunset',
+      'Rent a mat and a small table from the kiosk',
+      'Order chimaek, or bring your own kimbap',
+      'Ride a tandem bike toward Banpo Bridge',
+      'Catch the rainbow fountain after dark',
+      'Send a ramyeon boat down the river',
+      'Listen to a busker with no plan to leave',
+      'Watch the bridges light up one by one',
+      'Walk to the convenience store for ice cream',
+      'Take the last bus home, slightly sunburnt'
+    ],
+    notes:[
+      { en:'Yeouido and Banpo are the busiest. Ttukseom and Mangwon are quieter, easier for a mat, and Mangwon has the best sunset angle toward Yanghwa Bridge.',
+        ko:'여의도와 반포가 가장 붐벼요. 뚝섬과 망원은 한산하고 돗자리 펴기 좋은데, 망원은 양화대교 쪽으로 해가 지는 각도가 제일 좋습니다.' },
+      { en:'Banpo Bridge’s Moonlight Rainbow Fountain runs in the evening from spring to autumn, and the times shift with the season. Check the sign at the park entrance instead of trusting a blog.',
+        ko:'반포대교 달빛무지개분수는 봄부터 가을까지 저녁에 가동하고, 시간은 계절마다 달라져요. 블로그보다 공원 입구 안내판을 확인하는 편이 정확합니다.' },
+      { en:'Chicken delivery to the park is a real service. Order to the park’s delivery zone, tell them your mat number or the nearest landmark, and meet the rider on the main path.',
+        ko:'공원 치킨 배달은 실제로 되는 서비스예요. 공원 배달 구역으로 주문하고, 돗자리 번호나 가까운 지형지를 알려 준 뒤 큰길에서 라이더를 만나면 됩니다.' }
+    ]
+  },
+  {
+    id:'market', no:'03', palette:'terra', sticker:'star', motif:'lantern',
+    tags:'#GwangjangMarket #KoreanStreetFood #MarketDay #DanbiLab',
+    name:{ en:'Market & Street Food', ko:'시장과 길거리 음식' },
+    desc:{ en:'Gwangjang stalls, hot tteokbokki, cash in hand', ko:'광장시장 포장마차, 뜨거운 떡볶이, 현금' },
+    title:'Market & Street Food',
+    subtitle:'eat standing up, pay in cash, come back hungry',
+    note:'the best stall is the one with the queue.',
+    items:[
+      'Sit at a Gwangjang stall and order bindaetteok',
+      'Dip tteokbokki in the sauce, not the other way',
+      'Try mayak gimbap, one roll at a time',
+      'Eat a hotteok with the paper still on',
+      'Buy a bag of peeled chestnuts for the walk',
+      'Watch knife noodles being cut by hand',
+      'Pay in cash, the way the regulars do',
+      'Learn one stall owner’s name',
+      'Buy fruit for tomorrow’s breakfast',
+      'Leave with your sleeves smelling of sesame oil'
+    ],
+    notes:[
+      { en:'Gwangjang is two markets in one: the food alleys in the middle, and fabric and vintage stalls at the edges. Eat first, then walk outward until you are hungry again.',
+        ko:'광장시장은 두 개의 시장이에요. 가운데는 먹자골목, 가장자리는 원단과 구제 상점. 먼저 먹고, 바깥으로 걸으면서 다시 배고파지면 됩니다.' },
+      { en:'Older stalls are cash-first and some are cash-only. Carry ₩10,000–20,000 in small notes; card readers appear mostly at the newer stalls.',
+        ko:'오래된 가게는 현금을 먼저 받고, 어떤 곳은 현금만 받아요. 만 원에서 이만 원을 잔돈으로 챙기세요. 카드 단말기는 주로 새 가게에 있습니다.' },
+      { en:'At a stall, sit where there is a gap, not where you would like to sit. The owner pointing at a stool is not rude — it is seating.',
+        ko:'포장마차에서는 앉고 싶은 자리가 아니라 비어 있는 자리에 앉으세요. 주인이 의자를 가리키는 건 무례가 아니라 안내입니다.' }
+    ]
+  },
+  {
+    id:'palace', no:'04', palette:'bloom', sticker:'hanok', motif:'gate',
+    tags:'#Hanbok #Gyeongbokgung #Bukchon #DanbiLab',
+    name:{ en:'Palace & Hanbok Day', ko:'고궁과 한복의 날' },
+    desc:{ en:'Rent a hanbok, walk slower, skip the queue', ko:'한복 대여, 느린 걸음, 줄 건너뛰기' },
+    title:'Palace & Hanbok Day',
+    subtitle:'a borrowed dress and a very old wall',
+    note:'walk like the palace is yours.',
+    items:[
+      'Rent a hanbok near Anguk Station',
+      'Enter the palace free, in hanbok',
+      'Watch the changing of the guard',
+      'Take the side path, not the main one',
+      'Sit by the pond and let the dress settle',
+      'Find the quietest corner of the garden',
+      'Take one photo with nobody else in it',
+      'Drink warm tea in a hanok teahouse',
+      'Follow the stone wall to the east gate',
+      'Return the hanbok before the shop closes'
+    ],
+    notes:[
+      { en:'Hanbok rental shops cluster around Anguk Station exits 2–4 and beside the palace gate. Two hours is the standard rental, and the palace waives the entry fee if you wear one.',
+        ko:'한복 대여점은 안국역 2~4번 출구와 궁궐 문 옆에 모여 있어요. 보통 두 시간이 기본이고, 한복을 입으면 궁 입장료가 면제됩니다.' },
+      { en:'The royal guard ceremony at the main gate happens twice a day, late morning and early afternoon, for about twenty minutes. Arrive ten minutes early for the front row.',
+        ko:'광화문 수문장 교대식은 오전 늦게와 오후 초에 하루 두 번, 이십 분쯤 이어져요. 앞줄에서 보려면 십 분 일찍 도착하세요.' },
+      { en:'Bukchon’s stone-wall lanes are people’s front doors. Keep to the marked walking route, and do not photograph into open windows.',
+        ko:'북촌의 돌담길은 사람들의 현관 앞이에요. 안내된 산책로를 따라 걷고, 열린 창문 안쪽으로 사진을 찍지 않습니다.' }
+    ]
+  },
+  {
+    id:'seongsu', no:'05', palette:'sage', sticker:'coffee', motif:'cup',
+    tags:'#Seongsu #SeoulCafe #BrickAndCoffee #DanbiLab',
+    name:{ en:'Seongsu Café Hop', ko:'성수 카페 투어' },
+    desc:{ en:'Red brick, big windows, one long espresso', ko:'붉은 벽돌, 큰 창, 길게 내린 에스프레소' },
+    title:'Seongsu Café Hop',
+    subtitle:'red brick, big windows, one long coffee',
+    note:'order the second cup before you feel guilty.',
+    items:[
+      'Start with a flat white in a converted factory',
+      'Walk the brick alleys, not the main road',
+      'Find the shop with only one thing on the menu',
+      'Smell the leather workshops on the side streets',
+      'Sit by a window and watch the pop-up queue',
+      'Buy a small ceramic cup to take home',
+      'Order a second coffee you don’t need',
+      'Visit a shoe shop older than you are',
+      'Photograph a shutter, not a sign',
+      'End with the river at dusk'
+    ],
+    notes:[
+      { en:'Seongsu is best on a weekday. Weekends turn the main street into a queue, and the good cafés are one block behind it anyway.',
+        ko:'성수는 평일이 좋아요. 주말엔 큰길이 줄이 되는데, 좋은 카페는 어차피 한 블록 뒤에 있습니다.' },
+      { en:'This was a shoe-factory district before it was a café district. The small workshops still open early, and many shops keep their old shutters and signs.',
+        ko:'여기는 카페 동네가 되기 전에 신발 공장 동네였어요. 작은 공방들은 아직 일찍 문을 열고, 많은 가게가 옛 셔터와 간판을 그대로 씁니다.' },
+      { en:'In Korea a café is a place to sit, not just to buy. One drink buys the table for a couple of hours; order a second before the guilt arrives.',
+        ko:'한국에서 카페는 사는 곳이 아니라 앉는 곳이에요. 음료 하나로 두 시간쯤 테이블을 쓸 수 있으니, 미안해지기 전에 하나 더 주문하세요.' }
+    ]
+  },
+  {
+    id:'night', no:'06', palette:'lilac', sticker:'moon', motif:'moon',
+    tags:'#SeoulNight #Euljiro #Noraebang #DanbiLab',
+    name:{ en:'Seoul After Dark', ko:'서울의 밤' },
+    desc:{ en:'Neon alleys, noraebang, a 2 a.m. bowl of noodles', ko:'네온 골목, 노래방, 새벽 2시 국수' },
+    title:'Seoul After Dark',
+    subtitle:'neon, one more song, a 2 a.m. bowl of noodles',
+    note:'the city gets quieter, not sleepier.',
+    items:[
+      'Walk Euljiro’s print alleys after ten',
+      'Order grilled shellfish on a plastic stool',
+      'Sing exactly two songs in a noraebang',
+      'Eat a bowl of noodles at two in the morning',
+      'Catch the last subway, or accept the taxi',
+      'Drink a beer by the road, standing up',
+      'Look at the city from a rooftop, quietly',
+      'Find a 24-hour café and take the window seat',
+      'Walk home one stop early',
+      'Sleep in without apologising'
+    ],
+    notes:[
+      { en:'Euljiro’s no-name alleys sit behind the print shops: plastic stools, a fridge of beer, no sign at all. Cash helps, and the shellfish comes with a bucket of shells.',
+        ko:'을지로 노가리골목은 인쇄소 뒤편에 있어요. 플라스틱 의자, 맥주 냉장고, 간판은 없습니다. 현금이 편하고, 조개를 시키면 껍데기 통이 함께 옵니다.' },
+      { en:'Subways stop around midnight and start again near five; night buses cover the gap. After one in the morning, a taxi is the honest choice.',
+        ko:'지하철은 자정 무렵 끊기고 다섯 시쯤 다시 시작해요. 그 사이는 심야버스가 이어 줍니다. 새벽 한 시가 넘으면 택시가 정직한 선택입니다.' },
+      { en:'In a noraebang the room is the point, not the singing. Order the fruit plate, sing badly, leave before sunrise.',
+        ko:'노래방은 노래보다 방이 중요한 곳이에요. 과일 접시 시키고, 서툴게 부르고, 해 뜨기 전에 나오면 됩니다.' }
+    ]
+  },
+  {
+    id:'cozy', no:'07', palette:'hanji', sticker:'coffee', motif:'cup',
+    tags:'#CozySundayReset #SlowLiving #SelfCare #DanbiLab',
     name:{ en:'Cozy Sunday Reset', ko:'포근한 일요일 리셋' },
     desc:{ en:'Phone off, tea warm, paper book open', ko:'휴대폰 끄고, 따뜻한 차, 종이책' },
     title:'Cozy Sunday Reset',
     subtitle:'a soft day to come back to yourself',
     note:'rest is part of the work.',
     items:[
-      'Leave your phone in a drawer until noon',
-      'Brew a warm cup of tea, no rush',
+      'Leave the phone in a drawer until noon',
+      'Brew tea in a pot, not a mug',
       'Read twenty pages of a paper book',
-      'Write a short letter by hand',
-      'Open the windows and let the air in',
-      'Stretch on the floor for ten minutes',
-      'Bake something that makes the kitchen smell good',
-      'Plan the week with a pencil, not a screen'
+      'Write one letter by hand',
+      'Open every window for ten minutes',
+      'Stretch on the floor, slowly',
+      'Bake something that scents the kitchen',
+      'Cook one dish from a market you visited',
+      'Plan the week with a pencil',
+      'Go to bed before the Sunday dread arrives'
+    ],
+    notes:[
+      { en:'A real reset has an end time. Give the day three anchors — morning tea, one walk, one small task — and let the rest stay empty.',
+        ko:'진짜 리셋에는 끝나는 시간이 있어요. 아침 차, 산책 한 번, 작은 일 하나 — 세 개만 붙잡고 나머지는 비워 두세요.' },
+      { en:'Korean Sundays have their own rhythm: a late brunch, a market or a mountain, then a quiet evening. Borrow it. Nothing has to be productive.',
+        ko:'한국의 일요일에는 리듬이 있어요. 늦은 브런치, 시장이나 산, 그리고 조용한 저녁. 그 리듬을 빌려 오세요. 생산적일 필요는 없습니다.' }
     ]
   },
   {
-    id:'korean', no:'03', palette:'lilac', sticker:'star',
-    tags:'#LearnKorean #CozyChecklist #Printable #DanbiLab',
+    id:'korean', no:'08', palette:'lilac', sticker:'star', motif:'bloom',
+    tags:'#LearnKorean #Hangul #StudyKorean #DanbiLab',
     name:{ en:'Learn Korean Gently', ko:'부드러운 한국어 습관' },
-    desc:{ en:'One word, one song, one small try', ko:'하루 한 단어, 한국 노래, 작은 시도' },
+    desc:{ en:'One word, one song, one small try', ko:'하루 한 단어, 노래 한 곡, 작은 시도' },
     title:'Learn Korean Gently',
     subtitle:'one small word at a time',
     note:'한 걸음씩, 천천히.',
     items:[
-      'Learn one new word today',
-      'Listen to a Korean song and read the lyrics',
+      'Learn one new word before coffee',
+      'Read the lyrics of a Korean song',
       'Write your name in Hangul, three times',
-      'Say “gamsahamnida” out loud',
-      'Watch one K-drama scene without subtitles',
+      'Say “gamsahamnida” out loud, once',
+      'Watch one drama scene without subtitles',
       'Order your coffee in Korean',
       'Read one line of a Korean poem',
+      'Text a Korean friend in Korean',
+      'Learn five dishes on one menu',
       'Give yourself a sticker for trying'
+    ],
+    notes:[
+      { en:'Hangul is a 24-letter alphabet and takes a weekend, not a semester. Learn the shapes, then read every sign you pass out loud — the city becomes a worksheet.',
+        ko:'한글은 스물네 글자이고, 한 학기가 아니라 주말이면 배워요. 모양을 익힌 뒤 지나치는 간판을 소리 내 읽어 보세요. 도시가 문제집이 됩니다.' },
+      { en:'“감사합니다” is the safe thank-you; “고마워요” is warmer between friends. Choosing the wrong one will not offend anyone, but choosing the right one gets noticed.',
+        ko:'“감사합니다”는 안전한 감사 인사, “고마워요”는 친구 사이에 더 따뜻한 말이에요. 틀려도 실례가 되진 않지만, 맞게 고르면 상대가 알아봅니다.' },
+      { en:'Learning by ear first is fine. Koreans will correct your pronunciation warmly and immediately — treat it as a free lesson, not a correction.',
+        ko:'먼저 귀로 익히는 것도 괜찮아요. 한국인은 발음을 다정하고 즉시 고쳐 줍니다. 지적이 아니라 무료 수업이라고 생각하세요.' }
     ]
   },
   {
-    id:'blank', no:'04', palette:'terra', sticker:'moon',
-    tags:'#CustomChecklist #CozyChecklist #Printable #DanbiLab',
+    id:'blank', no:'09', palette:'dusk', sticker:'pen', motif:'pen',
+    tags:'#CustomChecklist #BucketList #Printable #DanbiLab',
     name:{ en:'Custom Blank List', ko:'빈 리스트 (내 마음대로)' },
     desc:{ en:'Your own title, your own list', ko:'내 제목, 내 항목 그대로' },
     title:'My Little List',
@@ -642,7 +898,15 @@ const PRESETS = [
       'A skill to practice slowly',
       'A place to sit and do nothing',
       'Something to make with my hands',
-      'A promise to keep to myself'
+      'A promise to keep to myself',
+      'One thing to finish this month',
+      'Something to look forward to'
+    ],
+    notes:[
+      { en:'Write the items as verbs, not nouns: “walk to the river”, not “the river”. A list you can start today is a list you will finish.',
+        ko:'항목은 명사가 아니라 동사로 쓰세요. “강”이 아니라 “강까지 걷기”. 오늘 시작할 수 있는 리스트가 끝까지 가는 리스트입니다.' },
+      { en:'Ten lines is the sweet spot. Fewer feels like a to-do list; more turns the page into a timetable nobody wants to read.',
+        ko:'열 줄이 가장 좋아요. 더 적으면 할 일 목록 같고, 더 많으면 아무도 읽고 싶지 않은 시간표가 됩니다.' }
     ]
   }
 ];
@@ -652,13 +916,13 @@ const I18N = {
     brandSub:'Checklist Studio',
     appTitle:'My Korea & Cozy Checklist Maker',
     appSub:'Pick a mood, write your list, and save it as a pin-ready image or an A4 page.',
-    secTheme:'Theme', secThemeNote:'Four starting points',
+    secTheme:'Theme', secThemeNote:'Nine starting points',
     secWords:'Words', secWordsNote:'Your own words win',
     fTitle:'Title', fSub:'Subtitle', fFor:'Made for (your name)',
     tipWords:'English titles travel furthest on Pinterest. The panel itself can be Korean whenever you like.',
     secList:'The list', secListNote:'6–10 sit best',
     addItem:'Add an item', reset:'Reset this list',
-    secPaper:'Paper', secPaperNote:'Four quiet palettes',
+    secPaper:'Paper', secPaperNote:'Six quiet papers',
     secStamp:'Little stamp', secStampNote:'One small mark',
     secSave:'Save & share', secSaveNote:'Rendered on your device',
     btnPin:'Save for Pinterest', btnPinSub:'2:3 · 1000 × 1500 PNG',
@@ -679,19 +943,22 @@ const I18N = {
     toastLimit:'Ten items is the limit — the page starts to feel crowded.',
     toastMin:'Keep at least three items on the list.',
     savedPinNote:'PNG saved',
-    tagsLabel:'Hashtags'
+    tagsLabel:'Hashtags',
+    railKicker:'Field notes', railMoreKicker:'In this set',
+    railQuote:'A good list is short, specific, and a little bit difficult — that is what makes it worth finishing.',
+    doneLabel:'checked'
   },
   ko: {
     brandSub:'체크리스트 스튜디오',
     appTitle:'나만의 체크리스트 · 버킷리스트 만들기',
     appSub:'마음에 드는 분위기를 고르고 리스트를 적어, 핀터레스트용 이미지나 A4 프린터블로 저장하세요.',
-    secTheme:'테마', secThemeNote:'네 가지 시작점',
+    secTheme:'테마', secThemeNote:'아홉 가지 시작점',
     secWords:'문구', secWordsNote:'내 말로 바꾸기',
     fTitle:'제목', fSub:'부제', fFor:'Made for (이름)',
     tipWords:'포스터 문구는 영어일 때 해외 핀터레스트 노출이 좋아요. 패널은 언제든 한국어로 바꿀 수 있어요.',
     secList:'리스트', secListNote:'6~10개가 가장 예뻐요',
     addItem:'항목 추가', reset:'이 리스트 되돌리기',
-    secPaper:'종이', secPaperNote:'네 가지 조용한 팔레트',
+    secPaper:'종이', secPaperNote:'여섯 가지 조용한 종이',
     secStamp:'스탬프', secStampNote:'작은 표식 하나',
     secSave:'저장 · 공유', secSaveNote:'내 기기에서 바로 렌더링',
     btnPin:'핀터레스트로 저장', btnPinSub:'2:3 · 1000 × 1500 PNG',
@@ -712,7 +979,10 @@ const I18N = {
     toastLimit:'항목은 10개까지예요. 그 이상은 페이지가 답답해져요.',
     toastMin:'항목은 3개 이상 남겨 주세요.',
     savedPinNote:'PNG 저장 완료',
-    tagsLabel:'해시태그'
+    tagsLabel:'해시태그',
+    railKicker:'현장 노트', railMoreKicker:'이 세트의 다른 리스트',
+    railQuote:'좋은 리스트는 짧고, 구체적이고, 조금 어렵습니다. 그래서 끝까지 해 보고 싶어집니다.',
+    doneLabel:'완료'
   }
 };
 
@@ -895,6 +1165,48 @@ function drawSticker(ctx, name, cx, cy, s, color, lw){
     rr(ctx, -0.11*u, 0.16*u, 0.22*u, 0.26*u, 0.02*u);
     ctx.stroke();
 
+  } else if (name === 'bloom'){
+    for (let i = 0; i < 5; i++){
+      const a = -Math.PI/2 + i * TAU/5;
+      const px = Math.cos(a) * 0.27*u, py = Math.sin(a) * 0.27*u;
+      ctx.beginPath();
+      ctx.ellipse(px, py, 0.19*u, 0.13*u, a + Math.PI/2, 0, TAU);
+      ctx.fillStyle = hexA(color, 0.08);
+      ctx.fill();
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(0, 0, 0.075*u, 0, TAU);
+    ctx.fillStyle = hexA(color, 0.34);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(0.06*u, 0.30*u);
+    ctx.quadraticCurveTo(0.30*u, 0.48*u, 0.42*u, 0.66*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.ellipse(0.28*u, 0.52*u, 0.12*u, 0.06*u, -0.9, 0, TAU);
+    ctx.stroke();
+
+  } else if (name === 'pen'){
+    ctx.beginPath();
+    ctx.moveTo(0.28*u, -0.52*u);
+    ctx.lineTo(0.44*u, -0.36*u);
+    ctx.lineTo(-0.14*u, 0.28*u);
+    ctx.lineTo(-0.40*u, 0.40*u);
+    ctx.lineTo(-0.30*u, 0.14*u);
+    ctx.closePath();
+    ctx.fillStyle = hexA(color, 0.07);
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0.28*u, -0.52*u);
+    ctx.lineTo(0.16*u, -0.40*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.40*u, 0.40*u);
+    ctx.lineTo(-0.30*u, 0.56*u);
+    ctx.stroke();
+
   } else if (name === 'moon'){
     ctx.beginPath();
     ctx.moveTo(0.24*u, -0.50*u);
@@ -913,6 +1225,194 @@ function drawSticker(ctx, name, cx, cy, s, color, lw){
     ctx.lineWidth = lw * 0.8;
     spark(-0.34*u, -0.28*u, 0.09*u);
     spark(-0.42*u, 0.12*u, 0.055*u);
+  }
+  ctx.restore();
+}
+
+
+/* ---------------- series motifs (hairline line art) ---------------- */
+
+function drawMotif(ctx, kind, cx, cy, s, color, alpha){
+  if (!kind || alpha === 0) return;
+  const u = s / 2;
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.strokeStyle = hexA(color, alpha);
+  ctx.fillStyle = hexA(color, alpha);
+  ctx.lineWidth = Math.max(1, s * 0.028);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  if (kind === 'hanok'){
+    ctx.beginPath();
+    ctx.moveTo(-0.92*u, 0.02*u);
+    ctx.quadraticCurveTo(-0.62*u, -0.34*u, -0.20*u, -0.38*u);
+    ctx.lineTo(0.20*u, -0.38*u);
+    ctx.quadraticCurveTo(0.62*u, -0.34*u, 0.92*u, 0.02*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.80*u, 0.12*u);
+    ctx.quadraticCurveTo(0, -0.10*u, 0.80*u, 0.12*u);
+    ctx.stroke();
+    for (let i = -3; i <= 3; i++){
+      ctx.beginPath();
+      ctx.moveTo(i * 0.20*u, -0.30*u + Math.abs(i) * 0.035*u);
+      ctx.lineTo(i * 0.16*u, -0.02*u);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.moveTo(-0.44*u, 0.16*u); ctx.lineTo(-0.44*u, 0.62*u);
+    ctx.moveTo(0.44*u, 0.16*u);  ctx.lineTo(0.44*u, 0.62*u);
+    ctx.moveTo(-0.62*u, 0.66*u); ctx.lineTo(0.62*u, 0.66*u);
+    ctx.stroke();
+    rr(ctx, -0.16*u, 0.30*u, 0.32*u, 0.36*u, 0.03*u);
+    ctx.stroke();
+
+  } else if (kind === 'river'){
+    for (let r = 0; r < 4; r++){
+      const y = -0.34*u + r * 0.28*u;
+      const w = (0.78 - r * 0.11) * u;
+      ctx.beginPath();
+      ctx.moveTo(-w, y);
+      for (let i = 0; i < 5; i++){
+        const x0 = -w + (2 * w) * (i / 5);
+        ctx.quadraticCurveTo(x0 + w / 5, y - 0.09*u, x0 + (2 * w) / 5, y);
+      }
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(0.34*u, -0.52*u, 0.16*u, 0, TAU);
+    ctx.globalAlpha = 1;
+    ctx.stroke();
+    ctx.globalAlpha = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(-0.66*u, -0.52*u); ctx.lineTo(-0.02*u, -0.52*u);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+  } else if (kind === 'lantern'){
+    ctx.beginPath();
+    ctx.moveTo(0, -0.80*u);
+    ctx.lineTo(0, -0.52*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.34*u, -0.52*u);
+    ctx.lineTo(0.34*u, -0.52*u);
+    ctx.lineTo(0.26*u, 0.30*u);
+    ctx.quadraticCurveTo(0.24*u, 0.44*u, 0, 0.44*u);
+    ctx.quadraticCurveTo(-0.24*u, 0.44*u, -0.26*u, 0.30*u);
+    ctx.closePath();
+    ctx.stroke();
+    for (let i = -1; i <= 1; i++){
+      ctx.beginPath();
+      ctx.moveTo(i * 0.12*u, -0.46*u);
+      ctx.lineTo(i * 0.09*u, 0.36*u);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.moveTo(0, 0.46*u); ctx.lineTo(0, 0.72*u);
+    ctx.stroke();
+
+  } else if (kind === 'gate'){
+    ctx.beginPath();
+    ctx.moveTo(-0.90*u, -0.20*u);
+    ctx.quadraticCurveTo(-0.74*u, -0.46*u, -0.46*u, -0.48*u);
+    ctx.lineTo(0.46*u, -0.48*u);
+    ctx.quadraticCurveTo(0.74*u, -0.46*u, 0.90*u, -0.20*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.72*u, -0.10*u);
+    ctx.lineTo(0.72*u, -0.10*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.52*u, -0.10*u); ctx.lineTo(-0.52*u, 0.66*u);
+    ctx.moveTo(0.52*u, -0.10*u);  ctx.lineTo(0.52*u, 0.66*u);
+    ctx.moveTo(-0.70*u, 0.70*u);  ctx.lineTo(0.70*u, 0.70*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.20*u, 0.70*u);
+    ctx.lineTo(-0.20*u, 0.10*u);
+    ctx.quadraticCurveTo(0, -0.06*u, 0.20*u, 0.10*u);
+    ctx.lineTo(0.20*u, 0.70*u);
+    ctx.stroke();
+
+  } else if (kind === 'cup'){
+    ctx.beginPath();
+    ctx.moveTo(-0.52*u, -0.32*u);
+    ctx.lineTo(0.36*u, -0.32*u);
+    ctx.lineTo(0.28*u, 0.40*u);
+    ctx.quadraticCurveTo(0.26*u, 0.52*u, 0.10*u, 0.52*u);
+    ctx.lineTo(-0.26*u, 0.52*u);
+    ctx.quadraticCurveTo(-0.42*u, 0.52*u, -0.44*u, 0.40*u);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0.48*u, 0.02*u, 0.20*u, -1.3, 1.3);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.62*u, 0.66*u); ctx.lineTo(0.58*u, 0.66*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.18*u, -0.48*u);
+    ctx.bezierCurveTo(-0.32*u, -0.62*u, -0.04*u, -0.70*u, -0.16*u, -0.86*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0.10*u, -0.48*u);
+    ctx.bezierCurveTo(-0.04*u, -0.62*u, 0.24*u, -0.70*u, 0.12*u, -0.86*u);
+    ctx.stroke();
+
+  } else if (kind === 'moon'){
+    ctx.beginPath();
+    ctx.arc(-0.06*u, 0, 0.50*u, -1.15, 1.15, false);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.62*u, 0.52*u);
+    ctx.quadraticCurveTo(-0.20*u, 0.30*u, 0.24*u, 0.44*u);
+    ctx.quadraticCurveTo(0.50*u, 0.52*u, 0.72*u, 0.40*u);
+    ctx.stroke();
+    const spark = (sx, sy, sr) => {
+      ctx.beginPath();
+      ctx.moveTo(sx, sy - sr); ctx.lineTo(sx, sy + sr);
+      ctx.moveTo(sx - sr, sy); ctx.lineTo(sx + sr, sy);
+      ctx.stroke();
+    };
+    spark(0.46*u, -0.42*u, 0.10*u);
+    spark(0.62*u, -0.14*u, 0.055*u);
+
+  } else if (kind === 'bloom'){
+    ctx.beginPath();
+    ctx.moveTo(-0.28*u, 0.78*u);
+    ctx.bezierCurveTo(-0.10*u, 0.36*u, 0.04*u, 0.10*u, 0.30*u, -0.12*u);
+    ctx.stroke();
+    for (let i = 0; i < 5; i++){
+      const a = -Math.PI/2 + i * TAU/5;
+      const px = 0.30*u + Math.cos(a) * 0.16*u;
+      const py = -0.12*u + Math.sin(a) * 0.16*u;
+      ctx.beginPath();
+      ctx.ellipse(px, py, 0.13*u, 0.085*u, a + Math.PI/2, 0, TAU);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.ellipse(-0.22*u, 0.34*u, 0.15*u, 0.06*u, -0.6, 0, TAU);
+    ctx.stroke();
+
+  } else if (kind === 'pen'){
+    ctx.beginPath();
+    ctx.moveTo(0.52*u, -0.62*u);
+    ctx.lineTo(0.72*u, -0.42*u);
+    ctx.lineTo(-0.10*u, 0.32*u);
+    ctx.lineTo(-0.44*u, 0.46*u);
+    ctx.lineTo(-0.30*u, 0.12*u);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.44*u, 0.46*u);
+    ctx.lineTo(-0.30*u, 0.68*u);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-0.62*u, -0.30*u);
+    ctx.quadraticCurveTo(-0.80*u, -0.06*u, -0.62*u, 0.18*u);
+    ctx.stroke();
   }
   ctx.restore();
 }
@@ -987,19 +1487,42 @@ function drawPoster(ctx, collectHits, bleed){
   ctx.fillStyle = vg;
   ctx.fillRect(B.x, B.y, B.w, B.h);
 
-  /* hairline frame */
+  /* hairline frame, double rule with corner ticks */
   rr(ctx, 34, 34, DESIGN_W - 68, DESIGN_H - 68, 3);
-  ctx.strokeStyle = hexA(pal.ink, 0.13);
+  ctx.strokeStyle = hexA(pal.ink, 0.16);
   ctx.lineWidth = 1;
   ctx.stroke();
+  rr(ctx, 45, 45, DESIGN_W - 90, DESIGN_H - 90, 2);
+  ctx.strokeStyle = hexA(pal.ink, 0.07);
+  ctx.lineWidth = 0.8;
+  ctx.stroke();
+  ctx.strokeStyle = hexA(pal.accent, 0.42);
+  ctx.lineWidth = 1.4;
+  const tick = 15, pad = 34;
+  [[pad, pad, 1, 1], [DESIGN_W - pad, pad, -1, 1], [pad, DESIGN_H - pad, 1, -1], [DESIGN_W - pad, DESIGN_H - pad, -1, -1]].forEach(([x, y, sx, sy]) => {
+    ctx.beginPath();
+    ctx.moveTo(x + sx * tick, y);
+    ctx.lineTo(x, y);
+    ctx.lineTo(x, y + sy * tick);
+    ctx.stroke();
+  });
 
   /* eyebrow */
   ctx.fillStyle = hexA(pal.muted, 0.96);
-  ctx.font = '500 15px "Lora", Georgia, serif';
-  tracked(ctx, 'DANBI LAB  ·  PRINTABLE NO. ' + preset.no, X0, 152, 3.3);
+  ctx.font = '500 14px "Lora", Georgia, serif';
+  tracked(ctx, 'DANBI LAB', X0, 146, 3.6);
+  ctx.fillStyle = hexA(pal.accent, 0.85);
+  ctx.font = '500 11px "Lora", Georgia, serif';
+  tracked(ctx, 'SEOUL PRINTABLE · NO. ' + preset.no, X0, 166, 2.6);
+  ctx.strokeStyle = hexA(pal.ink, 0.12);
+  ctx.lineWidth = 0.8;
+  ctx.beginPath();
+  ctx.moveTo(X0 + 250, 143);
+  ctx.lineTo(RIGHT - 96, 143);
+  ctx.stroke();
 
   /* stamp badge */
-  const bx = RIGHT - 38, by = 142, br = 39;
+  const bx = RIGHT - 34, by = 150, br = 37;
   ctx.beginPath();
   ctx.arc(bx, by, br, 0, TAU);
   ctx.fillStyle = hexA(pal.accent, 0.10);
@@ -1066,6 +1589,9 @@ function drawPoster(ctx, collectHits, bleed){
   ctx.fillStyle = hexA(pal.accent, 0.85);
   ctx.fill();
 
+  /* series motif, sitting in the quiet band above the list */
+  drawMotif(ctx, preset.motif, RIGHT - 52, dy + 30, 96, pal.accent, pal.dark ? 0.7 : 0.62);
+
   /* items */
   const rows = state.items
     .map((it, i) => ({ it, i }))
@@ -1083,13 +1609,13 @@ function drawPoster(ctx, collectHits, bleed){
     const box = 32;
     const bxx = X0, byy = cy - box / 2;
 
-    rr(ctx, bxx, byy, box, box, 6);
+    rr(ctx, bxx, byy, box, box, 5);
     if (o.it.checked){
       ctx.fillStyle = hexA(pal.accent, 0.95);
       ctx.fill();
     }
-    ctx.lineWidth = 1.9;
-    ctx.strokeStyle = o.it.checked ? hexA(pal.accent, 1) : hexA(pal.ink, 0.55);
+    ctx.lineWidth = 1.35;
+    ctx.strokeStyle = o.it.checked ? hexA(pal.accent, 1) : hexA(pal.ink, 0.42);
     ctx.stroke();
 
     if (o.it.checked){
@@ -1166,6 +1692,7 @@ function drawPoster(ctx, collectHits, bleed){
   ctx.fillText(preset.note, X0, fy + 34);
 
   drawSeal(ctx, RIGHT - 62, fy + 40, pal);
+
   ctx.restore();
 }
 
@@ -1334,6 +1861,40 @@ function drawStickerThumbs(){
   });
 }
 
+
+/* ---------------- field notes rail ---------------- */
+
+function renderRail(){
+  const p = PRESETS.find(x => x.id === state.preset) || PRESETS[0];
+  const title = $('#railTitle'), lede = $('#railLede'), notes = $('#railNotes'), list = $('#railList'), count = $('#railCount');
+  if (!title) return;
+  title.textContent = p.name[state.lang] || p.name.en;
+  lede.textContent = p.desc[state.lang] || p.desc.en;
+  const items = (p.notes || []).filter(Boolean);
+  count.textContent = String(items.length).padStart(2, '0');
+  notes.innerHTML = '';
+  items.forEach(n => {
+    const li = document.createElement('li');
+    li.textContent = typeof n === 'string' ? n : (n[state.lang] || n.en);
+    notes.appendChild(li);
+  });
+  list.innerHTML = '';
+  PRESETS.forEach(q => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'rail-item';
+    b.dataset.preset = q.id;
+    b.setAttribute('aria-current', String(q.id === state.preset));
+    const pal = PALETTES[q.palette] || PALETTES.hanji;
+    b.innerHTML = `<span class="rn">${q.no}</span>
+      <span class="rt"><b></b><small></small></span>
+      <span class="sw" style="background:linear-gradient(150deg,${pal.bg1},${pal.accent})"></span>`;
+    b.querySelector('b').textContent = q.name[state.lang] || q.name.en;
+    b.querySelector('small').textContent = (q.items || []).length + ' ' + (state.lang === 'ko' ? '항목' : 'items');
+    list.appendChild(b);
+  });
+}
+
 /* ---------------- items ---------------- */
 
 function escapeAttr(s){
@@ -1411,6 +1972,7 @@ function applyPreset(id, opts){
   buildStickers();
   syncSelections();
   updateTags();
+  renderRail();
   scheduleDraw();
   if (previous){
     toast(T('toastPreset', { name: p.name[state.lang] || p.name.en }), T('undo'), () => restore(previous));
@@ -1430,6 +1992,7 @@ function restore(snap){
   buildStickers();
   syncSelections();
   updateTags();
+  renderRail();
   scheduleDraw();
 }
 
@@ -1564,6 +2127,7 @@ function applyLang(){
   labelStickers();
   renderItems();
   drawStickerThumbs();
+  renderRail();
   scheduleDraw();
 }
 
@@ -1573,6 +2137,14 @@ function bind(){
   $('#inTitle').addEventListener('input', e => { state.title = e.target.value; scheduleDraw(); });
   $('#inSub').addEventListener('input', e => { state.subtitle = e.target.value; scheduleDraw(); });
   $('#inFor').addEventListener('input', e => { state.madeFor = e.target.value; scheduleDraw(); });
+
+  const rail = $('#railList');
+  if (rail) rail.addEventListener('click', e => {
+    const b = e.target.closest('.rail-item');
+    if (!b) return;
+    if (b.dataset.preset === state.preset) return;
+    applyPreset(b.dataset.preset);
+  });
 
   $('#items').addEventListener('click', e => {
     const row = e.target.closest('.item-row');
