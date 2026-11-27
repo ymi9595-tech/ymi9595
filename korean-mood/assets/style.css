@@ -550,7 +550,7 @@ main{ position:relative; z-index:1; }
   .site-head{ padding:16px 18px 4px; }
   .brand__name{ font-size:16.5px; }
   .brand__by{ font-size:9px; letter-spacing:.09em; white-space:nowrap; }
-  .head-link{ font-size:10.5px; letter-spacing:.1em; }
+  .head-link{ display:none; }
 
   .intro{ padding:34px 20px 0; }
   .intro h1{ font-size:clamp(30px, 8.6vw, 40px); }
