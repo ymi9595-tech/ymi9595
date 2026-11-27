@@ -399,6 +399,8 @@ footer{
 .danbi-back .danbi-back-ar{font-size:13px;line-height:1;opacity:.7;transform:translateY(-.5px)}
 @media (prefers-reduced-motion:reduce){.danbi-back{transition:none}.danbi-back:hover{transform:none}}
 .top .danbi-back{margin-right:auto}
+.modal-card a.btn{text-decoration:none;justify-content:center}
+.modal-card .btn + .btn{margin-left:4px}
 @media (max-width:560px){.danbi-back{padding:6px 10px 6px 9px;font-size:10.5px}.danbi-back .danbi-back-ar{font-size:12px}}
 @media (max-width:620px){.danbi-back{padding:8px;width:34px;height:34px;justify-content:center;gap:0}.danbi-back .danbi-back-tx{display:none}}
 </style>
@@ -537,7 +539,8 @@ footer{
     </div>
     <h2 id="modalTitle" data-i18n="moreTitle">More from Danbi Lab</h2>
     <p data-i18n="moreBody">Small tools for a slower, kinder day.</p>
-    <button type="button" class="btn primary" id="moreClose" data-i18n="moreClose">Keep making</button>
+    <a class="btn primary" href="../playground/" data-i18n="moreGo">Open the playground</a>
+    <button type="button" class="btn ghost" id="moreClose" data-i18n="moreClose">Keep making</button>
   </div>
 </div>
 
@@ -1005,7 +1008,8 @@ footer{
       empty: 'Write a name first.',
       more: 'More from Danbi Lab',
       moreTitle: 'More from Danbi Lab',
-      moreBody: 'Small tools for a slower, kinder day. New ones are on the way — meanwhile, make another postcard.',
+      moreBody: 'Small tools for a slower, kinder day — twelve of them now live in one place.',
+      moreGo: 'Open the playground',
       moreClose: 'Keep making',
       footNote: 'Made with care in Seoul',
       appsEyebrow: 'Also from the studio',
@@ -1049,7 +1053,8 @@ footer{
       empty: '먼저 이름을 적어 주세요.',
       more: '단비랩 더 보기',
       moreTitle: '단비랩 더 보기',
-      moreBody: '조금 느린 하루를 위한 작은 도구들. 곧 새 도구가 옵니다. 그동안 엽서를 하나 더 만들어 보세요.',
+      moreBody: '조금 느린 하루를 위한 작은 도구들. 이제 열두 개를 놀이터 한 곳에서 만날 수 있어요.',
+      moreGo: '놀이터 열기',
       moreClose: '계속 만들기',
       footNote: '서울에서 정성껏 만들었습니다',
       appsEyebrow: '같은 작업실에서',
