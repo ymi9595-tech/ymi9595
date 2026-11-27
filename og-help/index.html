@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6efe2">
-<meta name="description" content="스터디카페 OG 이용 안내 · 자가진단 · 빠른 문의 접수">
+<meta name="description" content="스터디카페 OG 이용 안내 · 자가진단 · 원터치 신고 · 빠른 문의 접수">
 <title>스터디카페 OG · 이용 안내</title>
 <style>
   :root{
@@ -48,6 +48,13 @@
     padding:6px 14px;border-radius:999px;
   }
   .dot{width:7px;height:7px;border-radius:50%;background:#5f8a67;display:inline-block}
+  .live-badge{
+    display:none;align-items:center;gap:6px;margin:10px auto 0;
+    background:#e9f5ec;color:#25603a;border:1px solid #c6e2cd;
+    font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:999px;
+  }
+  .live-badge.on{display:inline-flex}
+  .live-badge .dot{background:#35a35a;box-shadow:0 0 0 3px rgba(53,163,90,.18)}
   h1{
     font-size:27px;line-height:1.3;margin:14px 0 8px;
     letter-spacing:-.02em;font-weight:800;
@@ -132,6 +139,49 @@
   }
   .tip-card b{color:#2f4a35}
 
+  /* ── 1초 원터치 신고 ── */
+  .quick-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:15px 14px 16px;box-shadow:0 8px 24px rgba(122,98,66,.08);
+  }
+  .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .qbtn{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:7px;min-height:106px;padding:14px 8px;
+    border:1.5px solid #e2d4b9;border-radius:15px;
+    background:linear-gradient(180deg,#fffdf8 0%,#f6eddc 100%);
+    color:var(--ink);font-family:inherit;font-size:15.5px;font-weight:800;
+    line-height:1.35;text-align:center;cursor:pointer;
+    transition:transform .08s ease, background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .qbtn .qico{font-size:27px;line-height:1}
+  .qbtn .qtxt{display:block}
+  .qbtn:active{transform:scale(.97);background:#efe2ca;border-color:#cdb794}
+  .qbtn[disabled]{cursor:default}
+  .qbtn[disabled]:not(.done){opacity:.5}
+  .qbtn.done{border-color:#8dbf9c;background:#eaf5ed;color:#1f5a33}
+  .qbtn.done .qico{animation:pop .32s ease}
+  @keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.18)}100%{transform:scale(1)}}
+  .quick-note{
+    display:none;margin-top:12px;padding:14px 15px;
+    border-radius:14px;font-size:15px;line-height:1.65;
+  }
+  .quick-note.show{display:block}
+  .quick-note.ok{background:#eff6f0;border:1px solid #cfe1d3;color:#31513a}
+  .quick-note.info{background:#fdf6e4;border:1px solid #ecdcb4;color:#6d5417}
+  .quick-note.err{background:#fbeeea;border:1px solid #edcfc6;color:#7d3b2a}
+  .quick-note b{font-weight:800}
+  .quick-note .qsub{display:block;margin-top:6px;font-size:14px;opacity:.92}
+  .quick-note a{color:inherit;font-weight:800}
+  .mini-call{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    margin-top:11px;min-height:46px;padding:0 18px;
+    background:var(--accent);color:#fff !important;text-decoration:none;
+    border-radius:12px;font-size:15.5px;font-weight:800;
+  }
+  .quick-alt{margin:12px 2px 0;font-size:13.5px;color:var(--muted);text-align:center;line-height:1.6}
+  .quick-alt a{color:var(--accent);font-weight:800}
+
   /* ── 폼 ── */
   .form-card{
     background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
@@ -215,6 +265,7 @@
 
   <header>
     <span class="badge"><span class="dot"></span>365일 24시간 연중무휴</span>
+    <div class="live-badge" id="liveBadge"><span class="dot"></span>실시간 매장 알림 연결됨</div>
     <h1>스터디카페 OG</h1>
     <p class="addr">
       경기도 안성시 공도읍 <strong>송원길 35, 5층</strong><br>
@@ -224,7 +275,7 @@
 
   <div class="hero-card">
     <p>이용 중 불편한 점이 있으시면 <strong>아래 항목을 먼저 확인</strong>해 주세요.</p>
-    <p>그래도 해결되지 않으면 <strong>맨 아래 ‘빠른 요청 접수’</strong>로 남겨 주시면 확인 후 연락드립니다.</p>
+    <p>그래도 해결되지 않으면 <strong>‘원터치 신고’</strong> 버튼을 한 번 눌러 주시면 사장님 휴대폰으로 바로 알림이 갑니다. 자세한 사연은 <strong>맨 아래 접수서</strong>에 남겨 주세요.</p>
     <a class="tel-btn" href="tel:01031092428">📞 매장 문의 010-3109-2428</a>
   </div>
 
@@ -244,7 +295,7 @@
         <li><strong>빈 좌석에 짐이 있을 때</strong>: 전 이용자의 이용시간 종료 후 짐만 남은 경우일 수 있습니다. 키오스크에서 다른 이용 가능한 좌석을 선택해 주세요.</li>
         <li><strong>지정석 안내</strong>: 보이는 아무 지정석을 선택해 결제한 뒤, 원하시는 좌석번호(1순위·2순위)를 문자/전화로 알려주시면 전산상 변경해 드립니다. (QR/바코드 본인만 사용 가능, 타인 공유 시 환불 없이 퇴실)</li>
       </ol>
-      <p>문이 안 열리거나 결제한 이용권이 안 보일 때는 아래 <strong>빠른 요청 접수</strong>에 남겨 주세요.</p>
+      <p>문이 안 열리거나 결제한 이용권이 안 보일 때는 아래 <strong>원터치 신고</strong>를 눌러 주세요.</p>
     </div>
   </details>
 
@@ -314,7 +365,33 @@
     • 라운지 <b>셀프바</b>(원두커피·차·간식 무료)와 <b>무릎담요</b> 대여도 이용하실 수 있습니다.
   </div>
 
-  <h2><span class="num">2</span><span class="h2t">그래도 해결이 안 되시나요?</span></h2>
+  <h2><span class="num">2</span><span class="h2t">1초 원터치 빠른 신고</span></h2>
+  <p class="sub">글 쓰지 마시고, 해당되는 버튼을 <strong>한 번만</strong> 눌러 주세요. 사장님 휴대폰으로 바로 알림이 갑니다.</p>
+
+  <div class="quick-card" id="quickWrap">
+    <div class="quick-grid">
+      <button type="button" class="qbtn" data-id="study_kiosk" data-label="출입문·키오스크 오류">
+        <span class="qico">🚪</span>
+        <span class="qtxt">출입문·키오스크<br>오류</span>
+      </button>
+      <button type="button" class="qbtn" data-id="study_temp" data-label="너무 덥거나 추워요">
+        <span class="qico">❄️</span>
+        <span class="qtxt">너무 덥거나<br>추워요</span>
+      </button>
+      <button type="button" class="qbtn" data-id="study_wifi" data-label="와이파이·콘센트 이상">
+        <span class="qico">📶</span>
+        <span class="qtxt">와이파이·<br>콘센트 이상</span>
+      </button>
+      <button type="button" class="qbtn" data-id="study_clean" data-label="비품 부족·청결 요청">
+        <span class="qico">🧻</span>
+        <span class="qtxt">비품 부족·<br>청결 요청</span>
+      </button>
+    </div>
+    <div class="quick-note" id="quickNote" role="status" aria-live="polite"></div>
+    <p class="quick-alt">좌석번호나 자세한 내용이 필요하면 <a href="#requestForm">아래 접수서</a>를 이용해 주세요.</p>
+  </div>
+
+  <h2><span class="num">3</span><span class="h2t">그래도 해결이 안 되시나요?</span></h2>
   <p class="sub">아래 내용을 남겨 주시면 확인 후 연락드립니다. (자동 답장이 아닙니다)</p>
 
   <form class="form-card" id="requestForm" novalidate>
@@ -357,7 +434,7 @@
 
   <div class="result" id="result" role="status" aria-live="polite"></div>
 
-  <h2><span class="num">3</span><span class="h2t">매장 안내</span></h2>
+  <h2><span class="num">4</span><span class="h2t">매장 안내</span></h2>
   <div class="hero-card" style="margin-top:6px">
     <p><strong>스터디카페 OG</strong><br>
        경기도 안성시 공도읍 송원길 35, 5층<br>
@@ -374,30 +451,144 @@
 </div>
 
 <script>
-/* ─────────────────────────────────────────────────────────────
-   여기 한 곳만 바꾸면 됩니다.
-   바로 아래 줄 오른쪽 따옴표 안의 "MAKE_WEBHOOK_URL" 을 지우고,
-   Make에서 복사한 웹훅 주소(https://hook...make.com/...)를 넣으세요.
-   바꾸기 전에는 '미리보기'로만 동작하고 아무 곳에도 전송되지 않습니다.
-   ───────────────────────────────────────────────────────────── */
-const MAKE_WEBHOOK_URL = "MAKE_WEBHOOK_URL";
-
 (function () {
-  const form = document.getElementById('requestForm');
-  const resultBox = document.getElementById('result');
-  const submitBtn = document.getElementById('submitBtn');
+  /* ────────────────────────────────────────────────────────────
+     웹훅 ID는 소스에 넣지 않습니다.
+     매장 QR 주소의 ?id=... 로 들어온 값을 읽어 이 기기에만 저장하고,
+     신고·요청을 보낼 때만 사용합니다.
+     형식: https://trigger.macrodroid.com/{id}/{identifier}?detail=...
+     ──────────────────────────────────────────────────────────── */
+  var WEBHOOK_BASE = 'https://trigger.macrodroid.com/';
+  var STORE_KEY = 'oghelp.study.v1';
+  var TEL = 'tel:01031092428';
+  var TEL_TEXT = '010-3109-2428';
+  var COOLDOWN_MS = 8000;
 
+  function cleanId(s) {
+    s = String(s || '').trim();
+    var m = s.match(/trigger\.macrodroid\.com\/([A-Za-z0-9\-]{8,})/i);
+    if (m) s = m[1];
+    return /^[A-Za-z0-9\-]{8,}$/.test(s) ? s : '';
+  }
+
+  function resolveId() {
+    var v = '';
+    try { v = new URLSearchParams(location.search).get('id') || ''; } catch (e) {}
+    v = cleanId(v);
+    if (v) { try { localStorage.setItem(STORE_KEY, v); } catch (e) {} return v; }
+    try { v = cleanId(localStorage.getItem(STORE_KEY) || ''); } catch (e) { v = ''; }
+    return v;
+  }
+
+  var webhookId = resolveId();
+  var liveBadge = document.getElementById('liveBadge');
+  if (webhookId && liveBadge) liveBadge.classList.add('on');
+
+  function two(n) { return String(n).padStart(2, '0'); }
+  function stamp(d) {
+    d = d || new Date();
+    return d.getFullYear() + '-' + two(d.getMonth() + 1) + '-' + two(d.getDate()) + ' ' +
+           two(d.getHours()) + ':' + two(d.getMinutes());
+  }
+  function clock(d) {
+    d = d || new Date();
+    return two(d.getHours()) + ':' + two(d.getMinutes());
+  }
   function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
   function digits(s) { return String(s).replace(/[^0-9]/g, ''); }
 
+  function webhookUrl(identifier, detail) {
+    return WEBHOOK_BASE + encodeURIComponent(webhookId) + '/' + encodeURIComponent(identifier) +
+           '?detail=' + encodeURIComponent(detail) + '&ts=' + Date.now();
+  }
+
+  /* 한 번의 GET 요청만 보냅니다(중복 알림 방지). 응답은 읽지 않습니다. */
+  function send(identifier, detail) {
+    return fetch(webhookUrl(identifier, detail), {
+      method: 'GET',
+      mode: 'no-cors',
+      cache: 'no-store',
+      keepalive: true
+    });
+  }
+
+  var NOTE_NO_ID =
+    '<b>매장 내 QR로 접속하시면 실시간 알림이 전송됩니다.</b>' +
+    '<span class="qsub">급한 문의는 전화 버튼을 눌러 주세요.</span>' +
+    '<a class="mini-call" href="' + TEL + '">📞 ' + TEL_TEXT + ' 전화하기</a>';
+
+  /* ── 1초 원터치 신고 ─────────────────────────────────────── */
+  var quickWrap = document.getElementById('quickWrap');
+  var noteBox = document.getElementById('quickNote');
+  var qbtns = Array.prototype.slice.call(quickWrap.querySelectorAll('.qbtn'));
+  var locked = false;
+  var unlockTimer = null;
+
+  function setNote(kind, html) {
+    noteBox.className = 'quick-note show ' + kind;
+    noteBox.innerHTML = html;
+  }
+
+  function lockButtons() {
+    locked = true;
+    qbtns.forEach(function (b) { b.disabled = true; });
+    if (unlockTimer) clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(function () {
+      locked = false;
+      qbtns.forEach(function (b) {
+        b.disabled = false;
+        b.classList.remove('done');
+        var t = b.querySelector('.qtxt');
+        if (t && b.dataset.html) t.innerHTML = b.dataset.html;
+      });
+    }, COOLDOWN_MS);
+  }
+
+  qbtns.forEach(function (btn) {
+    var t = btn.querySelector('.qtxt');
+    if (t) btn.dataset.html = t.innerHTML;
+
+    btn.addEventListener('click', function () {
+      if (locked) return;
+      if (navigator.vibrate) { try { navigator.vibrate(16); } catch (e) {} }
+
+      var identifier = btn.getAttribute('data-id');
+      var label = btn.getAttribute('data-label') || '';
+
+      if (!webhookId) { setNote('info', NOTE_NO_ID); return; }
+
+      var tEl = btn.querySelector('.qtxt');
+      if (tEl) tEl.textContent = '보냈어요 ✓';
+      btn.classList.add('done');
+      setNote('ok',
+        '<b>✅ 사장님께 알림을 보냈어요!</b><span class="qsub">' +
+        clock() + ' · ' + esc(label) +
+        '<br>잠시만 기다려 주세요. 조치가 늦으면 아래 번호로 연락 주세요.</span>' +
+        '<a class="mini-call" href="' + TEL + '">📞 ' + TEL_TEXT + '</a>');
+      lockButtons();
+
+      send(identifier, '[빠른신고] 스터디카페 OG / ' + label + ' / ' + stamp())
+        .catch(function () {
+          setNote('err',
+            '<b>알림 전송이 되지 않았어요.</b><span class="qsub">인터넷 연결을 확인한 뒤 다시 눌러 주시거나, 아래 번호로 연락 주세요.</span>' +
+            '<a class="mini-call" href="' + TEL + '">📞 ' + TEL_TEXT + '</a>');
+        });
+    });
+  });
+
+  /* ── 빠른 요청 접수 ──────────────────────────────────────── */
+  var form = document.getElementById('requestForm');
+  var resultBox = document.getElementById('result');
+  var submitBtn = document.getElementById('submitBtn');
+
   function show(kind, title, htmlInner) {
     resultBox.className = 'result show ' + kind;
     resultBox.innerHTML = '<h3>' + title + '</h3>' + htmlInner;
-    resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (resultBox.scrollIntoView) resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   function summaryHtml(data) {
@@ -408,13 +599,13 @@ const MAKE_WEBHOOK_URL = "MAKE_WEBHOOK_URL";
       '<b>연락처</b>' + esc(data.sender) + '</div>';
   }
 
-  form.addEventListener('submit', async function (e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const seat = document.getElementById('seat').value.trim();
-    const category = document.getElementById('category').value;
-    const detail = document.getElementById('detail').value.trim();
-    const phone = document.getElementById('phone').value.trim();
+    var seat = document.getElementById('seat').value.trim();
+    var category = document.getElementById('category').value;
+    var detail = document.getElementById('detail').value.trim();
+    var phone = document.getElementById('phone').value.trim();
 
     if (!category) {
       show('err', '항목을 골라 주세요', '<p>어떤 점이 불편하셨는지 목록에서 하나 선택해 주세요.</p>');
@@ -432,69 +623,42 @@ const MAKE_WEBHOOK_URL = "MAKE_WEBHOOK_URL";
       return;
     }
 
-    const now = new Date();
-    const stamp = now.getFullYear() + '-' +
-      String(now.getMonth() + 1).padStart(2, '0') + '-' +
-      String(now.getDate()).padStart(2, '0') + ' ' +
-      String(now.getHours()).padStart(2, '0') + ':' +
-      String(now.getMinutes()).padStart(2, '0');
+    var data = { seat: seat, category: category, detail: detail, sender: phone };
+    var payload = '[요청접수] 스터디카페 OG / 좌석 ' + (seat || '미지정') + ' / ' + category +
+                  ' / ' + detail + ' / 연락처 ' + phone + ' / ' + stamp();
 
-    const data = {
-      source: 'qr',
-      sender: phone,
-      seat: seat,
-      category: category,
-      detail: detail,
-      message: '[QR 접수] 좌석: ' + (seat || '미지정') + ' / 항목: ' + category + '\n내용: ' + detail,
-      ts: stamp
-    };
-
-    // 웹훅 주소가 아직 자리표시자면 → 미리보기
-    if (!/^https?:\/\//i.test(MAKE_WEBHOOK_URL)) {
+    if (!webhookId) {
       show('preview',
-        '미리보기 — 아직 매장 연결 전입니다',
-        '<p>아래 내용이 그대로 접수될 예정입니다. 매장에서 연결을 마치면 이 화면에서 바로 전송됩니다.</p>' +
+        '매장 알림 연결 전입니다',
+        '<p>매장 내 QR로 접속하시면 실시간 알림이 전송됩니다. 급한 문의는 전화 버튼을 눌러 주세요.</p>' +
         summaryHtml(data) +
-        '<p style="margin-top:12px">지금은 어디로도 전송되지 않았습니다. 급하시면 매장 번호로 연락 주세요.</p>' +
-        '<a class="tel" href="tel:01031092428">📞 010-3109-2428</a>');
+        '<a class="tel" href="' + TEL + '">📞 ' + TEL_TEXT + '</a>');
       return;
     }
 
     submitBtn.disabled = true;
     submitBtn.textContent = '보내는 중…';
 
-    try {
-      // Make 웹훅은 폼 데이터 형식을 그대로 받습니다(사전 확인 요청 없이 전송되어 실패가 적습니다).
-      const body = new URLSearchParams({
-        source: data.source,
-        sender: data.sender,
-        seat: data.seat,
-        category: data.category,
-        detail: data.detail,
-        message: data.message,
-        ts: data.ts
-      });
-      await fetch(MAKE_WEBHOOK_URL, { method: 'POST', mode: 'no-cors', body: body });
-
+    send('study_inquiry', payload).then(function () {
       show('ok', '접수되었습니다',
-        '<p>남겨 주신 내용을 확인한 뒤 <strong>연락드리겠습니다.</strong> 잠시만 기다려 주세요.</p>' +
+        '<p>사장님 휴대폰으로 <strong>알림을 보냈어요.</strong> 확인한 뒤 연락드리겠습니다.</p>' +
         summaryHtml(data) +
         '<button type="button" class="again" id="againBtn">내용 수정해서 다시 보내기</button>');
       form.reset();
-      const again = document.getElementById('againBtn');
+      var again = document.getElementById('againBtn');
       if (again) again.addEventListener('click', function () { resultBox.className = 'result'; });
-    } catch (err) {
+    }).catch(function () {
       show('err', '전송이 되지 않았습니다',
-        '<p>인터넷 연결을 확인하고 다시 한 번 눌러 주세요. 계속 안 되면 매장 번호로 연락 주시면 바로 확인해 드립니다.</p>' +
+        '<p>인터넷 연결을 확인하고 다시 한 번 눌러 주세요. 계속 안 되면 매장 번호로 연락 주시면 바로 확인해 드리겠습니다.</p>' +
         summaryHtml(data) +
-        '<a class="tel" href="tel:01031092428">📞 010-3109-2428</a><br>' +
+        '<a class="tel" href="' + TEL + '">📞 ' + TEL_TEXT + '</a><br>' +
         '<button type="button" class="again" id="retryBtn">다시 보내기</button>');
-      const retry = document.getElementById('retryBtn');
-      if (retry) retry.addEventListener('click', function () { form.requestSubmit(); });
-    } finally {
+      var retry = document.getElementById('retryBtn');
+      if (retry) retry.addEventListener('click', function () { form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event('submit')); });
+    }).then(function () {
       submitBtn.disabled = false;
       submitBtn.textContent = '요청 보내기';
-    }
+    });
   });
 })();
 </script>
