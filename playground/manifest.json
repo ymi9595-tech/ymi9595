@@ -1,0 +1,48 @@
+{
+  "name": "Danbi K-Culture Playground",
+  "short_name": "Danbi Playground",
+  "description": "Fourteen free corners of Korea in one place — a lantern wish, a hanbok dress-up studio, a five-day Korea journey, colouring, Seoul colour cards and printable K-food recipe cards. Free, no sign-up, no ads.",
+  "start_url": "./",
+  "scope": "../",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F6EFE3",
+  "theme_color": "#F6EFE3",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["entertainment", "education", "lifestyle"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dress Your Hanbok",
+      "short_name": "Hanbok",
+      "url": "../hanbok-studio/",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Korea 5-Day Journey",
+      "short_name": "5-Day",
+      "url": "../korea-5day-mission/",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}

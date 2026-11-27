@@ -8,6 +8,12 @@
 <meta name="keywords" content="Korea, Korean culture, free Korean tools, learn Korean, hangul, hanok, K-food recipes, Seoul, coloring pages, Danbi Lab, 단비랩, 놀이터">
 <meta name="author" content="Danbi Lab (단비랩)">
 <meta name="theme-color" content="#F6EFE3">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Danbi Playground">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://ymi9595-tech.github.io/ymi9595/playground/">
 
@@ -358,8 +364,35 @@ h1 .line2{display:block}
   .top-in{height:62px}
   .brand-sub{display:none}
 }
+/* ---------------- add to home screen ---------------- */
+.install-btn{
+  display:inline-flex;align-items:center;gap:7px;flex:none;
+  padding:8px 14px 8px 12px;border-radius:999px;border:1px solid rgba(180,70,47,.34);
+  background:rgba(255,252,246,.82);color:var(--seal);
+  font-family:inherit;font-size:11.5px;letter-spacing:.04em;font-weight:600;line-height:1;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:background .18s,border-color .18s,transform .18s}
+.install-btn:hover{background:#FFFDF8;border-color:rgba(180,70,47,.6);transform:translateY(-1px)}
+.install-btn svg{width:14px;height:14px;flex:none}
+.install-btn[hidden]{display:none}
+.install-pop{
+  position:absolute;right:clamp(18px,4vw,34px);top:calc(100% - 6px);z-index:60;width:min(290px,calc(100vw - 32px));
+  padding:15px 16px 13px;border-radius:14px;border:1px solid var(--line-2);
+  background:#FFFCF6;box-shadow:0 24px 48px -30px rgba(60,40,20,.55);
+  font-size:12.5px;line-height:1.6;color:var(--ink-2);text-align:left}
+.install-pop b{display:block;color:var(--ink);font-size:13px;margin-bottom:5px;letter-spacing:.01em}
+.install-pop p{margin:0}
+.install-pop .ios-step{display:inline-flex;align-items:center;gap:4px;padding:1px 6px;border-radius:6px;
+  background:rgba(72,54,34,.08);color:var(--ink);font-weight:600}
+.install-pop .pop-close{
+  margin-top:11px;padding:6px 12px;border-radius:999px;border:1px solid var(--line-2);
+  background:#fff;font-family:inherit;font-size:11.5px;color:var(--ink-2);cursor:pointer}
+.install-pop .pop-close:hover{border-color:var(--ink-2)}
+.install-pop[hidden]{display:none}
+@media (max-width:560px){.install-btn{padding:8px 10px}.install-btn .ib-tx{display:none}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
+  .install-btn:hover{transform:none}
   .corner,.today-card,.go .ar,.today-go .ar,.mini,.jump{transition:none}
   .corner:hover,.today-card:hover,.jump:hover{transform:none}
   .corner:hover .go .ar,.today-card:hover .today-go .ar{transform:none}
@@ -386,7 +419,16 @@ h1 .line2{display:block}
       <a href="#kitchen">Kitchen</a>
       <a class="today-link" href="#today">Today&rsquo;s pick ↓</a>
     </nav>
+    <button class="install-btn" id="installBtn" type="button" hidden aria-label="Add Danbi Playground to your home screen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.8v10.4"/><path d="M8.2 10.4 12 14.2l3.8-3.8"/><path d="M4.8 16.6v1.9a1.5 1.5 0 0 0 1.5 1.5h11.4a1.5 1.5 0 0 0 1.5-1.5v-1.9"/></svg>
+      <span class="ib-tx">Add to home screen</span>
+    </button>
     <span class="badge"><span class="dot" aria-hidden="true"></span>Free · no sign-up</span>
+  </div>
+  <div class="install-pop" id="installPop" hidden>
+    <b>Add to Home Screen</b>
+    <p>Tap <span class="ios-step">Share ⤴</span> in Safari, then choose <b>Add to Home Screen</b>. The playground then opens like an app, still free.</p>
+    <button class="pop-close" id="installClose" type="button">Got it</button>
   </div>
 </header>
 
@@ -799,6 +841,60 @@ h1 .line2{display:block}
   // keep the whole /playground/ link worth crawling from the page it is on
   card.setAttribute('data-pick', pick.h.replace('../', ''));
 })();
+</script>
+<script>
+/* ---- add to home screen: a quiet button, nothing else ---- */
+(function () {
+  var btn = document.getElementById('installBtn');
+  var pop = document.getElementById('installPop');
+  var closeBtn = document.getElementById('installClose');
+  if (!btn) return;
+
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+                   window.navigator.standalone === true;
+  function hideAll() { btn.hidden = true; if (pop) pop.hidden = true; }
+  if (standalone) { hideAll(); return; }
+
+  var ua = navigator.userAgent || '';
+  var isIOS = /iP(hone|ad|od)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isIOSBrowser = isIOS && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA/.test(ua);
+
+  var deferred = null;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferred = e;
+    btn.hidden = false;
+  });
+  window.addEventListener('appinstalled', function () { deferred = null; hideAll(); });
+
+  if (isIOSBrowser) btn.hidden = false;   /* Safari has no prompt event — show the hint instead */
+
+  btn.addEventListener('click', function () {
+    if (deferred) {
+      deferred.prompt();
+      deferred.userChoice.then(function () { deferred = null; hideAll(); }, function () {});
+      return;
+    }
+    if (pop && isIOSBrowser) pop.hidden = !pop.hidden;
+    else hideAll();
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', function () { if (pop) pop.hidden = true; });
+  document.addEventListener('click', function (e) {
+    if (!pop || pop.hidden) return;
+    if (!pop.contains(e.target) && !btn.contains(e.target)) pop.hidden = true;
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && pop) pop.hidden = true;
+  });
+})();
+
+/* ---- service worker: pass-through only, so a new deploy is never stuck behind a cache ---- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('../sw.js', { scope: '../' }).catch(function () {});
+  });
+}
 </script>
 </body>
 </html>
