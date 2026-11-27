@@ -9,7 +9,8 @@
 <meta name="author" content="Danbi Lab (단비랩)">
 <meta name="theme-color" content="#F6EFE3">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Danbi Playground">
@@ -24,9 +25,16 @@
 <meta property="og:title" content="Danbi K-Culture Playground · 단비 놀이터">
 <meta property="og:description" content="Fourteen small, free corners of Korea — play, listen, colour, dress, travel, print and keep. No sign-up, no ads, nothing to buy.">
 <meta property="og:url" content="https://ymi9595-tech.github.io/ymi9595/playground/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://ymi9595-tech.github.io/ymi9595/playground/og-playground.png">
+<meta property="og:image:secure_url" content="https://ymi9595-tech.github.io/ymi9595/playground/og-playground.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A cream card with a hanok roof and a rain drop, and the words Danbi K-Culture Playground.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Danbi K-Culture Playground · 단비 놀이터">
 <meta name="twitter:description" content="Fourteen free corners of Korea in one warm place. Play a lantern wish, dress a hanbok, walk a five-day journey, print a recipe card.">
+<meta name="twitter:image" content="https://ymi9595-tech.github.io/ymi9595/playground/og-playground.png">
 
 <script type="application/ld+json">
 {
@@ -895,6 +903,333 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('../sw.js', { scope: '../' }).catch(function () {});
   });
 }
+</script>
+
+<!-- shared bar (invite sheet, share, next app) + filter tabs, today's pick badge
+     and the "Play with Friends" corner -->
+<script src="danbi-nav.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* Which corners belong to which tab. Add a line here when a new app appears;
+     a slug that is missing from this list still shows under "All". */
+  var TAGS = {
+    'hanok-lantern': ['quick'],
+    'korea-vibe': ['quick'],
+    'korean-fortune': ['quick', 'friends'],
+    'modern-seoul': ['quick', 'trip'],
+    'korea-5day-mission': ['trip', 'friends'],
+    'korean-mood': ['quick', 'trip'],
+    'hangul-name': ['create'],
+    'slow-typewriter': ['create', 'friends'],
+    'seoul-palette': ['create'],
+    'korean-coloring': ['create'],
+    'sketch-studio': ['create'],
+    'cozy-desk': ['quick'],
+    'checklist-maker': ['create'],
+    'hanbok-studio': ['create', 'friends'],
+    'kfood-pdf': ['create', 'trip']
+  };
+
+  var TABS = [
+    { id: 'all',     label: 'All' },
+    { id: 'quick',   label: '\u26A1 30-Sec Quick' },
+    { id: 'create',  label: '\uD83C\uDFA8 Create & Save' },
+    { id: 'trip',    label: '\u2708\uFE0F Korea Trip & Culture' },
+    { id: 'friends', label: '\uD83D\uDC6F\u200D\u2640\uFE0F Play with Friends' }
+  ];
+
+  /* The four corners that are better with two people. */
+  var FRIENDS = [
+    { href: 'hanbok-studio', glyph: '\uC637', name: 'Dress each other\u2019s hanbok',
+      desc: 'Pick a jeogori colour for your friend and let them pick yours \u2014 then keep both photo cards side by side.' },
+    { href: 'korean-fortune', glyph: '\uBCF5', name: 'Draw each other\u2019s fortune',
+      desc: 'Both draw a card for the day, read the line out loud and compare lucky charms.' },
+    { href: 'slow-typewriter', glyph: '\uD3B8', name: 'Write a slow letter',
+      desc: 'One page on paper, a stamp of your choosing, and a keepsake waiting in their messages.' },
+    { href: 'korea-5day-mission', glyph: '\uAE38', name: 'Walk the same five days',
+      desc: 'Take the same course, stop at the same six spots, and compare the diary cards at night.' }
+  ];
+
+  var KIT_CSS = ''
+    + '.dbk-filters{max-width:1150px;margin:clamp(28px,4vw,42px) auto 0;padding:0 clamp(18px,4vw,34px)}'
+    + '.dbk-tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}'
+    + '.dbk-tabs::-webkit-scrollbar{display:none}'
+    + '.dbk-tab{flex:0 0 auto;min-height:44px;padding:0 16px;border-radius:999px;cursor:pointer;white-space:nowrap;'
+    + 'border:1px solid var(--line-2);background:rgba(255,255,255,.5);color:var(--ink-2);'
+    + 'font-family:var(--sans);font-size:12.5px;font-weight:500;letter-spacing:.02em;'
+    + 'transition:background .18s ease,color .18s ease,border-color .18s ease;-webkit-tap-highlight-color:transparent}'
+    + '.dbk-tab:hover{background:rgba(255,255,255,.92);border-color:var(--line-2);color:var(--ink)}'
+    + '.dbk-tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#FFF7EE}'
+    + '.dbk-tab:focus-visible{outline:2px solid var(--seal);outline-offset:2px}'
+    + '.dbk-count{margin:0;font-size:11.5px;color:var(--ink-3);letter-spacing:.04em}'
+    + '.dbk-pick{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.04em;'
+    + 'color:var(--seal);background:rgba(255,252,246,.95);border:1px solid rgba(180,70,47,.3);border-radius:999px;'
+    + 'padding:4px 9px;white-space:nowrap;box-shadow:0 6px 16px -10px rgba(40,26,14,.7)}'
+    + '.corner.dbk-today .dbk-pick{position:absolute;top:12px;right:12px;z-index:4}'
+    + 'a.corner.dbk-today{box-shadow:0 0 0 2px rgba(180,70,47,.2),0 22px 44px -34px rgba(60,40,20,.5)}'
+    + 'a.corner[hidden],section.zone[hidden],.dbk-friends[hidden],.dbk-friends-wrap[hidden],.zones[hidden]{display:none!important}'
+    + '.dbk-friends-wrap{max-width:1150px;margin:0 auto;padding:0 clamp(18px,4vw,34px)}'
+    + '.dbk-friends{margin:clamp(46px,6vw,70px) 0 0;padding:clamp(20px,3vw,30px);border-radius:24px;'
+    + 'background:linear-gradient(165deg,#FFFCF6 0%,#F7EEDD 100%);border:1px solid var(--line);'
+    + 'box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 26px 50px -40px rgba(60,40,20,.55)}'
+    + '.dbk-eyebrow{margin:0 0 8px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--seal);font-weight:700}'
+    + '.dbk-title{margin:0 0 8px;font-family:var(--serif);font-weight:400;font-size:clamp(24px,3.2vw,34px);'
+    + 'line-height:1.14;letter-spacing:-.01em;color:var(--ink)}'
+    + '.dbk-lede{margin:0 0 18px;max-width:60ch;font-size:13.6px;line-height:1.65;color:var(--ink-2);font-weight:300}'
+    + '.dbk-actions{display:flex;flex-wrap:wrap;gap:10px}'
+    + '.dbk-btn{min-height:48px;padding:0 20px;border-radius:999px;cursor:pointer;border:1px solid var(--line-2);'
+    + 'background:#FFFCF6;color:var(--ink);font-family:var(--sans);font-size:12.5px;font-weight:600;letter-spacing:.02em}'
+    + '.dbk-btn.primary{background:var(--seal);border-color:var(--seal);color:#FFF7EE}'
+    + '.dbk-btn:hover{background:#fff}'
+    + '.dbk-btn.primary:hover{background:#A03C27}'
+    + '.dbk-btn:focus-visible{outline:2px solid var(--seal);outline-offset:3px}'
+    + '.dbk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:20px}'
+    + 'a.dbk-friend{display:flex;gap:12px;align-items:flex-start;min-height:92px;padding:14px;border-radius:16px;'
+    + 'background:#FFFCF6;border:1px solid rgba(72,54,34,.12);text-decoration:none;color:inherit}'
+    + 'a.dbk-friend:hover{border-color:rgba(180,70,47,.34)}'
+    + 'a.dbk-friend:focus-visible{outline:2px solid var(--seal);outline-offset:2px}'
+    + '.dbk-g{flex:0 0 auto;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;'
+    + 'background:#F2E9D8;color:var(--seal);font-family:var(--ko);font-size:17px}'
+    + '.dbk-friend-b{display:block;min-width:0}'
+    + '.dbk-friend-n{display:block;font-size:13.5px;font-weight:700;letter-spacing:-.005em}'
+    + '.dbk-friend-d{display:block;margin-top:3px;font-size:12px;line-height:1.45;color:var(--ink-2);font-weight:300}'
+    + '@media (max-width:700px){.dbk-tabs{-webkit-mask-image:linear-gradient(to right,#000 0,#000 88%,rgba(0,0,0,.25) 100%);'
+    + 'mask-image:linear-gradient(to right,#000 0,#000 88%,rgba(0,0,0,.25) 100%)}}'
+    + '@media (prefers-reduced-motion:reduce){.dbk-tab{transition:none}}';
+
+  function injectStyles() {
+    if (document.getElementById('dbk-styles')) return;
+    var style = document.createElement('style');
+    style.id = 'dbk-styles';
+    style.textContent = KIT_CSS;
+    document.head.appendChild(style);
+  }
+
+  function slugOf(href) {
+    if (!href) return '';
+    var parts = String(href).split('/');
+    for (var i = 0; i < parts.length; i++) {
+      if (TAGS[parts[i]]) return parts[i];
+    }
+    var clean = parts.filter(function (p) { return p && p !== '..' && p !== '.'; });
+    return clean.length ? clean[clean.length - 1] : '';
+  }
+
+  var bar = null;
+  var count = null;
+  var friends = null;
+  var friendsWrap = null;
+
+  function mount() {
+    var zones = document.querySelector('.zones');
+    var firstZone = document.querySelector('section.zone');
+    var host = zones || firstZone;
+    if (!host || !host.parentNode) return false;
+
+    injectStyles();
+
+    bar = document.createElement('div');
+    bar.className = 'dbk-filters';
+    bar.setAttribute('role', 'group');
+    bar.setAttribute('aria-label', 'Filter the corners');
+
+    var row = document.createElement('div');
+    row.className = 'dbk-tabs';
+    TABS.forEach(function (tab, index) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'dbk-tab';
+      button.textContent = tab.label;
+      button.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
+      button.setAttribute('data-dbk-tab', tab.id);
+      button.addEventListener('click', function () { apply(tab.id); });
+      row.appendChild(button);
+    });
+
+    count = document.createElement('p');
+    count.className = 'dbk-count';
+    count.setAttribute('aria-live', 'polite');
+
+    bar.appendChild(row);
+    bar.appendChild(count);
+    host.parentNode.insertBefore(bar, host);
+
+    friends = buildFriends();
+    friendsWrap = document.createElement('div');
+    friendsWrap.className = 'dbk-friends-wrap';
+    friendsWrap.appendChild(friends);
+    var after = zones || firstZone;
+    after.parentNode.insertBefore(friendsWrap, after.nextSibling);
+
+    return true;
+  }
+
+  function buildFriends() {
+    var section = document.createElement('section');
+    section.className = 'dbk-friends';
+    section.id = 'play-together';
+
+    var eyebrow = document.createElement('p');
+    eyebrow.className = 'dbk-eyebrow';
+    eyebrow.textContent = '\uD83D\uDC6F\u200D\u2640\uFE0F Play with Friends';
+
+    var title = document.createElement('h2');
+    title.className = 'dbk-title';
+    title.textContent = 'Four corners that are better with two people';
+
+    var lede = document.createElement('p');
+    lede.className = 'dbk-lede';
+    lede.textContent = 'No accounts to link. Send one invite link, and you both land on the same corners \u2014 then compare what you made.';
+
+    var actions = document.createElement('div');
+    actions.className = 'dbk-actions';
+
+    var inviteBtn = document.createElement('button');
+    inviteBtn.type = 'button';
+    inviteBtn.className = 'dbk-btn primary';
+    inviteBtn.textContent = 'Invite a friend';
+    inviteBtn.addEventListener('click', function () {
+      if (window.DanbiKit && window.DanbiKit.invite) window.DanbiKit.invite();
+    });
+
+    var shareBtn = document.createElement('button');
+    shareBtn.type = 'button';
+    shareBtn.className = 'dbk-btn';
+    shareBtn.textContent = 'Share the playground';
+    shareBtn.addEventListener('click', function () {
+      if (window.DanbiKit && window.DanbiKit.share) { window.DanbiKit.share(); return; }
+      var url = window.location.href.split('?')[0];
+      if (navigator.share) {
+        navigator.share({ title: 'Danbi K-Culture Playground', text: 'Try this cute Korean culture playground! \u2728', url: url }).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function () {
+          shareBtn.textContent = 'Link copied!';
+          window.setTimeout(function () { shareBtn.textContent = 'Share the playground'; }, 2000);
+        }, function () {});
+      }
+    });
+
+    actions.appendChild(inviteBtn);
+    actions.appendChild(shareBtn);
+
+    var grid = document.createElement('div');
+    grid.className = 'dbk-grid';
+    FRIENDS.forEach(function (item) {
+      var a = document.createElement('a');
+      a.className = 'dbk-friend';
+      a.href = relative(item.href);
+      var g = document.createElement('span');
+      g.className = 'dbk-g';
+      g.setAttribute('aria-hidden', 'true');
+      g.textContent = item.glyph;
+      var b = document.createElement('span');
+      b.className = 'dbk-friend-b';
+      var n = document.createElement('span');
+      n.className = 'dbk-friend-n';
+      n.textContent = item.name;
+      var d = document.createElement('span');
+      d.className = 'dbk-friend-d';
+      d.textContent = item.desc;
+      b.appendChild(n);
+      b.appendChild(d);
+      a.appendChild(g);
+      a.appendChild(b);
+      grid.appendChild(a);
+    });
+
+    section.appendChild(eyebrow);
+    section.appendChild(title);
+    section.appendChild(lede);
+    section.appendChild(actions);
+    section.appendChild(grid);
+    return section;
+  }
+
+  /* On /playground/ the sibling apps live one folder up: ../hanbok-studio/ */
+  function relative(slug) {
+    if (window.DanbiKit && window.DanbiKit.root && window.DanbiKit.home) {
+      return window.DanbiKit.root + slug + '/';
+    }
+    return '../' + slug + '/';
+  }
+
+  function apply(tab) {
+    if (!bar) return;
+    var zones = document.querySelector('.zones');
+    var shown = 0;
+
+    var buttons = bar.querySelectorAll('.dbk-tab');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-dbk-tab') === tab ? 'true' : 'false');
+    }
+
+    if (tab === 'friends') {
+      if (zones) zones.hidden = true;
+      if (friends) friends.hidden = false;
+      if (friendsWrap) friendsWrap.hidden = false;
+      shown = friends ? friends.querySelectorAll('a.dbk-friend').length : 0;
+    } else {
+      if (zones) zones.hidden = false;
+      if (friends) friends.hidden = tab !== 'all';
+      if (friendsWrap) friendsWrap.hidden = tab !== 'all';
+      var allZones = document.querySelectorAll('section.zone');
+      for (var z = 0; z < allZones.length; z++) allZones[z].hidden = false;
+      var cards = document.querySelectorAll('a.corner');
+      for (var c = 0; c < cards.length; c++) {
+        var tags = TAGS[slugOf(cards[c].getAttribute('href'))] || [];
+        var show = tab === 'all' || tags.indexOf(tab) !== -1;
+        cards[c].hidden = !show;
+        if (show) shown++;
+      }
+      for (var zi = 0; zi < allZones.length; zi++) {
+        var any = false;
+        var inner = allZones[zi].querySelectorAll('a.corner');
+        for (var k = 0; k < inner.length; k++) { if (!inner[k].hidden) { any = true; break; } }
+        allZones[zi].hidden = !any;
+      }
+    }
+
+    if (count) count.textContent = shown + (shown === 1 ? ' corner' : ' corners');
+  }
+
+  /* Put a small "Today’s pick" pill on the card the page already chose today. */
+  function markToday() {
+    var hero = document.getElementById('todayCard');
+    if (!hero) return;
+    var href = hero.getAttribute('href');
+    if (!href) return;
+    var cards = document.querySelectorAll('a.corner');
+    var match = null;
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].getAttribute('href') === href) match = cards[i];
+    }
+    if (!match || match.querySelector('.dbk-pick')) return;
+    var pill = document.createElement('span');
+    pill.className = 'dbk-pick';
+    pill.textContent = '\u2728 Today\u2019s pick';
+    var art = match.querySelector('.art');
+    if (art) art.appendChild(pill);
+    else match.appendChild(pill);
+    match.classList.add('dbk-today');
+  }
+
+  function start() {
+    if (!mount()) return;
+    apply('all');
+    window.setTimeout(markToday, 300);
+    if (document.readyState !== 'complete') window.addEventListener('load', markToday);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
 </script>
 </body>
 </html>
