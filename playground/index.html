@@ -261,7 +261,7 @@ h1 em{font-style:normal;color:var(--z1)}
   background:linear-gradient(145deg,var(--g1),var(--g2));
 }
 .art::before{
-  content:"";position:absolute;inset:0;opacity:.55;
+  content:"";position:absolute;inset:0;opacity:.4;
   background-image:repeating-linear-gradient(118deg,rgba(255,255,255,.3) 0 1px,rgba(255,255,255,0) 1px 8px);
 }
 .art::after{
@@ -269,9 +269,11 @@ h1 em{font-style:normal;color:var(--z1)}
   background:radial-gradient(110% 92% at 86% 2%,rgba(255,255,255,.5),rgba(255,255,255,0) 62%);
 }
 .art .glyph{
-  position:absolute;right:5px;bottom:-9px;z-index:1;
-  font-family:var(--ko);font-weight:700;font-size:54px;line-height:1;
-  color:color-mix(in srgb,var(--a,var(--za)) 32%,transparent);
+  position:absolute;right:9px;bottom:9px;z-index:1;width:30px;height:30px;
+  display:grid;place-items:center;border-radius:9px;
+  font-family:var(--ko);font-weight:600;font-size:16px;line-height:1;
+  color:color-mix(in srgb,var(--a,var(--za)) 82%,transparent);
+  background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.72);
 }
 .art .ic{
   position:absolute;left:10px;top:10px;z-index:2;
@@ -289,9 +291,9 @@ h1 em{font-style:normal;color:var(--z1)}
   margin:6px 0 0;font-size:12px;line-height:1.52;color:var(--ink-2);font-weight:400;flex:1;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
-.corner-meta{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:10px}
+.corner-meta{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:10px;flex-wrap:nowrap}
 .tag{
-  font-size:8.8px;letter-spacing:.11em;text-transform:uppercase;color:var(--a,var(--za));
+  flex:0 1 auto;font-size:8.8px;letter-spacing:.11em;text-transform:uppercase;color:var(--a,var(--za));
   padding:3px 7px;border:1px solid color-mix(in srgb,var(--a,var(--za)) 26%,transparent);border-radius:999px;
   line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
 }
@@ -376,17 +378,17 @@ h1 em{font-style:normal;color:var(--z1)}
   .lede{margin-top:10px;font-size:13.6px;line-height:1.55}
   .hero-free{margin-top:11px;font-size:11px}
   .today{margin-top:14px}
-  .today-card{grid-template-columns:minmax(0,1fr) 92px;border-radius:16px}
+  .today-card{grid-template-columns:minmax(0,1fr) 86px;border-radius:16px}
   .today-body{padding:15px 15px 16px}
   .today-eyebrow{margin-bottom:6px;font-size:9px}
   .today-eyebrow .ko{display:none}
   .today-title{font-size:17.5px}
-  .today-desc{margin-top:6px;font-size:12px;-webkit-line-clamp:2}
+  .today-desc{margin-top:6px;font-size:12px;-webkit-line-clamp:3}
   .today-foot{margin-top:11px;gap:9px}
   .today-go{padding:8px 13px;font-size:11.5px}
   .today-tag{display:none}
   .today-art{border-left:0;border-top:0}
-  .today-art .g{font-size:42px}
+  .today-art .g{font-size:38px}
   .today-art .ring{width:64px;height:64px}
   .today-art .ring.two{width:96px;height:96px}
   .zone{margin-top:30px}
@@ -496,8 +498,8 @@ h1 em{font-style:normal;color:var(--z1)}
   <div class="hero-in">
     <div>
       <p class="kicker"><span class="ko">단비 놀이터</span><i aria-hidden="true"></i>sixteen corners of Korea</p>
-      <h1>A little Korea to <em>wander</em>, play with, and keep.</h1>
-      <p class="lede">A lantern wish, a hanbok to dress, your name in hangul, Seoul colours and recipe cards — small things made to be played with, printed, and kept.</p>
+      <h1>A little Korea to <em>wander</em>,<br>play with, and keep.</h1>
+      <p class="lede">Lanterns, hanbok, hangul names, Seoul colours, recipe cards — small things to play with and keep.</p>
       <p class="hero-free"><span class="dot" aria-hidden="true"></span>Everything is free — no account, no ads</p>
     </div>
 
@@ -606,7 +608,7 @@ h1 em{font-style:normal;color:var(--z1)}
       <span class="corner-body">
         <span class="corner-name">Korea 5-Day Journey Mission</span>
         <span class="corner-desc">A pocket travel passport: eleven five-day courses, six stops a day — breakfast, an experience, lunch, a café and photo stop, dinner and a night out, with a real local choice at every stop.</span>
-        <span class="corner-meta"><span class="tag">11 courses · 5 days</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-meta"><span class="tag">11 courses</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
   </div>
@@ -704,7 +706,7 @@ h1 em{font-style:normal;color:var(--z1)}
       <span class="corner-body">
         <span class="corner-name">Hanbok Coloring Studio</span>
         <span class="corner-desc">Thirteen hanbok looks drawn as line art — jeogori and chima, a dang-ui under the moon, a hwarot bride, a king in dragon robes. Fill the shapes with traditional silk colours, then keep a postcard or print the sheets.</span>
-        <span class="corner-meta"><span class="tag">13 pages · postcard</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-meta"><span class="tag">13 pages</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -752,7 +754,7 @@ h1 em{font-style:normal;color:var(--z1)}
       <span class="corner-body">
         <span class="corner-name">Dress Your Hanbok</span>
         <span class="corner-desc">Thirteen illustrated hanbok looks. Dye the jeogori and the chima in two colours, change the light, put on hwagwan, binyeo, norigae and gat, then keep the card as a photo print.</span>
-        <span class="corner-meta"><span class="tag">13 looks · photo card</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-meta"><span class="tag">13 looks</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
   </div>
@@ -1076,8 +1078,8 @@ if ('serviceWorker' in navigator) {
     + '@media (min-width:1040px){.dbk-flat{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}}'
     + '@media (max-width:719px){.dbk-tab{padding:0 12px;font-size:12px;gap:5px}'
     + '.dbk-full{display:none}.dbk-short{display:inline}'
-    + '.corner-meta{flex-wrap:wrap}'
-    + '.dbk-pick{order:-1;flex:1 1 100%;margin-bottom:4px}'
+    + '.dbk-pick{display:none}'
+    + 'a.corner.dbk-today{box-shadow:0 0 0 2px rgba(180,70,47,.3)}'
     + '.dbk-friends{margin-left:16px;margin-right:16px;padding:18px}}'
     + '@media (prefers-reduced-motion:reduce){.dbk-tab,.dbk-fav{transition:none}.dbk-tabs{scroll-behavior:auto}}';
 
