@@ -59,6 +59,68 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=11">
+<style id="danbi-apps-style">
+/* DanbiLab cross-link rail — shared by the five Seoul apps */
+#danbi-apps.danbi-apps{
+  position:relative; z-index:1;
+  margin:44px 0 0;
+  text-align:center;
+  font-family:var(--sans,inherit);
+  color:inherit;
+}
+#danbi-apps .danbi-apps__head{
+  border-top:1px solid var(--danbi-line,rgba(60,45,30,.15));
+  padding-top:24px;
+}
+#danbi-apps .danbi-apps__eyebrow{
+  margin:0; font-size:9.5px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--danbi-accent,#a6472f); font-weight:500;
+}
+#danbi-apps .danbi-apps__title{
+  margin:9px 0 0; font-family:var(--serif,Georgia,serif); font-weight:400;
+  font-size:clamp(18px,3.1vw,24px); line-height:1.28; letter-spacing:-.005em;
+  color:inherit; text-transform:none;
+}
+#danbi-apps .danbi-apps__note{
+  margin:8px auto 0; max-width:58ch; font-size:11.8px; line-height:1.7;
+  color:var(--danbi-ink2,#5d5648); font-weight:400;
+}
+#danbi-apps .danbi-apps__grid{
+  margin:16px 0 0; display:grid; gap:9px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  text-align:left;
+}
+@media (min-width:720px){
+  #danbi-apps .danbi-apps__grid{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+#danbi-apps .danbi-app{
+  display:flex; flex-direction:column;
+  padding:13px 13px 11px;
+  text-decoration:none; color:inherit;
+  background:rgba(255,253,246,.5);
+  border:1px solid var(--danbi-line,rgba(60,45,30,.15));
+  border-radius:var(--danbi-radius,6px);
+  transition:background .18s ease, border-color .18s ease, transform .18s ease;
+}
+#danbi-apps .danbi-app:hover{
+  background:rgba(255,253,246,.95);
+  border-color:var(--danbi-accent,#a6472f);
+  transform:translateY(-2px);
+}
+#danbi-apps .danbi-app__icon{ font-size:15px; line-height:1.2; margin-bottom:5px; }
+#danbi-apps .danbi-app__name{
+  font-family:var(--serif,Georgia,serif); font-size:12.8px; line-height:1.32;
+  color:inherit;
+}
+#danbi-apps .danbi-app__go{
+  margin-top:8px; font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--danbi-accent,#a6472f);
+}
+@media (prefers-reduced-motion:reduce){
+  #danbi-apps .danbi-app{ transition:none; }
+  #danbi-apps .danbi-app:hover{ transform:none; }
+}
+</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -193,6 +255,36 @@
         <span class="channel__go">Open the cards &rarr;</span>
       </a>
     </div>
+
+    <section class="danbi-apps" id="danbi-apps" aria-labelledby="danbi-apps-title" style="--danbi-line:rgba(34,29,24,.12);--danbi-accent:#a8433a;--danbi-ink2:#4e463c;--danbi-radius:4px">
+      <div class="danbi-apps__head">
+        <p class="danbi-apps__eyebrow">Also from the studio</p>
+        <h2 class="danbi-apps__title" id="danbi-apps-title">More Free Seoul Apps by DanbiLab</h2>
+        <p class="danbi-apps__note">Small free tools from the same studio — no account, no catch, and each one opens in a new tab.</p>
+      </div>
+      <div class="danbi-apps__grid">
+      <a class="danbi-app" href="https://ymi9595-tech.github.io/ymi9595/sketch-studio/" target="_blank" rel="noopener">
+        <span class="danbi-app__icon" aria-hidden="true">✏️</span>
+        <span class="danbi-app__name">Slow Seoul Sketch Studio</span>
+        <span class="danbi-app__go" aria-hidden="true">Open ↗</span>
+      </a>
+      <a class="danbi-app" href="https://ymi9595-tech.github.io/ymi9595/hangul-name/" target="_blank" rel="noopener">
+        <span class="danbi-app__icon" aria-hidden="true">💌</span>
+        <span class="danbi-app__name">Your Name in Hangul</span>
+        <span class="danbi-app__go" aria-hidden="true">Open ↗</span>
+      </a>
+      <a class="danbi-app" href="https://ymi9595-tech.github.io/ymi9595/cozy-desk/" target="_blank" rel="noopener">
+        <span class="danbi-app__icon" aria-hidden="true">🌧️</span>
+        <span class="danbi-app__name">Cozy Seoul Desk</span>
+        <span class="danbi-app__go" aria-hidden="true">Open ↗</span>
+      </a>
+      <a class="danbi-app" href="https://ymi9595-tech.github.io/ymi9595/slow-typewriter/" target="_blank" rel="noopener">
+        <span class="danbi-app__icon" aria-hidden="true">⌨️</span>
+        <span class="danbi-app__name">Slow Seoul Typewriter</span>
+        <span class="danbi-app__go" aria-hidden="true">Open ↗</span>
+      </a>
+      </div>
+    </section>
 
     <div class="guides">
       <p class="guides__label">Full digital guides &amp; workbooks</p>
