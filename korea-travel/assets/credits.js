@@ -371,18 +371,18 @@ const PHOTO_CREDITS = {
   "page": "https://commons.wikimedia.org/wiki/File:Saryang_Island,_South_Korea.jpg"
  },
  "th-dog":  {
-  "title": "File:Korean Jindo dog.jpg",
-  "author": "bein_korean",
-  "license": "CC BY 2.0",
-  "licenseurl": "https://creativecommons.org/licenses/by/2.0",
-  "page": "https://commons.wikimedia.org/wiki/File:Korean_Jindo_dog.jpg"
- },
- "th-dog-p2":  {
   "title": "File:Korea-Jeonju-Sapsal dog in front of a Hanok Village-01.jpg",
   "author": "Sungdo Cho from Seoul",
   "license": "CC BY 2.0",
   "licenseurl": "https://creativecommons.org/licenses/by/2.0",
   "page": "https://commons.wikimedia.org/wiki/File:Korea-Jeonju-Sapsal_dog_in_front_of_a_Hanok_Village-01.jpg"
+ },
+ "th-dog-p2":  {
+  "title": "File:Korean Jindo dog.jpg",
+  "author": "bein_korean",
+  "license": "CC BY 2.0",
+  "licenseurl": "https://creativecommons.org/licenses/by/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Korean_Jindo_dog.jpg"
  },
  "th-drama":  {
   "title": "File:Suncheon Open Film Set 02 (25138957781).jpg",

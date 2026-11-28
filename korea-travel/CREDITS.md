@@ -58,8 +58,8 @@
 | `images/th-camp-p2.jpg` | File:In Glamping (Marineping) dome - 2.jpg | DONANENTHUSIAST | CC BY-SA 4.0 |
 | `images/th-coast.jpg` | File:Gacheon Daraengi Village, Namhae on September 1st, 2019.jpg | Choi2451 | CC0 |
 | `images/th-coast-p2.jpg` | File:Saryang Island, South Korea.jpg | Ryuch | CC0 |
-| `images/th-dog.jpg` | File:Korean Jindo dog.jpg | bein_korean | CC BY 2.0 |
-| `images/th-dog-p2.jpg` | File:Korea-Jeonju-Sapsal dog in front of a Hanok Village-01.jpg | Sungdo Cho from Seoul | CC BY 2.0 |
+| `images/th-dog.jpg` | File:Korea-Jeonju-Sapsal dog in front of a Hanok Village-01.jpg | Sungdo Cho from Seoul | CC BY 2.0 |
+| `images/th-dog-p2.jpg` | File:Korean Jindo dog.jpg | bein_korean | CC BY 2.0 |
 | `images/th-drama.jpg` | File:Suncheon Open Film Set 02 (25138957781).jpg | Republic of  Korea from Seoul, Republic of Korea | CC BY-SA 2.0 |
 | `images/th-drama-p2.jpg` | File:Suncheon Bay National Garden- Part II - SuncheonBNG2945.jpg | lumoplank | CC0 |
 | `images/th-farm.jpg` | File:Bongpyeong buckwheat field (봉평 메밀밭) - panoramio.jpg | Cho's | CC BY-SA 3.0 |

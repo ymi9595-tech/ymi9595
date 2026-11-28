@@ -49,7 +49,7 @@ async def run():
             await pg.wait_for_timeout(wait)
 
         # 1 desktop home
-        await go(BASE + "?v=20")
+        await go(BASE + "?v=21")
         await pg.evaluate("window.scrollTo(0,0)")
         await pg.wait_for_timeout(400)
         await measure(pg, "desktop home", out)
@@ -103,7 +103,7 @@ async def run():
         await pg.screenshot(path=f"{OUT}/desk-09-city-busan.png")
 
         # 8 credits modal
-        await go(BASE + "?v=20")
+        await go(BASE + "?v=21")
         await pg.click("#creditOpen")
         await pg.wait_for_timeout(900)
         await pg.screenshot(path=f"{OUT}/desk-10-credits.png")
@@ -116,7 +116,7 @@ async def run():
         mctx_errors = []
         mp.on("pageerror", lambda e: mctx_errors.append(str(e)))
         mp.on("console", lambda msg: mctx_errors.append("console: " + msg.text) if msg.type == "error" else None)
-        await mp.goto(BASE + "?v=20", wait_until="networkidle")
+        await mp.goto(BASE + "?v=21", wait_until="networkidle")
         await mp.wait_for_timeout(1000)
         await measure(mp, "mobile home", out)
         await mp.screenshot(path=f"{OUT}/mob-01-home.png")

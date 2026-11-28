@@ -710,21 +710,6 @@
   }
  },
  "th-dog": {
-  "title": "File:Korean Jindo dog.jpg",
-  "w": 3264,
-  "h": 2448,
-  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Korean_Jindo_dog.jpg/1920px-Korean_Jindo_dog.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-  "author": "bein_korean",
-  "license": "CC BY 2.0",
-  "licenseurl": "https://creativecommons.org/licenses/by/2.0",
-  "page": "https://commons.wikimedia.org/wiki/File:Korean_Jindo_dog.jpg",
-  "q": "Jindo dog",
-  "caption": {
-   "ko": "반려견",
-   "en": "A dog"
-  }
- },
- "th-dog-p2": {
   "title": "File:Korea-Jeonju-Sapsal dog in front of a Hanok Village-01.jpg",
   "w": 3072,
   "h": 2048,
@@ -737,6 +722,21 @@
   "caption": {
    "ko": "한옥마을 앞의 반려견",
    "en": "A dog in front of a hanok village"
+  }
+ },
+ "th-dog-p2": {
+  "title": "File:Korean Jindo dog.jpg",
+  "w": 3264,
+  "h": 2448,
+  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Korean_Jindo_dog.jpg/1920px-Korean_Jindo_dog.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "author": "bein_korean",
+  "license": "CC BY 2.0",
+  "licenseurl": "https://creativecommons.org/licenses/by/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Korean_Jindo_dog.jpg",
+  "q": "Jindo dog",
+  "caption": {
+   "ko": "진돗개",
+   "en": "A Jindo dog"
   }
  },
  "th-healing": {
