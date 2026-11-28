@@ -308,6 +308,8 @@ main { flex: 1; padding: 0 clamp(16px, 4vw, 44px) 64px; }
 
 .sec-book { background: linear-gradient(180deg, #FFFCF8, #FFF6EE); border: 1px solid #F5E6D9; border-radius: var(--r-lg); padding: 20px clamp(14px, 3vw, 22px) 22px; }
 .sec-book h2 i { background: linear-gradient(140deg, #FFDCC6, #F3C7D8); }
+.book-h { margin: 2px 0 4px; font-size: 15px; letter-spacing: -.02em; color: var(--coral-d); }
+.sec-book .buy-line { margin-top: 16px; }
 .keys { background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 16px; }
 .keys h4, .q-title {
   margin: 0 0 9px; font-size: 12.5px; font-weight: 800; color: var(--coral-d);

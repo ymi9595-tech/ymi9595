@@ -239,24 +239,22 @@
           '<div class="prompts">' + mainPrompts + '</div>' +
         '</section>' +
 
-        (it.preview ? '<section class="sec sec-book">' +
-          '<h2><i>📖</i> ' + esc(t.bookPreviewTitle.replace('📖 ', '')) + '</h2>' +
-          '<p class="sec-hint">' + esc(t.bookPreviewLead) + '</p>' +
-          '<div class="book-body">' + bookCards +
-            '<h4 class="q-title">' + esc(t.bookPrompts) + '</h4>' +
-            '<div class="prompts">' + quotes + '</div>' +
-          '</div>' +
-        '</section>' : '') +
-
         '<section class="sec sec-notes">' +
-          '<h2><i>' + (it.preview ? '④' : '④') + '</i> ' + esc(t.notesLabel) + '</h2>' +
+          '<h2><i>④</i> ' + esc(t.notesLabel) + '</h2>' +
           '<ul class="notes">' + it.notes.map(function (n) {
             return '<li>' + esc(L(n)) + '</li>';
           }).join('') + '</ul>' +
         '</section>' +
 
-        '<section class="sec sec-buy">' +
+        '<section class="sec sec-book">' +
           '<h2><i>⑤</i> ' + esc(t.bookLabel) + '</h2>' +
+          (it.preview ?
+            '<h3 class="book-h">' + esc(t.bookPreviewTitle) + '</h3>' +
+            '<p class="sec-hint">' + esc(t.bookPreviewLead) + '</p>' +
+            '<div class="book-body">' + bookCards +
+              '<h4 class="q-title">' + esc(t.bookPrompts) + '</h4>' +
+              '<div class="prompts">' + quotes + '</div>' +
+            '</div>' : '') +
           '<div class="buy-line">' +
             '<a class="btn-store" href="' + STORE + '" target="_blank" rel="noopener">' + esc(t.bookAll) + ' ↗</a>' +
             '<a class="btn-store btn-ghost" href="' + PAYHIP + '" target="_blank" rel="noopener">' + esc(t.bookPayhip) + ' ↗</a>' +
@@ -338,7 +336,7 @@
       setTimeout(function () {
         btn.classList.remove('ok');
         if (span) span.textContent = old;
-      }, 1600);
+      }, 2400);
     };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () { done(true); }, function () { fallback(text, done); });
