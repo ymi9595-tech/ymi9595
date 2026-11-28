@@ -145,7 +145,7 @@ const THEMES = [
     { name: { ko: '태안 안면도', ja: '泰安顔面図', zh: '泰安安眠岛', en: 'Taean Anmyeondo' }, region: 'jeolla', q: '안면도', note: { ko: '꽃지 해변과 소나무 숲길. 서해 노을 드라이브에 좋습니다.', ja: '花紙ビーチと松林道。西海の夕焼けドライブに最適です。', zh: 'Kkotji 海滩和松林小径。非常适合在西海欣赏日落。', en: 'Ggotji beach and pine lanes — a good west-coast sunset drive.' } },
     { name: { ko: '변산반도', ja: '変山半島', zh: '边山半岛', en: 'Byeonsan peninsula' }, region: 'jeolla', q: '변산반도', note: { ko: '채석강 절벽과 격포항. 물때를 맞추면 해안 절벽 아래를 걸을 수 있습니다.', ja: '採石川の崖と撃砲港。水の時間を合わせると、海岸の崖の下を歩くことができます。', zh: '彩石江悬崖和格浦港。如果潮水合适，你可以在沿海悬崖下行走。', en: 'The Chaeseokgang cliffs and Gyeokpo harbour; at low tide you can walk beneath the cliffs.' } },
     { name: { ko: '여수 돌산~향일암', ja: '麗水ドルサン～香一岩', zh: '丽水突山 ~ 香吉林寺', en: 'Yeosu Dolsan to Hyangiram' }, region: 'jeolla', q: '돌산도', note: { ko: '돌산대교를 건너 섬 끝까지. 왼쪽으로 계속 섬이 따라옵니다.', ja: '石山大橋を渡って島の最後まで。左には島が続きます。', zh: '穿过突山大桥就到了岛的尽头。该岛继续向左行驶。', en: 'Cross Dolsan bridge to the end of the island, islands following you the whole way.' } },
-    { name: { ko: '고성 청간정', ja: '高城チョンガンジョン', zh: '高城清安亭', en: 'Goseong Cheongganjeong' }, region: 'gangwon', q: '청간정', note: { ko: '절벽 위 정자에서 보는 동해. 7번 국도 드라이브의 대표 정차 지점입니다.', ja: '崖の上の精子で見る東海。 7番国道ドライブの代表停車地点です。', zh: '从悬崖上的亭子看东海。这是7号公路大道上的一个主要站点。', en: 'A pavilion on the cliff over the East Sea — the classic stop on Route 7.' } }
+    { name: { ko: '고성 청간정', ja: '高城チョンガンジョン', zh: '高城清安亭', en: 'Goseong Cheongganjeong' }, region: 'gangwon', q: '청간정', note: { ko: '절벽 위 정자에서 보는 동해. 7번 국도 드라이브의 대표 정차 지점입니다.', ja: '崖の上の亭から見る東海。7番国道ドライブの代表的な停車地点です。', zh: '从悬崖上的亭子看东海。7号国道自驾的代表性停车点。', en: 'A pavilion on the cliff over the East Sea — the classic stop on Route 7.' } }
   ],
   food: [
     { slot: { ko: '아침', ja: '朝', zh: '早上', en: 'Breakfast' }, emoji: '🍲', dish: { ko: '해장국 · 굴국밥', ja: 'ヘジャングク・グルグクバプ', zh: '解酒汤·牡蛎汤饭', en: 'Hangover soup · oyster rice soup' }, note: { ko: '남해안은 아침부터 굴과 국물이 있습니다.', ja: '南海岸には朝から牡蠣とスープがあります。', zh: '在南部海岸，牡蛎和汤从早上开始供应。', en: 'On the south coast oysters come with breakfast.' } },
@@ -524,7 +524,7 @@ const THEMES = [
         desc: { ko: '담장이 낮고 건물이 언덕을 따라 앉아 있습니다. 월요일 휴무, 후원은 별도 예약.', ja: 'フェンスが低く、建物が丘に沿って座っています。月曜日は休業、スポンサーは別途予約。', zh: '栅栏很低，建筑物依山而建。周一闭馆，赞助必须单独预订。', en: 'Low walls and buildings following the slope. Closed Mondays; the garden needs its own booking.' },
         photo: 'th-hanok-p2' },
       { phase: 'afternoon', time: '15:00', name: { ko: '창덕궁 후원', ja: '昌徳宮後援', zh: '昌德宫赞助', en: 'Changdeokgung secret garden' }, q: '창덕궁 후원', move: { ko: '도보 약 10분', ja: '徒歩約10分', zh: '步行约10分钟', en: 'Walk, about 10 min' },
-        desc: { ko: '해설사와 함께 90분. 연못과 정자가 계곡을 따라 놓여 있어 한 시간이 금방 갑니다.', ja: '解説士と共に90分。池と精子が谷に沿って置かれており、一時間がすぐ行きます。', zh: '90分钟有解说员。山谷里有池塘和亭子，一个小时很快就过去了。', en: 'Ninety minutes with a guide through ponds and pavilions set along a valley.' } },
+        desc: { ko: '해설사와 함께 90분. 연못과 정자가 계곡을 따라 놓여 있어 한 시간이 금방 갑니다.', ja: '解説員と一緒に90分。池と亭が谷に沿って並び、1時間はあっという間です。', zh: '跟随讲解员90分钟。池塘和亭子沿山谷排开，一个小时转眼就过。', en: 'Ninety minutes with a guide through ponds and pavilions set along a valley.' } },
       { phase: 'evening', time: '17:00', name: { ko: '종묘', ja: '種苗', zh: '宗庙', en: 'Jongmyo Shrine' }, q: '종묘', move: { ko: '도보 약 20분', ja: '徒歩約20分', zh: '步行约20分钟', en: 'Walk, about 20 min' },
         desc: { ko: '조선 왕과 왕비의 신위를 모신 곳. 끝없이 이어지는 긴 마루가 인상적입니다.', ja: '朝鮮王と王妃の神位を祀った所。無限に続く長い床が印象的です。', zh: '供奉朝鲜国王和王后神龛的地方。绵长无尽的山脊令人印象深刻。', en: 'The royal ancestral shrine — one endless veranda is the thing to see.' } },
       { phase: 'evening', time: '18:30', name: { ko: '익선동 한옥골목', ja: '益善洞韓屋路地', zh: '益善洞韩屋胡同', en: 'Ikseon-dong hanok alleys' }, q: '익선동', move: { ko: '도보 약 15분', ja: '徒歩約15分', zh: '步行约15分钟', en: 'Walk, about 15 min' },
@@ -548,7 +548,7 @@ const THEMES = [
       { emoji: '🛕', name: { ko: '사찰·산사', ja: '寺院・山寺', zh: '寺庙和山寺', en: 'Temples' }, desc: { ko: '전통 목조건축과 불교문화.', ja: '伝統的な木造建築と仏教文化。', zh: '传统木结构建筑与佛教文化。', en: 'Timber architecture and Buddhist culture.' } },
       { emoji: '🧱', name: { ko: '성곽·읍성', ja: '城郭・邑城', zh: '堡垒/邑城', en: 'Fortresses' }, desc: { ko: '옛 성곽과 성 안의 마을.', ja: '古い城と城の中の村。', zh: '古老的城堡和城堡内的村庄。', en: 'Fortress walls and the villages inside them.' } },
       { emoji: '🪷', name: { ko: '전통 정원', ja: '伝統的な庭園', zh: '传统园林', en: 'Traditional gardens' }, desc: { ko: '연못과 누정의 한국식 정원.', ja: '池と沼の韓国式庭園。', zh: '韩国风格的花园，有池塘和凉亭。', en: 'Korean gardens of ponds and pavilions.' } },
-      { emoji: '🌤️', name: { ko: '정자·누각', ja: '精子・楼閣', zh: '亭子，亭子', en: 'Pavilions' }, desc: { ko: '풍류문화의 자리. 해 질 무렵이 좋습니다.', ja: '風流文化の場。夕暮れ時が良いです。', zh: '风流文化的发源地。日落前后最好。', en: 'Places of music and company, best at dusk.' } },
+      { emoji: '🌤️', name: { ko: '정자·누각', ja: '亭・楼閣', zh: '亭子·楼阁', en: 'Pavilions' }, desc: { ko: '풍류문화의 자리. 해 질 무렵이 좋습니다.', ja: '風流文化の場。夕暮れ時が良いです。', zh: '风流文化的发源地。日落前后最好。', en: 'Places of music and company, best at dusk.' } },
       { emoji: '🍵', name: { ko: '전통 다도', ja: '伝統的な茶道', zh: '传统茶道', en: 'Tea ceremony' }, desc: { ko: '다례와 전통차. 하동·보성이 대표 산지.', ja: '茶道と伝統茶。ハドン・ポソンが代表産地。', zh: '茶道和传统茶。河东和宝城是代表性产地。', en: 'Tea ceremony; Hadong and Boseong are the tea country.' } },
       { emoji: '👘', name: { ko: '한복 체험', ja: '韓服体験', zh: '韩服体验', en: 'Hanbok' }, desc: { ko: '한복 대여와 사진. 궁궐 입장료가 면제됩니다.', ja: '韓服レンタルと写真。宮殿入場料が免除されます。', zh: '韩服租赁和照片。宫殿门票免收。', en: 'Rent a hanbok, and palace entry is free.' } },
       { emoji: '💍', name: { ko: '전통 혼례', ja: '伝統的な婚礼', zh: '传统婚礼', en: 'Traditional wedding' }, desc: { ko: '전통 혼례와 예절 체험.', ja: '伝統的な婚礼と礼儀体験。', zh: '体验传统婚礼和礼仪。', en: 'Traditional wedding and etiquette experiences.' } },
@@ -624,7 +624,7 @@ const THEMES = [
   sub: { ko: '손으로 거두는 하루', ja: '手で収穫する一日', zh: '用双手收获的一天', en: 'A day you pick yourself' },
   tag: { ko: '수확 · 농촌 체험 · 계절', ja: '収穫・農村体験・季節', zh: '收获·乡村体验·季节', en: 'Harvest, farm life, seasons' },
   intro: {
-    ko: '체험농장은 품목마다 철이 다릅니다. 딸기는 겨울, 감자는 초여름, 사과와 배는 가을, 메밀꽃은 9월이에요. 여기서는 9월의 평창 봉평을 기본 코스로 잡았습니다. 메밀꽃밭과 감자밭, 물레방아가 한 동네에 있어 걷기만 해도 하루가 됩니다.', ja: '体験農場は品目ごとに鉄が異なります。イチゴは冬、ジャガイモは初夏、リンゴとお腹は秋、そばの花は9月です。ここでは、9月の平昌奉平を基本コースとした。そばの花畑とじゃがいも畑、ムレバナがある近所にあり、歩くだけでも一日になります。', zh: '体验农场的每个项目的季节都不同。草莓在冬天上市，土豆在初夏上市，苹果和梨在秋天上市，荞麦花在九月上市。在这里，我们选择了9月的平昌和蓬坪作为基础课程。荞麦花田、土豆田、水磨坊都在一个街区，光是逛一圈就需要一天的时间。',
+    ko: '체험농장은 품목마다 철이 다릅니다. 딸기는 겨울, 감자는 초여름, 사과와 배는 가을, 메밀꽃은 9월이에요. 여기서는 9월의 평창 봉평을 기본 코스로 잡았습니다. 메밀꽃밭과 감자밭, 물레방아가 한 동네에 있어 걷기만 해도 하루가 됩니다.', ja: '体験農場は作物ごとに旬が違います。イチゴは冬、ジャガイモは初夏、リンゴと梨は秋、そばの花は9月です。ここでは9月の平昌・蓬坪を基本コースにしました。そばの花畑とジャガイモ畑、水車が同じ集落にあり、歩くだけで一日になります。', zh: '体验农场的每种作物时令都不同。草莓在冬天，土豆在初夏，苹果和梨在秋天，荞麦花在九月。这里以九月的平昌蓬坪为基本路线：荞麦花田、土豆田和水车都在同一个村子里，光是走走就是一天。',
     en: 'Every crop has its own week: strawberries in winter, potatoes in early summer, apples and pears in autumn, buckwheat flowers in September. This route is Bongpyeong in Pyeongchang in September — buckwheat fields, potato plots and a watermill all in one village.'
   },
   seasons: [{ ko: '봄 딸기', ja: '春のイチゴ', zh: '春天的草莓', en: 'Spring strawberries' }, { ko: '여름 감자', ja: '夏のジャガイモ', zh: '夏季土豆', en: 'Summer potatoes' }, { ko: '가을 사과·메밀', ja: '秋りんご・そば', zh: '秋天的苹果和荞麦', en: 'Autumn apples & buckwheat' }],
@@ -856,7 +856,7 @@ const THEMES = [
     { name: { ko: '단양강 잔도', ja: '丹陽川残島', zh: '丹阳河残迹', en: 'Danyang cliff walkway' }, region: 'jeolla', q: '단양강잔도', note: { ko: '강변 절벽을 따라 걷는 야간 산책.', ja: '川辺の崖に沿って歩く夜の散歩。', zh: '晚上沿着河边悬崖散步。', en: 'A night walk along the cliff above the river.' } },
     { name: { ko: '수양개 빛터널', ja: '水揚げ光トンネル', zh: '水阳盖灯光隧道', en: 'Suyanggae light tunnel' }, region: 'jeolla', q: '수양개빛터널', note: { ko: '터널 미디어아트. 운영일 확인.', ja: 'トンネルメディアアート。営業日確認。', zh: '隧道媒体艺术。检查营业天数。', en: 'A media-art tunnel; check opening days.' } },
     { name: { ko: '예당호 출렁다리', ja: 'イェダンホ', zh: '礼堂湖吊桥', en: 'Yedangho bridge' }, region: 'jeolla', q: '예당호출렁다리', note: { ko: '호수 위 다리와 음악분수, 야간 조명.', ja: '湖の上の橋と音楽噴水、夜間照明。', zh: '湖上的桥梁、音乐喷泉和夜间灯光。', en: 'A lake bridge, music fountain and night lighting.' } },
-    { name: { ko: '부여 궁남지', ja: '付与宮南地', zh: '扶余宫南地', en: 'Buyeo Gungnamji' }, region: 'jeolla', q: '궁남지', note: { ko: '연못과 정자의 수면 반영.', ja: '池と精子の睡眠を反映。', zh: '池塘和亭子的水中倒影。', en: 'Pavilion and pond reflected.' } },
+    { name: { ko: '부여 궁남지', ja: '付与宮南地', zh: '扶余宫南地', en: 'Buyeo Gungnamji' }, region: 'jeolla', q: '궁남지', note: { ko: '연못과 정자의 수면 반영.', ja: '池と亭の水面の映り込み。', zh: '池塘与亭子的水中倒影。', en: 'Pavilion and pond reflected.' } },
     { name: { ko: '공주 공산성', ja: 'プリンセス共産省', zh: '恭山城公主', en: 'Gongju Gongsanseong' }, region: 'jeolla', q: '공산성', note: { ko: '백제 성곽과 야간 조명, 미디어아트 행사.', ja: '百済の城と夜の照明、メディアアートのイベント。', zh: '百济城、夜间灯光和媒体艺术活动。', en: 'Baekje walls with night lighting and media-art events.' } },
     { name: { ko: '삽교호 관광지', ja: 'シャッホ湖観光地', zh: '叉桥湖旅游景点', en: 'Sapgyo lake park' }, region: 'jeolla', q: '삽교호관광지', note: { ko: '대관람차와 호수 야경.', ja: '大観覧車と湖の夜景。', zh: '摩天轮和湖夜景。', en: 'A big wheel and the lake at night.' } },
     { name: { ko: '홍성스카이타워', ja: 'ホンソンスカイタワー', zh: '洪城天空塔', en: 'Hongseong Sky Tower' }, region: 'jeolla', q: '홍성스카이타워', note: { ko: '남당항과 서해 조망.', ja: '南党港と西海の眺め。', zh: '南堂港和西海的景色。', en: 'Over Namdang harbour and the west sea.' } },
@@ -1121,7 +1121,7 @@ const THEMES = [
   sub: { ko: '목줄 하나로 떠나는 하루', ja: 'リード一本で出かける一日', zh: '一条牵引绳就出发的一天', en: 'A day out on the lead' },
   tag: { ko: '반려견 해변 · 놀이터 · 산책로', ja: '犬と入れる海辺・遊び場・散歩道', zh: '可带狗的海滩·游乐场·散步道', en: 'Dog beaches, parks, forest paths' },
   intro: {
-    ko: '반려견 여행에서 가장 중요한 건 도착지가 아니라 조건입니다. 입장 가능한 구역, 체중 제한, 실내 출입 여부, 목줄·이동장 규정이 장소마다 다릅니다. 여기서는 조건이 비교적 명확한 춘천 강아지숲을 중심으로 하루를 짰어요. 해변과 숲, 놀이터는 아래 목록에서 골라 다녀오세요.', ja: 'ペット犬旅行で最も重要なのは、到着地ではなく条件です。入場可能な区域、体重制限、室内出入可否、首筋・移動場規定が場所によって異なります。ここでは条件が比較的明確な春川子犬の森を中心に一日を絞ります。ビーチと森、遊び場は以下のリストから選んでください。', zh: '带狗狗旅行时，最重要的不是目的地，而是条件。进入区域、重量限制、室内通道以及皮带和背带规定因地点而异。在这里，我计划在春川狗林周围度过一天，那里的条件相对较好。从下面的列表中选择海滩、森林或游乐场。',
+    ko: '반려견 여행에서 가장 중요한 건 도착지가 아니라 조건입니다. 입장 가능한 구역, 체중 제한, 실내 출입 여부, 목줄·이동장 규정이 장소마다 다릅니다. 여기서는 조건이 비교적 명확한 춘천 강아지숲을 중심으로 하루를 짰어요. 해변과 숲, 놀이터는 아래 목록에서 골라 다녀오세요.', ja: 'ペット犬旅行で最も重要なのは、到着地ではなく条件です。入場可能な区域、体重制限、室内出入可否、リード・移動場規定が場所によって異なります。ここでは条件が比較的明確な春川子犬の森を中心に一日を絞ります。ビーチと森、遊び場は以下のリストから選んでください。', zh: '带狗狗旅行时，最重要的不是目的地，而是条件。进入区域、重量限制、室内通道以及牵引绳和背带规定因地点而异。在这里，我计划在春川狗林周围度过一天，那里的条件相对较好。从下面的列表中选择海滩、森林或游乐场。',
     en: 'With a dog the conditions matter more than the destination: which areas admit dogs, weight limits, indoor access, lead and carrier rules — they differ place by place. This day is built around the dog park at Chuncheon, where the rules are clear. Beaches, forests and playgrounds are listed below.'
   },
   seasons: [{ ko: '봄', ja: '春', zh: '春天', en: 'Spring' }, { ko: '가을', ja: '秋', zh: '秋天', en: 'Autumn' }, { ko: '여름 해변', ja: '夏のビーチ', zh: '夏季海滩', en: 'Summer beaches' }],
@@ -1130,7 +1130,7 @@ const THEMES = [
   hub: {
     ko: '춘천역', ja: '春川駅', zh: '春川站', en: 'Chuncheon Station', q: '춘천역',
     note: {
-      ko: '경춘선·ITX-청춘. 서울 용산에서 1시간 10분. 반려견과 함께 탈 때는 이동장 또는 목줄을 확인하고, 역에서 강아지숲까지 택시로 20분입니다.', ja: '慶春線・ITX-青春。ソウル龍山から1時間10分。ペットと一緒に乗るときは、移動場や首筋を確認し、駅から犬の森までタクシーで20分です。', zh: '京春线·ITX-清春。距离首尔龙山1小时10分钟。与您的狗一起骑行时，请确保它有背带或皮带。从车站乘坐出租车到狗森林需要20分钟。',
+      ko: '경춘선·ITX-청춘. 서울 용산에서 1시간 10분. 반려견과 함께 탈 때는 이동장 또는 목줄을 확인하고, 역에서 강아지숲까지 택시로 20분입니다.', ja: '慶春線・ITX-青春。ソウル龍山から1時間10分。ペットと一緒に乗るときは、移動場やリードを確認し、駅から犬の森までタクシーで20分です。', zh: '京春线·ITX-清春。距离首尔龙山1小时10分钟。与您的狗一起骑行时，请确保它有背带或牵引绳。从车站乘坐出租车到狗森林需要20分钟。',
       en: 'ITX-Cheongchun from Yongsan in seventy minutes. Check the carrier and lead rules for the train; the dog park is twenty minutes by taxi from the station.'
     }
   },
@@ -1146,7 +1146,7 @@ const THEMES = [
       { phase: 'lunch', time: '13:00', name: { ko: '춘천 시내 점심', ja: '春川市内ランチ', zh: '在春川市中心享用午餐', en: 'Lunch in Chuncheon' }, q: '춘천', move: { ko: '택시 약 20분', ja: 'タクシー約20分', zh: '出租车约20分钟', en: 'Taxi, about 20 min' },
         desc: { ko: '춘천은 닭갈비와 막국수. 실내 동반이 안 되는 곳이 많으니 테라스 자리를 미리 확인하세요.', ja: '春川はチキンリブとマクグクス。室内の同伴ができない場所が多いので、テラス席を事前に確認してください。', zh: '春川是炸鸡排和麻糖酥。有很多地方不允许客人进入室内，因此请提前检查露台座位。', en: 'Chuncheon runs on chicken galbi and buckwheat noodles; many rooms do not admit dogs, so ask about a terrace.' } },
       { phase: 'afternoon', time: '14:30', name: { ko: '의암호 산책로', ja: '義岩湖遊歩道', zh: '义岩湖步道', en: 'Uiam lakeside path' }, q: '의암호', move: { ko: '차 약 15분', ja: '車約15分', zh: '车程约15分钟', en: 'Drive, about 15 min' },
-        desc: { ko: '호수를 끼고 난 넓은 길. 목줄을 하고 걷기 좋고, 물놀이는 금지 구역을 확인하세요.', ja: '湖を挟んで私は広い道。首輪をして歩きやすく、水遊びの禁止区域を確認してください。', zh: '湖边有一条宽阔的马路。请检查哪些区域可以用皮带牵引安全行走，哪些区域禁止玩水。', en: 'A wide path along the lake — good on a lead; check where swimming is off limits.' },
+        desc: { ko: '호수를 끼고 난 넓은 길. 목줄을 하고 걷기 좋고, 물놀이는 금지 구역을 확인하세요.', ja: '湖を挟んで私は広い道。リードをして歩きやすく、水遊びの禁止区域を確認してください。', zh: '湖边有一条宽阔的马路。请检查哪些区域可以用牵引绳牵引安全行走，哪些区域禁止玩水。', en: 'A wide path along the lake — good on a lead; check where swimming is off limits.' },
         photo: 'th-dog-p2' },
       { phase: 'afternoon', time: '16:00', name: { ko: '공지천 산책', ja: 'お知らせ布散歩', zh: '沿着孔之川散步', en: 'Gongjicheon walk' }, q: '공지천', move: { ko: '차 약 10분', ja: '車約10分', zh: '车程约10分钟', en: 'Drive, about 10 min' },
         desc: { ko: '도심 하천을 따라 이어지는 산책로. 그늘이 많아 오후에 걷기 좋습니다.', ja: '都心河川沿いに続く遊歩道。日陰が多く、午後に歩くのに最適です。', zh: '沿着市中心河流的步行道。树荫很多，非常适合下午散步。', en: 'A path along the stream through town, well shaded for the afternoon.' } },
@@ -1157,20 +1157,20 @@ const THEMES = [
   conds: [
     { k: { ko: '체중', ja: '体重', zh: '重量', en: 'Weight' }, v: { ko: '5kg·10kg·15kg 제한이 흔함, 대형견 전용 구역 확인', ja: '5kg・10kg・15kg制限が一般的で、大型犬専用区域の確認', zh: '常见的限制为5公斤、10公斤和15公斤；检查大型犬的专用区域。', en: 'Limits of 5, 10 or 15 kg are common; check for large-dog areas' } },
     { k: { ko: '실내', ja: '屋内', zh: '室内的', en: 'Indoors' }, v: { ko: '식당·카페 대부분 실내 불가, 야외석만 가능', ja: '食堂・カフェほとんど室内不可、屋外席のみ可能', zh: '大多数餐馆和咖啡馆不允许进入室内，只允许户外座位。', en: 'Most restaurants and cafés allow dogs only at outdoor tables' } },
-    { k: { ko: '목줄', ja: 'リード', zh: '牵引绳', en: 'Lead' }, v: { ko: '전 구역 목줄 필수(놀이터 예외), 이동장 준비', ja: '全ゾーンネックレス必須（遊び場例外）、移動場準備', zh: '所有区域（游乐场除外）均需拴绳，并提供交通设施。', en: 'Lead required everywhere except fenced runs; bring a carrier' } },
+    { k: { ko: '목줄', ja: 'リード', zh: '牵引绳', en: 'Lead' }, v: { ko: '전 구역 목줄 필수(놀이터 예외), 이동장 준비', ja: '全ゾーンリード必須（遊び場例外）、移動場準備', zh: '所有区域（游乐场除外）均需拴绳，并提供交通设施。', en: 'Lead required everywhere except fenced runs; bring a carrier' } },
     { k: { ko: '준비물', ja: '準備', zh: '你需要什么', en: 'Bring' }, v: { ko: '예방접종 증명, 배변봉투, 물·식기, 수건', ja: '予防接種証明、排便袋、水・食器、タオル', zh: '疫苗接种证明、粪便袋、水、餐具、毛巾', en: 'Vaccination record, waste bags, water and bowl, towel' } }
   ],
   places: [
     { name: { ko: '강아지숲', ja: '子犬の森', zh: '小狗森林', en: 'Dog forest park' }, region: 'gangwon', q: '강아지숲', note: { ko: '춘천. 반려견 전용 테마파크, 운동장·수영장·전시.', ja: '春川。ペット犬専用テーマパーク、運動場・水泳場・展示。', zh: '春川。一个专门为狗、游乐场、游泳池和展览而设的主题公园。', en: 'Chuncheon: a theme park for dogs with runs, a pool and exhibitions.' } },
     { name: { ko: '오산반려동물테마파크', ja: 'オサンペット動物テーマパーク', zh: '乌山宠物主题公园', en: 'Osan pet theme park' }, region: 'capital', q: '오산반려동물테마파크', note: { ko: '경기 오산. 놀이와 교육 프로그램.', ja: '試合の誤算。遊びと教育プログラム。', zh: '京畿道乌山市。游戏和教育项目。', en: 'Osan: play areas and training programmes.' } },
-    { name: { ko: '인천대공원 반려견놀이터', ja: '仁川大公園ペット犬遊び場', zh: '仁川大公园狗狗游乐场', en: 'Incheon Grand Park dog run' }, region: 'capital', q: '인천대공원 반려견놀이터', note: { ko: '무료 야외 놀이터, 목줄 해제 구역 별도.', ja: '無料の屋外遊び場、ネックライン解除ゾーンは別途。', zh: '免费的室外游乐场，独立的免拴绳区域。', en: 'A free outdoor run with a separate off-lead area.' } },
+    { name: { ko: '인천대공원 반려견놀이터', ja: '仁川大公園ペット犬遊び場', zh: '仁川大公园狗狗游乐场', en: 'Incheon Grand Park dog run' }, region: 'capital', q: '인천대공원 반려견놀이터', note: { ko: '무료 야외 놀이터, 목줄 해제 구역 별도.', ja: '無料の屋外遊び場、リード解除ゾーンは別途。', zh: '免费的室外游乐场，独立的免拴绳区域。', en: 'A free outdoor run with a separate off-lead area.' } },
     { name: { ko: '멍비치', ja: 'マンビーチ', zh: '猛海滩', en: 'Meong Beach' }, region: 'gangwon', q: '멍비치', note: { ko: '양양. 반려견 전용 해변, 여름 시즌 운영.', ja: 'ヤンヤン。ペット犬専用ビーチ、夏シーズン運営。', zh: '阳阳。仅限狗入内的海滩，夏季开放。', en: 'Yangyang: a dog-only beach, open in the summer season.' } },
     { name: { ko: '명사해수욕장', ja: '名詞海水浴場', zh: '明沙海滩', en: 'Myeongsa Beach' }, region: 'gyeongsang', q: '명사해수욕장', note: { ko: '거제. 반려견 해수욕 운영 사례가 있는 해변.', ja: '巨済。ペット犬海水浴の運営事例があるビーチ。', zh: '巨济。曾有狗狗洗澡事件发生的海滩。', en: 'Geoje: a beach with a history of dog-friendly bathing.' } },
     { name: { ko: '안목해변', ja: '目のビーチ', zh: '安木海滩', en: 'Anmok Beach' }, region: 'gangwon', q: '안목해변', note: { ko: '강릉. 산책과 바다, 여름엔 펫 비치 운영.', ja: '江陵。散歩や海、夏にはペットビーチ運営。', zh: '江陵。散步和大海，夏天还有宠物海滩。', en: 'Gangneung: a walk and the sea, with a pet beach in summer.' } },
     { name: { ko: '꽃지해수욕장', ja: '花地海水浴場', zh: '科奇海滩', en: 'Ggotji Beach' }, region: 'jeolla', q: '꽃지해수욕장', note: { ko: '태안. 넓은 모래사장과 노을.', ja: '泰安。広い砂浜と夕焼け。', zh: '泰安。宽阔的沙滩和日落。', en: 'Taean: wide sand and a famous sunset.' } },
     { name: { ko: '신두리해수욕장', ja: 'シンドゥリビーチ', zh: '辛杜里海滩', en: 'Sinduri Beach' }, region: 'jeolla', q: '신두리해수욕장', note: { ko: '태안. 모래언덕과 긴 해변.', ja: '泰安。砂丘と長いビーチ。', zh: '泰安。沙丘和长长的海滩。', en: 'Taean: dunes and a long shore.' } },
     { name: { ko: '와온해변', ja: 'ワオンビーチ', zh: '瓦恩海滩', en: 'Waon Beach' }, region: 'jeolla', q: '와온해변', note: { ko: '순천. 갯벌과 일몰, 물때 확인.', ja: '順天。干潟と夕日、水の中で確認。', zh: '顺天。检查潮滩、日落和潮汐时间。', en: 'Suncheon: tidal flats and sunset; check the tide.' } },
-    { name: { ko: '해파랑길 44·45코스', ja: 'クラゲギル44・45コース', zh: 'Haeparang 路44和45路线', en: 'Haeparang trail 44–45' }, region: 'gangwon', q: '해파랑길', note: { ko: '양양·속초 해안 도보 구간. 목줄 필수.', ja: '陽陽・束草海岸徒歩区間。ネックライン必須。', zh: '襄阳-束草海岸步行段。需要皮带。', en: 'Coastal walking between Yangyang and Sokcho; lead required.' } },
+    { name: { ko: '해파랑길 44·45코스', ja: 'クラゲギル44・45コース', zh: 'Haeparang 路44和45路线', en: 'Haeparang trail 44–45' }, region: 'gangwon', q: '해파랑길', note: { ko: '양양·속초 해안 도보 구간. 목줄 필수.', ja: '陽陽・束草海岸徒歩区間。リード必須。', zh: '襄阳-束草海岸步行段。需要牵引绳。', en: 'Coastal walking between Yangyang and Sokcho; lead required.' } },
     { name: { ko: '남해 다랭이마을', ja: '南海ダランイ村', zh: '南海Daraengi村', en: 'Namhae Darangyi village' }, region: 'gyeongsang', q: '다랭이마을', note: { ko: '계단식 논과 바다. 좁은 길은 안고 가세요.', ja: 'カスケード水田と海。狭い道は抱きしめてください。', zh: '梯田和大海。与你一起走窄路。', en: 'Terraced paddies above the sea; carry the dog on the narrow steps.' } },
     { name: { ko: '국립천관산자연휴양림', ja: '国立天関山自然休養林', zh: '国立青冠山自然休养林', en: 'Cheongwansan recreational forest' }, region: 'jeolla', q: '천관산자연휴양림', note: { ko: '장흥. 반려견 동반 가능 숙소와 숲길.', ja: 'チャン・フン。ペット同伴可能な宿泊施設と森の道。', zh: '长兴.适合携带宠物狗的住宿和森林步道。', en: 'Jangheung: dog-friendly rooms and forest paths.' } },
     { name: { ko: '계족산 황톳길', ja: 'ゲジョクサンファントギル', zh: '鸡足山黄土路', en: 'Gyejoksan red-clay path' }, region: 'jeolla', q: '계족산 황톳길', note: { ko: '대전. 맨발 산책로 옆 숲길을 함께 걷습니다.', ja: '大田。裸足の遊歩道の横にある森の道を一緒に歩きます。', zh: '大田。我们一起走在赤脚小道旁边的林间小道上。', en: 'Daejeon: forest paths beside the barefoot clay trail.' } },
@@ -1190,7 +1190,7 @@ const THEMES = [
     { file: 'th-dog', cap: { ko: '반려견과 걷는 길', ja: 'ペットと歩く道', zh: '与狗一起行走的小路', en: 'Walking with the dog' } },
     { file: 'th-dog-p2', cap: { ko: '해변의 반려견', ja: 'ビーチのペット犬', zh: '海滩上的狗', en: 'A dog on the beach' } }
   ],
-  tip: { ko: '대부분의 관광지는 목줄과 배변봉투를 확인합니다. 체중 제한은 시설마다 달라 방문 전 전화가 가장 확실합니다.', ja: 'ほとんどの観光地は首輪と排便袋を確認します。体重制限は施設によって異なり、訪問前の電話が最も確実です。', zh: '大多数旅游景点都会检查皮带和垃圾袋。重量限制因设施而异，因此最好在参观前致电。', en: 'Almost everywhere checks lead and bags. Weight limits vary by venue — a phone call is the surest check.' }
+  tip: { ko: '대부분의 관광지는 목줄과 배변봉투를 확인합니다. 체중 제한은 시설마다 달라 방문 전 전화가 가장 확실합니다.', ja: 'ほとんどの観光地はリードと排便袋を確認します。体重制限は施設によって異なり、訪問前の電話が最も確実です。', zh: '大多数旅游景点都会检查牵引绳和垃圾袋。重量限制因设施而异，因此最好在参观前致电。', en: 'Almost everywhere checks lead and bags. Weight limits vary by venue — a phone call is the surest check.' }
 },
 /* ------------------------------------------- 15 혼자 떠나는 마음 치유 */
 {
@@ -1431,7 +1431,7 @@ const THEMES = [
     { name: { ko: '원대리 자작나무숲', ja: '園代白樺の森', zh: '院岱里白桦林', en: 'Wondae-ri birch forest' }, region: 'gangwon', q: '원대리 자작나무숲', note: { ko: '인제. 겨울 설경, 입산 기간 확인.', ja: 'インジェ。冬の雪景色、入産期間確認。', zh: '注射。冬季雪景，查看入场时间。', en: 'Inje: snow among birches; check the access period.' } },
     { name: { ko: '미인폭포', ja: '美人滝', zh: '美丽瀑布', en: 'Miin waterfall' }, region: 'gangwon', q: '미인폭포', note: { ko: '삼척. 에메랄드빛 폭포와 협곡.', ja: '三尺。エメラルドの滝と峡谷。', zh: '三陟。翡翠瀑布和峡谷。', en: 'Samcheok: an emerald fall in a gorge.' } },
     { name: { ko: '꽃지해수욕장', ja: '花地海水浴場', zh: '科奇海滩', en: 'Ggotji Beach' }, region: 'jeolla', q: '꽃지해수욕장', note: { ko: '태안. 할미·할아비바위와 붉은 석양.', ja: '泰安。ハルミ・ハルビー岩と赤い夕日。', zh: '泰安。哈尔米/爷爷岩石和红色的日落。', en: 'Taean: the old-couple rocks and a red sunset.' } },
-    { name: { ko: '궁남지', ja: '宮南地', zh: '宫南地', en: 'Gungnamji' }, region: 'jeolla', q: '궁남지', note: { ko: '부여. 연꽃과 정자, 여름 아침.', ja: '付与。蓮の花と精子、夏の朝。', zh: '扶余。莲花和亭子，夏天的早晨。', en: 'Buyeo: lotus and pavilion on a summer morning.' } },
+    { name: { ko: '궁남지', ja: '宮南地', zh: '宫南地', en: 'Gungnamji' }, region: 'jeolla', q: '궁남지', note: { ko: '부여. 연꽃과 정자, 여름 아침.', ja: '扶余。蓮と亭、夏の朝。', zh: '扶余。莲花与亭子，夏天的清晨。', en: 'Buyeo: lotus and pavilion on a summer morning.' } },
     { name: { ko: '도담삼봉', ja: 'ドダムサムボン', zh: '岛潭三峰', en: 'Dodamsambong' }, region: 'jeolla', q: '도담삼봉', note: { ko: '단양. 강 위 세 봉우리.', ja: '丹陽。川の上の3つのピーク。', zh: '丹阳。河流之上三座山峰。', en: 'Danyang: three peaks in the river.' } },
     { name: { ko: '문광저수지 은행나무길', ja: 'ムンクァン貯水池イチョウの道', zh: '闻王水库银杏树路', en: 'Mungwang reservoir ginkgo road' }, region: 'jeolla', q: '문광저수지', note: { ko: '괴산. 가을 노란 은행나무 반영.', ja: 'ゲッサン。秋の黄色いイチョウの反射。', zh: '槐山。秋天黄色银杏树的倒影。', en: 'Goesan: yellow ginkgoes doubled in the water.' } },
     { name: { ko: '감천문화마을', ja: '甘川文化村', zh: '甘川文化村', en: 'Gamcheon culture village' }, region: 'gyeongsang', q: '감천문화마을', note: { ko: '부산. 알록달록한 집과 골목.', ja: '釜山。とても甘い家と路地。', zh: '釜山。色彩缤纷的房屋和小巷。', en: 'Busan: coloured houses and alleys.' } },
@@ -1598,7 +1598,7 @@ const THEMES = [
     { name: { ko: '정동진해수욕장', ja: '正東津ビーチ', zh: '正东津海滩', en: 'Jeongdongjin Beach' }, region: 'gangwon', q: '정동진해수욕장', note: { ko: '동해 일출의 대표. 역에서 도보 5분.', ja: '東海日の出の代表。駅から徒歩5分。', zh: '代表东海日出。距离车站步行5分钟。', en: 'The classic east-coast sunrise, five minutes from the station.' } },
     { name: { ko: '경포해변', ja: '鏡浦ビーチ', zh: '镜浦海水浴场', en: 'Gyeongpo Beach' }, region: 'gangwon', q: '경포해변', note: { ko: '넓은 백사장과 수평선 일출.', ja: '広い白い砂浜と地平線の日の出。', zh: '宽阔的白色沙滩和地平线上的日出。', en: 'Wide sand and an open horizon.' } },
     { name: { ko: '추암 촛대바위', ja: 'チュアムローソク足岩', zh: 'Chuam烛台岩', en: 'Chuam rock formations' }, region: 'gangwon', q: '추암 촛대바위', note: { ko: '동해. 바위 사이로 해가 오릅니다.', ja: '東海。岩の間に太陽が昇ります。', zh: '东海。太阳从岩石之间升起。', en: 'Donghae: the sun rising between the rocks.' } },
-    { name: { ko: '영금정', ja: 'ヤングムジョン', zh: '灵金亭', en: 'Yeonggeumjeong' }, region: 'gangwon', q: '영금정', note: { ko: '속초. 바위 위 정자에서 보는 해돋이.', ja: '束草。岩の上の精子から見る日の出。', zh: '束草。从岩石上的亭子看到的日出。', en: 'Sokcho: sunrise from a pavilion on the rocks.' } },
+    { name: { ko: '영금정', ja: 'ヤングムジョン', zh: '灵金亭', en: 'Yeonggeumjeong' }, region: 'gangwon', q: '영금정', note: { ko: '속초. 바위 위 정자에서 보는 해돋이.', ja: '束草。岩の上の亭から見る日の出。', zh: '束草。从岩石上的亭子看日出。', en: 'Sokcho: sunrise from a pavilion on the rocks.' } },
     { name: { ko: '낙산사 의상대', ja: 'ナクサン寺衣装隊', zh: '洛山寺义尚台', en: 'Naksansa Uisangdae' }, region: 'gangwon', q: '의상대', note: { ko: '사찰과 동해가 함께 있는 일출.', ja: '寺と東海が一緒にいる日の出。', zh: '日出与寺庙和东海。', en: 'A temple and the East Sea in one sunrise.' } },
     { name: { ko: '하조대', ja: 'ハジョデ', zh: '河城台', en: 'Hajodae' }, region: 'gangwon', q: '하조대', note: { ko: '양양. 기암절벽과 등대, 바다 전망.', ja: 'ヤンヤン。奇岩の崖と灯台、海の景色。', zh: '阳阳。奇形怪状的悬崖、灯塔、海景。', en: 'Yangyang: cliffs, lighthouse and open sea.' } },
     { name: { ko: '남애항', ja: '南愛港', zh: '生前港', en: 'Namae harbour' }, region: 'gangwon', q: '남애항', note: { ko: '빨간 등대와 어선, 수평선 일출.', ja: '赤い灯台と漁船、地平線の日の出。', zh: '红色灯塔、渔船和地平线上的日出。', en: 'A red lighthouse, boats and the horizon.' } },
@@ -1705,7 +1705,7 @@ const THEMES = [
       { emoji: '🌊', name: { ko: '오션뷰 캠핑', ja: 'オーシャンビューキャンプ', zh: '海景露营', en: 'Sea-view camping' }, desc: { ko: '바다를 앞에 둔 사이트. 바람과 소음, 일출 시간을 확인하세요.', ja: '海を前にしたサイト。風、騒音、日の出時間を確認してください。', zh: '面向大海的场地。检查风、噪音和日出时间。', en: 'A pitch facing the water; check wind, noise and sunrise time.' } },
       { emoji: '🌲', name: { ko: '숲속 캠핑', ja: '森の中のキャンプ', zh: '在森林里露营', en: 'Forest camping' }, desc: { ko: '산림·계곡의 그늘. 여름에 가장 시원합니다.', ja: '森林・谷の陰。夏に一番涼しいです。', zh: '森林和山谷的树荫。夏天最凉爽。', en: 'Shade of forest and valley — coolest in summer.' } },
       { emoji: '🔮', name: { ko: '돔·이글루', ja: 'ドーム・イグルー', zh: '圆顶/圆顶冰屋', en: 'Dome & igloo' }, desc: { ko: '투명 돔과 이글루형 숙소. 사진이 잘 나오고 겨울에도 따뜻합니다.', ja: '透明なドームとイグルーの宿泊施設。写真がよく出て、冬でも暖かいです。', zh: '透明的圆顶和冰屋式住宿。照片拍出来效果很好，即使是冬天也很温暖。', en: 'Transparent domes and igloos: photogenic and warm in winter.' } },
-      { emoji: '🐕', name: { ko: '애견 동반', ja: '愛犬同伴', zh: '适合带狗', en: 'With the dog' }, desc: { ko: '반려견 전용 사이트와 운동장. 체중·목줄 조건을 확인하세요.', ja: 'ペット犬専用サイトと運動場。体重・首筋条件を確認してください。', zh: '专为狗狗提供的场地和游乐场。检查重量和皮带状况。', en: 'Dog pitches and runs; check weight and lead rules.' } },
+      { emoji: '🐕', name: { ko: '애견 동반', ja: '愛犬同伴', zh: '适合带狗', en: 'With the dog' }, desc: { ko: '반려견 전용 사이트와 운동장. 체중·목줄 조건을 확인하세요.', ja: 'ペット犬専用サイトと運動場。体重・リード条件を確認してください。', zh: '专为狗狗提供的场地和游乐场。检查重量和牵引绳状况。', en: 'Dog pitches and runs; check weight and lead rules.' } },
       { emoji: '🎠', name: { ko: '키즈 캠핑', ja: 'キッズキャンプ', zh: '孩子们露营', en: 'Camping with children' }, desc: { ko: '놀이터·수영장·체험시설. 개별 화장실이 있으면 훨씬 편합니다.', ja: '遊び場・水泳場・体験施設。個々のトイレがあればはるかに快適です。', zh: '游乐场、游泳池、体验设施。有独立卫生间就方便多了。', en: 'Playground, pool and activities; a private bathroom makes it far easier.' } }
     ]
   },
@@ -2005,7 +2005,7 @@ const THEMES = [
             { phase: 'afternoon', time: '14:00', name: { ko: '죽도해변', ja: '竹島ビーチ', zh: '竹岛海滩', en: 'Jukdo Beach' }, q: '죽도해변', move: { ko: '차 약 15분', ja: '車約15分', zh: '车程约15分钟', en: 'Drive, about 15 min' },
               desc: { ko: '서핑으로 유명한 작은 해변. 물이 빠지면 넓은 모래밭이 드러납니다.', ja: 'サーフィンで有名な小さなビーチ。水が落ちると広い砂場が現れます。', zh: '以冲浪而闻名的小海滩。当水退去时，露出一片宽阔的沙地。', en: 'A small surf beach; at low tide a wide sand flat appears.' } },
             { phase: 'afternoon', time: '15:30', name: { ko: '하조대', ja: 'ハジョデ', zh: '河城台', en: 'Hajodae' }, q: '하조대', move: { ko: '차 약 15분', ja: '車約15分', zh: '车程约15分钟', en: 'Drive, about 15 min' },
-              desc: { ko: '절벽 위 정자와 등대. 동해가 한눈에 들어옵니다.', ja: '崖の上の精子と灯台。東海が一目で入ります。', zh: '悬崖上的亭子和灯塔。东海一览无余。', en: 'A pavilion and lighthouse on the cliff, with the East Sea below.' } },
+              desc: { ko: '절벽 위 정자와 등대. 동해가 한눈에 들어옵니다.', ja: '崖の上の亭と灯台。東海が一目で見渡せます。', zh: '悬崖上的亭子与灯塔。东海一览无余。', en: 'A pavilion and lighthouse on the cliff, with the East Sea below.' } },
             { phase: 'evening', time: '17:00', name: { ko: '양양전통시장', ja: '陽陽伝統市場', zh: '襄阳传统市场', en: 'Yangyang market' }, q: '양양전통시장', move: { ko: '차 약 20분', ja: '車約20分', zh: '车程约20分钟', en: 'Drive, about 20 min' },
               desc: { ko: '저녁과 간식은 시장에서. 해산물과 옥수수가 여름의 맛입니다.', ja: '夕食と軽食は市場で。シーフードとトウモロコシが夏の味です。', zh: '在市场享用晚餐和小吃。海鲜和玉米是夏天的美味。', en: 'Dinner and snacks at the market — seafood and sweetcorn.' } },
             { phase: 'return', time: '18:30', name: { ko: '양양시외버스터미널', ja: '陽陽市外バスターミナル', zh: '襄阳市外巴士客运站', en: 'Yangyang bus terminal' }, q: '양양시외버스터미널', move: { ko: '도보 약 10분', ja: '徒歩約10分', zh: '步行约10分钟', en: 'Walk, about 10 min' },

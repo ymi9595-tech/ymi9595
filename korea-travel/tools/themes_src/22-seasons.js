@@ -108,7 +108,7 @@
             { phase: 'afternoon', time: '14:00', name: { ko: '죽도해변', ja: '竹島ビーチ', zh: '竹岛海滩', en: 'Jukdo Beach' }, q: '죽도해변', move: { ko: '차 약 15분', ja: '車約15分', zh: '车程约15分钟', en: 'Drive, about 15 min' },
               desc: { ko: '서핑으로 유명한 작은 해변. 물이 빠지면 넓은 모래밭이 드러납니다.', ja: 'サーフィンで有名な小さなビーチ。水が落ちると広い砂場が現れます。', zh: '以冲浪而闻名的小海滩。当水退去时，露出一片宽阔的沙地。', en: 'A small surf beach; at low tide a wide sand flat appears.' } },
             { phase: 'afternoon', time: '15:30', name: { ko: '하조대', ja: 'ハジョデ', zh: '河城台', en: 'Hajodae' }, q: '하조대', move: { ko: '차 약 15분', ja: '車約15分', zh: '车程约15分钟', en: 'Drive, about 15 min' },
-              desc: { ko: '절벽 위 정자와 등대. 동해가 한눈에 들어옵니다.', ja: '崖の上の精子と灯台。東海が一目で入ります。', zh: '悬崖上的亭子和灯塔。东海一览无余。', en: 'A pavilion and lighthouse on the cliff, with the East Sea below.' } },
+              desc: { ko: '절벽 위 정자와 등대. 동해가 한눈에 들어옵니다.', ja: '崖の上の亭と灯台。東海が一目で見渡せます。', zh: '悬崖上的亭子与灯塔。东海一览无余。', en: 'A pavilion and lighthouse on the cliff, with the East Sea below.' } },
             { phase: 'evening', time: '17:00', name: { ko: '양양전통시장', ja: '陽陽伝統市場', zh: '襄阳传统市场', en: 'Yangyang market' }, q: '양양전통시장', move: { ko: '차 약 20분', ja: '車約20分', zh: '车程约20分钟', en: 'Drive, about 20 min' },
               desc: { ko: '저녁과 간식은 시장에서. 해산물과 옥수수가 여름의 맛입니다.', ja: '夕食と軽食は市場で。シーフードとトウモロコシが夏の味です。', zh: '在市场享用晚餐和小吃。海鲜和玉米是夏天的美味。', en: 'Dinner and snacks at the market — seafood and sweetcorn.' } },
             { phase: 'return', time: '18:30', name: { ko: '양양시외버스터미널', ja: '陽陽市外バスターミナル', zh: '襄阳市外巴士客运站', en: 'Yangyang bus terminal' }, q: '양양시외버스터미널', move: { ko: '도보 약 10분', ja: '徒歩約10分', zh: '步行约10分钟', en: 'Walk, about 10 min' },

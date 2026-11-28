@@ -49,7 +49,7 @@
       { emoji: '🌊', name: { ko: '오션뷰 캠핑', ja: 'オーシャンビューキャンプ', zh: '海景露营', en: 'Sea-view camping' }, desc: { ko: '바다를 앞에 둔 사이트. 바람과 소음, 일출 시간을 확인하세요.', ja: '海を前にしたサイト。風、騒音、日の出時間を確認してください。', zh: '面向大海的场地。检查风、噪音和日出时间。', en: 'A pitch facing the water; check wind, noise and sunrise time.' } },
       { emoji: '🌲', name: { ko: '숲속 캠핑', ja: '森の中のキャンプ', zh: '在森林里露营', en: 'Forest camping' }, desc: { ko: '산림·계곡의 그늘. 여름에 가장 시원합니다.', ja: '森林・谷の陰。夏に一番涼しいです。', zh: '森林和山谷的树荫。夏天最凉爽。', en: 'Shade of forest and valley — coolest in summer.' } },
       { emoji: '🔮', name: { ko: '돔·이글루', ja: 'ドーム・イグルー', zh: '圆顶/圆顶冰屋', en: 'Dome & igloo' }, desc: { ko: '투명 돔과 이글루형 숙소. 사진이 잘 나오고 겨울에도 따뜻합니다.', ja: '透明なドームとイグルーの宿泊施設。写真がよく出て、冬でも暖かいです。', zh: '透明的圆顶和冰屋式住宿。照片拍出来效果很好，即使是冬天也很温暖。', en: 'Transparent domes and igloos: photogenic and warm in winter.' } },
-      { emoji: '🐕', name: { ko: '애견 동반', ja: '愛犬同伴', zh: '适合带狗', en: 'With the dog' }, desc: { ko: '반려견 전용 사이트와 운동장. 체중·목줄 조건을 확인하세요.', ja: 'ペット犬専用サイトと運動場。体重・首筋条件を確認してください。', zh: '专为狗狗提供的场地和游乐场。检查重量和皮带状况。', en: 'Dog pitches and runs; check weight and lead rules.' } },
+      { emoji: '🐕', name: { ko: '애견 동반', ja: '愛犬同伴', zh: '适合带狗', en: 'With the dog' }, desc: { ko: '반려견 전용 사이트와 운동장. 체중·목줄 조건을 확인하세요.', ja: 'ペット犬専用サイトと運動場。体重・リード条件を確認してください。', zh: '专为狗狗提供的场地和游乐场。检查重量和牵引绳状况。', en: 'Dog pitches and runs; check weight and lead rules.' } },
       { emoji: '🎠', name: { ko: '키즈 캠핑', ja: 'キッズキャンプ', zh: '孩子们露营', en: 'Camping with children' }, desc: { ko: '놀이터·수영장·체험시설. 개별 화장실이 있으면 훨씬 편합니다.', ja: '遊び場・水泳場・体験施設。個々のトイレがあればはるかに快適です。', zh: '游乐场、游泳池、体验设施。有独立卫生间就方便多了。', en: 'Playground, pool and activities; a private bathroom makes it far easier.' } }
     ]
   },
