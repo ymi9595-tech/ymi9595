@@ -68,7 +68,7 @@
   });
 
   var base = location.href.replace(/tools\/preview\.html.*$/, '');
-  f.src = base + (route ? '#' + route : '');
+  f.src = base + '?t=' + Date.now() + (route ? '#' + route : '');
 </script>
 </body>
 </html>
