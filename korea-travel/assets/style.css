@@ -659,6 +659,7 @@ body.pwa-lock{overflow:hidden}
 .sb-shop{display:block;margin:3px 7px 0;font-size:9.4px;color:var(--ink-3);text-decoration:none}
 /* 사이드바 책 — 스크롤 목록 밖, 발치 바로 위에 붙입니다 */
 .side .side-books{flex:none;margin:0;padding:12px 12px 10px;border-top:1px solid rgba(160,120,150,.16);
+  max-height:46vh;overflow-y:auto;overscroll-behavior:contain;
   background:linear-gradient(180deg,rgba(255,252,248,.6),rgba(255,246,238,.9))}
 .side .sbg{margin:0 4px 7px}
 .side .sb-list a{padding:5px 6px}
