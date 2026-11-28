@@ -139,7 +139,7 @@
       <span class="rail"><span class="dot"></span></span>
       <div class="cardstep">
         <h4>${esc(s.name[state.lang])}${pill}</h4>
-        <p class="move">${isStart ? '' : moveIcon()}${esc(moveTxt)}</p>
+        ${(isStart && moveTxt === t.phase[s.phase]) ? '' : `<p class="move">${isStart ? '' : moveIcon()}${esc(moveTxt)}</p>`}
         <p class="desc">${esc(s.desc[state.lang])}</p>
         ${maps(s.q, city.name[state.lang])}
         ${thumb}
@@ -185,7 +185,7 @@
     <div class="city-hero">
       <img src="images/${c.id}-cover.jpg" alt="${esc(c.name[state.lang])}" width="1300" height="900">
       <div class="cap">
-        <p class="region">${esc(c.emoji)} ${esc(regionName(c.region))} · ${esc(c.sub[state.lang])}</p>
+        <p class="region">${esc(c.emoji)} ${esc(c.sub[state.lang])}</p>
         <h2>${esc(c.name[state.lang])}<span>${esc(c.name[state.lang === 'ko' ? 'en' : 'ko'])}</span></h2>
         <p class="tag">${esc(c.tag[state.lang])}</p>
         <div class="chips">
