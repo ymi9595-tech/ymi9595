@@ -534,3 +534,9 @@ body.is-detail .hero{display:none}
 .top-crumb{display:none;font-size:12px;font-weight:800;color:var(--ink-2);letter-spacing:-.01em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52ch;margin-left:4px}
 @media(min-width:1024px){.top-crumb{display:block}}
+@media(max-width:560px){
+  .top .brand-mini .brand-txt{display:none}
+  .top-in{gap:8px;padding:0 12px}
+  .top .lang button{padding:0 10px;min-height:36px}
+  .top .brand-mini .seal{width:34px;height:34px;font-size:13px}
+}
