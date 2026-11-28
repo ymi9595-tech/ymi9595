@@ -34,6 +34,8 @@
 <meta property="og:site_name" content="당장 가볼까? · Korea Day-Trip Courses">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
 <meta property="og:title" content="당장 가볼까? · 한국 여행 코스">
 <meta property="og:description" content="도착 터미널에서 시작하는 열 곳의 도시와 스물두 가지 테마 — 산과 바다, 시장과 축제, 동물농장과 일출, 사계절까지. 실제 촬영 사진과 그 동네 음식으로.">
 <meta property="og:url" content="https://ymi9595-tech.github.io/ymi9595/korea-travel/">
@@ -58,7 +60,7 @@
       "alternateName": "Go Now? Korea Day-Trip Courses",
       "url": "https://ymi9595-tech.github.io/ymi9595/korea-travel/",
       "description": "Ten Korean city routes and twenty-two one-day themes, each starting at the terminal, station or airport you arrive at — real photographs and local dishes.",
-      "inLanguage": ["ko", "en"],
+      "inLanguage": ["ko", "en", "ja", "zh-Hans"],
       "isAccessibleForFree": true,
       "publisher": { "@type": "Organization", "name": "단비랩 Danbi Lab" }
     }
@@ -71,10 +73,10 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="assets/style.css?v=31">
+<link rel="stylesheet" href="assets/style.css?v=33">
 </head>
 <body>
-<a class="skip" href="#view">본문으로 건너뛰기</a>
+<a class="skip" href="#view" data-t="skip">본문으로 건너뛰기</a>
 <div class="sky" aria-hidden="true">
   <span class="cloud cl1"></span>
   <span class="cloud cl2"></span>
@@ -117,8 +119,10 @@
 
   <div class="side-foot">
     <span class="lang" role="group" aria-label="Language / 언어">
-      <button type="button" data-lang="ko" aria-pressed="true">KR</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ko" lang="ko" aria-pressed="true">KR</button>
+      <button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ja" lang="ja" aria-pressed="false">JP</button>
+      <button type="button" data-lang="zh" lang="zh-CN" aria-pressed="false">CN</button>
     </span>
     <span class="side-by" data-t="by">단비랩</span>
   </div>
@@ -140,8 +144,10 @@
     <div class="top-tools">
       <span class="top-crumb" id="topCrumb"></span>
       <span class="lang" role="group" aria-label="Language / 언어">
-        <button type="button" data-lang="ko" aria-pressed="true">KR</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="ko" lang="ko" aria-pressed="true">KR</button>
+        <button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="ja" lang="ja" aria-pressed="false">JP</button>
+        <button type="button" data-lang="zh" lang="zh-CN" aria-pressed="false">CN</button>
       </span>
       <button class="pwa-add" id="pwaBtn" type="button" aria-haspopup="dialog" aria-label="홈 화면에 추가">
         <span class="pwa-em" aria-hidden="true">📱</span>
@@ -258,6 +264,7 @@
     <span class="fbrand"><span class="seal" aria-hidden="true">단</span>단비랩</span>
     <span data-t="footer">단비랩이 만든 무료 여행 노트 · 광고 없음 · 개인정보 수집 없음</span>
     <button class="credit-link" id="creditOpen" type="button" data-t="credits">사진 출처</button>
+    <button class="credit-link legal-link" id="legalOpen" type="button" data-t="legalBtn" hidden>이용 안내 · Legal &amp; Privacy</button>
   </footer>
 </div>
 
@@ -272,17 +279,31 @@
   </div>
 </div>
 
+<div class="modal" id="legal" role="dialog" aria-modal="true" aria-labelledby="legalTitle" hidden>
+  <div class="modal-in">
+    <div class="modal-head">
+      <h3 id="legalTitle">이용 안내</h3>
+      <button type="button" id="legalClose">닫기</button>
+    </div>
+    <p class="note" id="legalSub"></p>
+    <ol class="legal-list" id="legalList"></ol>
+    <p class="note legal-meta" id="legalMeta"></p>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <div class="pwa-modal" id="pwaModal" role="dialog" aria-modal="true" aria-labelledby="pwaTitle" hidden></div>
 
-<script src="assets/data.js?v=29"></script>
-<script src="assets/themes.js?v=28"></script>
-<script src="assets/credits.js?v=26"></script>
-<script src="assets/books.js?v=1"></script>
-<script src="assets/practical.js?v=1"></script>
-<script src="assets/app.js?v=28"></script>
-<script src="assets/pwa.js?v=1" defer></script>
+<script src="assets/data.js?v=30"></script>
+<script src="assets/themes.js?v=29"></script>
+<script src="assets/credits.js?v=27"></script>
+<script src="assets/books.js?v=2"></script>
+<script src="assets/practical.js?v=2"></script>
+<script src="assets/ui-ja-zh.js?v=1"></script>
+<script src="assets/legal.js?v=1"></script>
+<script src="assets/app.js?v=29"></script>
+<script src="assets/pwa.js?v=2" defer></script>
 <script src="../danbi-guide-bar.js?v=2" defer></script>
 </body>
 </html>

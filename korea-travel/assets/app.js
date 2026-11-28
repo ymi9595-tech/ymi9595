@@ -15,7 +15,10 @@
   };
 
   const state = {
-    lang: store.get('kbc-lang', 'ko') === 'en' ? 'en' : 'ko',
+    lang: (function () {
+      const l = store.get('kbc-lang', 'ko');
+      return ['ko', 'en', 'ja', 'zh'].indexOf(l) > -1 ? l : 'ko';
+    })(),
     tab: 'cities',
     route: { type: 'home', id: null },
     filter: 'all',
@@ -26,7 +29,10 @@
     taste: ''
   };
 
-  const T = () => UI[state.lang];
+  const HTML_LANG = { ko: 'ko', en: 'en', ja: 'ja', zh: 'zh-CN' };
+  const T = () => UI[state.lang] || UI.ko;
+  /* a second line under a name: English for Korean readers, Korean for everyone else */
+  const alt = (o) => (state.lang === 'ko' ? o.en : o.ko);
   const cityById = (id) => CITIES.find((c) => c.id === id);
   const themeById = (id) => THEMES.find((t) => t.id === id);
   const themeHash = (id) => '#t-' + id;
@@ -64,20 +70,26 @@
 
   const regionName = (id) => {
     const r = REGIONS.find((x) => x.id === id);
-    return r ? r[state.lang] : '';
+    return r ? (r[state.lang] || r.ko) : '';
   };
 
-  const regionShort = (id) => (state.lang === 'ko'
-    ? ({ capital: '수도권', gangwon: '강원', jeolla: '충청·전라', gyeongsang: '경상', jeju: '제주' }[id] || '')
-    : ({ capital: 'Capital', gangwon: 'Gangwon', jeolla: 'Chungcheong·Jeolla', gyeongsang: 'Gyeongsang', jeju: 'Jeju' }[id] || ''));
+  const regionShort = (id) => ({
+    ko: { capital: '수도권', gangwon: '강원', jeolla: '충청·전라', gyeongsang: '경상', jeju: '제주' },
+    en: { capital: 'Capital', gangwon: 'Gangwon', jeolla: 'Chungcheong·Jeolla', gyeongsang: 'Gyeongsang', jeju: 'Jeju' },
+    ja: { capital: '首都圏', gangwon: '江原', jeolla: '忠清・全羅', gyeongsang: '慶尚', jeju: '済州' },
+    zh: { capital: '首都圈', gangwon: '江原', jeolla: '忠清·全罗', gyeongsang: '庆尚', jeju: '济州' }
+  }[state.lang] || {})[id] || '';
 
-  const HOME_TITLE = () => state.lang === 'ko'
-    ? '당장 가볼까? · 한국 여행 코스 — 열 곳의 도시, 스물두 가지 테마'
-    : 'Go Now? · Korea Day-Trip Courses — ten cities, twenty-two themes';
+  const HOME_TITLE = () => ({
+    ko: '당장 가볼까? · 한국 여행 코스 — 열 곳의 도시, 스물두 가지 테마',
+    en: 'Go Now? · Korea Day-Trip Courses — ten cities, twenty-two themes',
+    ja: '今すぐ行ってみる？ · 韓国日帰りコース — 10の都市、22のテーマ',
+    zh: '现在就去？ · 韩国一日游路线 — 十座城市，二十二个主题'
+  })[state.lang];
 
   /* ---------------------------------------------------------- static copy */
   function applyStatic() {
-    document.documentElement.lang = state.lang === 'ko' ? 'ko' : 'en';
+    document.documentElement.lang = HTML_LANG[state.lang] || 'ko';
     const t = T();
     $$('[data-t]').forEach((el) => {
       const key = el.getAttribute('data-t');
@@ -103,20 +115,35 @@
     if (count) count.textContent = t.count(CITIES.length);
 
     const filters = $('#filters');
-    if (filters) filters.setAttribute('aria-label', state.lang === 'ko' ? '지역' : 'Region');
+    if (filters) filters.setAttribute('aria-label', t.ariaRegion);
     const cluster = $('#cluster');
-    if (cluster) cluster.setAttribute('aria-label', state.lang === 'ko' ? '도시 바로가기' : 'Jump to a city');
+    if (cluster) cluster.setAttribute('aria-label', t.ariaJump);
     const nav = $('#navBtn');
     if (nav) nav.setAttribute('aria-label', t.navOpen);
     const close = $('#sideClose');
     if (close) close.setAttribute('aria-label', t.navClose);
     const quick = $('#quick');
-    if (quick) quick.setAttribute('aria-label', state.lang === 'ko' ? '빠른 이동' : 'Quick jump');
+    if (quick) quick.setAttribute('aria-label', t.ariaQuick);
+    const side = $('#side');
+    if (side) side.setAttribute('aria-label', t.ariaMenu);
+    const scrim = $('#scrim');
+    if (scrim) scrim.setAttribute('aria-label', t.navClose);
+    const sideTabs = $('#sideTabs');
+    if (sideTabs) sideTabs.setAttribute('aria-label', t.ariaMenu);
+    const tastes = $('#tastes');
+    if (tastes) tastes.setAttribute('aria-label', t.findTaste);
+    $$('.lang').forEach((g) => g.setAttribute('aria-label', t.ariaLang));
+    const pwa = $('#pwaBtn');
+    if (pwa) pwa.setAttribute('aria-label', t.pwaAdd || t.navOpen);
+    const findBox = $('#findq');
+    if (findBox) findBox.setAttribute('aria-label', t.findTitle);
+    const legalBtn = $('#legalOpen');
+    if (legalBtn) legalBtn.hidden = !(state.lang === 'ja' || state.lang === 'zh');
 
     document.title = state.route.type === 'city'
-      ? `${cityById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '당장 가볼까?' : 'Go Now?'}`
+      ? `${cityById(state.route.id).name[state.lang]} · ${t.brand}`
       : state.route.type === 'theme'
-        ? `${themeById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '당장 가볼까?' : 'Go Now?'}`
+        ? `${themeById(state.route.id).name[state.lang]} · ${t.brand}`
         : HOME_TITLE();
   }
 
@@ -157,13 +184,15 @@
       <div class="qscroll">${items.map(({ id, emoji, name, href }) => `<a href="${href}" data-nav="${kind}:${id}" class="qchip${state.route.type === kind && state.route.id === id ? ' is-on' : ''}"><span aria-hidden="true">${emoji}</span>${esc(name)}</a>`).join('')}</div>
     </div>`;
     box.innerHTML =
-      row('city', state.lang === 'ko' ? '도시' : 'Cities', CITIES.map((c) => ({ id: c.id, emoji: c.emoji, name: c.name[state.lang], href: '#' + c.id }))) +
-      row('theme', state.lang === 'ko' ? '테마' : 'Themes', THEMES.map((th) => ({ id: th.id, emoji: th.emoji, name: th.name[state.lang], href: themeHash(th.id) })));
-    box.setAttribute('aria-label', state.lang === 'ko' ? '빠른 이동' : 'Quick jump');
+      row('city', t.quickCity, CITIES.map((c) => ({ id: c.id, emoji: c.emoji, name: c.name[state.lang], href: '#' + c.id }))) +
+      row('theme', t.quickTheme, THEMES.map((th) => ({ id: th.id, emoji: th.emoji, name: th.name[state.lang], href: themeHash(th.id) })));
+    box.setAttribute('aria-label', t.ariaQuick);
     void t;
   }
 
   /* --------------------------------------------------------------- books */
+  const bookTx = (b, k) => (b[state.lang] && b[state.lang][k]) || b[k];
+
   function bookBuyLabel(b) {
     return state.lang === 'ko' ? T().bookBuy : T().bookBuy;
   }
@@ -174,11 +203,11 @@
       <div class="bk-head">
         <span class="bk-em" aria-hidden="true">${b.emoji}</span>
         <div class="bk-tx">
-          <b>${esc(b.title)}</b>
-          <small>${esc(b.meta)}</small>
+          <b>${esc(bookTx(b, 'title'))}</b>
+          <small>${esc(bookTx(b, 'meta'))}</small>
         </div>
       </div>
-      <p class="bk-ex"><span>${esc(t.bookExcerpt)}</span>${esc(b.excerpt)}</p>
+      <p class="bk-ex"><span>${esc(t.bookExcerpt)}</span>${esc(bookTx(b, 'excerpt'))}</p>
       <div class="bk-foot">
         <span class="bk-price">${esc(b.price)}${b.was ? `<s>${esc(t.bookWas(b.was))}</s>` : ''}</span>
         <a class="bk-buy" href="${esc(b.url)}" target="_blank" rel="noopener noreferrer">${esc(bookBuyLabel(b))} <span aria-hidden="true">↗</span></a>
@@ -202,7 +231,7 @@
     const t = T();
     grid.innerHTML = booksFor(state.lang).map(bookCard).join('');
     const shelf = $('#bookShelf');
-    const shop = BOOK_SHOPS[state.lang];
+    const shop = BOOK_SHOPS[state.lang] || BOOK_SHOPS.en;
     if (shelf && shop) {
       shelf.href = shop.url;
       shelf.textContent = t.booksShelf + ' ↗';
@@ -215,27 +244,29 @@
     if (!box || typeof booksFor !== 'function') return;
     const t = T();
     const list = booksFor(state.lang);
-    const shop = BOOK_SHOPS[state.lang];
+    const shop = BOOK_SHOPS[state.lang] || BOOK_SHOPS.en;
     box.innerHTML = `<p class="sbg"><span aria-hidden="true">📚</span>${esc(t.booksTitle.replace('📚 ', ''))}<em>${esc(t.booksCount(list.length))}</em></p>
       <ul class="sb-list">${list.map((b) => `<li><a href="${esc(b.url)}" target="_blank" rel="noopener noreferrer">
         <span class="sb-em" aria-hidden="true">${b.emoji}</span>
-        <span class="sb-tx"><b>${esc(b.title)}</b><small>${esc(b.price)} · ${esc(t.bookPages(b.pages))}</small></span></a></li>`).join('')}</ul>
+        <span class="sb-tx"><b>${esc(bookTx(b, 'title'))}</b><small>${esc(b.price)} · ${esc(t.bookPages(b.pages))}</small></span></a></li>`).join('')}</ul>
       <a class="sb-shelf" href="#books">${esc(t.booksShelf)} <span aria-hidden="true">→</span></a>
       ${shop ? `<a class="sb-shop" href="${esc(shop.url)}" target="_blank" rel="noopener noreferrer">${esc(shop.label)} ↗</a>` : ''}`;
   }
 
   /* -------------------------------------------------------- 찾기 · 취향 */
   function cityHay(c) {
-    return [c.name.ko, c.name.en, c.sub.ko, c.sub.en, c.tag.ko, c.tag.en, c.hub.ko, c.hub.en,
+    return [c.name.ko, c.name.en, c.name.ja, c.name.zh, c.sub.ko, c.sub.en, c.sub.ja, c.sub.zh,
+      c.tag.ko, c.tag.en, c.tag.ja, c.tag.zh, c.hub.ko, c.hub.en, c.hub.ja, c.hub.zh,
       regionName(c.region),
-      c.courses[0].steps.map((s) => s.name.ko + ' ' + s.name.en).join(' '),
-      c.food.map((f) => f.dish.ko + ' ' + f.dish.en).join(' ')
+      c.courses[0].steps.map((s) => s.name.ko + ' ' + s.name.en + ' ' + (s.name.ja || '') + ' ' + (s.name.zh || '')).join(' '),
+      c.food.map((f) => f.dish.ko + ' ' + f.dish.en + ' ' + (f.dish.ja || '') + ' ' + (f.dish.zh || '')).join(' ')
     ].join(' ').toLowerCase();
   }
   function themeHay(th) {
-    return [th.name.ko, th.name.en, th.sub.ko, th.sub.en, th.tag.ko, th.tag.en, th.hub.ko, th.hub.en,
-      (th.seasons || []).map((s) => s.ko + ' ' + s.en).join(' '),
-      th.places.map((p) => p.name.ko + ' ' + p.name.en).join(' ')
+    return [th.name.ko, th.name.en, th.name.ja, th.name.zh, th.sub.ko, th.sub.en, th.sub.ja, th.sub.zh,
+      th.tag.ko, th.tag.en, th.tag.ja, th.tag.zh, th.hub.ko, th.hub.en, th.hub.ja, th.hub.zh,
+      (th.seasons || []).map((s) => s.ko + ' ' + s.en + ' ' + (s.ja || '') + ' ' + (s.zh || '')).join(' '),
+      th.places.map((p) => p.name.ko + ' ' + p.name.en + ' ' + (p.name.ja || '') + ' ' + (p.name.zh || '')).join(' ')
     ].join(' ').toLowerCase();
   }
 
@@ -316,7 +347,7 @@
       return `<button class="sticker" type="button" data-open="city:${c.id}"
         style="--r:${rot[i]}deg;--y:${y[i]}px" aria-label="${esc(c.name[state.lang])}">
         <span class="tile"><span class="emo" aria-hidden="true">${c.emoji}</span></span>
-        <span class="nm">${esc(c.name[state.lang])}<em>${esc(c.name[state.lang === 'ko' ? 'en' : 'ko'])}</em></span>
+        <span class="nm">${esc(c.name[state.lang])}<em>${esc(alt(c.name))}</em></span>
       </button>`;
     }).join('');
   }
@@ -326,7 +357,7 @@
     if (!box) return;
     box.innerHTML = REGIONS.map((r) => {
       const n = r.id === 'all' ? CITIES.length : CITIES.filter((c) => c.region === r.id).length;
-      return `<button type="button" data-region="${r.id}" aria-pressed="${state.filter === r.id}">${esc(r[state.lang])}<small>${n}</small></button>`;
+      return `<button type="button" data-region="${r.id}" aria-pressed="${state.filter === r.id}">${esc(r[state.lang] || r.ko)}<small>${n}</small></button>`;
     }).join('');
   }
 
@@ -340,7 +371,7 @@
         <span class="badge"><b aria-hidden="true">${c.emoji}</b>${esc(regionName(c.region))}</span>
       </span>
       <span class="body">
-        <span class="cname">${esc(c.name[state.lang])}<span class="cen">${esc(c.name[state.lang === 'ko' ? 'en' : 'ko'])}</span></span>
+        <span class="cname">${esc(c.name[state.lang])}<span class="cen">${esc(alt(c.name))}</span></span>
         <span class="tagline">${esc(c.tag[state.lang])}</span>
         <span class="foot">
           <span class="meta">${esc(t.courseMeta(stops, c.duration[state.lang]))}</span>
@@ -358,7 +389,7 @@
         <span class="badge"><b aria-hidden="true">${th.emoji}</b>${esc(t.themeTag)}</span>
       </span>
       <span class="body">
-        <span class="cname">${esc(th.name[state.lang])}<span class="cen">${esc(th.name[state.lang === 'ko' ? 'en' : 'ko'])}</span></span>
+        <span class="cname">${esc(th.name[state.lang])}<span class="cen">${esc(alt(th.name))}</span></span>
         <span class="tagline">${esc(th.tag[state.lang])}</span>
         <span class="foot">
           <span class="meta">${esc(t.courseMeta(placeCount(th), th.duration[state.lang]))}</span>
@@ -438,7 +469,7 @@
       <img src="images/${c.id}-cover.jpg" alt="${esc(c.name[state.lang])}" width="1300" height="900">
       <div class="cap">
         <p class="region">${esc(c.emoji)} ${esc(c.sub[state.lang])}</p>
-        <h2>${esc(c.name[state.lang])}<span>${esc(c.name[state.lang === 'ko' ? 'en' : 'ko'])}</span></h2>
+        <h2>${esc(c.name[state.lang])}<span>${esc(alt(c.name))}</span></h2>
         <p class="tag">${esc(c.tag[state.lang])}</p>
         <div class="chips">
           <span>${esc(c.seasons.map((s) => s[state.lang]).join(' · '))}</span>
@@ -524,7 +555,7 @@
     th.places.forEach((p) => { counts[p.region] = (counts[p.region] || 0) + 1; });
     const chips = REGIONS.filter((r) => r.id === 'all' || counts[r.id]).map((r) => {
       const n = r.id === 'all' ? th.places.length : counts[r.id];
-      return `<button type="button" data-tregion="${r.id}" aria-pressed="${state.themeFilter === r.id}">${esc(r.id === 'all' ? t.regionAll : r[state.lang])}<small>${n}</small></button>`;
+      return `<button type="button" data-tregion="${r.id}" aria-pressed="${state.themeFilter === r.id}">${esc(r.id === 'all' ? t.regionAll : (r[state.lang] || r.ko))}<small>${n}</small></button>`;
     }).join('');
     return `<div class="filters theme-filters" role="group" aria-label="${esc(t.placesTitle)}">${chips}</div>
       <ul class="places">${rows.length ? rows.map((p) => placeHTML(p, th)).join('') : `<li class="empty">${esc(t.notFound)}</li>`}</ul>`;
@@ -577,7 +608,7 @@
       <img src="images/th-${th.id}.jpg" alt="${esc(th.name[state.lang])}" width="1600" height="1000">
       <div class="cap">
         <p class="region">${esc(th.emoji)} ${esc(th.sub[state.lang])}</p>
-        <h2>${esc(th.name[state.lang])}<span>${esc(th.name[state.lang === 'ko' ? 'en' : 'ko'])}</span></h2>
+        <h2>${esc(th.name[state.lang])}<span>${esc(alt(th.name))}</span></h2>
         <p class="tag">${esc(th.tag[state.lang])}</p>
         <div class="chips">
           <span>${esc(t.themeTag)} · ${esc(t.placesCount(placeCount(th)))}</span>
@@ -678,8 +709,9 @@
     renderQuick();
     applyFinder();
     const dg = document.getElementById('danbi-guide-bar');
-    if (dg) dg.setAttribute('data-lang', state.lang);
-    if (window.DanbiGuide) window.DanbiGuide.render(state.lang);
+    const barLang = state.lang === 'ko' ? 'ko' : 'en';
+    if (dg) dg.setAttribute('data-lang', barLang);
+    if (window.DanbiGuide) window.DanbiGuide.render(barLang);
     const crumb = $('#topCrumb');
     if (crumb) {
       crumb.textContent = state.route.type === 'city'
@@ -689,9 +721,9 @@
           : '';
     }
     document.title = state.route.type === 'city'
-      ? `${cityById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '당장 가볼까?' : 'Go Now?'}`
+      ? `${cityById(state.route.id).name[state.lang]} · ${T().brand}`
       : state.route.type === 'theme'
-        ? `${themeById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '당장 가볼까?' : 'Go Now?'}`
+        ? `${themeById(state.route.id).name[state.lang]} · ${T().brand}`
         : HOME_TITLE();
     trackPage();
   }
@@ -842,17 +874,27 @@
       items.push({ f, cr, cap });
     };
     CITIES.forEach((c) => {
-      push(`${c.id}-cover`, { ko: c.name.ko + ' 대표 사진', en: c.name.en + ' — cover photograph' });
+      push(`${c.id}-cover`, {
+        ko: c.name.ko + ' 대표 사진',
+        en: c.name.en + ' — cover photograph',
+        ja: c.name.ja + ' の代表写真',
+        zh: c.name.zh + ' 的封面照片'
+      });
       c.photos.forEach((p) => push(p.file, p.cap));
     });
     THEMES.forEach((th) => {
-      push(`th-${th.id}`, th.photos[0] ? th.photos[0].cap : { ko: th.name.ko + ' 대표 사진', en: th.name.en + ' — cover photograph' });
+      push(`th-${th.id}`, th.photos[0] ? th.photos[0].cap : {
+        ko: th.name.ko + ' 대표 사진',
+        en: th.name.en + ' — cover photograph',
+        ja: th.name.ja + ' の代表写真',
+        zh: th.name.zh + ' 的封面照片'
+      });
       th.photos.forEach((p) => push(p.file, p.cap));
     });
     $('#creditsList').innerHTML = items.map(({ f, cr, cap }) => `
       <li>
         <span class="th"><img src="images/${f}.jpg" alt="" loading="lazy"></span>
-        <span><b>${esc(cap ? cap[state.lang] : f)}</b>
+        <span><b>${esc((cap && (cap[state.lang] || cap.en || cap.ko)) || f)}</b>
           <span>${esc(cr ? cr.title : '')}${cr && cr.author ? ' · ' + esc(cr.author) : ''}${cr ? ' · ' + esc(cr.license) : ''}</span>
           ${cr && cr.page ? `<span><a href="${esc(cr.page)}" target="_blank" rel="noopener noreferrer">wikimedia commons</a></span>` : ''}
         </span>
@@ -860,6 +902,20 @@
     $('#creditsTitle').textContent = t.creditsTitle;
     $('#creditsNote').textContent = t.creditsNote;
     $('#creditsClose').textContent = t.close;
+  }
+
+  /* -------------------------------------------------------------- legal */
+  function renderLegal() {
+    const L = (window.KBC_LEGAL || {})[state.lang];
+    if (!L) return;
+    $('#legalTitle').textContent = L.title + ' · Legal & Privacy';
+    $('#legalSub').textContent = L.subtitle;
+    $('#legalList').innerHTML = L.items.map((it, i) => `<li>
+      <span class="lnum" aria-hidden="true">${i + 1}</span>
+      <span class="ltx"><b>${esc(it.h)}</b><span>${esc(it.p)}</span></span>
+    </li>`).join('');
+    $('#legalMeta').textContent = L.meta;
+    $('#legalClose').textContent = L.close;
   }
 
   /* --------------------------------------------------------------- events */
@@ -970,6 +1026,17 @@
         return;
       }
 
+      if (e.target.closest('#legalOpen')) {
+        renderLegal();
+        $('#legal').hidden = false;
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+      if (e.target.closest('#legalClose') || e.target.id === 'legal') {
+        $('#legal').hidden = true;
+        if (state.route.type === 'home') document.body.style.overflow = '';
+      }
+
       if (e.target.closest('#creditOpen')) {
         renderCredits();
         $('#credits').hidden = false;
@@ -996,7 +1063,8 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        if (!$('#credits').hidden) { $('#credits').hidden = true; document.body.style.overflow = ''; }
+        if (!$('#legal').hidden) { $('#legal').hidden = true; document.body.style.overflow = ''; }
+        else if (!$('#credits').hidden) { $('#credits').hidden = true; document.body.style.overflow = ''; }
         else if (drawerOpen()) closeDrawer();
         else if (state.route.type !== 'home') goBack();
       }

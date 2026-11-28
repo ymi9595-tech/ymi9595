@@ -65,6 +65,16 @@ const BOOKS = [
     shop: 'Payhip',
     url: 'https://payhip.com/b/3Ojtv',
     excerpt: '“Travel always begins with a small knot in the stomach… Think of it as the friend who has lived in Korea for years, leaning over and telling you quietly what to do next, before you have to ask.” — Before you go',
+    ja: {
+      title: 'Korea, Corner by Corner',
+      meta: '84ページ · 実写写真 · はじめての韓国ガイド',
+      excerpt: '「旅はいつも、お腹の小さな結び目から始まります。……韓国に何年も住んでいる友だちが、あなたが聞く前にそっと次のことを教えてくれる。そんな本です」 — 出発前に'
+    },
+    zh: {
+      title: 'Korea, Corner by Corner',
+      meta: '84页 · 实拍照片 · 第一次来韩国',
+      excerpt: '“旅行总是从肚子里一个小小的结开始……把它想成一位在韩国住了多年的朋友，在你开口之前就俯身悄悄告诉你下一步该做什么。” — 出发之前'
+    },
     match: { cities: '*', themes: '*' }
   },
   {
@@ -80,6 +90,16 @@ const BOOKS = [
     shop: 'Payhip',
     url: 'https://payhip.com/b/3pOhb',
     excerpt: '“Korea is a safe country at night, but drunk people, empty alleys and the occasional taxi refusing a short fare exist in any city. The night routes in this book are built along busy, well-lit streets. If you are on your own, do the same.” — How to use',
+    ja: {
+      title: 'Korea After Midnight',
+      meta: '135ページ · 夜のコース · その場で使う韓国語',
+      excerpt: '「韓国は夜も安全な国ですが、酔った人、空っぽの路地、近距離を断るタクシーはどの街にもあります。この本の夜コースは明るく人通りの多い道で組みました。ひとりなら、あなたも同じように」 — 使い方'
+    },
+    zh: {
+      title: 'Korea After Midnight',
+      meta: '135页 · 夜间路线 · 现场能用的韩语',
+      excerpt: '“韩国夜里是安全的，但醉汉、空巷子、偶尔拒载短途的出租车，哪座城市都有。这本书的夜间路线都沿着明亮、人多的街道排。如果你一个人，也请这样做。” — 如何使用'
+    },
     match: { cities: ['seoul', 'busan'], themes: ['night', 'market', 'drama', 'beauty', 'photo'] }
   },
   {
@@ -95,6 +115,16 @@ const BOOKS = [
     shop: 'Payhip',
     url: 'https://payhip.com/b/2lEfc',
     excerpt: '“At thirty I had never bought a pot… After forty that changed. I open my eyes in the morning and look at the window first. Are the leaf tips yellowing, is the soil dry, has a new shoot come up.” — About this book',
+    ja: {
+      title: 'Healing in the Soil',
+      meta: '94ページ · 写真44点 · 図13点',
+      excerpt: '「30代の私は鉢をひとつも買ったことがありませんでした。……40を過ぎて変わりました。朝、目を覚ますとまず窓を見ます。葉先が黄色くなっていないか、土が乾いていないか、新しい芽が出たか」 — この本について'
+    },
+    zh: {
+      title: 'Healing in the Soil',
+      meta: '94页 · 44张照片 · 13幅图',
+      excerpt: '“三十岁时我一个花盆也没买过……四十岁以后变了。早上睁开眼先看窗户：叶尖黄了没有，土干了没有，有没有冒出新芽。” — 关于这本书'
+    },
     match: { cities: ['anseong', 'damyang'], themes: ['healing', 'farm', 'seasons'] }
   },
   {
@@ -110,17 +140,30 @@ const BOOKS = [
     shop: 'Payhip',
     url: 'https://payhip.com/b/QHgIV',
     excerpt: '“Print it at home as often as you like — once in spring colors, once in autumn, once in nothing but blues. Every page is single-sided, with a half-inch margin so nothing gets clipped by your printer.” — from the book',
+    ja: {
+      title: 'Cozy Korean Countryside Coloring Book',
+      meta: '印刷できる30ページ · 四季 · 300dpiの線画',
+      excerpt: '「春の色で一度、秋にもう一度、青だけで一度——家で何度でも印刷してください。どのページも片面で、半インチの余白があるので、プリンターで切れることがありません」 — 本より'
+    },
+    zh: {
+      title: 'Cozy Korean Countryside Coloring Book',
+      meta: '可打印30页 · 四季 · 300dpi线稿',
+      excerpt: '“在家想印几次就印几次——先用春天的颜色印一次，秋天再印一次，只用蓝色再印一次。每页都是单面，留了半英寸边距，打印机不会切掉内容。” — 摘自书中'
+    },
     match: { cities: ['anseong', 'damyang', 'gangneung'], themes: ['farm', 'seasons', 'healing'] }
   }
 ];
 
 const BOOK_SHOPS = {
   ko: { url: 'https://smartstore.naver.com/danbilab', label: '단비랩 스마트스토어 전체 서가' },
-  en: { url: 'https://payhip.com/DanbiLab', label: 'DanbiLab Global Shop' }
+  en: { url: 'https://payhip.com/DanbiLab', label: 'DanbiLab Global Shop' },
+  ja: { url: 'https://payhip.com/DanbiLab', label: 'DanbiLab グローバル書店（Payhip）' },
+  zh: { url: 'https://payhip.com/DanbiLab', label: 'DanbiLab 全球书店（Payhip）' }
 };
 
+/* KR 은 국내판, EN·JP·CN 은 영어판(전 세계 배송)을 보여 줍니다. */
 function booksFor(lang) {
-  return BOOKS.filter((b) => b.lang === lang);
+  return BOOKS.filter((b) => b.lang === (lang === 'ko' ? 'ko' : 'en'));
 }
 
 function bookPick(lang, kind, id) {

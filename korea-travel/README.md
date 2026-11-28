@@ -1,11 +1,16 @@
-# 당장 가볼까? · Go Now? Korea Day-Trip Courses
+# 당장 가볼까? · Go Now? Korea Day-Trip Courses  (KR · EN · JP · CN)
 
 열 곳의 도시를, 도착 터미널에서 시작하는 **당일치기 하루 코스**로 소개하는 무료 여행 노트입니다.
 Ten Korean destinations, each with one practical one-day course that starts at the terminal you arrive at.
 
 - `index.html` — 표지 + 도시 카드 + 상세 보기 (한 페이지)
 - `assets/data.js` — 도시·코스·음식 데이터 (도시를 추가하려면 여기에 한 블록)
-- `assets/app.js` — 렌더링, KR/EN 전환, `#seoul` 같은 해시 주소, 통합 찾기(검색·취향 칩), 하루 실용 정보
+- `assets/app.js` — 렌더링, KR·EN·JP·CN 전환, `#seoul` 같은 해시 주소, 통합 찾기(검색·취향 칩), 하루 실용 정보
+- `assets/ui-ja-zh.js` — 화면 문구의 일본어·중국어판 (KR·EN 은 data.js · tools/themes_src/99-ui.js)
+- `assets/legal.js` — 이용 안내 7항목의 일본어·중국어판 (KR·EN 은 공용 띠의 안내 창)
+- 본문 데이터(data.js · practical.js · tools/themes_src)는 `ko / en / ja / zh` 네 값을 함께 가집니다.
+  번역은 `tools/i18n_build.py`(캐시 `tools/i18n_cache_*.json`), 고친 문구는 `tools/i18n_override_src.py`
+  → `tools/i18n_override.json` 에서 관리합니다.
 - `assets/practical.js` — 코스마다의 1인 예상 예산과 귀환 안내 (`city:<id>` · `theme:<id>`)
 - `../danbi-guide-bar.js` — 세 사이트 공통 하단 연결 띠 (`DanbiGuide.render('ko'|'en')`)
 - `assets/style.css` — 파스텔 스티커 스타일

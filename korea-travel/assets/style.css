@@ -715,3 +715,51 @@ body.pwa-lock{overflow:hidden}
   .prac-k{grid-column:2}
   .prac-v{grid-column:2}
 }
+
+/* ==========================================================================
+   4개 언어 (KR · EN · JP · CN) — 세그먼트 폭 · 일본어·중국어 글꼴 · 이용 안내
+   ========================================================================== */
+.lang button{min-width:38px;padding:0 11px}
+@media(max-width:560px){
+  .top .lang{padding:3px;gap:1px}
+  .top .lang button{min-width:30px;padding:0 6px;min-height:34px;font-size:10.5px;letter-spacing:.02em}
+  .side .lang button{min-width:32px;padding:0 8px}
+}
+@media(max-width:380px){
+  .top .lang button{min-width:26px;padding:0 4px;font-size:10px}
+}
+
+/* 일본어·중국어는 한자·가나가 섞여 줄 높이가 조금 더 필요합니다 */
+html[lang="ja"] body,html[lang="zh-CN"] body{
+  line-height:1.74;
+  font-family:'Pretendard Variable',Pretendard,'Plus Jakarta Sans','Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic UI',Meiryo,-apple-system,'Segoe UI',sans-serif;
+}
+html[lang="zh-CN"] body{
+  font-family:'Pretendard Variable',Pretendard,'Plus Jakarta Sans','PingFang SC','Hiragino Sans GB','Noto Sans SC','Microsoft YaHei',-apple-system,'Segoe UI',sans-serif;
+}
+html[lang="ja"] h1,html[lang="zh-CN"] h1{line-height:1.16;letter-spacing:-.02em}
+html[lang="ja"] .lede,html[lang="zh-CN"] .lede{max-width:42ch}
+html[lang="ja"] .cname,html[lang="zh-CN"] .cname{letter-spacing:-.01em}
+html[lang="ja"] .stx small,html[lang="zh-CN"] .stx small{line-height:1.5}
+html[lang="ja"] .qchip,html[lang="zh-CN"] .qchip{font-weight:600}
+
+/* JP·CN 에서는 공용 띠의 안내 단추를 감추고, 사이트 안의 안내 창을 씁니다 */
+html[lang="ja"] #danbi-guide-bar .dlg-legal,
+html[lang="zh-CN"] #danbi-guide-bar .dlg-legal{display:none}
+
+/* 이용 안내 (JP · CN) */
+.foot .legal-link{margin-left:0}
+#legal .modal-in{max-width:min(720px,94vw)}
+.legal-list{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.legal-list li{display:flex;gap:10px;align-items:flex-start}
+.legal-list .lnum{flex:none;width:22px;height:22px;border-radius:8px;background:var(--coral-soft);color:var(--coral-deep);
+  font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.legal-list .ltx{display:flex;flex-direction:column;gap:3px;min-width:0}
+.legal-list b{font-size:12.8px;font-weight:800;color:var(--ink)}
+.legal-list .ltx span{font-size:12.2px;line-height:1.75;color:var(--ink-2)}
+.legal-meta{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+@media(max-width:345px){
+  .top .pwa-add{padding:0;width:38px;justify-content:center}
+  .top .pwa-add .pwa-tx{display:none}
+  .top .lang button{min-width:24px;padding:0 3px;font-size:9.6px}
+}

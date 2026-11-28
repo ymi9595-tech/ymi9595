@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var NAME = { ko: '당장 가볼까?', en: 'Go Now?' };
+  var NAME = { ko: '당장 가볼까?', en: 'Go Now?', ja: '今すぐ行ってみる？', zh: '现在就去？' };
 
   var TXT = {
     ko: {
@@ -51,6 +51,48 @@
       already: 'Already running like an app',
       fail: 'Please add it from your browser menu',
       close: 'Close'
+    },
+    ja: {
+      btn: 'ホーム画面に追加', btnShort: 'ホーム画面',
+      kicker: 'ホーム画面に追加',
+      sub: 'アプリのようにすぐ開きます · 無料 · 会員登録なし',
+      lead: 'ホーム画面にアイコンを置くと、次からはブラウザを通さず、この旅ノートがすぐに開きます。',
+      install: 'いま追加する',
+      now: 'この端末',
+      s_android_t: 'Android · Chrome',
+      s_android_d: '右上の <i class="kbd">⋮</i> メニュー → <b>ホーム画面に追加</b>（またはアプリをインストール）',
+      s_samsung_t: 'Android · Samsung Internet',
+      s_samsung_d: '下の <i class="kbd">≡</i> メニュー → ページを追加 → ホーム画面',
+      s_ios_t: 'iPhone · Safari',
+      s_ios_d: '下の共有ボタン <i class="kbd">□↑</i> → <b>ホーム画面に追加</b>',
+      s_inapp_t: 'カカオトークやInstagramの中で開いた場合',
+      s_inapp_d: '右上の <i class="kbd">⋯</i> → 他のブラウザで開く → 上の方法で追加',
+      note: 'アイコンと名前は上のとおりです。消したいときはアイコンを長押しして削除してください。',
+      done: 'ホーム画面に追加しました',
+      already: 'いまアプリのように開いています',
+      fail: 'ブラウザのメニューから直接追加してください',
+      close: '閉じる'
+    },
+    zh: {
+      btn: '添加到主屏幕', btnShort: '主屏幕',
+      kicker: '添加到主屏幕',
+      sub: '像应用一样直接打开 · 免费 · 无需注册',
+      lead: '把图标放在主屏幕上，下次就不经过浏览器，这本旅行笔记会直接打开。',
+      install: '现在就添加',
+      now: '这台设备',
+      s_android_t: 'Android · Chrome',
+      s_android_d: '右上角 <i class="kbd">⋮</i> 菜单 → <b>添加到主屏幕</b>（或安装应用）',
+      s_samsung_t: 'Android · 三星浏览器',
+      s_samsung_d: '下面的 <i class="kbd">≡</i> 菜单 → 添加页面 → 主屏幕',
+      s_ios_t: 'iPhone · Safari',
+      s_ios_d: '下面的分享按钮 <i class="kbd">□↑</i> → <b>添加到主屏幕</b>',
+      s_inapp_t: '在聊天应用、Instagram 里打开的话',
+      s_inapp_d: '右上角 <i class="kbd">⋯</i> → 用其他浏览器打开 → 按上面的方法添加',
+      note: '图标和名称如上。想删除时，长按图标删除即可。',
+      done: '已添加到主屏幕',
+      already: '现在就像应用一样打开着',
+      fail: '请在浏览器菜单里直接添加',
+      close: '关闭'
     }
   };
 
@@ -61,8 +103,13 @@
   var deferred = window.__pwaInstall || null;
   var lastFocus = null;
 
-  function lang() { return document.documentElement.lang === 'en' ? 'en' : 'ko'; }
-  function t() { return TXT[lang()]; }
+  function lang() {
+    var l = (document.documentElement.lang || 'ko').toLowerCase();
+    if (l.indexOf('ja') === 0) return 'ja';
+    if (l.indexOf('zh') === 0) return 'zh';
+    return l.indexOf('en') === 0 ? 'en' : 'ko';
+  }
+  function t() { return TXT[lang()] || TXT.ko; }
 
   function media(q) { return !!(window.matchMedia && window.matchMedia(q).matches); }
   function isStandalone() {
