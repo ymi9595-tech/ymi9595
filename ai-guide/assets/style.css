@@ -448,3 +448,71 @@ main { flex: 1; padding: 0 clamp(16px, 4vw, 44px) 64px; }
   * { transition: none !important; animation: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ───────── 홈 화면에 추가 (PWA) ───────── */
+.pwa-add {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid #F5D6C6; background: linear-gradient(145deg, #FFF2E9, #FFDFCD);
+  border-radius: 999px; padding: 7px 14px 7px 11px; cursor: pointer;
+  font-size: 12.5px; font-weight: 700; color: #B1512F; white-space: nowrap;
+  transition: transform .12s, box-shadow .12s, background .2s;
+}
+.pwa-add:hover { transform: translateY(-1px); box-shadow: var(--shadow); background: linear-gradient(145deg, #FFF7F1, #FFD2BB); }
+.pwa-add:active { transform: scale(.97); }
+.pwa-add .pwa-em { font-size: 13px; line-height: 1; }
+.pwa-tx-s { display: none; }
+@media (max-width: 760px) { .pwa-tx-l { display: none; } .pwa-tx-s { display: inline; } }
+@media (max-width: 560px) {
+  .share { width: 40px; height: 40px; justify-content: center; padding: 0; }
+  .share .share-tx { display: none; }
+}
+
+.pwa-modal { position: fixed; inset: 0; z-index: 55; display: flex; align-items: flex-end; justify-content: center; }
+.pwa-modal[hidden] { display: none; }
+.pwa-back {
+  position: absolute; inset: 0; border: 0; padding: 0; margin: 0; cursor: pointer;
+  background: rgba(58, 44, 38, .42); backdrop-filter: blur(2px);
+}
+.pwa-sheet {
+  position: relative; width: min(560px, 100%); max-height: 88vh; overflow-y: auto;
+  overscroll-behavior: contain; background: var(--paper); border-radius: 24px 24px 0 0;
+  padding: 22px clamp(16px, 4vw, 30px) 26px; box-shadow: 0 -18px 50px -22px rgba(90, 63, 48, .5);
+  animation: pwaUp .3s cubic-bezier(.3, 1.3, .6, 1) both;
+}
+@keyframes pwaUp { from { transform: translateY(26px); opacity: .55; } to { transform: none; opacity: 1; } }
+@media (min-width: 720px) { .pwa-modal { align-items: center; padding: 24px; } .pwa-sheet { border-radius: 24px; } }
+.pwa-x {
+  position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 11px; background: #fff; color: var(--ink-2); cursor: pointer;
+}
+.pwa-x svg { width: 15px; height: 15px; }
+.pwa-x:hover { color: var(--coral-d); border-color: #F3C9B7; }
+.pwa-head { display: flex; align-items: center; gap: 14px; padding-right: 36px; }
+.pwa-ic { width: 64px; height: 64px; flex: none; border-radius: 16px; box-shadow: 0 10px 22px -14px rgba(120, 70, 50, .55); }
+.pwa-hd-tx { min-width: 0; }
+.pwa-kicker { margin: 0 0 2px; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--coral-d); }
+.pwa-hd-tx h2 { margin: 0; font-size: 19px; line-height: 1.3; letter-spacing: -.02em; }
+.pwa-sub { margin: 3px 0 0; font-size: 11.5px; color: var(--ink-3); font-weight: 600; }
+.pwa-lead { margin: 14px 0 0; font-size: 12.6px; line-height: 1.7; color: var(--ink-2); }
+.pwa-now {
+  margin: 14px 0 2px; width: 100%; height: 46px; border: 0; border-radius: 14px; cursor: pointer;
+  font-family: inherit; font-size: 13px; font-weight: 800; color: #fff;
+  background: linear-gradient(150deg, #F79A76, #D96A47); box-shadow: 0 14px 24px -18px rgba(200, 90, 60, .9);
+}
+.pwa-now:hover { filter: brightness(1.03); }
+.pwa-steps { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.pwa-step { padding: 11px 13px; border-radius: 14px; background: #FFF8F2; border: 1px solid var(--line-2); }
+.pwa-step.is-you { background: linear-gradient(145deg, #FFF3EA, #FFE7D9); border-color: #F2C9B6; }
+.pwa-step-k { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.pwa-step-k b { font-size: 12.4px; font-weight: 800; color: var(--ink); letter-spacing: -.01em; }
+.pwa-step-k span { font-size: 11.6px; line-height: 1.6; color: var(--ink-2); }
+.pwa-step-k em {
+  display: inline-block; align-self: flex-start; margin: 0 0 2px; padding: 2px 8px; border-radius: 999px;
+  font-style: normal; font-size: 9.5px; font-weight: 800; letter-spacing: .04em; color: #fff; background: var(--coral);
+}
+.pwa-step-k .kbd {
+  display: inline-block; min-width: 18px; padding: 0 5px; border-radius: 6px; background: #fff;
+  border: 1px solid var(--line); font-style: normal; font-size: 11px; line-height: 16px; text-align: center; color: var(--ink);
+}
+.pwa-note { margin: 13px 0 0; font-size: 10.8px; line-height: 1.65; color: var(--ink-3); }
+body.pwa-lock { overflow: hidden; }

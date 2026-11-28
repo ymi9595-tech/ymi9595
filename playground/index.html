@@ -8,9 +8,10 @@
 <meta name="keywords" content="Korea, Korean culture, free Korean tools, learn Korean, hangul, hanok, K-food recipes, Seoul, coloring pages, Danbi Lab, 단비랩, 놀이터">
 <meta name="author" content="Danbi Lab (단비랩)">
 <meta name="theme-color" content="#FFF7F0">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Danbi Playground">
@@ -626,32 +627,60 @@ h1 em::after{
 }
 
 /* ---------------- add to home screen ---------------- */
-.install-btn{
-  display:inline-flex;align-items:center;gap:6px;flex:none;
-  padding:8px 13px 8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.9);
-  background:#fff;color:var(--ink);
-  font-family:inherit;font-size:11px;letter-spacing:.02em;font-weight:700;line-height:1;
-  cursor:pointer;-webkit-tap-highlight-color:transparent;
-  box-shadow:0 12px 20px -18px rgba(150,100,130,.9);
+.pwa-add{
+  display:inline-flex;align-items:center;gap:6px;flex:none;margin-left:auto;
+  padding:10px 15px 10px 12px;border-radius:999px;border:1px solid #fff;
+  background:linear-gradient(145deg,#FFF1E7,#FFDCC8);color:#B1502F;
+  font-family:inherit;font-size:11.5px;letter-spacing:.02em;font-weight:800;line-height:1;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;
+  box-shadow:0 12px 22px -18px rgba(240,105,72,.9),inset 0 2px 0 rgba(255,255,255,.9);
   transition:background .2s,border-color .2s,color .2s,transform .3s var(--spring)}
-.install-btn:hover{background:linear-gradient(145deg,#FFA98A,#F4704C);border-color:transparent;color:#fff;transform:translateY(-2px)}
-.install-btn svg{width:13px;height:13px;flex:none}
-.install-btn[hidden]{display:none}
-.install-pop{
-  position:absolute;right:var(--pad);top:calc(100% - 4px);z-index:60;width:min(292px,calc(100vw - 32px));
-  padding:16px 17px 14px;border-radius:20px;border:1px solid #fff;
-  background:#fff;box-shadow:0 26px 50px -30px rgba(140,95,125,.55);
-  font-size:12.5px;line-height:1.6;color:var(--ink-2);text-align:left}
-.install-pop b{display:block;color:var(--ink);font-size:13px;margin-bottom:5px;letter-spacing:.01em}
-.install-pop p{margin:0}
-.install-pop .ios-step{display:inline-flex;align-items:center;gap:4px;padding:1px 7px;border-radius:999px;
-  background:var(--coral-soft);color:var(--coral-deep);font-weight:700}
-.install-pop .pop-close{
-  margin-top:12px;padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);
-  background:#fff;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--ink-2);cursor:pointer}
-.install-pop .pop-close:hover{border-color:var(--coral);color:var(--coral-deep)}
-.install-pop[hidden]{display:none}
-@media (max-width:560px){.install-btn{padding:8px 10px}.install-btn .ib-tx{display:none}}
+.pwa-add:hover{background:linear-gradient(145deg,#FFF9F4,#FFC9AF);color:#8E3315;transform:translateY(-2px)}
+.pwa-add:active{transform:scale(.96)}
+.pwa-add .pwa-em{font-size:13px;line-height:1}
+.pwa-tx-s{display:none}
+@media (max-width:560px){
+  .pwa-add{padding:9px 12px 9px 10px;gap:5px;font-size:11px}
+  .pwa-tx-l{display:none}.pwa-tx-s{display:inline}
+}
+@media (max-width:380px){.pwa-add .pwa-em{display:none}}
+
+.pwa-modal{position:fixed;inset:0;z-index:2147483400;display:flex;align-items:flex-end;justify-content:center}
+.pwa-modal[hidden]{display:none}
+.pwa-back{position:absolute;inset:0;border:0;padding:0;margin:0;cursor:pointer;
+  background:rgba(46,32,46,.42);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.pwa-sheet{position:relative;width:min(560px,100%);max-height:88vh;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--paper);border-radius:26px 26px 0 0;padding:22px var(--pad) 26px;
+  box-shadow:0 -20px 54px -22px rgba(60,40,60,.55);animation:pwaUp .34s var(--spring) both}
+@keyframes pwaUp{from{transform:translateY(26px);opacity:.55}to{transform:none;opacity:1}}
+@media (min-width:720px){.pwa-modal{align-items:center;padding:24px}.pwa-sheet{border-radius:26px;padding:26px 30px 28px}}
+.pwa-x{position:absolute;top:14px;right:14px;width:34px;height:34px;display:grid;place-items:center;
+  border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink-2);cursor:pointer}
+.pwa-x svg{width:15px;height:15px}
+.pwa-x:hover{color:var(--coral-deep);border-color:rgba(255,126,95,.4)}
+.pwa-head{display:flex;align-items:center;gap:14px;padding-right:36px}
+.pwa-ic{width:64px;height:64px;flex:none;border-radius:17px;box-shadow:0 12px 22px -14px rgba(160,100,80,.7)}
+.pwa-hd-tx{min-width:0}
+.pwa-kicker{margin:0 0 2px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-deep)}
+.pwa-hd-tx h2{margin:0;font-family:var(--display);font-size:19px;line-height:1.25;letter-spacing:-.02em}
+.pwa-sub{margin:3px 0 0;font-size:11.5px;color:var(--ink-3);font-weight:600}
+.pwa-lead{margin:14px 0 0;font-size:12.6px;line-height:1.62;color:var(--ink-2)}
+.pwa-now{margin:14px 0 2px;width:100%;height:46px;border:0;border-radius:14px;cursor:pointer;
+  font-family:inherit;font-size:13px;font-weight:800;color:#fff;
+  background:linear-gradient(150deg,#FFA084,#F0704C);box-shadow:0 16px 26px -18px rgba(240,105,72,.95)}
+.pwa-now:hover{filter:brightness(1.03)}
+.pwa-steps{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.pwa-step{padding:11px 13px;border-radius:15px;background:#FFF8F2;border:1px solid var(--line)}
+.pwa-step.is-you{background:linear-gradient(145deg,#FFF3EA,#FFE7D9);border-color:rgba(240,105,72,.32)}
+.pwa-step-k{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pwa-step-k b{font-size:12.4px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.pwa-step-k span{font-size:11.6px;line-height:1.55;color:var(--ink-2)}
+.pwa-step-k em{display:inline-block;align-self:flex-start;margin:0 0 1px;padding:2px 8px;border-radius:999px;
+  font-style:normal;font-size:9.5px;font-weight:800;letter-spacing:.04em;color:#fff;background:linear-gradient(145deg,#FFA98A,#F0704C)}
+.pwa-step-k .kbd{display:inline-block;min-width:18px;padding:0 5px;border-radius:6px;background:#fff;
+  border:1px solid var(--line-2);font-style:normal;font-size:11px;line-height:16px;text-align:center;color:var(--ink)}
+.pwa-note{margin:13px 0 0;font-size:10.8px;line-height:1.6;color:var(--ink-3)}
+body.pwa-lock{overflow:hidden}
 
 /* ---------------- the little sky greeting on load ---------------- */
 .splash{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:linear-gradient(170deg,#FFF8F2,#FFEFE4 55%,#F3EEFF);}
@@ -730,15 +759,11 @@ h1 em::after{
       <a href="#kitchen">Kitchen</a>
       <a class="today-link" href="#today">Today&rsquo;s pick ↓</a>
     </nav>
-    <button class="install-btn" id="installBtn" type="button" hidden aria-label="Add Danbi Playground to your home screen">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.8v10.4"/><path d="M8.2 10.4 12 14.2l3.8-3.8"/><path d="M4.8 16.6v1.9a1.5 1.5 0 0 0 1.5 1.5h11.4a1.5 1.5 0 0 0 1.5-1.5v-1.9"/></svg>
-      <span class="ib-tx">Add to home screen</span>
+    <button class="pwa-add" id="pwaBtn" type="button" aria-haspopup="dialog" aria-label="Add to Home — Danbi Playground">
+      <span class="pwa-em" aria-hidden="true">📱</span>
+      <span class="pwa-tx pwa-tx-l">Add to Home</span>
+      <span class="pwa-tx pwa-tx-s">Add</span>
     </button>
-  </div>
-  <div class="install-pop" id="installPop" hidden>
-    <b>Add to Home Screen</b>
-    <p>Tap <span class="ios-step">Share ⤴</span> in Safari, then choose <b>Add to Home Screen</b> — the playground then opens like an app, still free.</p>
-    <button class="pop-close" id="installClose" type="button">Got it</button>
   </div>
 </header>
 
@@ -1360,60 +1385,6 @@ h1 em::after{
   card.setAttribute('data-pick', pick.h.replace('../', ''));
 })();
 </script>
-<script>
-/* ---- add to home screen: a quiet button, nothing else ---- */
-(function () {
-  var btn = document.getElementById('installBtn');
-  var pop = document.getElementById('installPop');
-  var closeBtn = document.getElementById('installClose');
-  if (!btn) return;
-
-  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
-                   window.navigator.standalone === true;
-  function hideAll() { btn.hidden = true; if (pop) pop.hidden = true; }
-  if (standalone) { hideAll(); return; }
-
-  var ua = navigator.userAgent || '';
-  var isIOS = /iP(hone|ad|od)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  var isIOSBrowser = isIOS && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA/.test(ua);
-
-  var deferred = null;
-  window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault();
-    deferred = e;
-    btn.hidden = false;
-  });
-  window.addEventListener('appinstalled', function () { deferred = null; hideAll(); });
-
-  if (isIOSBrowser) btn.hidden = false;   /* Safari has no prompt event — show the hint instead */
-
-  btn.addEventListener('click', function () {
-    if (deferred) {
-      deferred.prompt();
-      deferred.userChoice.then(function () { deferred = null; hideAll(); }, function () {});
-      return;
-    }
-    if (pop && isIOSBrowser) pop.hidden = !pop.hidden;
-    else hideAll();
-  });
-
-  if (closeBtn) closeBtn.addEventListener('click', function () { if (pop) pop.hidden = true; });
-  document.addEventListener('click', function (e) {
-    if (!pop || pop.hidden) return;
-    if (!pop.contains(e.target) && !btn.contains(e.target)) pop.hidden = true;
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && pop) pop.hidden = true;
-  });
-})();
-
-/* ---- service worker: pass-through only, so a new deploy is never stuck behind a cache ---- */
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('../sw.js', { scope: '../' }).catch(function () {});
-  });
-}
-</script>
 
 <!-- shared bar (invite sheet, share, next app) + topic tabs, the ★ favourites
      on every corner, today’s pick badge and the "Play with Friends" corner -->
@@ -2034,5 +2005,7 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
   });
 })();
 </script>
+<div class="pwa-modal" id="pwaModal" role="dialog" aria-modal="true" aria-labelledby="pwaTitle" hidden></div>
+<script src="pwa.js?v=1" defer></script>
 </body>
 </html>
