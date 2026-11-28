@@ -33,9 +33,9 @@
       win.addEventListener('unhandledrejection', function (e) {
         window.__errs.push('rejection: ' + (e.reason && e.reason.message ? e.reason.message : String(e.reason)));
       });
-      if (lang === 'en') {
-        try { win.localStorage.setItem('dgl-lang', 'en'); } catch (e) {}
-        var btn = doc.querySelector('[data-lang="en"]');
+      if (lang === 'en' || lang === 'ko') {
+        try { win.localStorage.setItem('dgl-lang', lang); } catch (e) {}
+        var btn = doc.querySelector('[data-lang="' + lang + '"]');
         if (btn) btn.click();
       }
       setTimeout(function () {
