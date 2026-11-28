@@ -1,0 +1,61 @@
+{
+  "seoul-cover": {"q": "Geunjeongjeon Gyeongbokgung palace blue sky"},
+  "seoul-p1": {"q": "Gwangjang Market food stalls Seoul"},
+  "seoul-p2": {"q": "Bukchon Hanok Village alley hanok"},
+  "seoul-p3": {"q": "N Seoul Tower night Seoul"},
+  "seoul-p4": {"q": "Cheonggyecheon stream Seoul"},
+
+  "busan-cover": {"q": "Haeundae Beach Busan skyline"},
+  "busan-p1": {"q": "Gamcheon Culture Village Busan"},
+  "busan-p2": {"q": "Jagalchi Market Busan"},
+  "busan-p3": {"q": "Gwangalli Bridge night Busan"},
+  "busan-p4": {"q": "Huinyeoul Culture Village Busan"},
+
+  "jeju-cover": {"q": "Seongsan Ilchulbong sunrise Jeju"},
+  "jeju-p1": {"q": "Udo Island Jeju beach"},
+  "jeju-p2": {"q": "Jusangjeolli cliff Jeju"},
+  "jeju-p3": {"q": "Jeju Dongmun Market"},
+  "jeju-p4": {"q": "Hallasan mountain Jeju"},
+
+  "gyeongju-cover": {"q": "Donggung Palace and Wolji Pond night"},
+  "gyeongju-p1": {"q": "Bulguksa temple Gyeongju"},
+  "gyeongju-p2": {"q": "Cheomseongdae observatory Gyeongju"},
+  "gyeongju-p3": {"q": "Daereungwon tomb complex Gyeongju"},
+  "gyeongju-p4": {"q": "Seokguram grotto Buddha"},
+
+  "gangneung-cover": {"q": "Gyeongpo lake Gangneung"},
+  "gangneung-p1": {"q": "Ojukheon Gangneung"},
+  "gangneung-p2": {"q": "Anmok beach coffee street Gangneung"},
+  "gangneung-p3": {"q": "Seonkyojang Gangneung hanok"},
+  "gangneung-p4": {"q": "Gyeongpo beach Gangneung"},
+
+  "jeonju-cover": {"q": "Jeonju Hanok Village rooftops"},
+  "jeonju-p1": {"q": "Gyeonggijeon Jeonju"},
+  "jeonju-p2": {"q": "Jeondong Cathedral Jeonju"},
+  "jeonju-p3": {"q": "Jeonju Nambu Market"},
+  "jeonju-p4": {"q": "Omokdae Jeonju pavilion"},
+
+  "yeosu-cover": {"q": "Yeosu night sea Dolsan bridge"},
+  "yeosu-p1": {"q": "Hyangiram temple Yeosu"},
+  "yeosu-p2": {"q": "Odongdo island Yeosu"},
+  "yeosu-p3": {"q": "Yeosu cable car sea"},
+  "yeosu-p4": {"q": "Yeosu Yi Sun-sin square"},
+
+  "sokcho-cover": {"q": "Seoraksan Ulsanbawi rock"},
+  "sokcho-p1": {"q": "Sokcho beach"},
+  "sokcho-p2": {"q": "Abai village Cheongho Sokcho"},
+  "sokcho-p3": {"q": "Sokcho Jungang Market"},
+  "sokcho-p4": {"q": "Yeonggeumjeong Sokcho"},
+
+  "damyang-cover": {"q": "Juknokwon bamboo forest Damyang"},
+  "damyang-p1": {"q": "Metasequoia road Damyang"},
+  "damyang-p2": {"q": "Soswaewon garden Damyang"},
+  "damyang-p3": {"q": "Gwanbangjerim Damyang"},
+  "damyang-p4": {"q": "Myeonangjeong Damyang"},
+
+  "anseong-cover": {"q": "Anseong Farmland"},
+  "anseong-p1": {"q": "Cheongnyongsa Anseong temple"},
+  "anseong-p2": {"q": "Chiljangsa Anseong"},
+  "anseong-p3": {"q": "Anseong city Gyeonggi"},
+  "anseong-p4": {"q": "Anseong Namsadang"}
+}
