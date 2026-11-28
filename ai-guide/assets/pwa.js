@@ -61,8 +61,23 @@
   var deferred = window.__pwaInstall || null;
   var lastFocus = null;
 
-  function lang() { return document.documentElement.lang === 'en' ? 'en' : 'ko'; }
-  function t() { return TXT[lang()]; }
+  function lang() {
+    var l = String(document.documentElement.lang || 'ko').toLowerCase();
+    if (l === 'en') return 'en';
+    if (l.indexOf('ja') === 0) return 'jp';
+    if (l.indexOf('zh') === 0) return 'cn';
+    return 'ko';
+  }
+  /* JP · CN 문구는 i18n-jp-cn.js 의 I18N 에서 가져오고, 없으면 영어로 대신합니다. */
+  function t() {
+    var l = lang();
+    var extra = (window.I18N && I18N[l] && I18N[l].pwa) || null;
+    return extra || TXT[l] || TXT.en;
+  }
+  function brand() {
+    var l = lang();
+    return (window.UI && UI[l] && UI[l].brand) || NAME[l] || NAME.en;
+  }
 
   function media(q) { return !!(window.matchMedia && window.matchMedia(q).matches); }
   function isStandalone() {
@@ -94,7 +109,7 @@
     var x = t();
     btn.querySelector('.pwa-tx-l').textContent = x.btn;
     btn.querySelector('.pwa-tx-s').textContent = x.btnShort;
-    btn.setAttribute('aria-label', x.btn + ' — ' + NAME[lang()]);
+    btn.setAttribute('aria-label', x.btn + ' — ' + brand());
     btn.setAttribute('aria-haspopup', 'dialog');
   }
 
@@ -126,7 +141,7 @@
           '<img class="pwa-ic" src="./icons/icon-192.png" width="64" height="64" alt="">' +
           '<div class="pwa-hd-tx">' +
             '<p class="pwa-kicker">' + x.kicker + '</p>' +
-            '<h2 id="pwaTitle">' + NAME[lang()] + '</h2>' +
+            '<h2 id="pwaTitle">' + brand() + '</h2>' +
             '<p class="pwa-sub">' + x.sub + '</p>' +
           '</div>' +
         '</div>' +

@@ -860,3 +860,29 @@ body.pwa-lock { overflow: hidden; }
   .pc-head h3 { flex: 1 1 100%; order: 3; }
   .pc-head .copy { margin-left: auto; }
 }
+
+/* ───────── 언어 전환 KR · EN · JP · CN ───────── */
+/* 네 개가 되어도 좁은 화면에서 한 줄에 들어가고, 가로로 넘치지 않게 합니다. */
+.lang { flex: none; }
+.lang button { white-space: nowrap; }
+.notice .en[hidden], .disclosure [hidden] { display: none; }
+
+@media (max-width: 560px) {
+  .lang { padding: 2px; }
+  .lang button { padding: 4px 7px; font-size: 10.5px; letter-spacing: 0; }
+  .top-tools { gap: 6px; }
+  .pwa-add { padding: 7px 10px 7px 9px; }
+  .pwa-add .pwa-tx-s { display: none; }
+}
+@media (max-width: 380px) {
+  .lang button { padding: 4px 6px; font-size: 10px; }
+}
+
+/* 日本語・中文は文字の間で改行できるようにします（韓国語の keep-all 을 되돌림). */
+html[lang="ja"] body,
+html[lang="zh-CN"] body { word-break: normal; line-break: strict; overflow-wrap: break-word; }
+.notice p { min-width: 0; }
+
+/* 日本語・中文の短い名前（画像AI など）が縦に割れないように */
+.ctool b { word-break: keep-all; }
+.cmp tbody th { min-width: 96px; }

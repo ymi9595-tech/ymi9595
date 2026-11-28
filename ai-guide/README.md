@@ -12,7 +12,8 @@
 |---|---|
 | `index.html` | 표지·헤더·법적 안내·푸터. GA4와 메타(OG·JSON-LD)도 여기 |
 | `assets/data.js` | `UI`(화면 문구 KR/EN), `BOOKS`(책 14권), `ITEMS`(항목 14개), `TOOLFACTS`(비교표), `GLOSSARY`(용어 18개) |
-| `assets/app.js` | 메뉴·카드·상세·서가 렌더, KR/EN 전환, 해시 주소, 복사·공유, 통합 검색, 즐겨찾기·최근 본(localStorage), 비교표(`#compare`)·용어사전(`#glossary`)·즐겨찾기(`#favs`) |
+| `assets/i18n-jp-cn.js` | 일본어(JP)·중국어 간체(CN) 번역 모듈. `I18N` 안에 `data.js`·`extra.js` 와 같은 모양으로 번역을 두고, 파일 끝에서 각 문구의 `jp`·`cn` 자리에 붙입니다. 빠진 자리는 영어로 채웁니다 |
+| `assets/app.js` | 메뉴·카드·상세·서가 렌더, KR/EN/JP/CN 전환, 해시 주소, 복사·공유, 통합 검색, 즐겨찾기·최근 본(localStorage), 비교표(`#compare`)·용어사전(`#glossary`)·즐겨찾기(`#favs`) |
 | `assets/style.css` | 파스텔 가이드북 스타일, 960px 이하 서랍 메뉴 |
 | `og-ai-guide.png` | 1200×630 공유 이미지 (PIL로 생성) |
 | `../danbi-guide-bar.js` | 세 사이트(ai-guide·korea-travel·playground) 공통 하단 연결 띠. `DanbiGuide.render('ko'|'en')` 로 언어를 맞춥니다 |
@@ -21,7 +22,7 @@
 
 `assets/data.js`의 `ITEMS`에 블록 하나를 더하면 왼쪽 메뉴·표지 카드·상세 페이지가 함께 생깁니다.
 `id`가 그대로 해시 주소(`#id`)가 되고, `group`은 `tool` 또는 `recipe`입니다.
-모든 문구는 `{ko, en}` 두 벌로 적습니다.
+모든 문구는 `{ko, en}` 두 벌로 적고, 일본어·중국어는 `assets/i18n-jp-cn.js` 에 같은 자리(`items.<id>`)로 적습니다.
 
 ```js
 {
@@ -40,12 +41,12 @@
 ```
 
 책을 새로 넣으려면 `BOOKS`에 한 줄 추가하고 `app.js`의 `bookTheme`에 그 책을 소개할 항목 id를 적습니다.
-책 속 인용(`quotes[].b`)은 한국어 원문 그대로 두고, 영어 모드에서는 "Shown as printed in the Korean edition"을 붙입니다.
+책 속 인용(`quotes[].b`)은 한국어 원문 그대로 두고, 영어·일본어·중국어 모드에서는 그 사실을 한 줄로 알려 줍니다. 인용 번호(`n`)는 `i18n-jp-cn.js` 에서 `n_jp`·`n_cn` 으로 붙습니다.
 
 ## 지켜야 할 것
 
 - **공식 로고·심볼을 쓰지 않습니다.** 서비스는 이모지와 단비랩 자체 파스텔 배지로만 표현합니다.
-- **독립 가이드임을 상단·하단에 한국어/영어로 밝힙니다.** (`index.html`의 `.notice`, `.disclosure`)
+- **독립 가이드임을 상단·하단에 네 언어로 밝힙니다.** (`index.html`의 `.notice`, `.disclosure`)
 - **기준일을 적습니다.** 2026년 11월 기준, 기능·요금제는 각 서비스 정책에 따라 변동.
 - **숫자·법·요금은 단정하지 않습니다.** 각 항목 ④ 주의할 점에 개인정보·저작권·원문 확인을 둡니다.
 - 인용은 단비랩이 지은 책에서만, 출처(책 제목)를 밝혀 씁니다.
@@ -55,4 +56,5 @@
 - 16개 화면(home·14항목·서가) × 2크기(390×844, 1280×800) 가로 넘침 0, 페이지 오류 0
 - 복사 버튼: 클립보드 기록 + 버튼이 "복사됨 ✓"로 바뀌는 것 확인
 - KR/EN 전환: 제목·메뉴·본문·가격(₩)까지 전환 확인
+- JP/CN 추가(2026-11-28): 850개 문구 전부 번역(영어로 대체된 자리 0), 4개 언어 × 12화면 × 2크기 가로 넘침 0·오류 0
 - 실패한 리소스 0 (performance entries responseStatus 기준), GA4 `page_view` 수집 확인

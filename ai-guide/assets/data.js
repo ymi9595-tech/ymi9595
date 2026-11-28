@@ -84,6 +84,11 @@ const UI = {
     footHome: '단비랩 놀이터',
     notFound: '찾으시는 항목이 없습니다. 목록에서 다시 골라 주세요.',
     menu: '메뉴',
+    closeMenu: '메뉴 닫기',
+    skip: '본문으로 건너뛰기',
+    disclosureP2: '2026년 11월 기준 안내. 기능과 요금제는 각 서비스 정책에 따라 변동될 수 있습니다. 책 속 인용은 단비랩이 지은 전자책에서 옮긴 것으로, 인용할 때는 출처를 밝혀 주세요.',
+    disclosureP3: '서비스 이름과 상표는 각 권리자에게 있습니다. 이 사이트는 어떤 서비스와도 제휴·후원·보증 관계가 없으며, 공식 로고나 캐릭터를 쓰지 않습니다.',
+    footTravel: '당장 가볼까?',
     langLabel: 'Language / 언어',
 
     /* ── 검색 ── */
@@ -229,6 +234,11 @@ const UI = {
     footHome: 'DanbiLab playground',
     notFound: 'That page is not here. Pick one from the list.',
     menu: 'Menu',
+    closeMenu: 'Close menu',
+    skip: 'Skip to content',
+    disclosureP2: 'Accurate as of November 2026. Features and pricing change with each service policy. Quotations come from books written by DanbiLab — credit the source when you quote them.',
+    disclosureP3: 'Service names and trademarks belong to their owners. This site is not affiliated with, endorsed by or sponsored by any service, and uses no official logos or characters.',
+    footTravel: 'Where to go now',
     langLabel: 'Language / 언어',
 
     /* ── search ── */

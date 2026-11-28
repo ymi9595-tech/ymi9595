@@ -10,7 +10,10 @@
     set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   };
 
-  var state = { lang: store.get('dgl-lang', 'ko') === 'en' ? 'en' : 'ko', route: 'home', sq: '' };
+  var LANGS = ['ko', 'en', 'jp', 'cn'];
+  var savedLang = store.get('dgl-lang', 'ko');
+  if (LANGS.indexOf(savedLang) === -1) savedLang = 'ko';
+  var state = { lang: savedLang, route: 'home', sq: '' };
   var FAV_KEY = 'dgl-favs', RECENT_KEY = 'dgl-recent';
   function readList(k) { try { var v = JSON.parse(localStorage.getItem(k) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; } }
   function writeList(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -26,8 +29,10 @@
     var l = readList(RECENT_KEY).filter(function (x) { return x !== key; });
     l.unshift(key); writeList(RECENT_KEY, l.slice(0, 8));
   }
-  var T = function () { return UI[state.lang]; };
-  var L = function (o) { return (o && (o[state.lang] || o.ko)) || ''; };
+  var T = function () { return UI[state.lang] || UI.en; };
+  var L = function (o) { return (o && (o[state.lang] || o.en || o.ko)) || ''; };
+  /* 검색이 네 언어 어느 쪽으로 써도 걸리도록, 문구 한 벌을 모두 이어 붙입니다. */
+  var A = function (o) { return o ? [o.ko, o.en, o.jp, o.cn].filter(Boolean).join(' ') : ''; };
 
   function esc(s) {
     return String(s == null ? '' : s)
@@ -76,7 +81,7 @@
     return 'mailto:ymi9595@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   }
   function priceOf(b) {
-    if (state.lang !== 'en') return b.price;
+    if (state.lang === 'ko') return b.price;
     return '₩' + String(b.price).replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
   function promptTotal(it) { return it.prompts.length + ((it.preview && it.preview.quotes) || []).length; }
@@ -87,31 +92,31 @@
     if (HAY) return HAY;
     HAY = { items: [], terms: [], books: [], prompts: [], fixes: [], course: [] };
     ITEMS.forEach(function (it) {
-      var hay = [it.name.ko, it.name.en, it.sub.ko, it.sub.en, it.tag.ko, it.tag.en, it.when.ko, it.when.en,
-        it.tips.map(function (x) { return x.ko + ' ' + x.en; }).join(' '),
-        it.notes.map(function (x) { return x.ko + ' ' + x.en; }).join(' '),
-        it.prompts.map(function (p) { return p.t.ko + ' ' + p.t.en + ' ' + p.b.ko + ' ' + p.b.en; }).join(' ')
+      var hay = [A(it.name), A(it.sub), A(it.tag), A(it.when),
+        it.tips.map(A).join(' '),
+        it.notes.map(A).join(' '),
+        it.prompts.map(function (p) { return A(p.t) + ' ' + A(p.b); }).join(' ')
       ].join(' ').toLowerCase();
       HAY.items.push({ key: 'i:' + it.id, it: it, hay: hay });
     });
     GLOSSARY.forEach(function (g) {
-      HAY.terms.push({ key: 'g:' + g.id, g: g, hay: [g.term.ko, g.term.en, g.d.ko, g.d.en].join(' ').toLowerCase() });
+      HAY.terms.push({ key: 'g:' + g.id, g: g, hay: [A(g.term), A(g.d)].join(' ').toLowerCase() });
     });
     Object.keys(BOOKS).forEach(function (k) {
       var b = BOOKS[k];
-      HAY.books.push({ key: 'b:' + k, id: k, b: b, hay: [b.title.ko, b.title.en, b.desc.ko, b.desc.en].join(' ').toLowerCase() });
+      HAY.books.push({ key: 'b:' + k, id: k, b: b, hay: [A(b.title), A(b.desc)].join(' ').toLowerCase() });
     });
     /* 프롬프트 도서관 · 오류 해결실 · 학습 코스도 같은 검색에 넣습니다. */
     if (typeof PROMPTS !== 'undefined') PROMPTS.forEach(function (p) {
-      HAY.prompts.push({ key: 'pr:' + p.id, p: p, hay: [p.t.ko, p.t.en, p.use.ko, p.use.en, p.b.ko, p.b.en, p.tip.ko, p.tip.en].join(' ').toLowerCase() });
+      HAY.prompts.push({ key: 'pr:' + p.id, p: p, hay: [A(p.t), A(p.use), A(p.b), A(p.tip)].join(' ').toLowerCase() });
     });
     if (typeof FIXES !== 'undefined') FIXES.forEach(function (f) {
-      HAY.fixes.push({ key: 'f:' + f.id, f: f, hay: [f.t.ko, f.t.en, f.symptom.ko, f.symptom.en, f.cause.ko, f.cause.en,
-        f.steps.map(function (s) { return s.ko + ' ' + s.en; }).join(' ')].join(' ').toLowerCase() });
+      HAY.fixes.push({ key: 'f:' + f.id, f: f, hay: [A(f.t), A(f.symptom), A(f.cause),
+        f.steps.map(A).join(' ')].join(' ').toLowerCase() });
     });
     if (typeof COURSE !== 'undefined') COURSE.forEach(function (c) {
-      HAY.course.push({ key: 'c:' + c.id, c: c, hay: [c.t.ko, c.t.en, c.why.ko, c.why.en, c.practice.ko, c.practice.en,
-        c.steps.map(function (s) { return s.ko + ' ' + s.en; }).join(' ')].join(' ').toLowerCase() });
+      HAY.course.push({ key: 'c:' + c.id, c: c, hay: [A(c.t), A(c.why), A(c.practice),
+        c.steps.map(A).join(' ')].join(' ').toLowerCase() });
     });
     return HAY;
   }
@@ -136,20 +141,20 @@
         .sort(function (a, b) { return b.s - a.s; })
         .map(function (o) { return o.x; });
     };
-    var items = rank(idx.items, function (x) { return [x.it.name.ko + ' ' + x.it.name.en, x.it.sub.ko + ' ' + x.it.tag.ko]; });
+    var items = rank(idx.items, function (x) { return [A(x.it.name), A(x.it.sub) + ' ' + A(x.it.tag)]; });
     /* '무료'로 찾으면 무료로 쓸 수 있는 AI 도구를 함께 보여 줍니다. */
-    if (words.some(function (w) { return w === '무료' || w === 'free'; })) {
+    if (words.some(function (w) { return w === '무료' || w === 'free' || w === '無料' || w === '免费'; })) {
       idx.items.forEach(function (x) {
         if (TOOLFACTS[x.it.id] && items.indexOf(x) === -1) items.push(x);
       });
     }
     return {
       items: items.slice(0, 4),
-      prompts: rank(idx.prompts, function (x) { return [x.p.t.ko + ' ' + x.p.t.en, x.p.use.ko + ' ' + x.p.use.en]; }).slice(0, 4),
-      fixes: rank(idx.fixes, function (x) { return [x.f.t.ko + ' ' + x.f.t.en, '']; }).slice(0, 3),
-      course: rank(idx.course, function (x) { return [x.c.t.ko + ' ' + x.c.t.en, '']; }).slice(0, 2),
-      terms: rank(idx.terms, function (x) { return [x.g.term.ko + ' ' + x.g.term.en, '']; }).slice(0, 3),
-      books: rank(idx.books, function (x) { return [x.b.title.ko + ' ' + x.b.title.en, '']; }).slice(0, 2)
+      prompts: rank(idx.prompts, function (x) { return [A(x.p.t), A(x.p.use)]; }).slice(0, 4),
+      fixes: rank(idx.fixes, function (x) { return [A(x.f.t), '']; }).slice(0, 3),
+      course: rank(idx.course, function (x) { return [A(x.c.t), '']; }).slice(0, 2),
+      terms: rank(idx.terms, function (x) { return [A(x.g.term), '']; }).slice(0, 3),
+      books: rank(idx.books, function (x) { return [A(x.b.title), '']; }).slice(0, 2)
     };
   }
   function searchRow(key, emoji, title, sub) {
@@ -403,11 +408,12 @@
       var qlist = it.preview.quotes || [];
       quotes = qlist.map(function (q) {
         var id = 'q' + (idx++);
+        var qlabel = q['n_' + state.lang] || q.n;
         return '<article class="prompt prompt-book">' +
-          '<div class="prompt-head"><b><span class="pnum">' + esc(q.n) + '</span> ' + esc(L(q.t)) + '</b>' +
+          '<div class="prompt-head"><b><span class="pnum">' + esc(qlabel) + '</span> ' + esc(L(q.t)) + '</b>' +
           '<button class="copy" type="button" data-copy="' + id + '" aria-label="' + esc(t.copy) + '">📋 <span>' + esc(t.copy) + '</span></button></div>' +
           '<pre class="prompt-body" data-prompt="' + id + '">' + esc(q.b) + '</pre>' +
-          (state.lang === 'en' ? '<p class="quote-note">' + esc(t.quoteLang) + '</p>' : '') +
+          (state.lang !== 'ko' ? '<p class="quote-note">' + esc(t.quoteLang) + '</p>' : '') +
           '</article>';
       }).join('');
 
@@ -438,14 +444,14 @@
       var f = TOOLFACTS[id], tool = byId[id];
       if (!f || !tool) return '';
       return '<li><a href="#' + id + '"><b>' + tool.emoji + ' ' + esc(tool.name[state.lang]) + '</b>' +
-        f.sites.map(function (s) { return '<span class="osub">' + esc(s.name) + ' ↗</span>'; }).join('') + '</a></li>';
+        f.sites.map(function (s) { return '<span class="osub">' + esc(siteName(s)) + ' ↗</span>'; }).join('') + '</a></li>';
     }).join('');
     var official = '<section class="sec sec-official">' +
       '<h2><i>🔗</i> ' + esc(t.officialTitle) + '</h2>' +
       '<div class="offi">' +
         (fact ? '<div class="offi-sites">' + fact.sites.map(function (s) {
           return '<a class="offi-main" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
-            '<span class="oi-em" aria-hidden="true">' + it.emoji + '</span><span><b>' + esc(s.name) + '</b>' +
+            '<span class="oi-em" aria-hidden="true">' + it.emoji + '</span><span><b>' + esc(siteName(s)) + '</b>' +
             '<small>' + esc(t.compareSite) + ' ↗</small></span></a>';
         }).join('') + '</div>' : '') +
         (related ? '<div class="offi-rel"><p class="ol">' + esc(t.officialForTools) + '</p><ul>' + related + '</ul></div>' : '') +
@@ -669,9 +675,11 @@
   }
 
   function toolFact(it) { return TOOLFACTS[it.id]; }
+  /* 공식 사이트 이름은 언어에 따라 다를 수 있습니다(예: "Midjourney (유료)"). */
+  function siteName(s) { return s['name_' + state.lang] || s.name; }
   function siteLinks(f) {
     return f.sites.map(function (s) {
-      return '<a class="csite" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + esc(s.name) + ' ↗</a>';
+      return '<a class="csite" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + esc(siteName(s)) + ' ↗</a>';
     }).join('');
   }
   function freeClass(f) {
@@ -800,10 +808,18 @@
     return PROMPTS[((day % PROMPTS.length) + PROMPTS.length) % PROMPTS.length];
   }
   var MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  /* 화면 제목은 언어마다 따로 둡니다. */
+  var HOME_TITLE = {
+    ko: '단비랩 AI 활용·응용 가이드 — AI 도구 8종 · 목적별 레시피 6종',
+    en: 'DanbiLab AI Guide — eight tools, six jobs',
+    jp: 'DanbiLab AIガイド — AIツール8種・目的別レシピ6種',
+    cn: 'DanbiLab AI 指南 — AI 工具 8 种 · 按用途配方 6 种'
+  };
   function todayLabel() {
     var d = new Date();
     if (state.lang === 'en') return MONTHS_EN[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
-    return d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
+    if (state.lang === 'ko') return d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
+    return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日';
   }
   function catById(id) {
     for (var i = 0; i < PROMPTCATS.length; i++) if (PROMPTCATS[i].id === id) return PROMPTCATS[i];
@@ -1027,6 +1043,27 @@
   }
 
   /* ───────── 그리기 ───────── */
+  /* index.html 에 고정으로 적혀 있는 안내·고지·꼬리말도 고른 언어로 바꿉니다. */
+  function applyFrame(t) {
+    $$('[data-t]').forEach(function (el) {
+      var v = t[el.getAttribute('data-t')];
+      if (typeof v === 'string') el.textContent = v;
+    });
+    $$('[data-t-aria]').forEach(function (el) {
+      var v = t[el.getAttribute('data-t-aria')];
+      if (typeof v === 'string') el.setAttribute('aria-label', v);
+    });
+    $$('.lang').forEach(function (el) { el.setAttribute('aria-label', t.langLabel); });
+    $$('.side-by').forEach(function (el) { el.textContent = state.lang === 'ko' ? '단비랩' : 'DanbiLab'; });
+    var ss = $('#sideSearch');
+    if (ss) ss.setAttribute('placeholder', t.searchSidePlaceholder);
+    /* 한국어 화면에서만 영어 줄을 함께 보여 줍니다. */
+    var en = $('.notice .en');
+    if (en) en.hidden = state.lang !== 'ko';
+    var ds = $('[data-t="disclosureEn"]');
+    if (ds) ds.hidden = state.lang !== 'ko';
+  }
+
   function render(push) {
     var t = T();
     document.documentElement.lang = t.htmlLang;
@@ -1034,9 +1071,7 @@
 
     if (state.route === 'home') {
       view.innerHTML = renderHome();
-      document.title = state.lang === 'ko'
-        ? '단비랩 AI 활용·응용 가이드 — AI 도구 8종 · 목적별 레시피 6종'
-        : 'DanbiLab AI Guide — eight tools, six jobs';
+      document.title = HOME_TITLE[state.lang] || HOME_TITLE.en;
     } else if (state.route === 'compare') {
       view.innerHTML = renderCompare();
       document.title = T().compareTitle.replace('🤖 ', '') + ' · ' + t.brand;
@@ -1050,7 +1085,7 @@
       document.title = T().favTitle.replace('⭐ ', '') + ' · ' + t.brand;
     } else if (state.route === 'books') {
       view.innerHTML = renderBooks();
-      document.title = (state.lang === 'ko' ? '단비랩 전자책 서가' : 'The DanbiLab shelf') + ' · ' + t.brand;
+      document.title = t.bookshelfTitle.replace('📚 ', '') + ' · ' + t.brand;
       pushRecent('p:books');
     } else if (state.route === 'pick') {
       view.innerHTML = '<article class="detail wide">' +
@@ -1094,9 +1129,12 @@
     $$('.brand').forEach(function (a) {
       a.setAttribute('aria-label', t.brand + ' — ' + t.home);
     });
+    applyFrame(t);
     var dg = document.getElementById('danbi-guide-bar');
-    if (dg) dg.setAttribute('data-lang', state.lang);
-    if (window.DanbiGuide) window.DanbiGuide.render(state.lang);
+    /* 단비랩 안내 바는 KR·EN 두 벌이라, JP·CN 에서는 영문 안내를 보여 줍니다. */
+    var barLang = state.lang === 'ko' ? 'ko' : 'en';
+    if (dg) dg.setAttribute('data-lang', barLang);
+    if (window.DanbiGuide) window.DanbiGuide.render(barLang);
     var stx = $('.share-tx');
     if (stx) stx.textContent = t.share;
     var shr = $('.share');
@@ -1265,7 +1303,8 @@
     if (crst) { writeList('dgl-course', []); render(); return; }
     var langBtn = e.target.closest ? e.target.closest('[data-lang]') : null;
     if (langBtn) {
-      state.lang = langBtn.dataset.lang === 'en' ? 'en' : 'ko';
+      var pick = langBtn.dataset.lang;
+      state.lang = LANGS.indexOf(pick) === -1 ? 'ko' : pick;
       store.set('dgl-lang', state.lang);
       render();
       return;

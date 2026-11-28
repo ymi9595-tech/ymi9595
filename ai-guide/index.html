@@ -25,6 +25,8 @@
 <meta property="og:site_name" content="단비랩 AI 활용·응용 가이드">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
 <meta property="og:title" content="단비랩 AI 활용·응용 가이드 — AI별로, 목적별로 바로 쓰는 법">
 <meta property="og:description" content="여덟 가지 AI와 여섯 가지 목적, 열 분야 프롬프트 27개, 초보자 6단계 코스. 복사해서 쓰는 프롬프트와 단비랩 전자책 속 핵심 노하우를 함께 담았습니다.">
 <meta property="og:url" content="https://ymi9595-tech.github.io/ymi9595/ai-guide/">
@@ -76,12 +78,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="assets/style.css?v=10">
+<link rel="stylesheet" href="assets/style.css?v=11">
 </head>
 <body>
-<a class="skip" href="#view">본문으로 건너뛰기</a>
+<a class="skip" href="#view" data-t="skip">본문으로 건너뛰기</a>
 
-<button class="scrim" id="scrim" type="button" aria-label="메뉴 닫기" tabindex="-1" hidden></button>
+<button class="scrim" id="scrim" type="button" aria-label="메뉴 닫기" data-t-aria="closeMenu" tabindex="-1" hidden></button>
 
 <aside class="side" id="side" aria-label="가이드 메뉴">
   <div class="side-top">
@@ -92,25 +94,27 @@
         <span class="brand-sub" data-t="brandSub">AI별로, 목적별로 바로 쓰는 법</span>
       </span>
     </a>
-    <button class="side-x" id="sideClose" type="button" aria-label="메뉴 닫기">
+    <button class="side-x" id="sideClose" type="button" aria-label="메뉴 닫기" data-t-aria="closeMenu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </div>
 
   <div class="side-find">
     <span class="sf-ico" aria-hidden="true">🔎</span>
-    <label class="sr-only" for="sideSearch">메뉴에서 찾기</label>
+    <label class="sr-only" for="sideSearch" data-t="searchSide">메뉴에서 찾기</label>
     <input id="sideSearch" type="search" placeholder="메뉴에서 찾기" autocomplete="off">
   </div>
 
   <div class="side-body" id="sideBody">
-    <p class="side-hint">왼쪽에서 궁금한 항목을 누르면 바로 열립니다.</p>
+    <p class="side-hint" data-t="sideHint">왼쪽에서 궁금한 항목을 누르면 바로 열립니다.</p>
   </div>
 
   <div class="side-foot">
     <span class="lang" role="group" aria-label="Language / 언어">
       <button type="button" data-lang="ko" aria-pressed="true">KR</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="jp" aria-pressed="false" lang="ja">JP</button>
+      <button type="button" data-lang="cn" aria-pressed="false" lang="zh-CN">CN</button>
     </span>
     <span class="side-by">단비랩</span>
   </div>
@@ -118,7 +122,7 @@
 
 <div class="wrap">
   <header class="top">
-    <button class="navbtn" id="navBtn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="side">
+    <button class="navbtn" id="navBtn" type="button" aria-label="메뉴 열기" data-t-aria="menu" aria-expanded="false" aria-controls="side">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <a class="brand brand-mini" href="#home" aria-label="단비랩 AI 가이드 — 처음으로">
@@ -133,13 +137,15 @@
       <span class="lang" role="group" aria-label="Language / 언어">
         <button type="button" data-lang="ko" aria-pressed="true">KR</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="jp" aria-pressed="false" lang="ja">JP</button>
+        <button type="button" data-lang="cn" aria-pressed="false" lang="zh-CN">CN</button>
       </span>
       <button class="pwa-add" id="pwaBtn" type="button" aria-haspopup="dialog" aria-label="홈 화면에 추가">
         <span class="pwa-em" aria-hidden="true">📱</span>
         <span class="pwa-tx pwa-tx-l">홈 화면에 추가</span>
         <span class="pwa-tx pwa-tx-s">홈 화면</span>
       </button>
-      <button class="share" type="button" data-share aria-label="공유">
+      <button class="share" type="button" data-share aria-label="공유" data-t-aria="share">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4"/><path d="m8 7.5 4-3.5 4 3.5"/><path d="M5 13v5.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V13"/></svg>
         <span class="share-tx">공유</span>
       </button>
@@ -148,25 +154,25 @@
 
   <main>
     <div class="notice">
-      <span class="nb" aria-hidden="true">안내</span>
+      <span class="nb" aria-hidden="true" data-t="disclosureTitle">안내</span>
       <p>
-        <b>단비랩(DanbiLab)이 제작한 독립 AI 활용·프롬프트 가이드입니다. 각 AI 서비스의 공식 사이트가 아닙니다.</b>
-        <span class="en">An independent AI usage &amp; prompt guide by DanbiLab. This is not an official site of any AI service.</span>
-        2026년 11월 기준 안내 · 기능과 요금제는 각 서비스 정책에 따라 변동될 수 있습니다.
+        <b data-t="disclosure">단비랩(DanbiLab)이 제작한 독립 AI 활용·프롬프트 가이드입니다. 각 AI 서비스의 공식 사이트가 아닙니다.</b>
+        <span class="en" data-t="disclosureEn">An independent AI usage &amp; prompt guide by DanbiLab. This is not an official site of any AI service.</span>
+        <span data-t="dateNote">2026년 11월 기준 안내 · 기능과 요금제는 각 서비스 정책에 따라 변동될 수 있습니다.</span>
       </p>
     </div>
 
     <div id="view" aria-live="polite">
       <noscript>
-        <p style="padding:24px 0">이 가이드는 프롬프트 복사와 KR/EN 전환에 자바스크립트를 사용합니다. 브라우저에서 자바스크립트를 켜 주세요.</p>
+        <p style="padding:24px 0">이 가이드는 프롬프트 복사와 KR/EN/JP/CN 언어 전환에 자바스크립트를 사용합니다. 브라우저에서 자바스크립트를 켜 주세요.</p>
       </noscript>
     </div>
 
     <div class="disclosure">
-      <p><span class="dl">단비랩(DanbiLab)이 제작한 독립 AI 활용·프롬프트 가이드입니다.</span> 각 AI 서비스의 공식 사이트가 아닙니다.<br>
-        An independent AI usage &amp; prompt guide by DanbiLab. This is not an official site of any AI service.</p>
-      <p>2026년 11월 기준 안내. 기능과 요금제는 각 서비스 정책에 따라 변동될 수 있습니다. 책 속 인용은 단비랩이 지은 전자책에서 옮긴 것으로, 인용할 때는 출처를 밝혀 주세요.</p>
-      <p>서비스 이름과 상표는 각 권리자에게 있습니다. 이 사이트는 어떤 서비스와도 제휴·후원·보증 관계가 없으며, 공식 로고나 캐릭터를 쓰지 않습니다.</p>
+      <p><span class="dl" data-t="disclosure">단비랩(DanbiLab)이 제작한 독립 AI 활용·프롬프트 가이드입니다. 각 AI 서비스의 공식 사이트가 아닙니다.</span><br>
+        <span data-t="disclosureEn">An independent AI usage &amp; prompt guide by DanbiLab. This is not an official site of any AI service.</span></p>
+      <p data-t="disclosureP2">2026년 11월 기준 안내. 기능과 요금제는 각 서비스 정책에 따라 변동될 수 있습니다. 책 속 인용은 단비랩이 지은 전자책에서 옮긴 것으로, 인용할 때는 출처를 밝혀 주세요.</p>
+      <p data-t="disclosureP3">서비스 이름과 상표는 각 권리자에게 있습니다. 이 사이트는 어떤 서비스와도 제휴·후원·보증 관계가 없으며, 공식 로고나 캐릭터를 쓰지 않습니다.</p>
     </div>
 
     <div id="danbi-guide-bar" data-base="../" data-lang="ko"></div>
@@ -174,12 +180,12 @@
     <footer class="foot">
       <span>© 단비랩 DanbiLab</span>
       <span class="dot">·</span>
-      <a href="https://smartstore.naver.com/danbilab" target="_blank" rel="noopener">스마트스토어</a>
+      <a href="https://smartstore.naver.com/danbilab" target="_blank" rel="noopener" data-t="shelfBuy">스마트스토어</a>
       <a href="https://payhip.com/DanbiLab" target="_blank" rel="noopener">Payhip</a>
-      <a href="../korea-travel/">당장 가볼까?</a>
-      <a href="../playground/">단비랩 놀이터</a>
+      <a href="../korea-travel/" data-t="footTravel">당장 가볼까?</a>
+      <a href="../playground/" data-t="footHome">단비랩 놀이터</a>
       <span class="dot">·</span>
-      <span>무료로 나눕니다. 출처를 밝히고 자유롭게 공유해 주세요.</span>
+      <span data-t="footFree">무료로 나눕니다. 출처를 밝히고 자유롭게 공유해 주세요.</span>
     </footer>
   </main>
 </div>
@@ -188,10 +194,11 @@
 
 <div class="pwa-modal" id="pwaModal" role="dialog" aria-modal="true" aria-labelledby="pwaTitle" hidden></div>
 
-<script src="assets/data.js?v=5"></script>
+<script src="assets/data.js?v=6"></script>
 <script src="assets/extra.js?v=1"></script>
-<script src="assets/app.js?v=8"></script>
-<script src="assets/pwa.js?v=1" defer></script>
+<script src="assets/i18n-jp-cn.js?v=1"></script>
+<script src="assets/app.js?v=9"></script>
+<script src="assets/pwa.js?v=2" defer></script>
 <script src="../danbi-guide-bar.js?v=2" defer></script>
 </body>
 </html>
