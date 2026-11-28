@@ -126,7 +126,7 @@
     const isStart = s.phase === 'start';
     const isReturn = s.phase === 'return';
     const pill = (isStart || isReturn) ? `<span class="pill">${esc(t.phase[s.phase])}</span>` : '';
-    const moveTxt = isStart ? t.moved + ' · ' + s.move[state.lang] : s.move[state.lang];
+    const moveTxt = s.move[state.lang];
     const thumb = s.photo
       ? `<span class="thumb"><img src="images/${s.photo}.jpg" alt="${esc(s.name[state.lang])}" loading="lazy" decoding="async"></span>`
       : '';
@@ -135,7 +135,7 @@
       <span class="rail"><span class="dot"></span></span>
       <div class="cardstep">
         <h4>${esc(s.name[state.lang])}${pill}</h4>
-        <p class="move">${moveIcon()}${esc(moveTxt)}</p>
+        <p class="move">${isStart ? '' : moveIcon()}${esc(moveTxt)}</p>
         <p class="desc">${esc(s.desc[state.lang])}</p>
         ${maps(s.q, city.name[state.lang])}
         ${thumb}

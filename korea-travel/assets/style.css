@@ -235,7 +235,7 @@ h1 em::after{content:"";position:absolute;left:1%;right:1%;bottom:-.05em;height:
   .city-side .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
   .city-side .food{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-.city-intro{margin:0 0 6px;font-size:14.5px;line-height:1.78;color:var(--ink-2)}
+.city-intro{margin:0 0 4px;font-size:14.5px;line-height:1.78;color:var(--ink-2);max-width:68ch}
 .city-intro b{color:var(--ink)}
 
 .sec{margin:clamp(24px,3.4vw,38px) 0 0}
@@ -298,6 +298,11 @@ h1 em::after{content:"";position:absolute;left:1%;right:1%;bottom:-.05em;height:
 @media(min-width:720px){.food{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .food .fd{padding:14px 13px;border-radius:18px;background:#fff;border:1px solid rgba(255,255,255,.95);
   box-shadow:0 2px 3px rgba(120,80,110,.03),0 14px 26px -24px rgba(130,88,120,.6);display:flex;flex-direction:column;gap:5px}
+.food .fd:nth-child(1){background:linear-gradient(160deg,#FFFAF0,#FFF2DF)}
+.food .fd:nth-child(2){background:linear-gradient(160deg,#F3FCF8,#E4F7EE)}
+.food .fd:nth-child(3){background:linear-gradient(160deg,#FFF7FA,#FFE9F1)}
+.food .fd:nth-child(4){background:linear-gradient(160deg,#F8F4FF,#EDE4FF)}
+.food .fd{border-color:rgba(255,255,255,.95)}
 .food .fd .slot{display:flex;align-items:center;gap:6px;font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 .food .fd .slot b{font-size:14px;line-height:1;letter-spacing:0}
 .food .fd .dish{font-size:13.5px;font-weight:800;letter-spacing:-.02em;line-height:1.35;color:var(--ink)}
