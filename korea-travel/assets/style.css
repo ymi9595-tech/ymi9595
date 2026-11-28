@@ -170,9 +170,9 @@ h1 em::after{content:"";position:absolute;left:1%;right:1%;bottom:-.05em;height:
 .card .cname{font-size:21px;font-weight:800;letter-spacing:-.036em;line-height:1.15;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .card .cname .cen{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .card .tagline{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.55;min-height:2.6em}
-.card .foot{position:absolute;left:18px;right:18px;bottom:14px;display:flex;align-items:center;justify-content:flex-end;gap:10px}
-.card .meta{font-size:10.5px;letter-spacing:.04em;color:var(--ink-3);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card .go{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;
+.card .foot{position:absolute;left:18px;right:18px;bottom:13px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card .meta{min-width:0;font-size:10.5px;letter-spacing:.04em;color:var(--ink-3);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .go{flex:none;display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;
   background:#FFF3EC;color:var(--coral-deep);font-size:11px;font-weight:800;white-space:nowrap}
 .card:hover .go{background:#FFE7DA}
 .card .go .ar{transition:transform .3s var(--spring)}
