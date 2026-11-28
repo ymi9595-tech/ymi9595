@@ -149,7 +149,7 @@
     let lastPhase = null;
     course.steps.forEach((s, i) => {
       if (s.phase !== lastPhase) {
-        out += `<li class="phase"><b aria-hidden="true">${String(i + 1).padStart(2, '0')}</b>${esc(t.phase[s.phase])}</li>`;
+        out += `<li class="phase"><span class="ph-dot" aria-hidden="true"></span>${esc(t.phase[s.phase])}</li>`;
         lastPhase = s.phase;
       }
       out += stepHTML(s, i, city);
@@ -194,6 +194,8 @@
     <div class="city-body">
       <p class="city-intro">${esc(c.intro[state.lang])}</p>
 
+      <div class="city-cols">
+      <div class="city-main">
       <section class="sec">
         <div class="hub">
           <span class="pin" aria-hidden="true">📍</span>
@@ -215,7 +217,9 @@
         ${tabs}
         <ol class="timeline">${courseHTML(course, c)}</ol>
       </section>
+      </div>
 
+      <aside class="city-side">
       <section class="sec">
         <div class="sec-head"><h3>${esc(t.foodTitle)}</h3></div>
         <p class="sec-sub">${esc(t.foodSub)}</p>
@@ -243,6 +247,8 @@
         </ul>
         <p class="tip"><b>${esc(t.tipTitle)}</b> · ${esc(c.tip[state.lang])}</p>
       </section>
+      </aside>
+      </div>
 
       <div class="city-foot">
         <button class="btn-ghost" type="button" data-close>&larr; ${esc(t.back)}</button>
