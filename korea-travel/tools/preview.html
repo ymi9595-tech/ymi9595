@@ -25,7 +25,8 @@
   f.width = w; f.height = h;
   var wrap = document.getElementById('wrap');
   wrap.style.width = w + 'px'; wrap.style.height = h + 'px';
-  f.src = '../' + (hash ? '#' + hash : '');
+  var bust = q.get('b') || '';
+  f.src = '../' + (bust ? '?v=' + bust : '') + (hash ? '#' + hash : '');
   f.addEventListener('load', function () {
     setTimeout(function () {
       try {
