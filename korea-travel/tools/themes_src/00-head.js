@@ -1,5 +1,5 @@
 /* ==========================================================================
-   방방곡곡 대한민국 · Korea, Corner by Corner
+   당장 가볼까? · Go Now? Korea Day-Trip Courses
    themes.js — 19 one-day themes (generated; edit tools/themes_src/*.js)
    --------------------------------------------------------------------------
    Every theme: name / tag / intro / hub (terminal, station or airport),

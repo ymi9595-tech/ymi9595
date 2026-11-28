@@ -1,5 +1,5 @@
 /* ==========================================================================
-   방방곡곡 대한민국 · app.js
+   당장 가볼까? · app.js
    Renders the left menu, the cover, 10 city courses and 21 day themes.
    ========================================================================== */
 (function () {
@@ -70,8 +70,8 @@
     : ({ capital: 'Capital', gangwon: 'Gangwon', jeolla: 'Chungcheong·Jeolla', gyeongsang: 'Gyeongsang', jeju: 'Jeju' }[id] || ''));
 
   const HOME_TITLE = () => state.lang === 'ko'
-    ? '방방곡곡 대한민국 · Korea, Corner by Corner — 열 곳의 도시, 스물두 가지 테마'
-    : 'Korea, Corner by Corner · 방방곡곡 대한민국 — ten cities, twenty-two themes';
+    ? '당장 가볼까? · 한국 여행 코스 — 열 곳의 도시, 스물두 가지 테마'
+    : 'Go Now? · Korea Day-Trip Courses — ten cities, twenty-two themes';
 
   /* ---------------------------------------------------------- static copy */
   function applyStatic() {
@@ -112,9 +112,9 @@
     if (quick) quick.setAttribute('aria-label', state.lang === 'ko' ? '빠른 이동' : 'Quick jump');
 
     document.title = state.route.type === 'city'
-      ? `${cityById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '방방곡곡 대한민국' : 'Korea, Corner by Corner'}`
+      ? `${cityById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '당장 가볼까?' : 'Go Now?'}`
       : state.route.type === 'theme'
-        ? `${themeById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '방방곡곡 대한민국' : 'Korea, Corner by Corner'}`
+        ? `${themeById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '당장 가볼까?' : 'Go Now?'}`
         : HOME_TITLE();
   }
 
@@ -143,6 +143,7 @@
     }
     const hint = $('#sideHint');
     if (hint) hint.textContent = t.sideHint;
+    renderSideBooks();
   }
 
   function renderQuick() {
@@ -158,6 +159,67 @@
       row('theme', state.lang === 'ko' ? '테마' : 'Themes', THEMES.map((th) => ({ id: th.id, emoji: th.emoji, name: th.name[state.lang], href: themeHash(th.id) })));
     box.setAttribute('aria-label', state.lang === 'ko' ? '빠른 이동' : 'Quick jump');
     void t;
+  }
+
+  /* --------------------------------------------------------------- books */
+  function bookBuyLabel(b) {
+    return state.lang === 'ko' ? T().bookBuy : T().bookBuy;
+  }
+
+  function bookCard(b) {
+    const t = T();
+    return `<article class="book-card" style="--c1:${b.c1};--c2:${b.c2}">
+      <div class="bk-head">
+        <span class="bk-em" aria-hidden="true">${b.emoji}</span>
+        <div class="bk-tx">
+          <b>${esc(b.title)}</b>
+          <small>${esc(b.meta)}</small>
+        </div>
+      </div>
+      <p class="bk-ex"><span>${esc(t.bookExcerpt)}</span>${esc(b.excerpt)}</p>
+      <div class="bk-foot">
+        <span class="bk-price">${esc(b.price)}${b.was ? `<s>${esc(t.bookWas(b.was))}</s>` : ''}</span>
+        <a class="bk-buy" href="${esc(b.url)}" target="_blank" rel="noopener noreferrer">${esc(bookBuyLabel(b))} <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>`;
+  }
+
+  function bookSecHTML(kind, id) {
+    const t = T();
+    const picks = (typeof bookPick === 'function') ? bookPick(state.lang, kind, id) : [];
+    if (!picks.length) return '';
+    return `<section class="sec book-sec">
+      <div class="sec-head"><h3>📚 ${esc(t.bookInDetail)}</h3><span class="k">${esc(t.booksTitle.replace('📚 ', ''))}</span></div>
+      <div class="book-grid${picks.length > 1 ? ' two' : ''}">${picks.map(bookCard).join('')}</div>
+    </section>`;
+  }
+
+  function renderBookHome() {
+    const grid = $('#bookGrid');
+    if (!grid || typeof booksFor !== 'function') return;
+    const t = T();
+    grid.innerHTML = booksFor(state.lang).map(bookCard).join('');
+    const shelf = $('#bookShelf');
+    const shop = BOOK_SHOPS[state.lang];
+    if (shelf && shop) {
+      shelf.href = shop.url;
+      shelf.textContent = t.booksShelf + ' ↗';
+      shelf.setAttribute('aria-label', shop.label);
+    }
+  }
+
+  function renderSideBooks() {
+    const box = $('#sideBooks');
+    if (!box || typeof booksFor !== 'function') return;
+    const t = T();
+    const list = booksFor(state.lang);
+    const shop = BOOK_SHOPS[state.lang];
+    box.innerHTML = `<p class="sbg"><span aria-hidden="true">📚</span>${esc(t.booksTitle.replace('📚 ', ''))}<em>${esc(t.booksCount(list.length))}</em></p>
+      <ul class="sb-list">${list.map((b) => `<li><a href="${esc(b.url)}" target="_blank" rel="noopener noreferrer">
+        <span class="sb-em" aria-hidden="true">${b.emoji}</span>
+        <span class="sb-tx"><b>${esc(b.title)}</b><small>${esc(b.price)} · ${esc(t.bookPages(b.pages))}</small></span></a></li>`).join('')}</ul>
+      <a class="sb-shelf" href="#books">${esc(t.booksShelf)} <span aria-hidden="true">→</span></a>
+      ${shop ? `<a class="sb-shop" href="${esc(shop.url)}" target="_blank" rel="noopener noreferrer">${esc(shop.label)} ↗</a>` : ''}`;
   }
 
   /* --------------------------------------------------------------- home */
@@ -234,6 +296,7 @@
     if (tg) tg.innerHTML = THEMES.map(themeCard).join('');
     const tc = $('#themeCount');
     if (tc) tc.textContent = T().themeCount(THEMES.length);
+    renderBookHome();
   }
 
   /* --------------------------------------------------------------- city */
@@ -348,6 +411,7 @@
       </section>
       </aside>
       </div>
+      ${bookSecHTML('city', c.id)}
       <div class="city-foot">
         <button class="btn-ghost" type="button" data-back>&larr; ${esc(t.back)}</button>
         <button class="btn-ghost" type="button" data-next="city">${esc(t.nextCity)} &rarr;</button>
@@ -493,6 +557,7 @@
       </section>
       </aside>
       </div>
+      ${bookSecHTML('theme', th.id)}
       <div class="city-foot">
         <button class="btn-ghost" type="button" data-back>&larr; ${esc(t.themeBack)}</button>
         <button class="btn-ghost" type="button" data-next="theme">${esc(t.nextTheme)} &rarr;</button>
@@ -532,9 +597,9 @@
           : '';
     }
     document.title = state.route.type === 'city'
-      ? `${cityById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '방방곡곡 대한민국' : 'Korea, Corner by Corner'}`
+      ? `${cityById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '당장 가볼까?' : 'Go Now?'}`
       : state.route.type === 'theme'
-        ? `${themeById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '방방곡곡 대한민국' : 'Korea, Corner by Corner'}`
+        ? `${themeById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '당장 가볼까?' : 'Go Now?'}`
         : HOME_TITLE();
     trackPage();
   }
@@ -561,6 +626,11 @@
     render();
     if (!isHome) {
       window.scrollTo(0, 0);
+    } else if (location.hash === '#books') {
+      requestAnimationFrame(() => {
+        const el = $('#books');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 78, behavior: 'smooth' });
+      });
     } else if (location.hash === '#themes') {
       requestAnimationFrame(() => {
         const el = $('#themes');

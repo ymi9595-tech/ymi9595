@@ -1,4 +1,4 @@
-# 방방곡곡 대한민국 · Korea, Corner by Corner
+# 당장 가볼까? · Go Now? Korea Day-Trip Courses
 
 열 곳의 도시를, 도착 터미널에서 시작하는 **당일치기 하루 코스**로 소개하는 무료 여행 노트입니다.
 Ten Korean destinations, each with one practical one-day course that starts at the terminal you arrive at.

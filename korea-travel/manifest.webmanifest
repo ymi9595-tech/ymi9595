@@ -1,6 +1,6 @@
 {
-  "name": "방방곡곡 대한민국 · Korea, Corner by Corner",
-  "short_name": "방방곡곡",
+  "name": "당장 가볼까? · 한국 여행 코스",
+  "short_name": "당장 가볼까?",
   "description": "터미널에 내려서부터 하루 — 열 곳의 도시와 스물두 가지 테마를 당일치기 코스로. 도착역에서 시작해 저녁 야경까지, 실제 촬영 사진과 그 동네 음식으로.",
   "id": "/ymi9595/korea-travel/",
   "start_url": "./",
@@ -11,7 +11,10 @@
   "theme_color": "#FFF7F0",
   "lang": "ko",
   "dir": "ltr",
-  "categories": ["travel", "lifestyle"],
+  "categories": [
+    "travel",
+    "lifestyle"
+  ],
   "icons": [
     {
       "src": "icons/icon-192.png",

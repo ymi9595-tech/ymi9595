@@ -1,5 +1,5 @@
 /* ==========================================================================
-   방방곡곡 대한민국 · Korea, Corner by Corner
+   당장 가볼까? · Go Now? Korea Day-Trip Courses
    data.js — 10 cities, one 1-day course each, bilingual (ko / en)
    --------------------------------------------------------------------------
    Adding a new city: copy one block into CITIES.
@@ -21,11 +21,12 @@ const REGIONS = [
 
 const UI = {
   ko: {
-    brand: '방방곡곡 대한민국',
-    brandSub: '단비랩 여행 노트 · 무료',
+    brand: '당장 가볼까?',
+    brandSub: '바로 출발, 한국 하루 코스',
     kicker: '우리나라 한 바퀴',
-    h1a: '방방곡곡,',
-    h1b: '한 바퀴',
+    heroSub: '바로 출발, 한국 하루 코스',
+    h1a: '당장',
+    h1b: '가볼까?',
     lede: '터미널에 내려서부터 하루. 도착역에서 시작해 저녁 야경까지 이어지는 당일치기 코스로 우리나라 열 곳을, 그리고 산·바다·시장·축제·동물농장·반려견·일출·사계절까지 스물두 가지 테마로 소개합니다. 사진은 모두 실제 촬영한 풍경이고, 안쪽은 그 동네에서 먹는 음식까지 담았어요.',
     dice: '오늘 어디 갈까?',
     share: '공유',
@@ -67,14 +68,26 @@ const UI = {
     by: '단비랩',
     footer: '단비랩이 만든 무료 여행 노트 · 광고 없음 · 개인정보 수집 없음',
     stripB: '도착하는 곳에서 시작합니다.',
-    strip: '서울역, 부산역, 제주공항, 경주고속버스터미널처럼 내리는 자리에서 코스가 열리고, 저녁에는 다시 그 터미널로 돌아옵니다.'
+    strip: '서울역, 부산역, 제주공항, 경주고속버스터미널처럼 내리는 자리에서 코스가 열리고, 저녁에는 다시 그 터미널로 돌아옵니다.',
+    booksTitle: '📚 단비랩 여행 · 한국 책',
+    booksSub: '이 사이트에 담은 길과 동네를 더 깊이 다룬 단비랩 전자책입니다. 맛보기를 먼저 읽고, 필요하면 서점으로 이어집니다.',
+    booksShelf: '전체 서가 보기',
+    booksSideHint: '여행·한국 체험 전자책',
+    booksCount: (n) => `${n}권`,
+    bookBuy: '스마트스토어에서 보기',
+    bookPages: (p) => `${p}쪽`,
+    bookWas: (p) => `정가 ${p}`,
+    bookInDetail: '이 코스와 함께 보면 좋은 책',
+    bookExcerpt: '맛보기',
+    bookAlso: '책 더 보기'
   },
   en: {
-    brand: 'Korea, Corner by Corner',
-    brandSub: 'Danbi Lab travel notes · free',
+    brand: 'Go Now?',
+    brandSub: 'Ready-to-Go Korea Day Trips',
     kicker: 'One country, ten corners',
-    h1a: 'Korea,',
-    h1b: 'corner by corner',
+    heroSub: 'Ready-to-Go Korea Day Trips',
+    h1a: 'Go',
+    h1b: 'now?',
     lede: 'Step off the bus and the day starts right there. Ten one-day routes from the station you arrive at to the evening lights, plus twenty-two themes from mountains and markets to animal farms, dogs, sunrise and all four seasons — with real photographs and the food each town is known for.',
     dice: 'Surprise me',
     share: 'Share',
@@ -116,7 +129,18 @@ const UI = {
     by: 'Danbi Lab',
     footer: 'A free travel notebook by Danbi Lab · no ads · no data collected',
     stripB: 'Every route starts where you arrive.',
-    strip: 'At Seoul Station, Busan Station, Jeju Airport or the Gyeongju express terminal — the course opens at the door you walk out of, and comes back there in the evening.'
+    strip: 'At Seoul Station, Busan Station, Jeju Airport or the Gyeongju express terminal — the course opens at the door you walk out of, and comes back there in the evening.',
+    booksTitle: '📚 DanbiLab Books',
+    booksSub: 'DanbiLab e-books that go deeper into the routes and towns on this site — read a short excerpt first, then the shop.',
+    booksShelf: 'See all books',
+    booksSideHint: 'Travel & Korea experience e-books',
+    booksCount: (n) => `${n} books`,
+    bookBuy: 'Open on Payhip',
+    bookPages: (p) => `${p} pp.`,
+    bookWas: (p) => `list ${p}`,
+    bookInDetail: 'A DanbiLab book for this course',
+    bookExcerpt: 'Excerpt',
+    bookAlso: 'More books'
   }
 };
 
