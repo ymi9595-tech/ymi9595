@@ -556,11 +556,11 @@ const CITIES = [
           desc: { ko: '방파제를 걸어 들어가는 작은 섬. 동백나무 길을 따라 한 바퀴 40분이면 충분합니다.', en: 'A small island you walk to along the breakwater. Forty minutes around the camellia path.' },
           photo: 'yeosu-p2' },
         { phase: 'afternoon', time: '14:40', name: { ko: '여수해상케이블카', en: 'Yeosu Maritime Cable Car' }, q: '여수해상케이블카', move: { ko: '도보 약 15분', en: 'Walk, about 15 min' },
-          desc: { ko: '바다 위를 가로지르는 케이블카. 돌산 쪽 자산공원까지 왕복하면 항구 전체가 눈에 들어옵니다.', en: 'A cable car over open water. The round trip to Jasan Park shows you the whole harbour.' },
+          desc: { ko: '바다 위를 가로지르는 케이블카. 돌산 쪽 자산공원까지 왕복하면 항구 전체가 눈에 들어옵니다.', en: 'A cable car over open water. The round trip to Jasan Park shows you the whole harbour.' } },
         { phase: 'evening', time: '16:20', name: { ko: '이순신광장', en: 'Yi Sun-sin Square' }, q: '이순신광장', move: { ko: '도보 약 15분', en: 'Walk, about 15 min' },
           desc: { ko: '항구를 마주한 넓은 광장. 노을 시간에 맞추면 배와 하늘이 같이 붉어집니다.', en: 'A wide square facing the harbour. At sunset the boats and the sky go red together.' } },
         { phase: 'evening', time: '17:30', name: { ko: '낭만포차거리', en: 'Nangman Pocha Street' }, q: '여수낭만포차거리', move: { ko: '도보 약 10분', en: 'Walk, about 10 min' },
-          desc: { ko: '저녁은 바다 앞 포차에서. 20시에 돌산대교 조명이 들어오면 이 코스가 완성됩니다.', en: 'Dinner at a pocha facing the water. At eight the bridge lights come on and the day is complete.' },
+          desc: { ko: '저녁은 바다 앞 포차에서. 20시에 돌산대교 조명이 들어오면 이 코스가 완성됩니다.', en: 'Dinner at a pocha facing the water. At eight the bridge lights come on and the day is complete.' } },
         { phase: 'return', time: '19:30', name: { ko: '여수엑스포역', en: 'Yeosu Expo Station' }, q: '여수엑스포역', move: { ko: '도보 약 15분', en: 'Walk, about 15 min' },
           desc: { ko: '바닷길을 따라 역으로. 마지막 KTX 좌석은 미리 예매하세요.', en: 'Follow the water back to the station. Book the last KTX seat ahead.' } }
       ]
