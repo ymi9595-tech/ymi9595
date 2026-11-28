@@ -49,6 +49,7 @@
       here: '지금 보는 곳',
       langNote: 'Korean',
       legalLine: '무료 · 무가입 · 익명 방문 집계만 사용 · 독립 정보 사이트 · 제휴 없음',
+      updated: '최근 업데이트 2026.11.28',
       legalBtn: '이용 안내 · Legal & Privacy'
     },
     en: {
@@ -58,6 +59,7 @@
       here: 'You are here',
       langNote: 'English',
       legalLine: 'Free · no sign-up · anonymous visit counts only · an independent guide · no affiliation',
+      updated: 'Updated Nov 28, 2026',
       legalBtn: 'Legal & Privacy · 이용 안내'
     }
   };
@@ -167,6 +169,7 @@ border-radius:14px;padding:10px 12px;text-decoration:none;color:#3B3540;transiti
 .dlg-foot{margin:10px 0 0;font-size:11px;color:#8B8391;line-height:1.6}
 .dlg-legal{margin:10px 0 0;padding-top:10px;border-top:1px dashed #E7D6C8;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 .dlg-legal p{margin:0;flex:1 1 240px;min-width:0;font-size:11px;line-height:1.65;color:#8B8391}
+.dlg-upd{white-space:nowrap;font-weight:700;color:#6F6676;margin-left:2px}
 .dlg-legal-btn{flex:none;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:-.01em;color:#B4512C;background:#fff;
 border:1px solid #EBCDB6;border-radius:999px;padding:7px 13px;cursor:pointer;line-height:1.2;
 transition:background .14s,border-color .14s,transform .14s}
@@ -424,7 +427,8 @@ body.dlg-lock{overflow:hidden}
       + '<p class="dlg-lead">' + esc(t.lead) + '</p></div>'
       + '<ul class="dlg-links">' + links + '</ul>'
       + '<p class="dlg-foot">' + esc(t.philosophy) + '</p>'
-      + '<div class="dlg-legal"><p>' + esc(t.legalLine) + '</p>'
+      + '<div class="dlg-legal"><p>' + esc(t.legalLine)
+      + ' · <span class="dlg-upd">' + esc(t.updated) + '</span></p>'
       + '<button type="button" class="dlg-legal-btn" data-dlg-legal aria-haspopup="dialog" aria-controls="dlg-legal-modal">'
       + esc(t.legalBtn) + '</button></div>'
       + '</div>';
