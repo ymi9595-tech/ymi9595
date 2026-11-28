@@ -34,6 +34,10 @@
     overseas: 'ebook', host50: 'english'
   };
   function bookById(id) { return BOOKS[id] || null; }
+  function priceOf(b) {
+    if (state.lang !== 'en') return b.price;
+    return '₩' + String(b.price).replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
   function promptTotal(it) { return it.prompts.length + ((it.preview && it.preview.quotes) || []).length; }
 
   /* ───────── 사이드바 ───────── */
@@ -142,7 +146,7 @@
     return '<div class="shelf-card" style="--c1:' + b.c + '">' +
       '<span class="shelf-em" aria-hidden="true">' + b.emoji + '</span>' +
       '<b>' + esc(b.title[state.lang]) + '</b>' +
-      '<span class="shelf-meta">' + esc(T().shelfPages(b.pages)) + ' · ' + esc(b.price) + '</span>' +
+      '<span class="shelf-meta">' + esc(T().shelfPages(b.pages)) + ' · ' + esc(priceOf(b)) + '</span>' +
       '<span class="shelf-desc">' + esc(b.desc[state.lang]) + '</span>' +
       '<span class="shelf-links">' +
         (theme ? '<a class="mini" href="#' + theme + '">' + esc(T().shelfExcerpt) + '</a>' : '') +
@@ -192,7 +196,7 @@
         return '<div class="book-row">' +
           '<span class="br-em" aria-hidden="true">' + b.emoji + '</span>' +
           '<span class="br-tx"><b>' + esc(b.title[state.lang]) + '</b>' +
-          '<small>' + esc(t.shelfPages(b.pages)) + ' · ' + esc(b.price) + ' · ' + esc(t.bookNote) + '</small>' +
+          '<small>' + esc(t.shelfPages(b.pages)) + ' · ' + esc(priceOf(b)) + ' · ' + esc(t.bookNote) + '</small>' +
           '<span class="br-desc">' + esc(b.desc[state.lang]) + '</span></span>' +
           '<a class="btn-store" href="' + pUrl(b.id) + '" target="_blank" rel="noopener">' + esc(t.bookStore) + ' ↗</a>' +
           '</div>';
