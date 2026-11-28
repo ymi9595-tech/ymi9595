@@ -24,13 +24,15 @@
   var byId = {};
   ITEMS.forEach(function (it) { byId[it.id] = it; });
 
-  /* 책 → 가장 먼저 소개하는 항목 */
-  var bookTheme = {};
-  ITEMS.forEach(function (it) {
-    (it.preview && it.preview.books || []).forEach(function (bid) {
-      if (!bookTheme[bid]) bookTheme[bid] = it.id;
-    });
-  });
+  /* 책 → 서가에서 눌렀을 때 열 항목 */
+  var bookTheme = {
+    ai1: 'chatgpt', ai2: 'claude', agent10: 'gemini',
+    realtor: 'realtor', realtor200: 'realtor',
+    farmai: 'farm', farm200: 'farm', farm365: 'farm',
+    adobe: 'image-ai', stock: 'image-ai',
+    localmkt: 'blog-sns', unmanned: 'small-shop',
+    overseas: 'ebook', host50: 'english'
+  };
   function bookById(id) { return BOOKS[id] || null; }
   function promptTotal(it) { return it.prompts.length + ((it.preview && it.preview.quotes) || []).length; }
 
