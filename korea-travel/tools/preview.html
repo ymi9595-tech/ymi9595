@@ -22,6 +22,7 @@
   var lang = q.get('lang') || '';
   var scroll = parseInt(q.get('scroll') || '0', 10);
   if (lang) { try { localStorage.setItem('kbc-lang', lang); } catch (e) {} }
+  var toggle = q.get('toggle') || '';
   f.width = w; f.height = h;
   var wrap = document.getElementById('wrap');
   wrap.style.width = w + 'px'; wrap.style.height = h + 'px';
@@ -34,6 +35,10 @@
         var s = d.createElement('style');
         s.textContent = 'html{scrollbar-width:none}::-webkit-scrollbar{width:0;height:0;display:none}';
         d.head.appendChild(s);
+        if (toggle) {
+          var btn = d.querySelector('#city [data-lang="' + toggle + '"]') || d.querySelector('.lang [data-lang="' + toggle + '"]');
+          if (btn) btn.click();
+        }
         if (scroll) {
           var el = d.querySelector('#city');
           if (hash && el && !el.hidden) el.scrollTop = scroll; else d.documentElement.scrollTop = scroll;
