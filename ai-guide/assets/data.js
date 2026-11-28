@@ -84,7 +84,74 @@ const UI = {
     footHome: '단비랩 놀이터',
     notFound: '찾으시는 항목이 없습니다. 목록에서 다시 골라 주세요.',
     menu: '메뉴',
-    langLabel: 'Language / 언어'
+    langLabel: 'Language / 언어',
+
+    /* ── 검색 ── */
+    searchLabel: '통합 검색',
+    searchPlaceholder: '무엇을 찾으세요? 예: 쇼츠, 이미지, 무료 AI',
+    searchLead: '도구 이름, 하는 일, 용어, 책 제목까지 한 번에 찾습니다.',
+    searchSide: '메뉴 안에서 찾기',
+    searchSidePlaceholder: '메뉴에서 찾기',
+    searchNothing: '일치하는 항목이 없습니다. “이미지”, “프롬프트”처럼 짧게 써 보세요.',
+    searchFound: (n) => `${n}개 찾았습니다`,
+    searchGroupItem: '도구 · 레시피',
+    searchGroupTerm: '용어',
+    searchGroupBook: '책',
+    searchEnter: 'Enter를 누르면 첫 결과로 갑니다',
+    searchClear: '지우기',
+
+    /* ── 즐겨찾기 · 최근 본 ── */
+    favAdd: '즐겨찾기에 담기',
+    favOn: '즐겨찾기에서 빼기',
+    favSaved: '즐겨찾기에 담았습니다',
+    favRemoved: '즐겨찾기에서 뺐습니다',
+    favTitle: '⭐ 즐겨찾기',
+    favLead: '카드나 페이지의 ⭐를 누르면 여기에 모입니다. 이 브라우저에만 저장되고, 회원가입은 필요 없습니다.',
+    favEmpty: '아직 즐겨찾기가 없습니다. 아래 카드의 ⭐를 눌러 보세요.',
+    favCount: (n) => `${n}개`,
+    favClear: '즐겨찾기 비우기',
+    recentTitle: '🕘 최근 본 가이드',
+    recentLead: '이 브라우저에서 최근에 연 항목입니다. 눌러서 이어 보세요.',
+    recentClear: '기록 지우기',
+
+    /* ── 비교표 · 용어사전 ── */
+    navAtGlance: '한눈에 보기',
+    navAtGlanceCount: '3개',
+    compare: 'AI 도구 비교표',
+    glossary: '쉬운 AI 용어사전',
+    myFavs: '내 즐겨찾기',
+    cmpSub: '무료 플랜·한국어·강점을 한 표로',
+    glsSub: '어려운 말 18개를 한 문장으로',
+    favSub: '이 브라우저에 저장',
+    compareTitle: '🤖 AI 도구 한눈에 비교표',
+    compareLead: '무료로 어디까지 쓸 수 있는지, 한국어로 쓸 만한지, 무엇이 강한지를 한 표에 모았습니다. 2026년 11월 기준이고, 기능과 요금제는 각 서비스 정책에 따라 바뀝니다.',
+    compareTool: '도구',
+    compareFree: '무료 플랜',
+    compareKorean: '한국어',
+    compareImage: '이미지',
+    compareVideo: '영상',
+    compareDoc: '문서',
+    compareCode: '코딩',
+    compareSite: '공식 사이트',
+    compareOpen: '열기 ↗',
+    compareLegend: '강함 · 보통 · 약함은 단비랩이 실제로 써 본 기준의 대략적인 표시입니다. 가입 전에는 공식 요금 페이지에서 무료 범위를 꼭 확인하세요.',
+    compareJump: '이 도구 가이드 보기',
+    compareMobile: '표는 옆으로 밀면 됩니다.',
+    glossaryTitle: '📖 쉬운 AI 용어사전',
+    glossaryLead: '처음 들으면 어려운 말 18개를, 한 문장으로 풀었습니다. 외울 필요는 없고, 나올 때 찾아보면 됩니다.',
+    glossaryCount: (n) => `${n}개 용어`,
+    glossaryJump: '이 용어가 나오는 가이드',
+
+    /* ── 공식 출처 · 오류 제보 ── */
+    officialTitle: '공식 사이트와 기준일',
+    officialNote: '기준일 2026년 11월 · 요금제와 기능은 각 서비스 정책에 따라 바뀝니다. 가입·결제는 공식 사이트에서 하세요.',
+    officialForTools: '이 레시피에 쓰는 도구',
+    reportTitle: '틀린 곳을 발견하셨나요?',
+    reportLead: '로그인 없이 메일로 알려 주세요. 확인해서 고치겠습니다. 어느 페이지였는지가 함께 적혀서 전송됩니다.',
+    reportBtn: '오류 제보하기',
+    reportSubject: (page) => `[단비랩 AI 가이드] 오류 제보 — ${page}`,
+    reportBody: (url) => `안녕하세요. 아래 내용이 잘못된 것 같아 알려 드립니다.\n\n· 페이지: ${url}\n· 잘못된 부분: \n· 이렇게 고쳐 주세요: \n\n(보내 주시면 확인 후 반영하겠습니다. 감사합니다.)`,
+    reportMail: '메일 앱이 없다면 ymi9595@gmail.com 으로 보내 주세요.'
   },
   en: {
     htmlLang: 'en',
@@ -162,9 +229,231 @@ const UI = {
     footHome: 'DanbiLab playground',
     notFound: 'That page is not here. Pick one from the list.',
     menu: 'Menu',
-    langLabel: 'Language / 언어'
+    langLabel: 'Language / 언어',
+
+    /* ── search ── */
+    searchLabel: 'Search',
+    searchPlaceholder: 'Search anything — shorts, images, free AI',
+    searchLead: 'Tool names, jobs, terms and book titles, all in one place.',
+    searchSide: 'Find in the menu',
+    searchSidePlaceholder: 'Filter the menu',
+    searchNothing: 'Nothing matched. Try a shorter word like “image” or “prompt”.',
+    searchFound: (n) => `${n} found`,
+    searchGroupItem: 'Tools & recipes',
+    searchGroupTerm: 'Terms',
+    searchGroupBook: 'Books',
+    searchEnter: 'Press Enter to open the first result',
+    searchClear: 'Clear',
+
+    /* ── favourites & recent ── */
+    favAdd: 'Save to favourites',
+    favOn: 'Remove from favourites',
+    favSaved: 'Saved to favourites',
+    favRemoved: 'Removed from favourites',
+    favTitle: '⭐ Your favourites',
+    favLead: 'Press the ⭐ on a card or page and it waits here. Stored in this browser only — no account needed.',
+    favEmpty: 'No favourites yet. Try the ⭐ on a card below.',
+    favCount: (n) => `${n}`,
+    favClear: 'Clear favourites',
+    recentTitle: '🕘 Recently opened',
+    recentLead: 'Pages you opened in this browser. Pick one up where you left it.',
+    recentClear: 'Clear history',
+
+    /* ── comparison & glossary ── */
+    navAtGlance: 'At a glance',
+    navAtGlanceCount: '3',
+    compare: 'Tool comparison',
+    glossary: 'AI terms, plainly',
+    myFavs: 'Your favourites',
+    cmpSub: 'Free plan, Korean, strengths — one table',
+    glsSub: 'Eighteen hard words, one sentence each',
+    favSub: 'Saved in this browser',
+    compareTitle: '🤖 AI tools, side by side',
+    compareLead: 'How far the free plan goes, whether Korean works well, and what each one is best at — one table, as of November 2026. Features and pricing change with each service.',
+    compareTool: 'Tool',
+    compareFree: 'Free plan',
+    compareKorean: 'Korean',
+    compareImage: 'Images',
+    compareVideo: 'Video',
+    compareDoc: 'Documents',
+    compareCode: 'Coding',
+    compareSite: 'Official site',
+    compareOpen: 'Open ↗',
+    compareLegend: 'Strong / fair / weak is our rough reading from actually using them. Before signing up, check the free limits on the official pricing page.',
+    compareJump: 'Open this guide',
+    compareMobile: 'Swipe the table sideways.',
+    glossaryTitle: '📖 AI terms, plainly',
+    glossaryLead: 'Eighteen words that sound hard, each in one sentence. Nothing to memorise — look them up when they come up.',
+    glossaryCount: (n) => `${n} terms`,
+    glossaryJump: 'Guides that use it',
+
+    /* ── sources & corrections ── */
+    officialTitle: 'Official site and date',
+    officialNote: 'As of November 2026. Plans and features change; sign up and pay on the official site only.',
+    officialForTools: 'Tools used in this recipe',
+    reportTitle: 'Found something wrong?',
+    reportLead: 'Tell us by email — no sign-in. We will check and fix it. The page you were reading is filled in for you.',
+    reportBtn: 'Report a mistake',
+    reportSubject: (page) => `[DanbiLab AI Guide] Correction — ${page}`,
+    reportBody: (url) => `Hello, something on this page looks wrong.\n\n· Page: ${url}\n· What is wrong: \n· What it should say: \n\nThank you — we will check and correct it.`,
+    reportMail: 'No mail app? Write to ymi9595@gmail.com.'
   }
 };
+
+/* ───────────── AI 도구 비교표 (2026-11 기준) ─────────────
+   free · ko · img · vid · doc · code 는 {ko, en} 두 벌.
+   사이트 주소는 공식 사이트만 적습니다. */
+const TOOLFACTS = {
+  chatgpt: {
+    free: { ko: '있음 · 하루 제한', en: 'Yes · daily limit' },
+    ko: { ko: '좋음', en: 'Good' },
+    img: { ko: '가능', en: 'Yes' }, vid: { ko: '—', en: '—' },
+    doc: { ko: '강함', en: 'Strong' }, code: { ko: '강함', en: 'Strong' },
+    sites: [{ name: 'chatgpt.com', url: 'https://chatgpt.com' }],
+    note: { ko: '이미지 생성, 파일 읽기, 표 정리까지 한 화면에서 됩니다.', en: 'Images, files and tidy tables all in one window.' }
+  },
+  claude: {
+    free: { ko: '있음 · 하루 제한', en: 'Yes · daily limit' },
+    ko: { ko: '좋음', en: 'Good' },
+    img: { ko: '없음', en: 'No' }, vid: { ko: '—', en: '—' },
+    doc: { ko: '강함', en: 'Strong' }, code: { ko: '강함', en: 'Strong' },
+    sites: [{ name: 'claude.ai', url: 'https://claude.ai' }],
+    note: { ko: '긴 글을 끝까지 읽고 고치는 일, 코드 정리에 강합니다. 그림은 만들지 못합니다.', en: 'Best at long documents and code; it does not draw.' }
+  },
+  gemini: {
+    free: { ko: '있음 · 하루 제한', en: 'Yes · daily limit' },
+    ko: { ko: '좋음', en: 'Good' },
+    img: { ko: '가능', en: 'Yes' }, vid: { ko: '일부', en: 'Some' },
+    doc: { ko: '강함', en: 'Strong' }, code: { ko: '좋음', en: 'Good' },
+    sites: [{ name: 'gemini.google.com', url: 'https://gemini.google.com' }],
+    note: { ko: '지메일·드라이브·캘린더 안에서 바로 부를 수 있는 게 가장 큰 차이입니다.', en: 'It lives inside Gmail, Drive and Calendar — that is the real difference.' }
+  },
+  perplexity: {
+    free: { ko: '있음 · 검색 제한', en: 'Yes · limited' },
+    ko: { ko: '좋음', en: 'Good' },
+    img: { ko: '—', en: '—' }, vid: { ko: '—', en: '—' },
+    doc: { ko: '보통', en: 'Fair' }, code: { ko: '약함', en: 'Weak' },
+    sites: [{ name: 'perplexity.ai', url: 'https://www.perplexity.ai' }],
+    note: { ko: '답마다 출처 링크가 붙습니다. 지원사업·정책처럼 근거가 필요한 조사에 씁니다.', en: 'Every answer carries sources — for research that needs evidence.' }
+  },
+  'image-ai': {
+    free: { ko: '일부', en: 'Some' },
+    ko: { ko: '보통', en: 'Fair' },
+    img: { ko: '강함', en: 'Strong' }, vid: { ko: '—', en: '—' },
+    doc: { ko: '—', en: '—' }, code: { ko: '—', en: '—' },
+    sites: [
+      { name: 'Midjourney (유료)', url: 'https://www.midjourney.com' },
+      { name: 'Adobe Firefly', url: 'https://www.adobe.com/products/firefly.html' }
+    ],
+    note: { ko: '무료로 쓰려면 Firefly 무료 크레딧이나 ChatGPT 이미지부터. 상업적 이용 조건은 꼭 확인하세요.', en: 'Start with Firefly credits or ChatGPT images; check commercial terms.' }
+  },
+  'video-ai': {
+    free: { ko: '일부', en: 'Some' },
+    ko: { ko: '보통', en: 'Fair' },
+    img: { ko: '첫 프레임', en: 'First frame' }, vid: { ko: '강함', en: 'Strong' },
+    doc: { ko: '—', en: '—' }, code: { ko: '—', en: '—' },
+    sites: [
+      { name: 'Kling', url: 'https://app.klingai.com' },
+      { name: 'Runway', url: 'https://runwayml.com' }
+    ],
+    note: { ko: '긴 영상보다 5~10초 컷을 여러 개 만들어 잇는 방식이 현실적입니다.', en: 'Several short clips joined together beat one long scene.' }
+  },
+  'music-ai': {
+    free: { ko: '있음 · 제한', en: 'Yes · limited' },
+    ko: { ko: '보통', en: 'Fair' },
+    img: { ko: '—', en: '—' }, vid: { ko: '—', en: '—' },
+    doc: { ko: '—', en: '—' }, code: { ko: '—', en: '—' },
+    sites: [{ name: 'Suno', url: 'https://suno.com' }],
+    note: { ko: '매장 BGM은 가사 없는 곡으로. 무료 플랜은 상업적 사용이 막혀 있는 경우가 많습니다.', en: 'Shop music: instrumental only. Free plans often block commercial use.' }
+  },
+  automation: {
+    free: { ko: '있음', en: 'Yes' },
+    ko: { ko: '좋음', en: 'Good' },
+    img: { ko: '—', en: '—' }, vid: { ko: '—', en: '—' },
+    doc: { ko: '강함', en: 'Strong' }, code: { ko: '강함', en: 'Strong' },
+    sites: [
+      { name: 'Apps Script', url: 'https://script.google.com' },
+      { name: 'Notion', url: 'https://www.notion.com' }
+    ],
+    note: { ko: '무료로 시작할 수 있고, 한 번 만들어 두면 계속 돌아갑니다.', en: 'Free to start, and it keeps running once built.' }
+  }
+};
+
+/* ───────────── 쉬운 AI 용어사전 ───────────── */
+const GLOSSARY = [
+  {
+    id: 'prompt', term: { ko: '프롬프트', en: 'Prompt' },
+    d: { ko: 'AI에게 시키는 말 한 덩어리입니다. “공지문 써 줘”보다 “동네 카페 사장이 화요일 휴무를 알리는 200자 공지문을 써 줘”가 훨씬 나은 답을 부릅니다.', en: 'The words you give the AI. A specific request — who you are, what for, how long — gets a far better answer than a vague one.' }
+  },
+  {
+    id: 'system-prompt', term: { ko: '시스템 프롬프트', en: 'System prompt' },
+    d: { ko: '대화가 시작되기 전에 미리 깔아 두는 규칙입니다. “너는 존댓말만 쓴다”, “표로만 답한다”처럼 성격과 형식을 정해 둡니다.', en: 'Rules set before the conversation starts — tone, format, what it must never do.' }
+  },
+  {
+    id: 'token', term: { ko: '토큰', en: 'Token' },
+    d: { ko: 'AI가 글을 세는 단위입니다. 한국어는 한 글자가 한두 토큰쯤이라, 긴 문서를 넣을수록 사용량이 빨리 늘어납니다.', en: 'The unit AI counts text in. Korean uses one or two tokens per character, so long documents use up limits quickly.' }
+  },
+  {
+    id: 'context', term: { ko: '컨텍스트 창', en: 'Context window' },
+    d: { ko: '한 번의 대화에서 AI가 기억할 수 있는 분량입니다. 넘치면 앞부분이 잘려 나가서, 긴 작업은 파일로 나눠 주는 편이 좋습니다.', en: 'How much of the conversation the AI can hold at once. Past the limit the start is dropped — split long work into files.' }
+  },
+  {
+    id: 'model', term: { ko: '모델', en: 'Model' },
+    d: { ko: '학습을 마친 AI 두뇌의 이름입니다. 같은 서비스라도 빠른 모델과 깊게 생각하는 모델이 따로 있습니다.', en: 'The trained brain behind a service. One service often offers a fast model and a slower, deeper one.' }
+  },
+  {
+    id: 'hallucination', term: { ko: '환각 (할루시네이션)', en: 'Hallucination' },
+    d: { ko: 'AI가 모르는 것을 그럴듯하게 지어내는 일입니다. 자신 있게 틀린 숫자·법조문·링크를 내놓기 때문에 원문 확인이 꼭 필요합니다.', en: 'When AI invents a confident, plausible wrong answer — numbers, laws, links. Always check the source.' }
+  },
+  {
+    id: 'training', term: { ko: '학습 · 훈련', en: 'Training' },
+    d: { ko: 'AI가 많은 글을 읽으며 다음 말을 맞히는 법을 배우는 과정입니다. 학습이 끝난 뒤에는 대화로 성격이 바뀌지 않습니다.', en: 'The process of learning to predict text from huge amounts of writing. After it ends, a chat does not retrain it.' }
+  },
+  {
+    id: 'finetuning', term: { ko: '파인튜닝', en: 'Fine-tuning' },
+    d: { ko: '이미 만들어진 모델에 우리 회사 말투·양식을 짧게 더 가르치는 일입니다. 처음부터 학습하는 것보다 훨씬 싸고 빠릅니다.', en: 'Teaching an existing model your own tone or forms — far cheaper than training from scratch.' }
+  },
+  {
+    id: 'rag', term: { ko: 'RAG (검색 증강 생성)', en: 'RAG (retrieval-augmented generation)' },
+    d: { ko: 'AI가 답하기 전에 내 문서·공고를 먼저 찾아 읽고 그 내용으로 답하는 방식입니다. 출처가 붙어서 틀릴 위험이 줄어듭니다.', en: 'The AI looks through your own documents first, then answers from them — fewer confident mistakes, with sources.' }
+  },
+  {
+    id: 'embedding', term: { ko: '임베딩', en: 'Embedding' },
+    d: { ko: '글을 숫자 목록으로 바꿔 뜻이 비슷한 것을 찾게 해 주는 기술입니다. “환불”로 검색해도 “반품·교환” 문서가 함께 나오는 이유입니다.', en: 'Turning text into numbers so similar meanings find each other — why “refund” also surfaces “returns”.' }
+  },
+  {
+    id: 'agent', term: { ko: '에이전트', en: 'Agent' },
+    d: { ko: '말만 하는 AI가 아니라 스스로 여러 단계를 밟는 AI입니다. 검색하고, 눌러 보고, 파일을 만들고, 결과를 정리합니다. 돈이 나가거나 제출되는 순간에는 확인을 걸어 두세요.', en: 'An AI that takes steps itself — searches, clicks, writes files. Always put a confirmation before anything that pays or submits.' }
+  },
+  {
+    id: 'multimodal', term: { ko: '멀티모달', en: 'Multimodal' },
+    d: { ko: '글·사진·소리·영상을 한꺼번에 다루는 능력입니다. 사진을 보여 주고 “이 간판 글씨를 표로 정리해 줘”라고 할 수 있습니다.', en: 'Handling text, images, sound and video together — show a photo and ask for a table of what it says.' }
+  },
+  {
+    id: 'temperature', term: { ko: '온도 (temperature)', en: 'Temperature' },
+    d: { ko: '답을 얼마나 다양하게 만들지 정하는 값입니다. 낮으면 같은 답을 반복하고, 높으면 새롭지만 엉뚱해집니다. 일반 대화에서는 만질 일이 거의 없습니다.', en: 'How varied the answers are. Low repeats itself, high gets creative and sometimes wrong. Most people never touch it.' }
+  },
+  {
+    id: 'api', term: { ko: 'API', en: 'API' },
+    d: { ko: '다른 프로그램이 AI를 불러 쓰는 창구입니다. 화면 대신 코드로 시키는 것이라, 자동화를 만들 때 씁니다.', en: 'The door other software uses to call the AI — automation talks through it instead of a chat screen.' }
+  },
+  {
+    id: 'reasoning', term: { ko: '추론 (생각하는 모드)', en: 'Reasoning mode' },
+    d: { ko: '답을 바로 내지 않고 여러 단계를 따져 본 뒤 답하는 모드입니다. 계산·계획·코드처럼 틀리면 곤란한 일에 쓰고, 답이 느리고 사용량을 더 씁니다.', en: 'The model works through steps before answering — slower, uses more, and worth it for maths, plans and code.' }
+  },
+  {
+    id: 'open-model', term: { ko: '오픈소스 · 로컬 모델', en: 'Open / local models' },
+    d: { ko: '내 컴퓨터에 내려받아 인터넷 없이 돌리는 AI입니다. 글이 밖으로 나가지 않아 민감한 자료에 좋지만, 준비와 성능의 벽이 있습니다.', en: 'AI you download and run on your own machine, offline. Nothing leaves your computer, but setup and hardware are a hurdle.' }
+  },
+  {
+    id: 'injection', term: { ko: '프롬프트 인젝션', en: 'Prompt injection' },
+    d: { ko: '웹페이지나 파일 안에 “이전 지시를 무시하고…” 같은 문장을 숨겨 AI를 속이는 공격입니다. 낯선 자료를 통째로 읽힐 때는 결과를 의심하세요.', en: 'Hidden instructions inside a page or file that hijack the AI. Be suspicious when it reads unfamiliar material.' }
+  },
+  {
+    id: 'ai-label', term: { ko: 'AI 고지 (라벨링)', en: 'AI disclosure' },
+    d: { ko: 'AI로 만든 이미지·영상·글이라고 밝히는 표시입니다. 아마존 KDP·어도비 스톡 같은 곳은 등록할 때 이 표시를 요구합니다.', en: 'Saying plainly that an image, video or text was made with AI. KDP and Adobe Stock ask for it at upload.' }
+  }
+];
 
 /* ───────────── 단비랩 전자책 (스마트스토어 상품번호 기준) ───────────── */
 const BOOKS = {

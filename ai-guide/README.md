@@ -11,10 +11,11 @@
 | 파일 | 하는 일 |
 |---|---|
 | `index.html` | 표지·헤더·법적 안내·푸터. GA4와 메타(OG·JSON-LD)도 여기 |
-| `assets/data.js` | `UI`(화면 문구 KR/EN), `BOOKS`(책 14권), `ITEMS`(항목 14개) |
-| `assets/app.js` | 메뉴·카드·상세·서가 렌더, KR/EN 전환, 해시 주소, 복사·공유 |
+| `assets/data.js` | `UI`(화면 문구 KR/EN), `BOOKS`(책 14권), `ITEMS`(항목 14개), `TOOLFACTS`(비교표), `GLOSSARY`(용어 18개) |
+| `assets/app.js` | 메뉴·카드·상세·서가 렌더, KR/EN 전환, 해시 주소, 복사·공유, 통합 검색, 즐겨찾기·최근 본(localStorage), 비교표(`#compare`)·용어사전(`#glossary`)·즐겨찾기(`#favs`) |
 | `assets/style.css` | 파스텔 가이드북 스타일, 960px 이하 서랍 메뉴 |
 | `og-ai-guide.png` | 1200×630 공유 이미지 (PIL로 생성) |
+| `../danbi-guide-bar.js` | 세 사이트(ai-guide·korea-travel·playground) 공통 하단 연결 띠. `DanbiGuide.render('ko'|'en')` 로 언어를 맞춥니다 |
 
 ## 항목 추가
 
