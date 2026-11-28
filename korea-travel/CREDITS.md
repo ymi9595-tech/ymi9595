@@ -1,6 +1,7 @@
 # 사진 출처 · Photo credits
 
 위키미디어 공용(Wikimedia Commons)에서 가져온 사진입니다. 파일명과 라이선스를 그대로 적었습니다.
+`th-`로 시작하는 파일은 2026-11-28에 추가한 테마 대표 사진입니다.
 
 | 파일 | 원본 | 촬영자 | 라이선스 |
 |---|---|---|---|
@@ -49,6 +50,52 @@
 | `images/sokcho-p2.jpg` | Oeongchi Beach 20221210 003.jpg | Mobius6 | CC BY-SA 4.0 |
 | `images/sokcho-p3.jpg` | Sokcho Central Market 01.jpg | Bernard Gagnon | CC0 |
 | `images/sokcho-p4.jpg` | Yeonggeumjeong 20221209 003.jpg | Mobius6 | CC BY-SA 4.0 |
+| `images/th-animal.jpg` | File:Sheep ranch.jpg | Twchoi1 | CC BY-SA 3.0 |
+| `images/th-animal-p2.jpg` | File:Alpaca Walking Hour in Green World Ecological Farm.jpg | ECO nature guide | CC BY-SA 3.0 |
+| `images/th-beauty.jpg` | File:Teheran-ro Yeongdong-daero crossing 6.jpg | kallerna | CC BY-SA 4.0 |
+| `images/th-beauty-p2.jpg` | File:Seoul Night Skyline 2022.jpg | Takipoint123 | CC BY-SA 4.0 |
+| `images/th-camp.jpg` | File:In Glamping (Marineping) dome - 1.jpg | DONANENTHUSIAST | CC BY-SA 4.0 |
+| `images/th-camp-p2.jpg` | File:In Glamping (Marineping) dome - 2.jpg | DONANENTHUSIAST | CC BY-SA 4.0 |
+| `images/th-coast.jpg` | File:Korea-Tongyeong-Hallyeo Waterway Observation Cable Car-02.jpg | by Junho Jung at Flickr from South Korea | CC BY-SA 3.0 |
+| `images/th-coast-p2.jpg` | File:A bus stop on the coastal road of Yokjido Island.jpg | Pranay chakraborty 2004 | CC BY 4.0 |
+| `images/th-dog.jpg` | File:Korean Jindo dog.jpg | bein_korean | CC BY 2.0 |
+| `images/th-dog-p2.jpg` | File:Korea-Jeonju-Sapsal dog in front of a Hanok Village-01.jpg | Sungdo Cho from Seoul | CC BY 2.0 |
+| `images/th-drama.jpg` | File:Suncheon Open Film Set 02 (25138957781).jpg | Republic of  Korea from Seoul, Republic of Korea | CC BY-SA 2.0 |
+| `images/th-drama-p2.jpg` | File:Suncheon Bay National Garden- Part II - SuncheonBNG2945.jpg | lumoplank | CC0 |
+| `images/th-farm.jpg` | File:Bongpyeong buckwheat field (봉평 메밀밭) - panoramio.jpg | Cho's | CC BY-SA 3.0 |
+| `images/th-farm-p2.jpg` | File:Wanju county (autumn rice field ready for harvesting near Gui Lake)..JPG | Shamus7792003 | CC BY-SA 4.0 |
+| `images/th-festival.jpg` | File:Jinju Namgang Lantern Festival 20111002 1912.jpg | Asfreeas at Korean Wikipedia
+
+ This photo was taken with Nikon D80 | CC BY 3.0 |
+| `images/th-festival-p2.jpg` | File:Jinju namgang lantern festival lantern castle.jpg | User:Asfreeas | CC BY-SA 3.0 |
+| `images/th-hanok.jpg` | File:Bukchon-ro 11-gil street with hanok houses at blue hour in Bukchon Hanok Village Seoul.jpg | Basile Morin | CC BY-SA 4.0 |
+| `images/th-hanok-p2.jpg` | File:Exterior front view of Daejojeon Hall of Changdeokgung Palace with blue sky in Seoul.jpg | Basile Morin | CC BY-SA 4.0 |
+| `images/th-healing.jpg` | File:Naesosa Temple - panoramio.jpg | dokaspar | CC BY-SA 3.0 |
+| `images/th-healing-p2.jpg` | File:화순개천산 비자나무숲.jpg | Korea Heritage Service | KOGL Type 1 |
+| `images/th-hidden.jpg` | File:230902 Gwangmyeong Cave 01.jpg | *Youngjin | CC BY-SA 3.0 |
+| `images/th-hidden-p2.jpg` | File:20260801 청령포2.jpg | 쿠키몬스터 | CC BY-SA 4.0 |
+| `images/th-hotel.jpg` | File:Haeundae Grand Hotel.JPG | Abasaa | Public domain |
+| `images/th-hotel-p2.jpg` | File:Haeundae Beach 20200522 005.jpg | Mobius6 | CC BY-SA 4.0 |
+| `images/th-market.jpg` | File:Gwangjang Market, Seoul 01.jpg | Bgag | CC0 |
+| `images/th-market-p2.jpg` | File:Gwangjang Market, Seoul 02.jpg | Bgag | CC0 |
+| `images/th-mountain.jpg` | File:Landscape in Seoraksan National Park 1.jpg | Christophe95 | CC BY-SA 4.0 |
+| `images/th-mountain-p2.jpg` | File:Trail leading to peak of Dobongsan.JPG | Kellnerp | CC BY-SA 3.0 |
+| `images/th-museum.jpg` | File:Interior View of the National Museum of Korea.jpg | Ethan Doyle White | CC BY-SA 4.0 |
+| `images/th-museum-p2.jpg` | File:Gyeongju National Museum.jpg | Seaton1456 | CC BY-SA 3.0 |
+| `images/th-night.jpg` | File:Busan Gwangalli Night.jpg | Carey Ciuro | CC BY 2.0 |
+| `images/th-night-p2.jpg` | File:Seoul city skyline at night from Namsan Mountain (49174548523).jpg | Matt Kieffer from London, United Kingdom | CC BY-SA 2.0 |
+| `images/th-onsen.jpg` | File:People take a foot bath at an outdoor public hot spring in Yuseong-gu, Daejeon, Korea.jpg | Pmlydon | CC BY-SA 4.0 |
+| `images/th-onsen-p2.jpg` | File:2020-03-11 20.39.31 찜질방 불가마.jpg | Choikwangmo9 | CC0 |
+| `images/th-photo.jpg` | File:포천 아트밸리 beeniru 3.JPG | Beeniru | CC BY-SA 3.0 |
+| `images/th-photo-p2.jpg` | File:Korea-Pocheon-Herb Island-Sunflower an others-01.jpg | Jinho Jung from Seoul, South Korea | CC BY-SA 2.0 |
+| `images/th-play.jpg` | File:T Express Everland.jpg | Roller Coaster Philosophy, Jeremy Thompson | Public domain |
+| `images/th-play-p2.jpg` | File:Everland Theme Park in Seoul.jpg | Isabelle hy | Public domain |
+| `images/th-retro.jpg` | File:Japanese-style House in Sinheung-dong, Gunsan 04.jpg | Korea Heritage Service | KOGL Type 1 |
+| `images/th-retro-p2.jpg` | File:Japanese-style House in Sinheung-dong, Gunsan 12.jpg | Korea Heritage Service | KOGL Type 1 |
+| `images/th-seasons.jpg` | File:Cherry Blossom in Jinhae-2016-04-02-1.jpg | Alexey Komarov | CC BY-SA 4.0 |
+| `images/th-seasons-p2.jpg` | File:Naejangsan Pavilion 2.jpg | Tung Thanh Dang | CC BY-SA 3.0 |
+| `images/th-sunrise.jpg` | File:Full-orbed sunrise over East Sea in South Korea.JPG | Clementina | CC BY-SA 3.0 |
+| `images/th-sunrise-p2.jpg` | File:Jeongdongjin Station 1.jpg | 최광모 | CC0 |
 | `images/yeosu-cover.jpg` | Yeosu-si, South Korea (Unsplash).jpg | Ambir Tolang gorkhe1980
 
  This photo was taken with Canon EOS 70D | CC0 |

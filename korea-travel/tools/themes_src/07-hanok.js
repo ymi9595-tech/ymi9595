@@ -1,0 +1,130 @@
+/* ------------------------------------- 07 한옥 · 고궁 · 전통문화 */
+{
+  id: 'hanok', emoji: '🏯', tint: '#E2C9A0',
+  name: { ko: '한옥 · 고궁 · 전통문화', en: 'Hanok, palaces & tradition' },
+  sub: { ko: '지붕 아래로 하루를 걷는 코스', en: 'A day under tiled roofs' },
+  tag: { ko: '궁궐 · 고택 · 서원 · 한복', en: 'Palaces, old houses, academies, hanbok' },
+  intro: {
+    ko: '한국의 옛 건축은 세 가지로 나눠 보면 이해가 빠릅니다. 왕이 사는 궁궐, 양반이 사는 고택, 선비가 공부하던 서원. 여기에 사람이 사는 한옥마을과 전통 공예·음식 체험이 붙습니다. 서울의 궁궐은 서로 가까워 하루에 세 시대를 지나갈 수 있어요. 후원은 하루 인원이 정해져 있으니 예약이 이 코스의 유일한 숙제입니다.',
+    en: 'Korean traditional architecture divides neatly: palaces for kings, large houses for the yangban, academies for scholars — with living hanok villages and craft or food experiences attached. Seoul\u2019s palaces sit close enough to cross three centuries in a day; the secret garden\u2019s daily quota is the only thing you must book.'
+  },
+  seasons: [{ ko: '봄', en: 'Spring' }, { ko: '가을', en: 'Autumn' }, { ko: '겨울 설경', en: 'Snow' }],
+  transport: { ko: '도보 + 지하철', en: 'Walking + subway' },
+  duration: { ko: '약 10시간', en: 'About 10 hours' },
+  hub: {
+    ko: '서울역', en: 'Seoul Station', q: '서울역',
+    note: {
+      ko: 'KTX·공항철도·1·4호선. 3호선으로 갈아타면 경복궁까지 20분입니다. 짐은 역 보관함에 두세요.',
+      en: 'KTX, airport railroad, lines 1 and 4. Change to Line 3 and Gyeongbokgung is 20 minutes away; leave bags in the station.'
+    }
+  },
+  course: {
+    title: { ko: '경복궁에서 창덕궁 후원까지', en: 'Gyeongbokgung to the secret garden' },
+    meta: { ko: '7곳 · 약 10시간 · 도보 6km', en: '7 stops · about 10 hours · 6 km on foot' },
+    steps: [
+      { phase: 'start', time: '09:00', name: { ko: '서울역', en: 'Seoul Station' }, q: '서울역', move: { ko: '출발', en: 'Start' },
+        desc: { ko: '3호선으로 경복궁역까지. 5번 출구로 나오면 궁 담장이 바로 보입니다.', en: 'Line 3 to Gyeongbokgung station — exit 5 puts you at the palace wall.' } },
+      { phase: 'morning', time: '09:30', name: { ko: '경복궁', en: 'Gyeongbokgung Palace' }, q: '경복궁', move: { ko: '지하철 약 20분', en: 'Subway, about 20 min' },
+        desc: { ko: '근정전 마당과 경회루 연못. 10시 수문장 교대식을 보려면 조금 서둘러 들어가세요. 화요일 휴무.', en: 'The Geunjeongjeon courtyard and Gyeonghoeru pond — be inside for the 10 a.m. guard change. Closed Tuesdays.' },
+        photo: 'th-hanok' },
+      { phase: 'morning', time: '11:30', name: { ko: '북촌한옥마을', en: 'Bukchon hanok street' }, q: '북촌한옥마을', move: { ko: '도보 약 15분', en: 'Walk, about 15 min' },
+        desc: { ko: '기와지붕이 겹겹이 이어지는 언덕 골목. 실제 주민이 사는 곳이라 문 앞에서 조용히, 사진은 길에서만.', en: 'Tiled roofs stacked up a hill. People live here: quiet at the gates, photographs from the street.' } },
+      { phase: 'lunch', time: '12:40', name: { ko: '인사동', en: 'Insadong' }, q: '인사동', move: { ko: '도보 약 15분', en: 'Walk, about 15 min' },
+        desc: { ko: '점심은 인사동에서. 골목 안쪽으로 들어가면 전통차를 내는 집과 공예 가게가 이어집니다.', en: 'Lunch in Insadong; the inner alleys have tea rooms and craft shops.' } },
+      { phase: 'afternoon', time: '14:00', name: { ko: '창덕궁', en: 'Changdeokgung Palace' }, q: '창덕궁', move: { ko: '도보 약 15분', en: 'Walk, about 15 min' },
+        desc: { ko: '담장이 낮고 건물이 언덕을 따라 앉아 있습니다. 월요일 휴무, 후원은 별도 예약.', en: 'Low walls and buildings following the slope. Closed Mondays; the garden needs its own booking.' },
+        photo: 'th-hanok-p2' },
+      { phase: 'afternoon', time: '15:00', name: { ko: '창덕궁 후원', en: 'Changdeokgung secret garden' }, q: '창덕궁 후원', move: { ko: '도보 약 10분', en: 'Walk, about 10 min' },
+        desc: { ko: '해설사와 함께 90분. 연못과 정자가 계곡을 따라 놓여 있어 한 시간이 금방 갑니다.', en: 'Ninety minutes with a guide through ponds and pavilions set along a valley.' } },
+      { phase: 'evening', time: '17:00', name: { ko: '종묘', en: 'Jongmyo Shrine' }, q: '종묘', move: { ko: '도보 약 20분', en: 'Walk, about 20 min' },
+        desc: { ko: '조선 왕과 왕비의 신위를 모신 곳. 끝없이 이어지는 긴 마루가 인상적입니다.', en: 'The royal ancestral shrine — one endless veranda is the thing to see.' } },
+      { phase: 'evening', time: '18:30', name: { ko: '익선동 한옥골목', en: 'Ikseon-dong hanok alleys' }, q: '익선동', move: { ko: '도보 약 15분', en: 'Walk, about 15 min' },
+        desc: { ko: '백 년 된 한옥 사이 골목이 미로처럼 이어집니다. 저녁은 여기서.', en: 'A maze of alleys between century-old houses — dinner here.' } },
+      { phase: 'return', time: '20:00', name: { ko: '서울역', en: 'Seoul Station' }, q: '서울역', move: { ko: '지하철 약 15분', en: 'Subway, about 15 min' },
+        desc: { ko: '1호선 종로3가에서 두 정거장. 막차 전에 여유 있게.', en: 'Two stops on Line 1 from Jongno 3-ga — comfortably before the last train.' } }
+    ]
+  },
+  subs: {
+    title: { ko: '한옥·전통문화 스물다섯 가지', en: 'Twenty-five ways into tradition' },
+    items: [
+      { emoji: '🏘️', name: { ko: '한옥마을', en: 'Hanok villages' }, desc: { ko: '전통 한옥이 모여 있는 마을. 주민 거주 여부를 구분하세요.', en: 'Villages of hanok houses — note whether people live there.' } },
+      { emoji: '🏚️', name: { ko: '전통 고택', en: 'Old noble houses' }, desc: { ko: '양반집·종가·명문가. 관람과 숙박이 다릅니다.', en: 'Yangban houses and clan homes; visiting and staying differ.' } },
+      { emoji: '🛏️', name: { ko: '한옥 숙박', en: 'Hanok stays' }, desc: { ko: '온돌방·툇마루·대청마루. 화장실과 난방을 확인하세요.', en: 'Ondol rooms and wooden verandas; check bathroom and heating.' } },
+      { emoji: '🏯', name: { ko: '궁궐', en: 'Palaces' }, desc: { ko: '왕궁과 왕실 생활. 휴무일이 궁마다 다릅니다.', en: 'Royal palaces and court life; closing days differ.' } },
+      { emoji: '⚰️', name: { ko: '왕릉', en: 'Royal tombs' }, desc: { ko: '조선왕릉과 왕실 역사. 산책로가 잘 나 있습니다.', en: 'Joseon royal tombs with good walking paths.' } },
+      { emoji: '📜', name: { ko: '서원', en: 'Seowon academies' }, desc: { ko: '선비문화와 교육기관. 세계유산 서원이 여럿입니다.', en: 'Scholar culture and schools, several of them World Heritage.' } },
+      { emoji: '🏫', name: { ko: '향교', en: 'Hyanggyo' }, desc: { ko: '지방 교육과 유교문화의 자리.', en: 'Local Confucian schools.' } },
+      { emoji: '🌾', name: { ko: '전통 마을', en: 'Traditional villages' }, desc: { ko: '옛 마을과 공동체 생활.', en: 'Old villages and communal life.' } },
+      { emoji: '🎎', name: { ko: '민속촌', en: 'Folk villages' }, desc: { ko: '전통 생활과 옛 거리 재현.', en: 'Recreated traditional life and streets.' } },
+      { emoji: '🛕', name: { ko: '사찰·산사', en: 'Temples' }, desc: { ko: '전통 목조건축과 불교문화.', en: 'Timber architecture and Buddhist culture.' } },
+      { emoji: '🧱', name: { ko: '성곽·읍성', en: 'Fortresses' }, desc: { ko: '옛 성곽과 성 안의 마을.', en: 'Fortress walls and the villages inside them.' } },
+      { emoji: '🪷', name: { ko: '전통 정원', en: 'Traditional gardens' }, desc: { ko: '연못과 누정의 한국식 정원.', en: 'Korean gardens of ponds and pavilions.' } },
+      { emoji: '🌤️', name: { ko: '정자·누각', en: 'Pavilions' }, desc: { ko: '풍류문화의 자리. 해 질 무렵이 좋습니다.', en: 'Places of music and company, best at dusk.' } },
+      { emoji: '🍵', name: { ko: '전통 다도', en: 'Tea ceremony' }, desc: { ko: '다례와 전통차. 하동·보성이 대표 산지.', en: 'Tea ceremony; Hadong and Boseong are the tea country.' } },
+      { emoji: '👘', name: { ko: '한복 체험', en: 'Hanbok' }, desc: { ko: '한복 대여와 사진. 궁궐 입장료가 면제됩니다.', en: 'Rent a hanbok, and palace entry is free.' } },
+      { emoji: '💍', name: { ko: '전통 혼례', en: 'Traditional wedding' }, desc: { ko: '전통 혼례와 예절 체험.', en: 'Traditional wedding and etiquette experiences.' } },
+      { emoji: '🖌️', name: { ko: '한지·서예', en: 'Paper & calligraphy' }, desc: { ko: '한지 제작과 붓글씨.', en: 'Making hanji paper and brush writing.' } },
+      { emoji: '🏺', name: { ko: '도자기·옹기', en: 'Ceramics' }, desc: { ko: '도예·백자·청자·옹기.', en: 'Pottery, white and celadon ware, onggi jars.' } },
+      { emoji: '🪡', name: { ko: '전통 공예', en: 'Crafts' }, desc: { ko: '나전칠기·목공·매듭·자수.', en: 'Lacquer, woodwork, knotting, embroidery.' } },
+      { emoji: '🍚', name: { ko: '전통 음식', en: 'Traditional food' }, desc: { ko: '한식·향토음식·궁중음식.', en: 'Korean, regional and court cuisine.' } },
+      { emoji: '🧺', name: { ko: '전통시장', en: 'Traditional markets' }, desc: { ko: '오일장과 옛 장터.', en: 'Five-day and old market streets.' } },
+      { emoji: '🥁', name: { ko: '전통 음악', en: 'Traditional music' }, desc: { ko: '국악·판소리·풍물 공연.', en: 'Gugak, pansori and percussion bands.' } },
+      { emoji: '🎋', name: { ko: '전통 놀이', en: 'Folk games' }, desc: { ko: '윷놀이·연날리기·탈춤.', en: 'Yut, kite flying, mask dance.' } },
+      { emoji: '📖', name: { ko: '선비문화', en: 'Scholar culture' }, desc: { ko: '서책·고택·유교문화와 문학.', en: 'Books, old houses and Confucian letters.' } },
+      { emoji: '🏮', name: { ko: '전통 야경', en: 'Traditional nights' }, desc: { ko: '한옥 야경과 궁궐 야간개장.', en: 'Lit hanok streets and palace night openings.' } }
+    ]
+  },
+  conds: [
+    { k: { ko: '휴무', en: 'Closing days' }, v: { ko: '경복궁 화 · 창덕궁·덕수궁·종묘 월', en: 'Gyeongbokgung Tue; Changdeokgung, Deoksugung, Jongmyo Mon' } },
+    { k: { ko: '후원', en: 'Secret garden' }, v: { ko: '해설 시간제, 하루 인원 제한, 온라인 예약', en: 'Timed guided entry with a daily cap; book online' } },
+    { k: { ko: '구분', en: 'Know the difference' }, v: { ko: '주민 거주 마을 / 관람용 한옥마을, 관람 / 숙박 가능 고택', en: 'Lived-in village or tourist hanok village; houses you can visit or stay in' } },
+    { k: { ko: '요금', en: 'Tickets' }, v: { ko: '한복 착용 시 궁궐 입장료 무료', en: 'Palace entry is free in hanbok' } }
+  ],
+  places: [
+    { name: { ko: '경복궁', en: 'Gyeongbokgung' }, region: 'capital', q: '경복궁', note: { ko: '조선 법궁. 수문장 교대식과 경회루.', en: 'The main Joseon palace: guard change and the Gyeonghoeru pond.' } },
+    { name: { ko: '창덕궁', en: 'Changdeokgung' }, region: 'capital', q: '창덕궁', note: { ko: '유네스코 세계유산. 후원이 핵심.', en: 'A World Heritage site; the secret garden is the heart of it.' } },
+    { name: { ko: '창경궁', en: 'Changgyeonggung' }, region: 'capital', q: '창경궁', note: { ko: '명정전과 춘당지. 창덕궁과 이어집니다.', en: 'Myeongjeongjeon and the Chundang pond, joined to Changdeokgung.' } },
+    { name: { ko: '덕수궁', en: 'Deoksugung' }, region: 'capital', q: '덕수궁', note: { ko: '돌담길과 서양식 석조전.', en: 'A stone wall road and a Western-style hall.' } },
+    { name: { ko: '종묘', en: 'Jongmyo' }, region: 'capital', q: '종묘', note: { ko: '유네스코 세계유산. 정전의 긴 마루.', en: 'World Heritage: one very long veranda.' } },
+    { name: { ko: '북촌한옥마을', en: 'Bukchon hanok village' }, region: 'capital', q: '북촌한옥마을', note: { ko: '주거지. 오전이 한산하고 예절이 필요합니다.', en: 'A lived-in neighbourhood: quiet in the morning, and behave accordingly.' } },
+    { name: { ko: '남산골한옥마을', en: 'Namsangol hanok village' }, region: 'capital', q: '남산골한옥마을', note: { ko: '한옥 다섯 채와 전통정원, 한복·공예 체험.', en: 'Five hanok houses, a garden, hanbok and craft experiences.' } },
+    { name: { ko: '은평한옥마을', en: 'Eunpyeong hanok village' }, region: 'capital', q: '은평한옥마을', note: { ko: '북한산 아래 현대 한옥마을, 산책로.', en: 'A modern hanok quarter below Bukhansan.' } },
+    { name: { ko: '수원 화성 · 행궁동', en: 'Suwon Hwaseong & Haenggung' }, region: 'capital', q: '수원화성', note: { ko: '정조의 성곽과 한옥거리, 야간 조명.', en: 'Jeongjo\u2019s fortress, a hanok street and night lighting.' } },
+    { name: { ko: '강화 고려궁지', en: 'Ganghwa Goryeo palace site' }, region: 'capital', q: '고려궁지', note: { ko: '고려 궁궐 터와 조선의 전통가옥.', en: 'A Goryeo palace site with later traditional houses.' } },
+    { name: { ko: '한국민속촌', en: 'Korean Folk Village' }, region: 'capital', q: '한국민속촌', note: { ko: '전국 전통가옥과 생활문화, 공연.', en: 'Traditional houses from across the country, with performances.' } },
+    { name: { ko: '강릉 선교장', en: 'Gangneung Seongyojang' }, region: 'gangwon', q: '선교장', note: { ko: '연못을 품은 조선 상류 주택.', en: 'A noble house with its own pond.' } },
+    { name: { ko: '강릉 오죽헌', en: 'Gangneung Ojukheon' }, region: 'gangwon', q: '오죽헌', note: { ko: '신사임당과 율곡의 집.', en: 'The house of Shin Saimdang and Yulgok.' } },
+    { name: { ko: '공주한옥마을', en: 'Gongju hanok village' }, region: 'jeolla', q: '공주한옥마을', note: { ko: '온돌 숙박과 한지·도자기 체험, 공산성 연계.', en: 'Ondol stays, paper and ceramic workshops, next to Gongsanseong.' } },
+    { name: { ko: '아산 외암민속마을', en: 'Asan Oeam folk village' }, region: 'jeolla', q: '외암민속마을', note: { ko: '초가·기와집·돌담길, 실제 마을.', en: 'Thatched and tiled houses with stone walls, still lived in.' } },
+    { name: { ko: '서산 해미읍성', en: 'Seosan Haemieupseong' }, region: 'jeolla', q: '해미읍성', note: { ko: '조선 읍성의 모습이 남은 성곽.', en: 'A Joseon town fortress still standing.' } },
+    { name: { ko: '논산 명재고택', en: 'Nonsan Myeongjae house' }, region: 'jeolla', q: '명재고택', note: { ko: '사대부 고택과 장독대, 전통 정원.', en: 'A scholar\u2019s house with jar terraces and a garden.' } },
+    { name: { ko: '전주한옥마을', en: 'Jeonju hanok village' }, region: 'jeolla', q: '전주한옥마을', note: { ko: '700여 채의 한옥, 한복·한식·한지.', en: 'Seven hundred hanok houses, hanbok, food and paper.' } },
+    { name: { ko: '고창읍성', en: 'Gochang eupseong' }, region: 'jeolla', q: '고창읍성', note: { ko: '조선 읍성과 성곽길.', en: 'A Joseon town wall and its path.' } },
+    { name: { ko: '순천 낙안읍성', en: 'Suncheon Naganeupseong' }, region: 'jeolla', q: '낙안읍성', note: { ko: '주민이 사는 초가 마을과 성곽.', en: 'A thatched village inside walls, still inhabited.' } },
+    { name: { ko: '구례 운조루', en: 'Gurye Unjoru' }, region: 'jeolla', q: '운조루', note: { ko: '조선 양반 고택과 옛 생활문화.', en: 'A yangban house and its old way of living.' } },
+    { name: { ko: '안동 하회마을', en: 'Andong Hahoe' }, region: 'gyeongsang', q: '하회마을', note: { ko: '세계유산. 낙동강이 감싸는 마을과 탈놀이.', en: 'World Heritage: a village inside a river bend, with mask dance.' } },
+    { name: { ko: '경주 양동마을', en: 'Gyeongju Yangdong' }, region: 'gyeongsang', q: '양동마을', note: { ko: '세계유산. 조선 양반마을의 공간 구성.', en: 'World Heritage: the layout of a yangban village.' } },
+    { name: { ko: '안동 도산서원', en: 'Andong Dosan Seowon' }, region: 'gyeongsang', q: '도산서원', note: { ko: '퇴계 이황과 선비문화, 야간개장.', en: 'Toegye and scholar culture, with night openings.' } },
+    { name: { ko: '안동 병산서원', en: 'Andong Byeongsan Seowon' }, region: 'gyeongsang', q: '병산서원', note: { ko: '만대루와 낙동강 풍경.', en: 'The Mandae pavilion over the Nakdong.' } },
+    { name: { ko: '영주 소수서원', en: 'Yeongju Sosu Seowon' }, region: 'gyeongsang', q: '소수서원', note: { ko: '우리나라 최초의 사액서원.', en: 'The country\u2019s first royally endowed academy.' } },
+    { name: { ko: '경주 교촌한옥마을', en: 'Gyeongju Gyochon village' }, region: 'gyeongsang', q: '교촌한옥마을', note: { ko: '최부자댁과 전통마을, 첨성대 연계.', en: 'The Choi family house and old lanes, near Cheomseongdae.' } },
+    { name: { ko: '영주 무섬마을', en: 'Yeongju Museom village' }, region: 'gyeongsang', q: '무섬마을', note: { ko: '외나무다리로 이어지는 물 위의 마을.', en: 'A village joined by a single-log bridge.' } },
+    { name: { ko: '제주 성읍민속마을', en: 'Jeju Seongeup village' }, region: 'jeju', q: '성읍민속마을', note: { ko: '제주 초가와 돌담, 전통 주거.', en: 'Jeju thatch, stone walls and traditional houses.' } },
+    { name: { ko: '전주 전통한지원', en: 'Jeonju hanji workshop' }, region: 'jeolla', q: '전주 전통한지원', note: { ko: '한지 제작과 전통 종이 체험.', en: 'Making hanji paper by hand.' } },
+    { name: { ko: '이천 도자예술마을', en: 'Icheon ceramic village' }, region: 'capital', q: '이천 도자예술마을', note: { ko: '물레·공방 체험과 도자 전시.', en: 'Wheel throwing, workshops and ceramics displays.' } },
+    { name: { ko: '안동 하회세계탈박물관', en: 'Andong mask museum' }, region: 'gyeongsang', q: '하회세계탈박물관', note: { ko: '하회탈과 세계의 탈, 공연문화.', en: 'Hahoetal, masks from elsewhere and performance culture.' } },
+    { name: { ko: '나주 천연염색박물관', en: 'Naju natural dye museum' }, region: 'jeolla', q: '나주천연염색박물관', note: { ko: '천연염색과 전통 섬유문화.', en: 'Natural dyeing and textile tradition.' } },
+    { name: { ko: '보성 한국차문화공원', en: 'Boseong tea culture park' }, region: 'jeolla', q: '한국차문화공원', note: { ko: '다례와 차밭 문화 체험.', en: 'Tea ceremony and tea-field experiences.' } }
+  ],
+  food: [
+    { slot: { ko: '아침', en: 'Breakfast' }, emoji: '🍲', dish: { ko: '설렁탕 · 북엇국', en: 'Beef soup · pollack soup' }, note: { ko: '궁궐 근처 아침 식당은 8시부터.', en: 'Places near the palaces open at eight.' } },
+    { slot: { ko: '점심', en: 'Lunch' }, emoji: '🍱', dish: { ko: '한정식 · 비빔밥', en: 'Hanjeongsik · bibimbap' }, note: { ko: '인사동은 상 차림이 정갈한 집이 많습니다.', en: 'Insadong does tidy set tables well.' } },
+    { slot: { ko: '간식', en: 'Snack' }, emoji: '🍵', dish: { ko: '전통차 · 약과 · 떡', en: 'Traditional tea · yakgwa · rice cake' }, note: { ko: '오후에 차 한 잔으로 쉬어 가세요.', en: 'A tea break in the afternoon.' } },
+    { slot: { ko: '저녁', en: 'Dinner' }, emoji: '🍶', dish: { ko: '삼겹살 · 전 · 막걸리', en: 'Pork belly · pancakes · makgeolli' }, note: { ko: '익선동 골목에서 마무리.', en: 'Finish in the Ikseon-dong alleys.' } }
+  ],
+  photos: [
+    { file: 'th-hanok', cap: { ko: '궁궐의 전각', en: 'A palace hall' } },
+    { file: 'th-hanok-p2', cap: { ko: '한옥 지붕이 이어지는 골목', en: 'An alley of tiled roofs' } }
+  ],
+  tip: { ko: '궁궐은 휴무일이 서로 다릅니다. 경복궁 화요일, 창덕궁·덕수궁·종묘 월요일을 피해 일정을 짜세요.', en: 'The palaces close on different days — Gyeongbokgung on Tuesday, the others on Monday.' }
+},

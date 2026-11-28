@@ -1,0 +1,111 @@
+/* ------------------------------------------------------- 19 일출·일몰 */
+{
+  id: 'sunrise', emoji: '🌅', tint: '#FFB59B',
+  name: { ko: '일출 · 일몰 코스', en: 'Sunrise & sunset' },
+  sub: { ko: '해가 뜨고 지는 시간에 맞춘 하루', en: 'A day timed to the sun' },
+  tag: { ko: '동해 일출 · 서해 낙조', en: 'Sunrise in the east, sunset in the west' },
+  intro: {
+    ko: '일출·일몰 여행은 시각표가 일정표입니다. 해 뜨는 시각은 계절에 따라 두 시간 넘게 차이가 나므로, 날짜를 정한 뒤 기상청 안내로 시각을 확인하고 거꾸로 하루를 짜야 합니다. 여기서는 강릉 정동진 일출로 하루를 여는 코스를 잡았습니다. 동해는 수평선에서 해가 떠오르고, 서해는 갯벌 위로 내려앉습니다.',
+    en: 'For a sunrise trip the timetable is the itinerary: sunrise moves by more than two hours across the year, so fix the date, check the time, then build the day backwards. This route opens with sunrise at Jeongdongjin near Gangneung. In the east the sun rises out of the horizon; in the west it sinks onto the tidal flats.'
+  },
+  seasons: [{ ko: '겨울 일출', en: 'Winter sunrise' }, { ko: '여름 일출', en: 'Summer sunrise' }, { ko: '사계절 일몰', en: 'Sunset all year' }],
+  transport: { ko: 'KTX + 버스·택시', en: 'KTX + bus or taxi' },
+  duration: { ko: '약 12시간', en: 'About 12 hours' },
+  hub: {
+    ko: '정동진역', en: 'Jeongdongjin Station', q: '정동진역',
+    note: {
+      ko: '강릉선 KTX가 서는 바닷가 역. 서울 청량리에서 2시간 안팎. 역에서 해변까지 걸어서 5분이라 일출 보기에 가장 편합니다.',
+      en: 'A seaside station on the Gangneung KTX line, about two hours from Cheongnyangni; the beach is five minutes on foot.'
+    }
+  },
+  course: {
+    title: { ko: '정동진 일출에서 경포·안목까지', en: 'Jeongdongjin sunrise, then Gyeongpo and Anmok' },
+    meta: { ko: '7곳 · 약 12시간 · 버스 3회', en: '7 stops · about 12 hours · 3 buses' },
+    steps: [
+      { phase: 'start', time: '05:30', name: { ko: '정동진역', en: 'Jeongdongjin Station' }, q: '정동진역', move: { ko: '출발', en: 'Start' },
+        desc: { ko: '일출 40분 전에 도착하도록 첫차를 잡습니다. 시각은 계절에 따라 다르니 기상청 안내로 확인하세요.', en: 'Take a train that lands forty minutes before sunrise; the time shifts with the season, so check it first.' } },
+      { phase: 'morning', time: '05:45', name: { ko: '정동진 해변 · 모래시계공원', en: 'Jeongdongjin beach' }, q: '정동진해수욕장', move: { ko: '도보 약 5분', en: 'Walk, about 5 min' },
+        desc: { ko: '수평선이 트인 모래사장. 파도가 조용한 날은 물 위에 해가 한 번 더 뜹니다.', en: 'Open horizon from the sand; on a calm day the sun rises twice.' },
+        photo: 'th-sunrise' },
+      { phase: 'morning', time: '06:30', name: { ko: '일출', en: 'Sunrise' }, q: '정동진', move: { ko: '해변', en: 'On the beach' },
+        desc: { ko: '해가 다 오르면 사람들이 조용히 돌아섭니다. 그 10분이 이 코스의 전부입니다.', en: 'Once it is up, everyone turns away quietly — those ten minutes are the whole point.' } },
+      { phase: 'morning', time: '07:10', name: { ko: '아침 국밥', en: 'Breakfast soup' }, q: '정동진', move: { ko: '도보 약 10분', en: 'Walk, about 10 min' },
+        desc: { ko: '역 근처에서 뜨끈한 국물로 몸을 녹입니다. 이 시간에 문을 여는 집이 몇 곳 있습니다.', en: 'Something hot near the station; a few places open at this hour.' } },
+      { phase: 'morning', time: '08:30', name: { ko: '경포호', en: 'Gyeongpo lake' }, q: '경포호', move: { ko: '버스 약 30분', en: 'Bus, about 30 min' },
+        desc: { ko: '호수와 바다가 나란히 있는 곳. 아침 빛에 둘레길이 조용합니다.', en: 'A lake running beside the sea; the loop is quiet in morning light.' },
+        photo: 'th-sunrise-p2' },
+      { phase: 'morning', time: '10:00', name: { ko: '안목해변', en: 'Anmok Beach' }, q: '안목해변', move: { ko: '버스 약 20분', en: 'Bus, about 20 min' },
+        desc: { ko: '바다를 창에 담은 커피거리. 일출을 본 뒤의 커피 한 잔은 이유가 다릅니다.', en: 'A coffee street with the sea in the window; after sunrise the cup means something else.' } },
+      { phase: 'lunch', time: '11:30', name: { ko: '강릉중앙시장', en: 'Gangneung Jungang Market' }, q: '강릉중앙시장', move: { ko: '차 약 15분', en: 'Drive, about 15 min' },
+        desc: { ko: '점심과 간식을 시장에서. 닭강정과 감자옹심이가 이 동네 기본입니다.', en: 'Lunch and snacks at the market: fried chicken and potato dumpling soup.' } },
+      { phase: 'afternoon', time: '13:30', name: { ko: '오죽헌', en: 'Ojukheon House' }, q: '오죽헌', move: { ko: '차 약 15분', en: 'Drive, about 15 min' },
+        desc: { ko: '신사임당과 율곡의 집. 일찍 일어난 하루를 오후에 천천히 닫는 자리입니다.', en: 'The house of Shin Saimdang and Yulgok — a slow close to an early day.' } },
+      { phase: 'return', time: '16:00', name: { ko: '강릉역', en: 'Gangneung Station' }, q: '강릉역', move: { ko: '차 약 20분', en: 'Drive, about 20 min' },
+        desc: { ko: 'KTX로 귀가. 서해 일몰을 보고 싶다면 아래 목록에서 서해 쪽 거점을 골라 같은 방식으로 짜세요.', en: 'Home by KTX. For a west-coast sunset, pick a base from the list and plan the day the same way.' } }
+    ]
+  },
+  conds: [
+    { k: { ko: '시각', en: 'Timing' }, v: { ko: '일출·일몰 시각은 계절에 따라 2시간 이상 차이 — 기상청 안내 확인', en: 'Sunrise and sunset shift by more than two hours across the year' } },
+    { k: { ko: '날씨', en: 'Weather' }, v: { ko: '구름·안개·미세먼지로 해가 안 보일 수 있음', en: 'Cloud, fog or dust can hide it entirely' } },
+    { k: { ko: '안전', en: 'Safety' }, v: { ko: '갯벌·해안은 물때와 파도 확인, 산 정상은 통제 시간 확인', en: 'Check tides and surf on the coast, and closing times on peaks' } }
+  ],
+  places: [
+    { name: { ko: '정동진해수욕장', en: 'Jeongdongjin Beach' }, region: 'gangwon', q: '정동진해수욕장', note: { ko: '동해 일출의 대표. 역에서 도보 5분.', en: 'The classic east-coast sunrise, five minutes from the station.' } },
+    { name: { ko: '경포해변', en: 'Gyeongpo Beach' }, region: 'gangwon', q: '경포해변', note: { ko: '넓은 백사장과 수평선 일출.', en: 'Wide sand and an open horizon.' } },
+    { name: { ko: '추암 촛대바위', en: 'Chuam rock formations' }, region: 'gangwon', q: '추암 촛대바위', note: { ko: '동해. 바위 사이로 해가 오릅니다.', en: 'Donghae: the sun rising between the rocks.' } },
+    { name: { ko: '영금정', en: 'Yeonggeumjeong' }, region: 'gangwon', q: '영금정', note: { ko: '속초. 바위 위 정자에서 보는 해돋이.', en: 'Sokcho: sunrise from a pavilion on the rocks.' } },
+    { name: { ko: '낙산사 의상대', en: 'Naksansa Uisangdae' }, region: 'gangwon', q: '의상대', note: { ko: '사찰과 동해가 함께 있는 일출.', en: 'A temple and the East Sea in one sunrise.' } },
+    { name: { ko: '하조대', en: 'Hajodae' }, region: 'gangwon', q: '하조대', note: { ko: '양양. 기암절벽과 등대, 바다 전망.', en: 'Yangyang: cliffs, lighthouse and open sea.' } },
+    { name: { ko: '남애항', en: 'Namae harbour' }, region: 'gangwon', q: '남애항', note: { ko: '빨간 등대와 어선, 수평선 일출.', en: 'A red lighthouse, boats and the horizon.' } },
+    { name: { ko: '호미곶 해맞이광장', en: 'Homigot sunrise square' }, region: 'gyeongsang', q: '호미곶', note: { ko: '포항. 상생의 손 사이로 해가 오릅니다.', en: 'Pohang: the sun between the great hands.' } },
+    { name: { ko: '간절곶', en: 'Ganjeolgot' }, region: 'gyeongsang', q: '간절곶', note: { ko: '울주. 육지에서 해가 가장 먼저 뜨는 곳 중 하나.', en: 'Ulju: among the first places on the mainland to see the sun.' } },
+    { name: { ko: '문무대왕릉', en: 'Tomb of King Munmu' }, region: 'gyeongsang', q: '문무대왕릉', note: { ko: '경주. 바다 위 수중릉과 일출.', en: 'Gyeongju: a tomb in the sea at sunrise.' } },
+    { name: { ko: '토함산', en: 'Tohamsan' }, region: 'gyeongsang', q: '토함산', note: { ko: '산 정상의 일출과 운해.', en: 'A summit sunrise above the cloud sea.' } },
+    { name: { ko: '성산일출봉', en: 'Seongsan Ilchulbong' }, region: 'jeju', q: '성산일출봉', note: { ko: '제주 대표 해돋이. 정상까지 20분.', en: 'Jeju\u2019s signature sunrise; twenty minutes to the rim.' } },
+    { name: { ko: '광치기해변', en: 'Gwangchigi Beach' }, region: 'jeju', q: '광치기해변', note: { ko: '물웅덩이에 성산과 해가 반영됩니다.', en: 'Seongsan and the sun reflected in the pools.' } },
+    { name: { ko: '우도 검멀레', en: 'Udo Geommeolle' }, region: 'jeju', q: '우도 검멀레해변', note: { ko: '검은 모래와 절벽, 섬의 아침.', en: 'Black sand, cliffs and an island morning.' } },
+    { name: { ko: '함덕·서우봉', en: 'Hamdeok & Seoubong' }, region: 'jeju', q: '서우봉', note: { ko: '푸른 바다와 오름 능선의 아침.', en: 'Turquoise water and a ridge in the morning.' } },
+    { name: { ko: '섭지코지', en: 'Seopjikoji' }, region: 'jeju', q: '섭지코지', note: { ko: '등대와 해안 절벽의 일출.', en: 'A lighthouse and cliffs at sunrise.' } },
+    { name: { ko: '장화리 낙조 전망대', en: 'Janghwa-ri sunset lookout' }, region: 'capital', q: '장화리 낙조전망대', note: { ko: '강화. 갯벌과 섬 사이로 지는 해.', en: 'Ganghwa: the sun going down between flats and islands.' } },
+    { name: { ko: '동막해변', en: 'Dongmak Beach' }, region: 'capital', q: '동막해변', note: { ko: '강화. 넓은 갯벌과 서해 낙조.', en: 'Ganghwa: wide flats and a west-coast sunset.' } },
+    { name: { ko: '오이도', en: 'Oido' }, region: 'capital', q: '오이도', note: { ko: '시흥. 빨간 등대와 노을, 전철로 접근.', en: 'Siheung: a red lighthouse at sunset, on the subway.' } },
+    { name: { ko: '탄도항·누에섬', en: 'Tando harbour & Nueseom' }, region: 'capital', q: '탄도항', note: { ko: '안산. 풍력발전기와 바닷길. 물때 확인.', en: 'Ansan: turbines and a tidal path; check the tide.' } },
+    { name: { ko: '구봉도 낙조전망대', en: 'Gubongdo sunset lookout' }, region: 'capital', q: '구봉도 낙조전망대', note: { ko: '안산. 바다 위 조형물 사이로 지는 해.', en: 'Ansan: sunset between sculptures over the water.' } },
+    { name: { ko: '꽃지해수욕장', en: 'Ggotji Beach' }, region: 'jeolla', q: '꽃지해수욕장', note: { ko: '태안. 서해 3대 낙조, 할미·할아비바위.', en: 'Taean: one of the west coast\u2019s great sunsets.' } },
+    { name: { ko: '왜목마을', en: 'Waemok village' }, region: 'jeolla', q: '왜목마을', note: { ko: '당진. 지형 따라 일출과 일몰을 모두.', en: 'Dangjin: by shape of the coast, both sunrise and sunset.' } },
+    { name: { ko: '마량포구', en: 'Maryang harbour' }, region: 'jeolla', q: '마량포구', note: { ko: '서천. 해돋이와 해넘이를 함께 보는 포구.', en: 'Seocheon: a harbour that sees both sun-up and sun-down.' } },
+    { name: { ko: '무창포해수욕장', en: 'Muchangpo Beach' }, region: 'jeolla', q: '무창포해수욕장', note: { ko: '보령. 바닷길과 석양, 물때 확인.', en: 'Boryeong: the parting sea road and sunset; check the tide.' } },
+    { name: { ko: '간월암', en: 'Ganwolam' }, region: 'jeolla', q: '간월암', note: { ko: '서산. 물이 차면 섬이 되는 암자와 노을.', en: 'Seosan: a hermitage that becomes an island, at sunset.' } },
+    { name: { ko: '채석강', en: 'Chaeseokgang' }, region: 'jeolla', q: '채석강', note: { ko: '부안. 퇴적암 절벽과 바다 위 석양.', en: 'Buan: layered cliffs and the sun on the water.' } },
+    { name: { ko: '적벽강', en: 'Jeokbyeokgang' }, region: 'jeolla', q: '적벽강', note: { ko: '부안. 붉은 절벽과 노을.', en: 'Buan: red cliffs at sunset.' } },
+    { name: { ko: '와온해변', en: 'Waon Beach' }, region: 'jeolla', q: '와온해변', note: { ko: '순천. S자 물길과 갯벌 노을.', en: 'Suncheon: an S-shaped channel and sunset on the flats.' } },
+    { name: { ko: '순천만 용산전망대', en: 'Suncheon Bay lookout' }, region: 'jeolla', q: '순천만 용산전망대', note: { ko: '황금빛 갈대와 갯벌의 일몰.', en: 'Golden reeds and the bay at sunset.' } },
+    { name: { ko: '세방낙조', en: 'Sebang sunset' }, region: 'jeolla', q: '세방낙조', note: { ko: '진도. 여러 섬 사이로 해가 내려앉습니다.', en: 'Jindo: the sun setting between islands.' } },
+    { name: { ko: '땅끝마을 전망대', en: 'Ttangkkeut lookout' }, region: 'jeolla', q: '땅끝마을', note: { ko: '해남. 육지의 끝에서 보는 저녁.', en: 'Haenam: evening at the end of the land.' } },
+    { name: { ko: '달아공원', en: 'Dara Park' }, region: 'gyeongsang', q: '달아공원', note: { ko: '통영. 다도해 낙조.', en: 'Tongyeong: sunset over the archipelago.' } },
+    { name: { ko: '상주은모래비치', en: 'Sangju silver sand' }, region: 'gyeongsang', q: '상주은모래비치', note: { ko: '남해. 은빛 모래와 저녁 바다.', en: 'Namhae: silver sand and an evening sea.' } },
+    { name: { ko: '다랭이마을', en: 'Darangyi village' }, region: 'gyeongsang', q: '다랭이마을', note: { ko: '남해. 계단식 논과 바다의 노을.', en: 'Namhae: terraced paddies and the sea at sunset.' } },
+    { name: { ko: '실안해안도로', en: 'Silan coastal road' }, region: 'gyeongsang', q: '실안낙조', note: { ko: '사천. 노을 드라이브.', en: 'Sacheon: a sunset drive.' } },
+    { name: { ko: '다대포해수욕장', en: 'Dadaepo Beach' }, region: 'gyeongsang', q: '다대포해수욕장', note: { ko: '부산 도심의 노을 명소.', en: 'Busan\u2019s city sunset.' } },
+    { name: { ko: '황령산', en: 'Hwangnyeongsan' }, region: 'gyeongsang', q: '황령산봉수대', note: { ko: '도시 전체를 내려다보는 일몰과 야경.', en: 'Sunset and lights over the whole city.' } },
+    { name: { ko: '협재해수욕장', en: 'Hyeopjae Beach' }, region: 'jeju', q: '협재해수욕장', note: { ko: '비양도와 에메랄드빛 바다의 노을.', en: 'Biyangdo and turquoise water at sunset.' } },
+    { name: { ko: '신창풍차해안도로', en: 'Sinchang windmill road' }, region: 'jeju', q: '신창풍차해안도로', note: { ko: '풍차와 붉은 하늘.', en: 'Turbines and a red sky.' } },
+    { name: { ko: '수월봉', en: 'Suwolbong' }, region: 'jeju', q: '수월봉', note: { ko: '차귀도와 지질 절벽 위의 석양.', en: 'Sunset over Chagwido from a geological cliff.' } },
+    { name: { ko: '송악산', en: 'Songaksan' }, region: 'jeju', q: '송악산', note: { ko: '산방산과 형제섬, 바다를 배경으로.', en: 'Sanbangsan, the twin islets and the sea.' } },
+    { name: { ko: '노고단', en: 'Nogodan' }, region: 'jeolla', q: '지리산 노고단', note: { ko: '운해와 산 정상 일출.', en: 'A summit sunrise above the cloud sea.' } },
+    { name: { ko: '설악산 울산바위', en: 'Ulsanbawi' }, region: 'gangwon', q: '울산바위', note: { ko: '기암과 일출, 은하수.', en: 'Rock, sunrise and a dark sky.' } },
+    { name: { ko: '태백산 천제단', en: 'Taebaeksan' }, region: 'gangwon', q: '태백산 천제단', note: { ko: '겨울 설경과 해돋이.', en: 'Snow and sunrise in winter.' } },
+    { name: { ko: '치악산 비로봉', en: 'Chiaksan Birobong' }, region: 'gangwon', q: '치악산 비로봉', note: { ko: '산 정상 일출, 이른 출발 필요.', en: 'A summit sunrise; start early.' } }
+  ],
+  food: [
+    { slot: { ko: '아침', en: 'Breakfast' }, emoji: '🍲', dish: { ko: '해장국 · 국밥', en: 'Hangover soup · rice soup' }, note: { ko: '일출 뒤에 먹는 국물이 이 여행의 보상입니다.', en: 'The soup after sunrise is the reward.' } },
+    { slot: { ko: '점심', en: 'Lunch' }, emoji: '🍜', dish: { ko: '감자옹심이 · 짬뽕', en: 'Potato dumpling soup · spicy noodles' }, note: { ko: '강릉은 감자와 해물 요리.', en: 'Gangneung runs on potatoes and seafood.' } },
+    { slot: { ko: '간식', en: 'Snack' }, emoji: '🍗', dish: { ko: '닭강정 · 커피', en: 'Fried chicken · coffee' }, note: { ko: '시장에서 닭강정, 바다 앞에서 커피.', en: 'Chicken from the market, coffee by the sea.' } },
+    { slot: { ko: '저녁', en: 'Dinner' }, emoji: '🐟', dish: { ko: '회 · 물회 · 해물탕', en: 'Sashimi · cold fish soup · seafood stew' }, note: { ko: '동해는 회, 서해는 조개구이.', en: 'Sashimi in the east, grilled shellfish in the west.' } }
+  ],
+  photos: [
+    { file: 'th-sunrise', cap: { ko: '수평선 위로 오르는 해', en: 'The sun rising over the horizon' } },
+    { file: 'th-sunrise-p2', cap: { ko: '일출 뒤의 물빛', en: 'The water after sunrise' } }
+  ],
+  tip: { ko: '일출 시각은 계절에 따라 두 시간 넘게 차이 납니다. 겨울은 7시 30분 전후, 여름은 5시 전후로 보고 하루를 거꾸로 짜세요.', en: 'Sunrise moves by more than two hours across the year — around 7:30 in winter, before 5 in summer. Build the day backwards from it.' }
+},

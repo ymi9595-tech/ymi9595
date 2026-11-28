@@ -1,0 +1,130 @@
+/* ------------------------------------------------ 21 박물관·과학관 */
+{
+  id: 'museum', emoji: '🏛️', tint: '#C9D8F0',
+  name: { ko: '박물관 · 과학관', en: 'Museums & science centres' },
+  sub: { ko: '비가 와도 좋은 하루', en: 'A day that works in the rain' },
+  tag: { ko: '역사 · 과학 · 자연사 · 미술', en: 'History, science, natural history, art' },
+  intro: {
+    ko: '박물관 여행은 날씨를 이기기 쉽고, 하루에 두세 곳이면 충분히 찹니다. 국립박물관은 상설전시가 대부분 무료라 부담도 적어요. 여기서는 서울역에서 시작해 고대사에서 근현대까지 한 줄로 이어 보는 하루를 잡았습니다. 아래에 스무 가지 세부 주제와 전국 전시·체험지를 정리했으니, 관심 있는 주제부터 골라 보세요.',
+    en: 'A museum day beats the weather, and two or three places fill it. Permanent exhibitions at the national museums are mostly free. This route starts at Seoul Station and runs ancient history to modern Korea in one line; below are twenty subject areas and venues across the country.'
+  },
+  seasons: [{ ko: '사계절', en: 'All year' }, { ko: '비 오는 날', en: 'Rainy days' }],
+  transport: { ko: '지하철 + 도보', en: 'Subway + on foot' },
+  duration: { ko: '약 8시간', en: 'About 8 hours' },
+  hub: {
+    ko: '서울역', en: 'Seoul Station', q: '서울역',
+    note: {
+      ko: 'KTX·공항철도·1·4호선. 짐은 역 물품보관함에 맡기고 4호선으로 이촌역까지 한 정거장이면 첫 박물관입니다.',
+      en: 'KTX, the airport railroad and lines 1 and 4. Leave the bag in a locker; one stop on Line 4 to Ichon and you are at the first museum.'
+    }
+  },
+  course: {
+    title: { ko: '서울 역사 하루 — 고대사에서 근현대까지', en: 'A day of Korean history — ancient to modern' },
+    meta: { ko: '5곳 · 약 8시간 · 지하철 3회', en: '5 stops · about 8 hours · 3 subway rides' },
+    steps: [
+      { phase: 'start', time: '09:30', name: { ko: '서울역', en: 'Seoul Station' }, q: '서울역', move: { ko: '출발', en: 'Start' },
+        desc: { ko: '4호선으로 이촌역까지. 박물관은 10시에 열고, 오전이 가장 조용합니다.', en: 'Line 4 to Ichon; the museum opens at ten and the morning is quietest.' } },
+      { phase: 'morning', time: '10:00', name: { ko: '국립중앙박물관', en: 'National Museum of Korea' }, q: '국립중앙박물관', move: { ko: '지하철 약 15분', en: 'Subway, about 15 min' },
+        desc: { ko: '선사시대부터 근현대까지 한 건물에서. 두 시간으로는 다 못 보니 시대를 골라 집중하세요.', en: 'Prehistory to the present in one building; two hours will not cover it, so choose one period.' },
+        photo: 'th-museum' },
+      { phase: 'lunch', time: '12:20', name: { ko: '이촌동 점심', en: 'Lunch in Ichon' }, q: '이촌동', move: { ko: '도보 약 10분', en: 'Walk, about 10 min' },
+        desc: { ko: '박물관 앞 골목에 식당이 많습니다. 12시 정각을 피하면 줄이 짧습니다.', en: 'Plenty of places by the museum; avoid the stroke of noon.' } },
+      { phase: 'afternoon', time: '13:30', name: { ko: '전쟁기념관', en: 'War Memorial of Korea' }, q: '전쟁기념관', move: { ko: '도보 약 15분', en: 'Walk, about 15 min' },
+        desc: { ko: '전쟁사를 다루는 큰 전시관과 야외 장비. 무거운 주제라 오후에 시간을 넉넉히 두세요.', en: 'Large galleries and outdoor equipment; the subject is heavy, so give it a full afternoon.' } },
+      { phase: 'afternoon', time: '15:40', name: { ko: '대한민국역사박물관', en: 'National Museum of Korean Contemporary History' }, q: '대한민국역사박물관', move: { ko: '지하철 약 20분', en: 'Subway, about 20 min' },
+        desc: { ko: '광화문. 개항기부터 오늘까지의 사회사. 실내가 넓어 마지막 관람지로 좋습니다.', en: 'Gwanghwamun: social history from the open ports to today — a good last stop.' },
+        photo: 'th-museum-p2' },
+      { phase: 'evening', time: '17:30', name: { ko: '광화문 · 경복궁 담장', en: 'Gwanghwamun & the palace wall' },
+        q: '광화문', move: { ko: '도보 약 10분', en: 'Walk, about 10 min' },
+        desc: { ko: '박물관에서 본 것을 실제 자리에서 한 번 더. 해 질 무렵 담장길이 좋습니다.', en: 'One more look at the real place after the exhibits — the wall is best at dusk.' } },
+      { phase: 'return', time: '18:30', name: { ko: '서울역', en: 'Seoul Station' }, q: '서울역', move: { ko: '지하철 약 15분', en: 'Subway, about 15 min' },
+        desc: { ko: '1호선으로 한 정거장, 또는 걸어서 20분. 저녁은 역 근처에서.', en: 'One stop on Line 1, or twenty minutes on foot; eat near the station.' } }
+    ]
+  },
+  subs: {
+    title: { ko: '박물관·과학관 스무 가지 주제', en: 'Twenty kinds of museum' },
+    items: [
+      { emoji: '🏺', name: { ko: '역사·고고학', en: 'History & archaeology' }, desc: { ko: '선사시대·고대국가·근현대사.', en: 'Prehistory, ancient states, modern history.' } },
+      { emoji: '🏠', name: { ko: '민속·전통문화', en: 'Folk & tradition' }, desc: { ko: '의식주와 세시풍속, 민속놀이.', en: 'Daily life, seasonal customs, folk play.' } },
+      { emoji: '🔬', name: { ko: '과학관', en: 'Science centres' }, desc: { ko: '물리·화학·생명과학·기술 체험.', en: 'Physics, chemistry, biology and technology.' } },
+      { emoji: '🚀', name: { ko: '우주·천문', en: 'Space & astronomy' }, desc: { ko: '행성·별·천문대·천체투영관.', en: 'Planets, stars, observatories, planetariums.' } },
+      { emoji: '🦕', name: { ko: '자연사·공룡', en: 'Natural history & dinosaurs' }, desc: { ko: '화석·광물·생물 진화.', en: 'Fossils, minerals, evolution.' } },
+      { emoji: '🖼️', name: { ko: '미술관·예술', en: 'Art museums' }, desc: { ko: '회화·조각·현대미술.', en: 'Painting, sculpture, contemporary art.' } },
+      { emoji: '📐', name: { ko: '건축·디자인', en: 'Architecture & design' }, desc: { ko: '건축물·공간·산업디자인.', en: 'Buildings, space and industrial design.' } },
+      { emoji: '🚂', name: { ko: '교통·철도·자동차', en: 'Transport' }, desc: { ko: '기차·자동차·항공·선박.', en: 'Trains, cars, aircraft, ships.' } },
+      { emoji: '✈️', name: { ko: '항공·우주항공', en: 'Aviation & aerospace' }, desc: { ko: '비행기와 조종 체험.', en: 'Aircraft and flight simulators.' } },
+      { emoji: '🚢', name: { ko: '해양·선박', en: 'Maritime' }, desc: { ko: '바다·배·해양생태·항구.', en: 'Sea, ships, marine life and ports.' } },
+      { emoji: '🌾', name: { ko: '농업·농촌', en: 'Agriculture' }, desc: { ko: '농기구·식량·농업기술.', en: 'Farm tools, food and farming technology.' } },
+      { emoji: '🍲', name: { ko: '음식·식문화', en: 'Food culture' }, desc: { ko: '한식·발효·전통음식.', en: 'Korean food, fermentation, tradition.' } },
+      { emoji: '🏺', name: { ko: '공예·도자기', en: 'Craft & ceramics' }, desc: { ko: '도자·목공·금속·섬유.', en: 'Ceramics, wood, metal, textiles.' } },
+      { emoji: '🕊️', name: { ko: '독립운동·전쟁·평화', en: 'Independence & war' }, desc: { ko: '독립운동·전쟁·인권.', en: 'Independence, war, human rights.' } },
+      { emoji: '💡', name: { ko: '미디어아트·디지털', en: 'Media art' }, desc: { ko: '몰입형 전시와 디지털 기술.', en: 'Immersive shows and digital technology.' } },
+      { emoji: '🧒', name: { ko: '어린이 체험', en: 'For children' }, desc: { ko: '놀이·교육·직접 체험.', en: 'Play, learning, hands-on rooms.' } },
+      { emoji: '🪨', name: { ko: '지질·광물·화석', en: 'Geology' }, desc: { ko: '암석·지층·화석.', en: 'Rocks, strata, fossils.' } },
+      { emoji: '🌳', name: { ko: '생태·환경', en: 'Ecology & environment' }, desc: { ko: '생태계·기후·환경보호.', en: 'Ecosystems, climate, conservation.' } },
+      { emoji: '🏘️', name: { ko: '지역 역사·향토', en: 'Local history' }, desc: { ko: '지역 인물·유물·문화유산.', en: 'Local figures, objects, heritage.' } },
+      { emoji: '🎲', name: { ko: '이색·전문 테마', en: 'Unusual themes' }, desc: { ko: '특이한 수집품과 전문 주제.', en: 'Unusual collections and specialist subjects.' } }
+    ]
+  },
+  conds: [
+    { k: { ko: '관람료', en: 'Tickets' }, v: { ko: '국립박물관 상설전 무료가 많음, 특별전·체험은 유료', en: 'Permanent shows at national museums are often free; specials and workshops charge' } },
+    { k: { ko: '휴관', en: 'Closing days' }, v: { ko: '대부분 월요일 휴관, 시설별 확인', en: 'Most close on Mondays — check each one' } },
+    { k: { ko: '시간', en: 'Time' }, v: { ko: '큰 박물관은 2~3시간, 과학관 체험은 4시간 이상', en: 'Two to three hours for a big museum; four or more at a science centre' } }
+  ],
+  places: [
+    { name: { ko: '국립중앙박물관', en: 'National Museum of Korea' }, region: 'capital', q: '국립중앙박물관', note: { ko: '서울 용산. 선사부터 근현대까지, 상설전 무료.', en: 'Yongsan: prehistory to the present, permanent shows free.' } },
+    { name: { ko: '국립민속박물관', en: 'National Folk Museum' }, region: 'capital', q: '국립민속박물관', note: { ko: '경복궁 안. 의식주와 세시풍속.', en: 'Inside Gyeongbokgung: daily life and seasonal custom.' } },
+    { name: { ko: '국립과천과학관', en: 'Gwacheon National Science Museum' }, region: 'capital', q: '국립과천과학관', note: { ko: '우주·항공·자연사·천문관. 하루가 걸립니다.', en: 'Space, aviation, natural history and a planetarium — a full day.' } },
+    { name: { ko: '서울시립과학관', en: 'Seoul Science Center' }, region: 'capital', q: '서울시립과학관', note: { ko: '참여형 전시, 어린이와 입문자에게.', en: 'Hands-on exhibits for children and beginners.' } },
+    { name: { ko: '전쟁기념관', en: 'War Memorial of Korea' }, region: 'capital', q: '전쟁기념관', note: { ko: '전쟁사와 야외 장비 전시.', en: 'War history with outdoor equipment.' } },
+    { name: { ko: '국립현대미술관 서울', en: 'MMCA Seoul' }, region: 'capital', q: '국립현대미술관 서울', note: { ko: '현대미술과 미디어아트, 경복궁 옆.', en: 'Contemporary and media art beside Gyeongbokgung.' } },
+    { name: { ko: '대한민국역사박물관', en: 'National Museum of Korean Contemporary History' }, region: 'capital', q: '대한민국역사박물관', note: { ko: '광화문. 개항기부터 오늘까지.', en: 'Gwanghwamun: from the open ports to today.' } },
+    { name: { ko: '국립항공박물관', en: 'National Aviation Museum' }, region: 'capital', q: '국립항공박물관', note: { ko: '김포. 항공 역사와 조종 시뮬레이터.', en: 'Gimpo: aviation history and flight simulators.' } },
+    { name: { ko: '국립농업박물관', en: 'National Agricultural Museum' }, region: 'capital', q: '국립농업박물관', note: { ko: '수원. 농기구·식량·농업기술과 식물원.', en: 'Suwon: tools, food, farming technology and a garden.' } },
+    { name: { ko: '수원화성박물관', en: 'Suwon Hwaseong Museum' }, region: 'capital', q: '수원화성박물관', note: { ko: '정조와 화성의 도시·건축.', en: 'Jeongjo, the fortress and its architecture.' } },
+    { name: { ko: '삼성이노베이션뮤지엄', en: 'Samsung Innovation Museum' }, region: 'capital', q: '삼성이노베이션뮤지엄', note: { ko: '수원. 반도체·디스플레이·전자산업사. 예약 확인.', en: 'Suwon: semiconductors, displays and electronics history; check booking.' } },
+    { name: { ko: '경기도자박물관', en: 'Gyeonggi Ceramic Museum' }, region: 'capital', q: '경기도자박물관', note: { ko: '광주. 조선백자와 도자 체험.', en: 'Gwangju: Joseon white porcelain and hands-on ceramics.' } },
+    { name: { ko: '한국민속촌', en: 'Korean Folk Village' }, region: 'capital', q: '한국민속촌', note: { ko: '용인. 전통가옥과 생활문화, 공연.', en: 'Yongin: traditional houses, daily life and performances.' } },
+    { name: { ko: '국립인천해양박물관', en: 'National Maritime Museum Incheon' }, region: 'capital', q: '국립인천해양박물관', note: { ko: '해양 역사·항만·선박.', en: 'Maritime history, ports and ships.' } },
+    { name: { ko: '국립중앙과학관', en: 'National Science Museum' }, region: 'jeolla', q: '국립중앙과학관', note: { ko: '대전. 자연사·과학기술·천체관.', en: 'Daejeon: natural history, technology and a planetarium.' } },
+    { name: { ko: '독립기념관', en: 'Independence Hall of Korea' }, region: 'jeolla', q: '독립기념관', note: { ko: '천안. 독립운동사와 야외 조형물.', en: 'Cheonan: the independence movement, with outdoor monuments.' } },
+    { name: { ko: '국립공주박물관', en: 'Gongju National Museum' }, region: 'jeolla', q: '국립공주박물관', note: { ko: '무령왕릉과 백제 왕실 문화.', en: 'The Muryeong royal tomb and Baekje court culture.' } },
+    { name: { ko: '국립부여박물관', en: 'Buyeo National Museum' }, region: 'jeolla', q: '국립부여박물관', note: { ko: '백제금동대향로와 사비 백제.', en: 'The Baekje incense burner and Sabi-period Baekje.' } },
+    { name: { ko: '한국조폐공사 화폐박물관', en: 'Currency Museum' }, region: 'jeolla', q: '화폐박물관', note: { ko: '대전. 화폐의 역사와 위조방지 기술.', en: 'Daejeon: the history of money and anti-counterfeiting.' } },
+    { name: { ko: '국립청주박물관', en: 'Cheongju National Museum' }, region: 'jeolla', q: '국립청주박물관', note: { ko: '금속공예와 불교미술.', en: 'Metalwork and Buddhist art.' } },
+    { name: { ko: '국립춘천박물관', en: 'Chuncheon National Museum' }, region: 'gangwon', q: '국립춘천박물관', note: { ko: '강원 역사와 불교미술.', en: 'Gangwon history and Buddhist art.' } },
+    { name: { ko: '국립산악박물관', en: 'National Mountain Museum' }, region: 'gangwon', q: '국립산악박물관', note: { ko: '속초. 한국 등산사와 장비.', en: 'Sokcho: the history of Korean climbing and its gear.' } },
+    { name: { ko: '태백석탄박물관', en: 'Taebaek Coal Museum' }, region: 'gangwon', q: '태백석탄박물관', note: { ko: '광산의 역사와 갱도 체험.', en: 'Mining history and a mine tunnel experience.' } },
+    { name: { ko: '국립경주박물관', en: 'Gyeongju National Museum' }, region: 'gyeongsang', q: '국립경주박물관', note: { ko: '신라 금관과 성덕대왕신종.', en: 'Silla gold crowns and the Emille Bell.' } },
+    { name: { ko: '국립대구과학관', en: 'Daegu National Science Museum' }, region: 'gyeongsang', q: '국립대구과학관', note: { ko: '자동차·로봇·어린이 체험.', en: 'Cars, robots and children\u2019s exhibits.' } },
+    { name: { ko: '국립해양과학관', en: 'National Marine Science Museum' }, region: 'gyeongsang', q: '국립해양과학관', note: { ko: '울진. 해중전망대와 바닷속 생태.', en: 'Uljin: an underwater observatory and marine ecology.' } },
+    { name: { ko: '국립등대박물관', en: 'National Lighthouse Museum' }, region: 'gyeongsang', q: '국립등대박물관', note: { ko: '포항. 등대와 항로표지 기술.', en: 'Pohang: lighthouses and navigation aids.' } },
+    { name: { ko: '국립부산과학관', en: 'Busan National Science Museum' }, region: 'gyeongsang', q: '국립부산과학관', note: { ko: '자동차·항공우주·에너지.', en: 'Cars, aerospace and energy.' } },
+    { name: { ko: '국립해양박물관', en: 'National Maritime Museum' }, region: 'gyeongsang', q: '국립해양박물관', note: { ko: '부산. 선박과 해양문화, 수족관.', en: 'Busan: ships, maritime culture and an aquarium.' } },
+    { name: { ko: '국립김해박물관', en: 'Gimhae National Museum' }, region: 'gyeongsang', q: '국립김해박물관', note: { ko: '가야의 철기문화와 고분.', en: 'Gaya ironwork and tombs.' } },
+    { name: { ko: '국립진주박물관', en: 'Jinju National Museum' }, region: 'gyeongsang', q: '국립진주박물관', note: { ko: '임진왜란과 동아시아 전쟁사.', en: 'The Imjin war and East Asian conflict.' } },
+    { name: { ko: '국립광주과학관', en: 'Gwangju National Science Museum' }, region: 'jeolla', q: '국립광주과학관', note: { ko: '우주·에너지·생활과학.', en: 'Space, energy and everyday science.' } },
+    { name: { ko: '국립광주박물관', en: 'Gwangju National Museum' }, region: 'jeolla', q: '국립광주박물관', note: { ko: '아시아 도자문화와 신안 해저 유물.', en: 'Asian ceramics and the Sinan shipwreck finds.' } },
+    { name: { ko: '국립나주박물관', en: 'Naju National Museum' }, region: 'jeolla', q: '국립나주박물관', note: { ko: '마한·영산강 유역 고분문화.', en: 'Mahan and Yeongsan river tomb culture.' } },
+    { name: { ko: '해남공룡박물관', en: 'Haenam Dinosaur Museum' }, region: 'jeolla', q: '해남공룡박물관', note: { ko: '공룡 화석과 발자국, 골격 전시.', en: 'Fossils, footprints and mounted skeletons.' } },
+    { name: { ko: '고창고인돌박물관', en: 'Gochang Dolmen Museum' }, region: 'jeolla', q: '고창고인돌박물관', note: { ko: '청동기 고인돌 유적과 선사문화.', en: 'Bronze Age dolmens and prehistoric life.' } },
+    { name: { ko: '국립제주박물관', en: 'Jeju National Museum' }, region: 'jeju', q: '국립제주박물관', note: { ko: '탐라 역사와 해양문화.', en: 'Tamna history and maritime culture.' } },
+    { name: { ko: '제주민속자연사박물관', en: 'Jeju folklore & natural history museum' }, region: 'jeju', q: '제주민속자연사박물관', note: { ko: '화산섬의 지질과 생활문화.', en: 'The geology and life of a volcanic island.' } },
+    { name: { ko: '제주항공우주박물관', en: 'Jeju Aerospace Museum' }, region: 'jeju', q: '제주항공우주박물관', note: { ko: '항공사와 우주과학, 비행 체험.', en: 'Aviation history, space science and flight experiences.' } },
+    { name: { ko: '넥슨컴퓨터박물관', en: 'Nexon Computer Museum' }, region: 'jeju', q: '넥슨컴퓨터박물관', note: { ko: '옛 컴퓨터와 게임의 역사.', en: 'Old computers and the history of games.' } },
+    { name: { ko: '뮤지엄김치간', en: 'Museum Kimchikan' }, region: 'capital', q: '뮤지엄김치간', note: { ko: '서울. 김치와 발효문화.', en: 'Seoul: kimchi and fermentation.' } },
+    { name: { ko: '철도박물관', en: 'Railroad Museum' }, region: 'capital', q: '철도박물관', note: { ko: '의왕. 기차와 철도 역사, 야외 차량.', en: 'Uiwang: trains, railway history and outdoor rolling stock.' } },
+    { name: { ko: '국립세계문자박물관', en: 'National Museum of World Writing' }, region: 'capital', q: '국립세계문자박물관', note: { ko: '인천 송도. 세계 문자와 문명.', en: 'Songdo: writing systems and civilisations.' } }
+  ],
+  food: [
+    { slot: { ko: '아침', en: 'Breakfast' }, emoji: '🥐', dish: { ko: '토스트 · 커피', en: 'Toast · coffee' }, note: { ko: '개관 시간에 맞춰 일찍 움직입니다.', en: 'Move early enough to be at the door when it opens.' } },
+    { slot: { ko: '점심', en: 'Lunch' }, emoji: '🍱', dish: { ko: '정식 · 덮밥 · 국수', en: 'Set meal · rice bowl · noodles' }, note: { ko: '박물관 앞 골목은 12시에 붐빕니다.', en: 'The alleys by the museum fill at noon.' } },
+    { slot: { ko: '간식', en: 'Snack' }, emoji: '☕', dish: { ko: '커피 · 케이크', en: 'Coffee · cake' }, note: { ko: '관람 사이 한 시간을 쉬어 갑니다.', en: 'Take an hour between buildings.' } },
+    { slot: { ko: '저녁', en: 'Dinner' }, emoji: '🍲', dish: { ko: '국밥 · 찌개 · 고기', en: 'Rice soup · stew · grilled meat' }, note: { ko: '하루에 많이 걸었으니 든든하게.', en: 'You have walked a lot; eat properly.' } }
+  ],
+  photos: [
+    { file: 'th-museum', cap: { ko: '박물관의 전시실', en: 'A museum gallery' } },
+    { file: 'th-museum-p2', cap: { ko: '전시장의 유물', en: 'Objects on display' } }
+  ],
+  tip: { ko: '국립박물관은 월요일 휴관이 많고 상설전은 무료입니다. 특별전은 예약이 필요한 경우가 있으니 홈페이지를 먼저 보세요.', en: 'National museums mostly close on Mondays and permanent shows are free; special exhibitions sometimes need booking.' }
+},
