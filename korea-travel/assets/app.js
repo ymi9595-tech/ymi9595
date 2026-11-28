@@ -28,8 +28,8 @@
   const cityById = (id) => CITIES.find((c) => c.id === id);
   const themeById = (id) => THEMES.find((t) => t.id === id);
   const themeHash = (id) => '#t-' + id;
-  const placeCount = (th) => th.places ? th.places.length
-    : th.seasons4 ? th.seasons4.items.reduce((n, s) => n + s.places.length, 0) : 0;
+  const placeCount = (th) => th.seasons4 ? th.seasons4.items.reduce((n, s) => n + s.places.length, 0)
+    : th.places ? th.places.length : 0;
   const themeCourse = (th, idx) => th.course || (th.seasons4 ? th.seasons4.items[idx || 0].course : null);
 
   /* ------------------------------------------------------------- helpers */
@@ -57,8 +57,8 @@
     : ({ capital: 'Capital', gangwon: 'Gangwon', jeolla: 'Chungcheong·Jeolla', gyeongsang: 'Gyeongsang', jeju: 'Jeju' }[id] || ''));
 
   const HOME_TITLE = () => state.lang === 'ko'
-    ? '방방곡곡 대한민국 · Korea, Corner by Corner — 열 곳의 도시, 스물한 가지 테마'
-    : 'Korea, Corner by Corner · 방방곡곡 대한민국 — ten cities, twenty-one themes';
+    ? '방방곡곡 대한민국 · Korea, Corner by Corner — 열 곳의 도시, 스물두 가지 테마'
+    : 'Korea, Corner by Corner · 방방곡곡 대한민국 — ten cities, twenty-two themes';
 
   /* ---------------------------------------------------------- static copy */
   function applyStatic() {
@@ -193,6 +193,7 @@
 
   function themeCard(th) {
     const t = T();
+    const c0 = themeCourse(th);
     return `<a class="card tcard" href="${themeHash(th.id)}" data-open="theme:${th.id}" style="--tint:${th.tint}">
       <span class="ph">
         <img src="images/th-${th.id}.jpg" alt="${esc(th.name[state.lang])}" loading="lazy" decoding="async" width="1600" height="1000">
@@ -202,7 +203,7 @@
         <span class="cname">${esc(th.name[state.lang])}<span class="cen">${esc(th.name[state.lang === 'ko' ? 'en' : 'ko'])}</span></span>
         <span class="tagline">${esc(th.tag[state.lang])}</span>
         <span class="foot">
-          <span class="meta">${esc(t.courseMeta(placeCount(th), th.duration[state.lang]))}</span>
+          <span class="meta">${esc(t.courseMeta(c0 ? c0.steps.length : 0, th.duration[state.lang]))}</span>
           <span class="go">${esc(t.viewCourse)} <span class="ar">&rarr;</span></span>
         </span>
       </span>
@@ -556,6 +557,11 @@
     render();
     if (!isHome) {
       window.scrollTo(0, 0);
+    } else if (location.hash === '#themes') {
+      requestAnimationFrame(() => {
+        const el = $('#themes');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 78, behavior: 'smooth' });
+      });
     } else if (scrollTop !== false) {
       requestAnimationFrame(() => window.scrollTo({ top: state.homeScroll || 0, behavior: 'auto' }));
     }
