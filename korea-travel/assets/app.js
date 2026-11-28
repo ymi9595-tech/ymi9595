@@ -1,6 +1,6 @@
 /* ==========================================================================
    당장 가볼까? · app.js
-   Renders the left menu, the cover, 10 city courses and 21 day themes.
+   Renders the left menu, the cover, 10 city courses and 22 day themes.
    ========================================================================== */
 (function () {
   'use strict';
@@ -21,7 +21,9 @@
     filter: 'all',
     themeFilter: 'all',
     seasonIdx: 0,
-    homeScroll: 0
+    homeScroll: 0,
+    q: '',
+    taste: ''
   };
 
   const T = () => UI[state.lang];
@@ -222,6 +224,88 @@
       ${shop ? `<a class="sb-shop" href="${esc(shop.url)}" target="_blank" rel="noopener noreferrer">${esc(shop.label)} ↗</a>` : ''}`;
   }
 
+  /* -------------------------------------------------------- 찾기 · 취향 */
+  function cityHay(c) {
+    return [c.name.ko, c.name.en, c.sub.ko, c.sub.en, c.tag.ko, c.tag.en, c.hub.ko, c.hub.en,
+      regionName(c.region),
+      c.courses[0].steps.map((s) => s.name.ko + ' ' + s.name.en).join(' '),
+      c.food.map((f) => f.dish.ko + ' ' + f.dish.en).join(' ')
+    ].join(' ').toLowerCase();
+  }
+  function themeHay(th) {
+    return [th.name.ko, th.name.en, th.sub.ko, th.sub.en, th.tag.ko, th.tag.en, th.hub.ko, th.hub.en,
+      (th.seasons || []).map((s) => s.ko + ' ' + s.en).join(' '),
+      th.places.map((p) => p.name.ko + ' ' + p.name.en).join(' ')
+    ].join(' ').toLowerCase();
+  }
+
+  function renderFinder() {
+    const t = T();
+    const box = $('#tastes');
+    if (box) {
+      box.innerHTML = `<button type="button" class="tchip${state.taste ? '' : ' is-on'}" data-taste="" aria-pressed="${!state.taste}">${esc(t.findAll)}</button>` +
+        TASTES.map((x) => `<button type="button" class="tchip${state.taste === x.id ? ' is-on' : ''}" data-taste="${x.id}" aria-pressed="${state.taste === x.id}"><span aria-hidden="true">${x.emoji}</span>${esc(x[state.lang])}</button>`).join('');
+    }
+    const input = $('#findq');
+    if (input) { input.placeholder = t.findPlaceholder; if (input.value !== state.q) input.value = state.q; }
+    const clr = $('#findClear');
+    if (clr) clr.hidden = !(state.q || state.taste);
+  }
+
+  function applyFinder() {
+    const t = T();
+    const words = String(state.q || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const taste = state.taste || '';
+    const hit = (hay) => words.every((w) => hay.indexOf(w) !== -1);
+    let tHit = 0, cHit = 0;
+    $$('#themeGrid .card').forEach((el) => {
+      const ok = hit(el.dataset.search || '') && (!taste || el.dataset.taste === taste);
+      el.hidden = !ok; if (ok) tHit++;
+    });
+    $$('#grid .card').forEach((el) => {
+      const ok = hit(el.dataset.search || '');
+      el.hidden = !ok; if (ok) cHit++;
+    });
+    const themeCount = $('#themeCount');
+    if (themeCount) themeCount.textContent = t.themeCount(tHit);
+    const count = $('#count');
+    if (count) count.textContent = t.count(cHit);
+    const te = $('#themeEmpty'); if (te) te.hidden = !(tHit === 0 && (words.length || taste));
+    const ce = $('#cityEmpty'); if (ce) ce.hidden = !(cHit === 0 && words.length);
+    const note = $('#findNote');
+    if (note) {
+      let msg = '';
+      if (taste && !words.length) {
+        const th = themeById(taste);
+        msg = th ? t.findTasteOnly(th.name[state.lang], tHit) : '';
+      } else if (words.length) {
+        msg = (tHit || cHit) ? t.findResult(cHit, tHit) : t.findNone;
+      }
+      note.textContent = msg;
+      note.hidden = !msg;
+    }
+    const clr = $('#findClear');
+    if (clr) clr.hidden = !(state.q || state.taste);
+  }
+
+  /* 하루 실용 정보 — 이동 · 예산 · 귀환 */
+  function practicalHTML(key, data, course) {
+    const t = T();
+    const P = (typeof PRACTICAL !== 'undefined' && PRACTICAL[key]) || null;
+    const stops = course ? course.steps.length : 0;
+    const moveLine = data.transport[state.lang] + ' · ' + data.duration[state.lang] + (stops ? ' · ' + t.pracStops(stops) : '');
+    const row = (em, label, body) => body
+      ? `<div class="prac-row"><span class="prac-ico" aria-hidden="true">${em}</span><span class="prac-k">${esc(label)}</span><p class="prac-v">${esc(body)}</p></div>`
+      : '';
+    return `<section class="prac" aria-label="${esc(t.pracTitle)}">
+      <h3 class="prac-h">🧾 ${esc(t.pracTitle)}</h3>
+      ${row('🚌', t.pracMove, moveLine)}
+      ${P ? row('💰', t.pracBudget, P.budget[state.lang]) : ''}
+      ${P ? row('🏠', t.pracBack, P.back[state.lang]) : ''}
+      <p class="prac-note">${esc(t.pracNote)}</p>
+    </section>`;
+  }
+
   /* --------------------------------------------------------------- home */
   function renderStickers() {
     const picks = ['seoul', 'busan', 'jeju', 'gyeongju', 'gangneung', 'anseong'];
@@ -250,7 +334,7 @@
     const t = T();
     const first = c.courses[0];
     const stops = first.steps.length;
-    return `<button class="card" type="button" data-open="city:${c.id}" style="--tint:${c.tint}">
+    return `<button class="card" type="button" data-open="city:${c.id}" data-search="${esc(cityHay(c))}" style="--tint:${c.tint}">
       <span class="ph">
         <img src="images/${c.id}-cover.jpg" alt="${esc(c.name[state.lang])}" loading="lazy" decoding="async" width="1300" height="900">
         <span class="badge"><b aria-hidden="true">${c.emoji}</b>${esc(regionName(c.region))}</span>
@@ -268,7 +352,7 @@
 
   function themeCard(th) {
     const t = T();
-    return `<a class="card tcard" href="${themeHash(th.id)}" data-open="theme:${th.id}" style="--tint:${th.tint}">
+    return `<a class="card tcard" href="${themeHash(th.id)}" data-open="theme:${th.id}" data-search="${esc(themeHay(th))}" data-taste="${th.id}" style="--tint:${th.tint}">
       <span class="ph">
         <img src="images/th-${th.id}.jpg" alt="${esc(th.name[state.lang])}" loading="lazy" decoding="async" width="1600" height="1000">
         <span class="badge"><b aria-hidden="true">${th.emoji}</b>${esc(t.themeTag)}</span>
@@ -297,6 +381,7 @@
     const tc = $('#themeCount');
     if (tc) tc.textContent = T().themeCount(THEMES.length);
     renderBookHome();
+    applyFinder();
   }
 
   /* --------------------------------------------------------------- city */
@@ -364,6 +449,7 @@
     </div>
     <div class="city-body">
       <p class="city-intro">${esc(c.intro[state.lang])}</p>
+      ${practicalHTML('city:' + c.id, c, course)}
       <div class="city-cols">
       <div class="city-main">
       <section class="sec">
@@ -503,6 +589,7 @@
     </div>
     <div class="city-body">
       <p class="city-intro">${esc(th.intro[state.lang])}</p>
+      <div id="pracBox">${practicalHTML('theme:' + th.id, th, course)}</div>
       <div class="city-cols">
       <div class="city-main">
       <section class="sec">
@@ -578,6 +665,7 @@
       detail.hidden = true;
       detail.innerHTML = '';
       home.hidden = false;
+      renderFinder();
       renderHome();
     } else {
       const data = state.route.type === 'city' ? cityById(state.route.id) : themeById(state.route.id);
@@ -588,6 +676,10 @@
     }
     renderSide();
     renderQuick();
+    applyFinder();
+    const dg = document.getElementById('danbi-guide-bar');
+    if (dg) dg.setAttribute('data-lang', state.lang);
+    if (window.DanbiGuide) window.DanbiGuide.render(state.lang);
     const crumb = $('#topCrumb');
     if (crumb) {
       crumb.textContent = state.route.type === 'city'
@@ -832,6 +924,8 @@
           $$('.season-tabs [data-season]').forEach((b) => b.setAttribute('aria-selected', String(Number(b.dataset.season) === state.seasonIdx)));
           const panel = $('#seasonPanel');
           if (panel) panel.innerHTML = seasonPanelHTML(th);
+          const pb = $('#pracBox');
+          if (pb) pb.innerHTML = practicalHTML('theme:' + th.id, th, themeCourse(th, state.seasonIdx));
         }
         return;
       }
@@ -844,6 +938,23 @@
         const count = $('#count');
         if (count) count.textContent = T().count(list.length);
         $('#grid').innerHTML = list.length ? list.map(cityCard).join('') : `<p class="empty">${esc(T().notFound)}</p>`;
+        applyFinder();
+        return;
+      }
+
+      const taste = e.target.closest('[data-taste]');
+      if (taste) {
+        state.taste = taste.dataset.taste || '';
+        renderFinder();
+        applyFinder();
+        return;
+      }
+
+      if (e.target.closest('#findClear')) {
+        state.q = ''; state.taste = '';
+        const input = $('#findq'); if (input) input.value = '';
+        renderFinder();
+        applyFinder();
         return;
       }
 
@@ -897,6 +1008,22 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     bind();
+    const q = $('#findq');
+    if (q) {
+      q.addEventListener('input', () => {
+        state.q = q.value;
+        const clr = $('#findClear');
+        if (clr) clr.hidden = !(state.q || state.taste);
+        applyFinder();
+      });
+      q.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const first = document.querySelector('#themeGrid .card:not([hidden])') || document.querySelector('#grid .card:not([hidden])');
+          if (first) first.click();
+        }
+      });
+    }
     applyRoute();
   });
 })();
