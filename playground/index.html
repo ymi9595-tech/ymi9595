@@ -715,6 +715,40 @@ body.pwa-lock{overflow:hidden}
   .dice.is-rolling svg{animation:none}
   .splash{display:none!important}
 }
+
+/* ---------------- culture notes & keep/share ---------------- */
+.corner-cul{
+  display:block;margin:10px 0 0;padding:8px 10px;border-radius:12px;
+  background:color-mix(in srgb,var(--za,var(--coral)) 9%,#FFFDF9);
+  border:1px solid color-mix(in srgb,var(--za,var(--coral)) 16%,#FFF7F1);
+  font-size:10.6px;line-height:1.55;color:#635A69;font-family:var(--ko)}
+.corner-cul b{
+  display:inline-block;margin-right:4px;font-family:var(--ko);font-weight:800;
+  color:color-mix(in srgb,var(--za,var(--coral)) 74%,#3E3346);letter-spacing:-.01em}
+.culture,.keep{
+  margin:clamp(22px,3.4vw,36px) auto 0;max-width:1180px;padding:clamp(18px,2.6vw,26px);
+  border-radius:26px;background:linear-gradient(160deg,#FFF9F3 0%,#FFFDFB 60%,#F4FBF6 100%);
+  border:1px solid rgba(255,255,255,.9);box-shadow:0 20px 44px -38px rgba(150,100,130,.6)}
+.cul-eyebrow,.keep-eyebrow{
+  margin:0 0 6px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--coral-deep)}
+.cul-head h2,.keep-head h2{
+  margin:0 0 8px;font-family:var(--display);font-weight:800;font-size:clamp(19px,2.2vw,25px);letter-spacing:-.03em;line-height:1.2}
+.cul-lead,.keep-head p{margin:0;font-size:12.6px;line-height:1.7;color:var(--ink-2);max-width:72ch}
+.cul-list{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 0;padding:0}
+.cul-list li{background:#fff;border:1px solid var(--line-2,rgba(160,120,150,.16));border-radius:16px;padding:12px 13px;display:flex;flex-direction:column;gap:3px}
+.cul-list b{font-family:var(--ko);font-size:22px;font-weight:800;color:var(--coral-deep);line-height:1.1;letter-spacing:-.02em}
+.cul-list span{font-size:11px;line-height:1.5;color:var(--ink-2)}
+.keep-steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 0;padding:0;counter-reset:none}
+.keep-steps li{background:#fff;border:1px solid rgba(255,255,255,.95);border-radius:18px;padding:14px 15px;
+  box-shadow:0 14px 26px -26px rgba(150,100,130,.7);display:flex;flex-direction:column;gap:5px}
+.keep-steps b{font-size:12.4px;font-weight:800;letter-spacing:-.01em;color:var(--coral-deep)}
+.keep-steps span{font-size:11.6px;line-height:1.6;color:var(--ink-2)}
+.keep-note{margin:12px 0 0;font-size:10.8px;color:var(--ink-3);line-height:1.6}
+@media(max-width:820px){
+  .cul-list{grid-template-columns:repeat(2,1fr)}
+  .keep-steps{grid-template-columns:1fr}
+  .corner-cul{font-size:10.2px}
+}
 </style>
 <!-- Google Analytics 4 — one measurement ID for the whole playground site.
      danbi-nav.js loads the same tag on every sub-app and skips itself when a page
@@ -921,6 +955,36 @@ body.pwa-lock{overflow:hidden}
   </div>
 </section>
 
+<!-- ---------------- why these corners ---------------- -->
+<section class="culture" id="culture" aria-labelledby="culTitle">
+  <div class="cul-head">
+    <p class="cul-eyebrow">한국 문화 배경 · why these corners</p>
+    <h2 id="culTitle">Every corner starts with one Korean word.</h2>
+    <p class="cul-lead">정 (jeong) is the affection that grows from sitting together; 한글 is an alphabet made to be learned in a morning; 복 (bok) is a wish for ordinary luck. Open any corner and a short note under it says which word it carries — and why a Korean would smile at it.</p>
+  </div>
+  <ul class="cul-list">
+    <li><b>정</b><span>jeong — the warmth of being together</span></li>
+    <li><b>한</b><span>han — a quiet, held-back sorrow</span></li>
+    <li><b>복</b><span>bok — luck in small, ordinary things</span></li>
+    <li><b>눈치</b><span>nunchi — reading the room</span></li>
+  </ul>
+</section>
+
+<!-- ---------------- keep & share ---------------- -->
+<section class="keep" id="keep" aria-labelledby="keepTitle">
+  <div class="keep-head">
+    <p class="keep-eyebrow">저장과 공유 · keep &amp; share</p>
+    <h2 id="keepTitle">Keep what you make.</h2>
+    <p>Everything here runs in your own browser — nothing is uploaded and nothing needs an account. So keep it the same way:</p>
+  </div>
+  <ol class="keep-steps">
+    <li><b>1 · It saves itself</b><span>Your wish, hanbok, name card and lists stay in this browser. Come back tomorrow on the same device and they are still there.</span></li>
+    <li><b>2 · Save the picture</b><span>On a phone, press and hold a finished card → “Save image”, or take a screenshot. On a computer, right-click → “Save image as…”. Recipe cards and colouring sheets print cleanly on A4.</span></li>
+    <li><b>3 · Share it</b><span>“Share” copies a link to this corner. “Invite” adds your name to the link, so a friend is greeted by it and you can compare what you both made.</span></li>
+  </ol>
+  <p class="keep-note">No account, no ads, no upload — the link is the only thing that leaves your device.</p>
+</section>
+
 <div class="zones">
 
 <!-- ---------------- zone 1 ---------------- -->
@@ -943,6 +1007,7 @@ body.pwa-lock{overflow:hidden}
         <span class="corner-eyebrow">✦ Start here</span>
         <span class="corner-name">Wish Before It Flies</span>
         <span class="corner-desc">A hanok stone bridge at night, seven lanterns, one minute. Write your wish fast and send it up — pick the dokkaebi&rsquo;s lantern and the sky flies a silly wish instead.</span>
+        <span class="corner-cul"><b>도깨비 dokkaebi</b> Korean goblins are tricksters who test you — and who love a wish made with a grin. A low stone bridge at a village mouth is an old hanok-day greeting: bow your head as you cross.</span>
         <span class="corner-meta"><span class="tag">1-minute game</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -955,6 +1020,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Jeong (정) 4-in-1</span>
         <span class="corner-desc">Four little tools in one page: your Korean name with this year&rsquo;s 띠 luck, rain on a hanok café with a focus timer, one warm Korean phrase, and eight home recipes.</span>
+        <span class="corner-cul"><b>정 jeong</b> The affection that grows from being together for a while, not from liking each other first. It is the word this whole playground is built on.</span>
         <span class="corner-meta"><span class="tag">4 tools in one</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -966,6 +1032,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Today&rsquo;s Korean Fortune Card</span>
         <span class="corner-desc">Draw a card for the day: one kind Korean line with how to say it, what it means, and a lucky charm to carry. Listen to it, then keep the card.</span>
+        <span class="corner-cul"><b>복 bok</b> In Korea a fortune is often a wish for small, ordinary luck — a full table, a quiet day — rather than anything grand.</span>
         <span class="corner-meta"><span class="tag">draw · listen</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -977,6 +1044,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Modern Seoul Playbook</span>
         <span class="corner-desc">Four field-note courses through everyday Seoul: convenience-store combos, how to order in a café, Seongsu photo booths, and late nights by the Han River.</span>
+        <span class="corner-cul"><b>편의점 · 카페</b> The convenience store works as a pantry and the café as a living room. Nobody minds if you sit two hours over one coffee.</span>
         <span class="corner-meta"><span class="tag">4 courses</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -988,6 +1056,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Korea 5-Day Journey Mission</span>
         <span class="corner-desc">A pocket travel passport: eleven five-day courses, six stops a day — breakfast, an experience, lunch, a café and photo stop, dinner and a night out, with a real local choice at every stop.</span>
+        <span class="corner-cul"><b>밥 먹었어?</b> Koreans ask ‘have you eaten?’ the way others ask how you are. The six stops a day — breakfast to night out — follow that rhythm.</span>
         <span class="corner-meta"><span class="tag">11 courses</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1013,6 +1082,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Today&rsquo;s Korean Mood</span>
         <span class="corner-desc">Eighty Korean words and lines, sorted into eight moods and matched to the weather in Seoul. Hear it, read the note behind it, keep the card as a poster.</span>
+        <span class="corner-cul"><b>정 · 한 · 눈치</b> Korean has single words for feelings English needs a sentence for: 정 (jeong), 한 (han), 눈치 (nunchi). Each card picks one for the day.</span>
         <span class="corner-meta"><span class="tag">80 cards · poster</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1025,6 +1095,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Your Name in Hangul</span>
         <span class="corner-desc">Type your name and get it back in Korean handwriting, sealed with red ink — a postcard for your wall, or a 9:16 card for your story.</span>
+        <span class="corner-cul"><b>한글 · 낙관</b> Hangul is a 600-year-old alphabet made to be learned in a morning. The red seal (낙관) marks a finished piece, the way a painter signs a page.</span>
         <span class="corner-meta"><span class="tag">postcard · seal</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1036,6 +1107,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Slow Seoul Typewriter</span>
         <span class="corner-desc">Write a letter the slow way — pick the paper, choose a stamp, hear the keys, and keep the page as a small keepsake from Seoul.</span>
+        <span class="corner-cul"><b>손편지</b> A handwritten letter is still the warmest thing you can send in Korea — paper, a stamp, and a little delay are the whole point.</span>
         <span class="corner-meta"><span class="tag">letter · keepsake</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1047,6 +1119,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Seoul Color Studio</span>
         <span class="corner-desc">Six Seoul moods, each a palette of five colours. Tune them, name them, copy a HEX with one tap, and save the card as a moodboard.</span>
+        <span class="corner-cul"><b>오방색</b> Obangsaek, the five traditional colours — blue, red, yellow, white and black — sit under most Korean colour choices, hanbok included.</span>
         <span class="corner-meta"><span class="tag">palette · moodboard</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1072,6 +1145,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Free Korean Coloring Pages</span>
         <span class="corner-desc">Three pages from the Cozy Korean Countryside coloring book — a hanok tea room, a row of jangdokdae jars, an autumn field. Colour them on screen or print them.</span>
+        <span class="corner-cul"><b>장독대</b> A jangdokdae is the row of jars on a raised terrace where soy and gochujang mature — the quiet centre of an old Korean house.</span>
         <span class="corner-meta"><span class="tag">colour · print</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1084,6 +1158,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Hanbok Coloring Studio</span>
         <span class="corner-desc">Thirteen hanbok looks drawn as line art — jeogori and chima, a dang-ui under the moon, a hwarot bride, a king in dragon robes. Fill the shapes with traditional silk colours, then keep a postcard or print the sheets.</span>
+        <span class="corner-cul"><b>한복 colors</b> Hanbok colour followed season and rank: a bride in hwarot red, a king in dragon robes, a scholar in plain white. The line art keeps those shapes.</span>
         <span class="corner-meta"><span class="tag">13 pages</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1096,6 +1171,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Dress Your Hanbok</span>
         <span class="corner-desc">Thirteen illustrated hanbok looks. Dye the jeogori and the chima in two colours, change the light, put on hwagwan, binyeo, norigae and gat, then keep the card as a photo print.</span>
+        <span class="corner-cul"><b>노리개 · 비녀</b> The norigae pendant, binyeo hairpin and hwagwan crown finish the look. Hanbok is worn at Seollal, Chuseok and weddings — not as a costume.</span>
         <span class="corner-meta"><span class="tag">13 looks</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1107,6 +1183,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">K-Vibe Sketch &amp; Calligraphy Studio</span>
         <span class="corner-desc">Six scenes to trace with a finger or a stylus, a Korean line to copy by hand, a voice to read it aloud — then stamp the page and keep it.</span>
+        <span class="corner-cul"><b>서예 · 낙관</b> In calligraphy the brush is loaded once and the line is kept. The red stamp at the end is what makes a page finished.</span>
         <span class="corner-meta"><span class="tag">trace · lettering</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1118,6 +1195,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">Cozy Seoul Desk</span>
         <span class="corner-desc">Rain, firelight, night air and one blank line of paper. A quiet desk to sit at for a while — no streaks, no list, nothing to finish.</span>
+        <span class="corner-cul"><b>비 오는 날</b> Rain on a window is a mood of its own in Korea — rainy-day cafés, rainy-day songs. Nothing to finish is the point.</span>
         <span class="corner-meta"><span class="tag">ambience · focus</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1129,6 +1207,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">My Korea &amp; Cozy Checklist Maker</span>
         <span class="corner-desc">Make a soft checklist or bucket list in a few minutes — a Korea list, a rainy-day list, a small-things list — then save it as a pin card or a printable A4 page.</span>
+        <span class="corner-cul"><b>버킷리스트</b> A bucket list or new-year plan written by hand and ticked off is a small Korean ritual: paper on the fridge, not an app.</span>
         <span class="corner-meta"><span class="tag">list · A4 print</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1154,6 +1233,7 @@ body.pwa-lock{overflow:hidden}
       <span class="corner-body">
         <span class="corner-name">K-Food Free Recipe Cards</span>
         <span class="corner-desc">Twenty one-page kitchen cards: what to buy outside Korea, the three steps that matter, how Koreans actually eat it, and how long it keeps. Print, cook, keep.</span>
+        <span class="corner-cul"><b>밥상 · 반찬</b> A Korean meal is bapsang — rice, soup and a spread of banchan side dishes shared in the middle. The cards keep that order.</span>
         <span class="corner-meta"><span class="tag">20 PDFs · free</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
@@ -1180,6 +1260,8 @@ body.pwa-lock{overflow:hidden}
 
 </div><!-- /zones -->
 </main>
+
+<div id="danbi-guide-bar" data-base="../" data-lang="en" data-sub="ko"></div>
 
 <footer class="foot">
   <div class="foot-in">
@@ -2007,5 +2089,6 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
 </script>
 <div class="pwa-modal" id="pwaModal" role="dialog" aria-modal="true" aria-labelledby="pwaTitle" hidden></div>
 <script src="pwa.js?v=1" defer></script>
+<script src="../danbi-guide-bar.js?v=1" defer></script>
 </body>
 </html>
