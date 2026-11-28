@@ -36,6 +36,14 @@
   }
   function nl2br(s) { return esc(s).replace(/\n/g, '<br>'); }
 
+  /* 새 화면(프롬프트 도서관·코스·비교실·오류 해결실)의 문구를 data.js 의 UI 에 합칩니다. */
+  if (typeof UITEXT !== 'undefined') {
+    Object.keys(UITEXT).forEach(function (lang) {
+      if (!UI[lang]) return;
+      Object.keys(UITEXT[lang]).forEach(function (k) { UI[lang][k] = UITEXT[lang][k]; });
+    });
+  }
+
   var byId = {};
   ITEMS.forEach(function (it) { byId[it.id] = it; });
 
@@ -77,7 +85,7 @@
   var HAY = null;
   function indexOnce() {
     if (HAY) return HAY;
-    HAY = { items: [], terms: [], books: [] };
+    HAY = { items: [], terms: [], books: [], prompts: [], fixes: [], course: [] };
     ITEMS.forEach(function (it) {
       var hay = [it.name.ko, it.name.en, it.sub.ko, it.sub.en, it.tag.ko, it.tag.en, it.when.ko, it.when.en,
         it.tips.map(function (x) { return x.ko + ' ' + x.en; }).join(' '),
@@ -92,6 +100,18 @@
     Object.keys(BOOKS).forEach(function (k) {
       var b = BOOKS[k];
       HAY.books.push({ key: 'b:' + k, id: k, b: b, hay: [b.title.ko, b.title.en, b.desc.ko, b.desc.en].join(' ').toLowerCase() });
+    });
+    /* 프롬프트 도서관 · 오류 해결실 · 학습 코스도 같은 검색에 넣습니다. */
+    if (typeof PROMPTS !== 'undefined') PROMPTS.forEach(function (p) {
+      HAY.prompts.push({ key: 'pr:' + p.id, p: p, hay: [p.t.ko, p.t.en, p.use.ko, p.use.en, p.b.ko, p.b.en, p.tip.ko, p.tip.en].join(' ').toLowerCase() });
+    });
+    if (typeof FIXES !== 'undefined') FIXES.forEach(function (f) {
+      HAY.fixes.push({ key: 'f:' + f.id, f: f, hay: [f.t.ko, f.t.en, f.symptom.ko, f.symptom.en, f.cause.ko, f.cause.en,
+        f.steps.map(function (s) { return s.ko + ' ' + s.en; }).join(' ')].join(' ').toLowerCase() });
+    });
+    if (typeof COURSE !== 'undefined') COURSE.forEach(function (c) {
+      HAY.course.push({ key: 'c:' + c.id, c: c, hay: [c.t.ko, c.t.en, c.why.ko, c.why.en, c.practice.ko, c.practice.en,
+        c.steps.map(function (s) { return s.ko + ' ' + s.en; }).join(' ')].join(' ').toLowerCase() });
     });
     return HAY;
   }
@@ -124,9 +144,12 @@
       });
     }
     return {
-      items: items.slice(0, 6),
-      terms: rank(idx.terms, function (x) { return [x.g.term.ko + ' ' + x.g.term.en, '']; }).slice(0, 4),
-      books: rank(idx.books, function (x) { return [x.b.title.ko + ' ' + x.b.title.en, '']; }).slice(0, 3)
+      items: items.slice(0, 4),
+      prompts: rank(idx.prompts, function (x) { return [x.p.t.ko + ' ' + x.p.t.en, x.p.use.ko + ' ' + x.p.use.en]; }).slice(0, 4),
+      fixes: rank(idx.fixes, function (x) { return [x.f.t.ko + ' ' + x.f.t.en, '']; }).slice(0, 3),
+      course: rank(idx.course, function (x) { return [x.c.t.ko + ' ' + x.c.t.en, '']; }).slice(0, 2),
+      terms: rank(idx.terms, function (x) { return [x.g.term.ko + ' ' + x.g.term.en, '']; }).slice(0, 3),
+      books: rank(idx.books, function (x) { return [x.b.title.ko + ' ' + x.b.title.en, '']; }).slice(0, 2)
     };
   }
   function searchRow(key, emoji, title, sub) {
@@ -139,12 +162,24 @@
     var r = searchAll(q);
     if (!r) return '';
     var t = T();
-    var total = r.items.length + r.terms.length + r.books.length;
+    var total = r.items.length + r.prompts.length + r.fixes.length + r.course.length + r.terms.length + r.books.length;
     if (!total) return '<p class="sempty">' + esc(t.searchNothing) + '</p>';
     var out = '<p class="scount">' + esc(t.searchFound(total)) + ' <span>' + esc(t.searchEnter) + '</span></p>';
     if (r.items.length) {
       out += '<p class="sgroup">' + esc(t.searchGroupItem) + '</p>' +
         r.items.map(function (x) { return searchRow(x.key, x.it.emoji, x.it.name[state.lang], x.it.sub[state.lang]); }).join('');
+    }
+    if (r.prompts.length) {
+      out += '<p class="sgroup">' + esc(t.searchGroupPrompt) + '</p>' +
+        r.prompts.map(function (x) { return searchRow(x.key, '📚', x.p.t[state.lang], x.p.use[state.lang]); }).join('');
+    }
+    if (r.fixes.length) {
+      out += '<p class="sgroup">' + esc(t.searchGroupFix) + '</p>' +
+        r.fixes.map(function (x) { return searchRow(x.key, '🛠️', x.f.t[state.lang], x.f.symptom[state.lang]); }).join('');
+    }
+    if (r.course.length) {
+      out += '<p class="sgroup">' + esc(t.searchGroupCourse) + '</p>' +
+        r.course.map(function (x) { return searchRow(x.key, '🎓', t.courseStep(x.c.n) + ' · ' + x.c.t[state.lang], x.c.why[state.lang]); }).join('');
     }
     if (r.terms.length) {
       out += '<p class="sgroup">' + esc(t.searchGroupTerm) + '</p>' +
@@ -162,6 +197,9 @@
     if (key.indexOf('i:') === 0) target = '#' + key.slice(2);
     else if (key.indexOf('b:') === 0) { state.focusBook = key.slice(2); target = '#books'; }
     else if (key.indexOf('g:') === 0) { state.focusTerm = key.slice(2); target = '#glossary'; }
+    else if (key.indexOf('pr:') === 0) { state.focusPrompt = key.slice(3); target = '#prompts'; }
+    else if (key.indexOf('f:') === 0) { state.focusFix = key.slice(2); target = '#troubleshoot'; }
+    else if (key.indexOf('c:') === 0) { state.focusCourse = key.slice(2); target = '#course'; }
     if (!target) return;
     if (location.hash === target) { render(); applyFocus(); }
     else location.hash = target;
@@ -170,6 +208,9 @@
     var el = null;
     if (state.focusBook) { el = document.getElementById('book-' + state.focusBook); state.focusBook = ''; }
     else if (state.focusTerm) { el = document.getElementById('gl-' + state.focusTerm); state.focusTerm = ''; }
+    else if (state.focusPrompt) { el = document.getElementById('pr-' + state.focusPrompt); state.focusPrompt = ''; }
+    else if (state.focusFix) { el = document.getElementById('fix-' + state.focusFix); state.focusFix = ''; }
+    else if (state.focusCourse) { el = document.getElementById('crs-' + state.focusCourse); state.focusCourse = ''; }
     if (!el) return;
     el.scrollIntoView({ block: 'center', behavior: 'smooth' });
     el.classList.add('flash');
@@ -194,6 +235,14 @@
     html += sideItem('compare', '🤖', t.compare, t.cmpSub, state.route === 'compare');
     html += sideItem('glossary', '📖', t.glossary, t.glsSub, state.route === 'glossary');
     html += sideItem('favs', '⭐', t.myFavs, (favKeys().length ? t.favCount(favKeys().length) : t.favSub), state.route === 'favs');
+    html += '</ul>';
+    html += '<p class="side-group"><span aria-hidden="true">🧭</span>' + esc(t.navPractice) +
+      ' <em>' + esc(t.navPracticeCount) + '</em></p><ul class="side-list">';
+    html += sideItem('pick', '🧭', t.pickNav, t.pickSub, state.route === 'pick');
+    html += sideItem('prompts', '📚', t.promptsNav, t.promptsSub, state.route === 'prompts');
+    html += sideItem('course', '🎓', t.courseNav, t.courseSub, state.route === 'course');
+    html += sideItem('lab', '⚖️', t.labNav, t.labSub, state.route === 'lab');
+    html += sideItem('troubleshoot', '🛠️', t.fixNav, t.fixSub, state.route === 'troubleshoot');
     html += '</ul>';
     html += '<p class="side-group"><span aria-hidden="true">🤖</span>' + esc(t.navTools) +
       ' <em>' + esc(t.navToolsCount) + '</em></p><ul class="side-list">';
@@ -276,6 +325,8 @@
       '</section>' +
 
       searchBlock() +
+      pickSection() +
+      promptsHome() +
       quickCards() +
       favSection() +
       recentSection() +
@@ -400,6 +451,21 @@
         (related ? '<div class="offi-rel"><p class="ol">' + esc(t.officialForTools) + '</p><ul>' + related + '</ul></div>' : '') +
         '<p class="offi-note">' + esc(t.officialNote) + '</p>' +
       '</div></section>';
+    var sp = (typeof TOOLSPEC !== 'undefined') ? TOOLSPEC[it.id] : null;
+    var spec = '';
+    if (it.group === 'tool' && sp) {
+      spec = '<section class="sec sec-spec">' +
+        '<h2><i>✚</i> ' + esc(t.specTitle) + '</h2>' +
+        '<div class="spec-grid">' +
+          '<div class="spec"><h4>' + esc(t.specSignup) + '</h4><p>' + esc(L(sp.signup)) + '</p></div>' +
+          '<div class="spec"><h4>' + esc(t.specFree) + '</h4><p>' + esc(L(sp.free)) + '</p></div>' +
+          '<div class="spec spec-wide"><h4>' + esc(t.specSteps) + '</h4><ol class="spec-steps">' +
+            sp.steps.map(function (s) { return '<li>' + esc(L(s)) + '</li>'; }).join('') + '</ol></div>' +
+          '<div class="spec spec-wide spec-priv"><h4>' + esc(t.specPrivacy) + '</h4><p>' + esc(L(sp.privacy)) + '</p></div>' +
+        '</div>' +
+        '<p class="spec-note">' + esc(t.specNote) + '</p>' +
+        '</section>';
+    }
     var report = '<section class="report">' +
       '<div><b>' + esc(t.reportTitle) + '</b><p>' + esc(t.reportLead) + '</p></div>' +
       '<a class="report-btn" href="' + reportHref(it.name[state.lang], it.id) + '">✉️ ' + esc(t.reportBtn) + '</a>' +
@@ -460,6 +526,7 @@
           '</div>' +
         '</section>' +
 
+        spec +
         official +
 
         '<nav class="pager">' +
@@ -501,20 +568,23 @@
 
   function quickCards() {
     var t = T();
+    var cards = [
+      ['a', '#compare', '🤖', t.compare, t.cmpSub],
+      ['b', '#glossary', '📖', t.glossary, t.glsSub],
+      ['c', '#course', '🎓', t.courseNav, t.courseSub],
+      ['d', '#lab', '⚖️', t.labNav, t.labSub],
+      ['e', '#prompts', '📚', t.promptsNav, t.promptsSub],
+      ['f', '#troubleshoot', '🛠️', t.fixNav, t.fixSub]
+    ];
     return '<section class="block">' +
-      '<div class="quick2">' +
-        '<a class="qcard qcard-a" href="#compare">' +
-          '<span class="qc-em" aria-hidden="true">🤖</span>' +
-          '<b>' + esc(t.compare) + '</b>' +
-          '<p>' + esc(t.cmpSub) + '</p>' +
-          '<span class="qc-go">' + esc(t.compareOpen) + '</span></a>' +
-        '<a class="qcard qcard-b" href="#glossary">' +
-          '<span class="qc-em" aria-hidden="true">📖</span>' +
-          '<b>' + esc(t.glossary) + '</b>' +
-          '<p>' + esc(t.glsSub) + '</p>' +
-          '<span class="qc-go">' + esc(t.compareOpen) + '</span></a>' +
-      '</div>' +
-      '</section>';
+      '<div class="quick2 quick6">' + cards.map(function (c) {
+        return '<a class="qcard qcard-' + c[0] + '" href="' + c[1] + '">' +
+          '<span class="qc-em" aria-hidden="true">' + c[2] + '</span>' +
+          '<b>' + esc(c[3]) + '</b>' +
+          '<p>' + esc(c[4]) + '</p>' +
+          '<span class="qc-go">' + esc(t.compareOpen) + '</span></a>';
+      }).join('') +
+      '</div></section>';
   }
 
   function itemByKey(key) {
@@ -529,7 +599,12 @@
     var pages = {
       'p:compare': { emoji: '🤖', href: '#compare', title: t.compare, sub: t.cmpSub, c: '#D6E8FA' },
       'p:glossary': { emoji: '📖', href: '#glossary', title: t.glossary, sub: t.glsSub, c: '#FFF1D6' },
-      'p:books': { emoji: '📚', href: '#books', title: t.bookshelfTitle.replace('📚 ', ''), sub: t.bookshelfLead.slice(0, 30) + '…', c: '#F6DFE8' }
+      'p:books': { emoji: '📚', href: '#books', title: t.bookshelfTitle.replace('📚 ', ''), sub: t.bookshelfLead.slice(0, 30) + '…', c: '#F6DFE8' },
+      'p:pick': { emoji: '🧭', href: '#pick', title: t.pickNav, sub: t.pickSub, c: '#E7F0FA' },
+      'p:prompts': { emoji: '📚', href: '#prompts', title: t.promptsNav, sub: t.promptsSub, c: '#FFEEDC' },
+      'p:course': { emoji: '🎓', href: '#course', title: t.courseNav, sub: t.courseSub, c: '#E6F3E9' },
+      'p:lab': { emoji: '⚖️', href: '#lab', title: t.labNav, sub: t.labSub, c: '#E9E4F7' },
+      'p:troubleshoot': { emoji: '🛠️', href: '#troubleshoot', title: t.fixNav, sub: t.fixSub, c: '#FBE4E7' }
     };
     if (it) {
       return '<a class="minicard" href="#' + it.id + '" style="--c1:' + it.c1 + '">' +
@@ -717,6 +792,240 @@
       '</article>';
   }
 
+  /* ───────── 🧭 무엇을 할까요? · 📚 프롬프트 도서관 ───────── */
+  function promptOfDay() {
+    if (typeof PROMPTS === 'undefined' || !PROMPTS.length) return null;
+    var d = new Date();
+    var day = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000);
+    return PROMPTS[((day % PROMPTS.length) + PROMPTS.length) % PROMPTS.length];
+  }
+  var MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function todayLabel() {
+    var d = new Date();
+    if (state.lang === 'en') return MONTHS_EN[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    return d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
+  }
+  function catById(id) {
+    for (var i = 0; i < PROMPTCATS.length; i++) if (PROMPTCATS[i].id === id) return PROMPTCATS[i];
+    return null;
+  }
+
+  function purposePanel(id) {
+    var t = T();
+    var p = null;
+    PURPOSES.forEach(function (x) { if (x.id === id) p = x; });
+    if (!p) return '';
+    var tools = p.tools.map(function (tid) {
+      var it = byId[tid];
+      if (!it) return '';
+      return '<a class="ppt" href="#' + tid + '"><span class="ppt-em" aria-hidden="true">' + it.emoji + '</span>' +
+        '<span class="ppt-tx"><b>' + esc(it.name[state.lang]) + '</b><small>' + esc(it.sub[state.lang]) + '</small></span></a>';
+    }).join('');
+    var rec = byId[p.recipe];
+    return '<div class="pp">' +
+      '<div class="pp-head"><span class="pp-em" aria-hidden="true">' + p.emoji + '</span>' +
+        '<div><b>' + esc(L(p.label)) + '</b><p>' + esc(L(p.why)) + '</p></div></div>' +
+      '<p class="pp-lab">' + esc(t.pickTools) + '</p>' +
+      '<div class="pp-tools">' + tools + '</div>' +
+      '<p class="pp-lab">' + esc(t.pickPrompt) + '</p>' +
+      '<div class="prompt"><div class="prompt-head"><b>' + esc(L(p.label)) + '</b>' +
+        '<button class="copy" type="button" data-copy="pick-p" aria-label="' + esc(t.copy) + '">📋 <span>' + esc(t.copy) + '</span></button></div>' +
+        '<pre class="prompt-body" data-prompt="pick-p">' + esc(L(p.prompt)) + '</pre></div>' +
+      (rec ? '<a class="pp-recipe" href="#' + rec.id + '"><span aria-hidden="true">🎯</span> ' + esc(t.pickRecipe) + ' — ' + esc(rec.name[state.lang]) + ' →</a>' : '') +
+      '</div>';
+  }
+
+  function pickSection() {
+    var t = T();
+    var cur = state.pick || '';
+    var btns = PURPOSES.map(function (p) {
+      var on = p.id === cur;
+      return '<button class="pick-btn' + (on ? ' on' : '') + '" type="button" data-purpose="' + p.id + '" aria-pressed="' + on + '">' +
+        '<span class="pb-em" aria-hidden="true">' + p.emoji + '</span><b>' + esc(L(p.label)) + '</b></button>';
+    }).join('');
+    return '<section class="block pick" id="pick">' +
+      '<h2>' + esc(t.pickTitle) + '</h2>' +
+      '<p class="block-lead">' + esc(t.pickLead) + '</p>' +
+      '<p class="pick-hint" id="pickHint"' + (cur ? ' hidden' : '') + '>' + esc(t.pickHint) + '</p>' +
+      '<div class="pick-grid">' + btns + '</div>' +
+      '<div class="pick-panel" id="pickPanel"' + (cur ? '' : ' hidden') + '>' + (cur ? purposePanel(cur) : '') + '</div>' +
+      '</section>';
+  }
+
+  function todayCard() {
+    var t = T();
+    var p = promptOfDay();
+    if (!p) return '';
+    var cat = catById(p.cat);
+    return '<div class="today" id="today">' +
+      '<div class="td-head"><span class="td-badge">' + esc(t.todayTitle) + '</span>' +
+        '<span class="td-date">' + esc(t.todayDate(todayLabel())) + '</span></div>' +
+      '<div class="td-body">' +
+      '<p class="td-cat">' + (cat ? cat.emoji + ' ' + esc(L(cat.name)) : '') + '</p>' +
+      '<h3>' + esc(L(p.t)) + '</h3>' +
+      '<p class="td-use"><b>' + esc(t.promptUse) + '</b> ' + esc(L(p.use)) + '</p>' +
+      '<div class="prompt"><div class="prompt-head"><b>' + esc(L(p.t)) + '</b>' +
+        '<button class="copy" type="button" data-copy="td-p" aria-label="' + esc(t.copy) + '">📋 <span>' + esc(t.copy) + '</span></button></div>' +
+        '<pre class="prompt-body" data-prompt="td-p">' + esc(L(p.b)) + '</pre></div>' +
+      '<p class="td-tip"><b>' + esc(t.promptTip) + '</b> ' + esc(L(p.tip)) + '</p>' +
+      '</div></div>';
+  }
+
+  function promptsHome() {
+    var t = T();
+    var cats = PROMPTCATS.map(function (c) {
+      var n = PROMPTS.filter(function (p) { return p.cat === c.id; }).length;
+      return '<a class="cat-chip" href="#prompts"><span aria-hidden="true">' + c.emoji + '</span> ' + esc(L(c.name)) +
+        ' <em>' + esc(t.promptCatCount(n)) + '</em></a>';
+    }).join('');
+    return '<section class="block">' +
+      '<h2>' + esc(t.promptsHomeTitle) + '</h2>' +
+      '<p class="block-lead">' + esc(t.promptsHomeLead) + '</p>' +
+      todayCard() +
+      '<div class="cat-chips">' + cats + '</div>' +
+      '<div class="buy-line"><a class="btn-store" href="#prompts">' + esc(t.allPrompts) + ' →</a></div>' +
+      '</section>';
+  }
+
+  function libPromptCard(p, n) {
+    var t = T();
+    var key = 'pr-' + p.id;
+    return '<article class="pcard" id="' + key + '">' +
+      '<div class="pc-head"><span class="pc-num" aria-hidden="true">' + n + '</span><h3>' + esc(L(p.t)) + '</h3>' +
+        '<button class="copy" type="button" data-copy="' + key + '" aria-label="' + esc(t.copy) + '">📋 <span>' + esc(t.copy) + '</span></button></div>' +
+      '<p class="pc-use"><b>' + esc(t.promptUse) + '</b> ' + esc(L(p.use)) + '</p>' +
+      '<pre class="prompt-body" data-prompt="' + key + '">' + esc(L(p.b)) + '</pre>' +
+      '<details class="pc-more"><summary>' + esc(t.promptMore) + '</summary>' +
+        '<div class="pc-blk"><h4>' + esc(t.promptInput) + '</h4><p>' + nl2br(L(p.inp)) + '</p></div>' +
+        '<div class="pc-blk"><h4>' + esc(t.promptOutput) + '</h4><p>' + nl2br(L(p.out)) + '</p></div>' +
+        '<div class="pc-blk pc-tip"><h4>' + esc(t.promptTip) + '</h4><p>' + esc(L(p.tip)) + '</p></div>' +
+      '</details></article>';
+  }
+
+  function renderPrompts() {
+    var t = T();
+    var chips = PROMPTCATS.map(function (c) {
+      var n = PROMPTS.filter(function (p) { return p.cat === c.id; }).length;
+      return '<a class="cat-chip" href="#cat-' + c.id + '"><span aria-hidden="true">' + c.emoji + '</span> ' + esc(L(c.name)) +
+        ' <em>' + esc(t.promptCatCount(n)) + '</em></a>';
+    }).join('');
+    var n = 0;
+    var body = PROMPTCATS.map(function (c) {
+      var list = PROMPTS.filter(function (p) { return p.cat === c.id; });
+      if (!list.length) return '';
+      return '<section class="pcat" id="cat-' + c.id + '">' +
+        '<h2 class="pcat-h"><span aria-hidden="true">' + c.emoji + '</span> ' + esc(L(c.name)) +
+          ' <em>' + esc(t.promptCatCount(list.length)) + '</em></h2>' +
+        list.map(function (p) { n++; return libPromptCard(p, n); }).join('') +
+        '</section>';
+    }).join('');
+    return '<article class="detail wide">' +
+      '<a class="back" href="#home">← ' + esc(t.back) + '</a>' +
+      '<header class="detail-head"><span class="d-em" aria-hidden="true">📚</span>' +
+        '<div class="d-tx"><p class="d-group">' + esc(t.navPractice) + '</p>' +
+        '<h1>' + esc(t.promptsTitle.replace('📚 ', '')) + '</h1>' +
+        '<p class="d-sub">' + esc(t.promptsCount(PROMPTS.length)) + ' · ' + esc(t.promptsSub) + '</p></div></header>' +
+      '<p class="block-lead">' + esc(t.promptsLead) + '</p>' +
+      todayCard() +
+      '<div class="cat-chips">' + chips + '</div>' +
+      body +
+      '</article>';
+  }
+
+  /* ───────── 🎓 초보자 6단계 ───────── */
+  function courseDoneList() { return readList('dgl-course'); }
+
+  function renderCourse() {
+    var t = T();
+    var done = courseDoneList();
+    var cards = COURSE.map(function (c) {
+      var key = 'crs-' + c.id;
+      var on = done.indexOf(c.id) !== -1;
+      return '<article class="cstep' + (on ? ' done' : '') + '" id="' + key + '">' +
+        '<div class="cs-head"><span class="cs-num" aria-hidden="true">' + c.n + '</span>' +
+          '<div><p class="cs-kicker">' + esc(t.courseStep(c.n)) + '</p><h3>' + c.emoji + ' ' + esc(L(c.t)) + '</h3></div></div>' +
+        '<p class="cs-why">' + esc(L(c.why)) + '</p>' +
+        '<h4 class="cs-lab">' + esc(t.courseDo) + '</h4>' +
+        '<ol class="cs-steps">' + c.steps.map(function (s) { return '<li>' + esc(L(s)) + '</li>'; }).join('') + '</ol>' +
+        '<h4 class="cs-lab">' + esc(t.coursePractice) + '</h4>' +
+        '<div class="prompt"><div class="prompt-head"><b>' + esc(L(c.t)) + '</b>' +
+          '<button class="copy" type="button" data-copy="' + key + '-p" aria-label="' + esc(t.copy) + '">📋 <span>' + esc(t.copy) + '</span></button></div>' +
+          '<pre class="prompt-body" data-prompt="' + key + '-p">' + esc(L(c.practice)) + '</pre></div>' +
+        '<p class="cs-tip">' + esc(L(c.tip)) + '</p>' +
+        '<button class="c-btn' + (on ? ' on' : '') + '" type="button" data-course="' + c.id + '" aria-pressed="' + on + '">' +
+          '<span aria-hidden="true">' + (on ? '✓' : '○') + '</span> ' + esc(t.courseDone) + '</button>' +
+        '</article>';
+    }).join('');
+    return '<article class="detail wide">' +
+      '<a class="back" href="#home">← ' + esc(t.back) + '</a>' +
+      '<header class="detail-head"><span class="d-em" aria-hidden="true">🎓</span>' +
+        '<div class="d-tx"><p class="d-group">' + esc(t.navPractice) + '</p>' +
+        '<h1>' + esc(t.courseTitle.replace('🎓 ', '')) + '</h1>' +
+        '<p class="d-sub">' + esc(t.courseSub) + '</p></div></header>' +
+      '<p class="block-lead">' + esc(t.courseLead) + '</p>' +
+      '<div class="cs-progress"><span id="csProg">' + esc(t.courseProgress(done.length, COURSE.length)) + '</span>' +
+        '<button class="tiny-btn" type="button" data-course-reset="1">' + esc(t.courseReset) + '</button></div>' +
+      cards +
+      '</article>';
+  }
+
+  /* ───────── ⚖️ AI 결과물 비교실 ───────── */
+  function renderLab() {
+    var t = T();
+    var blocks = LAB.map(function (l) {
+      var key = 'lab-' + l.id;
+      return '<article class="labbox" id="' + l.id + '">' +
+        '<h3 class="lab-t">' + l.emoji + ' ' + esc(L(l.t)) + '</h3>' +
+        '<div class="prompt lab-q"><div class="prompt-head"><b>' + esc(t.labQ) + '</b>' +
+          '<button class="copy" type="button" data-copy="' + key + '" aria-label="' + esc(t.copy) + '">📋 <span>' + esc(t.copy) + '</span></button></div>' +
+          '<pre class="prompt-body" data-prompt="' + key + '">' + esc(L(l.q)) + '</pre></div>' +
+        '<div class="lab-grid">' + l.answers.map(function (a) {
+          return '<div class="lab-card"><p class="lc-ai">' + esc(a.ai) + '</p>' +
+            '<p class="lc-mood"><span>' + esc(t.labTone) + '</span> ' + esc(L(a.mood)) + '</p>' +
+            '<p class="lc-out">' + esc(L(a.out)) + '</p></div>';
+        }).join('') + '</div>' +
+        '<div class="lab-verdict"><b>' + esc(t.labVerdict) + '</b><p>' + esc(L(l.verdict)) + '</p></div>' +
+        '</article>';
+    }).join('');
+    return '<article class="detail wide">' +
+      '<a class="back" href="#home">← ' + esc(t.back) + '</a>' +
+      '<header class="detail-head"><span class="d-em" aria-hidden="true">⚖️</span>' +
+        '<div class="d-tx"><p class="d-group">' + esc(t.navPractice) + '</p>' +
+        '<h1>' + esc(t.labTitle.replace('⚖️ ', '')) + '</h1>' +
+        '<p class="d-sub">' + esc(t.labSub) + '</p></div></header>' +
+      '<p class="block-lead">' + esc(t.labLead) + '</p>' +
+      '<p class="lab-note">' + esc(t.labNote) + '</p>' +
+      blocks +
+      '<p class="lab-note lab-note-2">' + esc(t.labNotBest) + '</p>' +
+      '</article>';
+  }
+
+  /* ───────── 🛠️ 오류 해결실 ───────── */
+  function renderFixes() {
+    var t = T();
+    var cards = FIXES.map(function (f) {
+      return '<article class="fixcard" id="fix-' + f.id + '">' +
+        '<div class="fx-head"><span class="fx-em" aria-hidden="true">' + f.emoji + '</span><h3>' + esc(L(f.t)) + '</h3></div>' +
+        '<p class="fx-line"><b>' + esc(t.fixSymptom) + '</b> ' + esc(L(f.symptom)) + '</p>' +
+        '<p class="fx-line fx-cause"><b>' + esc(t.fixCause) + '</b> ' + esc(L(f.cause)) + '</p>' +
+        '<h4 class="cs-lab">' + esc(t.fixDo) + '</h4>' +
+        '<ol class="fx-steps">' + f.steps.map(function (s) { return '<li>' + esc(L(s)) + '</li>'; }).join('') + '</ol>' +
+        '<div class="prompt fx-ask"><div class="prompt-head"><b>' + esc(t.fixAsk) + '</b>' +
+          '<button class="copy" type="button" data-copy="fix-' + f.id + '-a" aria-label="' + esc(t.copy) + '">📋 <span>' + esc(t.copy) + '</span></button></div>' +
+          '<pre class="prompt-body" data-prompt="fix-' + f.id + '-a">' + esc(L(f.ask)) + '</pre></div>' +
+        '</article>';
+    }).join('');
+    return '<article class="detail wide">' +
+      '<a class="back" href="#home">← ' + esc(t.back) + '</a>' +
+      '<header class="detail-head"><span class="d-em" aria-hidden="true">🛠️</span>' +
+        '<div class="d-tx"><p class="d-group">' + esc(t.navPractice) + '</p>' +
+        '<h1>' + esc(t.fixTitle.replace('🛠️ ', '')) + '</h1>' +
+        '<p class="d-sub">' + esc(t.fixSub) + '</p></div></header>' +
+      '<p class="block-lead">' + esc(t.fixLead) + '</p>' +
+      cards +
+      '</article>';
+  }
+
   /* ───────── 그리기 ───────── */
   function render(push) {
     var t = T();
@@ -743,6 +1052,32 @@
       view.innerHTML = renderBooks();
       document.title = (state.lang === 'ko' ? '단비랩 전자책 서가' : 'The DanbiLab shelf') + ' · ' + t.brand;
       pushRecent('p:books');
+    } else if (state.route === 'pick') {
+      view.innerHTML = '<article class="detail wide">' +
+        '<a class="back" href="#home">← ' + esc(t.back) + '</a>' +
+        '<header class="detail-head"><span class="d-em" aria-hidden="true">🧭</span>' +
+          '<div class="d-tx"><p class="d-group">' + esc(t.navPractice) + '</p>' +
+          '<h1>' + esc(t.pickTitle.replace('🧭 ', '')) + '</h1>' +
+          '<p class="d-sub">' + esc(t.pickSub) + '</p></div></header>' +
+        '<div class="pick-standalone">' + pickSection() + '</div></article>';
+      document.title = t.pickNav + ' · ' + t.brand;
+      pushRecent('p:pick');
+    } else if (state.route === 'prompts') {
+      view.innerHTML = renderPrompts();
+      document.title = t.promptsNav + ' · ' + t.brand;
+      pushRecent('p:prompts');
+    } else if (state.route === 'course') {
+      view.innerHTML = renderCourse();
+      document.title = t.courseNav + ' · ' + t.brand;
+      pushRecent('p:course');
+    } else if (state.route === 'lab') {
+      view.innerHTML = renderLab();
+      document.title = t.labNav + ' · ' + t.brand;
+      pushRecent('p:lab');
+    } else if (state.route === 'troubleshoot') {
+      view.innerHTML = renderFixes();
+      document.title = t.fixNav + ' · ' + t.brand;
+      pushRecent('p:troubleshoot');
     } else if (byId[state.route]) {
       var it = byId[state.route];
       view.innerHTML = renderDetail(it);
@@ -769,7 +1104,8 @@
     if (push !== false) {
       var crumb = $('#crumb');
       if (crumb) {
-        crumb.textContent = state.route === 'home' ? '' : (state.route === 'books' ? t.bookshelfTitle : (byId[state.route] ? byId[state.route].name[state.lang] : ''));
+        var pageName = { pick: t.pickNav, prompts: t.promptsNav, course: t.courseNav, lab: t.labNav, troubleshoot: t.fixNav };
+        crumb.textContent = state.route === 'home' ? '' : (state.route === 'books' ? t.bookshelfTitle : (pageName[state.route] || (byId[state.route] ? byId[state.route].name[state.lang] : '')));
       }
     }
     window.scrollTo(0, 0);
@@ -888,6 +1224,45 @@
       if (pre) copyText(pre.textContent, btn);
       return;
     }
+    /* 🧭 무엇을 할까요? — 고른 일의 추천 도구·프롬프트를 바로 펼칩니다. */
+    var pbtn = e.target.closest ? e.target.closest('[data-purpose]') : null;
+    if (pbtn) {
+      var pid = pbtn.dataset.purpose;
+      state.pick = (state.pick === pid) ? '' : pid;
+      $$('[data-purpose]').forEach(function (b) {
+        var on = b.dataset.purpose === state.pick;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+      var panel = $('#pickPanel'), phint = $('#pickHint');
+      if (panel) {
+        if (state.pick) { panel.innerHTML = purposePanel(state.pick); panel.hidden = false; }
+        else { panel.innerHTML = ''; panel.hidden = true; }
+      }
+      if (phint) phint.hidden = !!state.pick;
+      if (state.pick && panel && window.innerWidth < 760) panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      return;
+    }
+    /* 🎓 코스 진행 표시 (이 브라우저에만 저장) */
+    var cbtn = e.target.closest ? e.target.closest('[data-course]') : null;
+    if (cbtn) {
+      var cid = cbtn.dataset.course;
+      var clist = courseDoneList();
+      var ci = clist.indexOf(cid);
+      var cOn = ci === -1;
+      if (cOn) clist.push(cid); else clist.splice(ci, 1);
+      writeList('dgl-course', clist);
+      cbtn.classList.toggle('on', cOn);
+      cbtn.setAttribute('aria-pressed', String(cOn));
+      cbtn.innerHTML = '<span aria-hidden="true">' + (cOn ? '✓' : '○') + '</span> ' + esc(T().courseDone);
+      var cart = cbtn.closest('.cstep');
+      if (cart) cart.classList.toggle('done', cOn);
+      var prog = $('#csProg');
+      if (prog) prog.textContent = T().courseProgress(courseDoneList().length, COURSE.length);
+      return;
+    }
+    var crst = e.target.closest ? e.target.closest('[data-course-reset]') : null;
+    if (crst) { writeList('dgl-course', []); render(); return; }
     var langBtn = e.target.closest ? e.target.closest('[data-lang]') : null;
     if (langBtn) {
       state.lang = langBtn.dataset.lang === 'en' ? 'en' : 'ko';
