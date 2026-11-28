@@ -312,6 +312,9 @@
     renderSide();
     $$('.brand-name').forEach(function (e) { e.textContent = t.brand; });
     $$('.brand-sub').forEach(function (e) { e.textContent = t.brandSub; });
+    $$('.brand').forEach(function (a) {
+      a.setAttribute('aria-label', t.brand + ' — ' + t.home);
+    });
     var stx = $('.share-tx');
     if (stx) stx.textContent = t.share;
     var shr = $('.share');
