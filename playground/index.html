@@ -536,7 +536,10 @@ h1 em::after{
 }
 @media (max-width:1000px){
   .hero-in{grid-template-columns:1fr;gap:26px}
-  .hero-float{max-width:460px}
+  .hero-float{max-width:470px;gap:16px 14px}
+  .chip{transform:rotate(var(--r,0deg))}
+  .chip:hover,.chip:focus-visible{transform:rotate(var(--r,0deg)) scale(1.03)}
+  .chip-tile{animation-name:bob-sm}
   .lede{max-width:52ch}
 }
 @media (max-width:820px){
@@ -770,7 +773,7 @@ h1 em::after{
     </div>
 
     <div class="hero-float" aria-label="Six corners, floating">
-      <a class="chip" href="../hanok-lantern/" style="--r:-5deg;--y:4px">
+      <a class="chip" href="../hanok-lantern/" style="--r:-5deg;--y:3px">
         <span class="chip-tile">
           <svg viewBox="0 0 80 80" aria-hidden="true">
             <path d="M40 12v7" stroke="#E8A88C" stroke-width="3" stroke-linecap="round"/>
@@ -788,7 +791,7 @@ h1 em::after{
         <span class="chip-cap"><span class="ko">등</span>lantern</span>
       </a>
 
-      <a class="chip" href="../hanbok-studio/" style="--r:4deg;--y:-6px">
+      <a class="chip" href="../hanbok-studio/" style="--r:4deg;--y:-4px">
         <span class="chip-tile">
           <svg viewBox="0 0 80 80" aria-hidden="true">
             <path d="M23 44h34l7 25H16z" fill="#D9CCFF"/>
@@ -804,7 +807,7 @@ h1 em::after{
         <span class="chip-cap"><span class="ko">옷</span>hanbok</span>
       </a>
 
-      <a class="chip" href="../korean-fortune/" style="--r:-2deg;--y:12px">
+      <a class="chip" href="../korean-fortune/" style="--r:-2deg;--y:6px">
         <span class="chip-tile">
           <svg viewBox="0 0 80 80" aria-hidden="true">
             <rect x="19" y="11" width="42" height="58" rx="11" fill="#FFFDF4"/>
@@ -818,7 +821,7 @@ h1 em::after{
         <span class="chip-cap"><span class="ko">복</span>fortune</span>
       </a>
 
-      <a class="chip" href="../sketch-studio/" style="--r:3deg;--y:-4px">
+      <a class="chip" href="../sketch-studio/" style="--r:3deg;--y:-3px">
         <span class="chip-tile">
           <svg viewBox="0 0 80 80" aria-hidden="true">
             <path d="M14 64c9 3 17 1 25-6" stroke="#6E6178" stroke-width="6" stroke-linecap="round" opacity=".16" fill="none"/>
@@ -835,7 +838,7 @@ h1 em::after{
         <span class="chip-cap"><span class="ko">붓</span>brush</span>
       </a>
 
-      <a class="chip" href="../seoul-palette/" style="--r:-3deg;--y:10px">
+      <a class="chip" href="../seoul-palette/" style="--r:-3deg;--y:5px">
         <span class="chip-tile">
           <svg viewBox="0 0 80 80" aria-hidden="true">
             <path d="M40 13c14.5 0 26 10 26 23 0 8-6 12-12 12h-5c-4 0-6 3-6 7 0 5-4 9-9 9-12 0-20-11-20-25S25.5 13 40 13z" fill="#B9EBD6"/>
