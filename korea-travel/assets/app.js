@@ -47,6 +47,19 @@
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>';
   }
 
+  let trackedOnce = false;
+  function trackPage() {
+    if (typeof window.gtag !== 'function') return;
+    if (!trackedOnce) { trackedOnce = true; return; }   /* the config call already counted this view */
+    try {
+      window.gtag('event', 'page_view', {
+        page_title: document.title,
+        page_path: location.pathname + location.hash,
+        page_location: location.href
+      });
+    } catch (e) {}
+  }
+
   const regionName = (id) => {
     const r = REGIONS.find((x) => x.id === id);
     return r ? r[state.lang] : '';
@@ -534,6 +547,7 @@
       : state.route.type === 'theme'
         ? `${themeById(state.route.id).name[state.lang]} · ${state.lang === 'ko' ? '방방곡곡 대한민국' : 'Korea, Corner by Corner'}`
         : HOME_TITLE();
+    trackPage();
   }
 
   function routeFromHash() {
