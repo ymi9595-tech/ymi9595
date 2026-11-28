@@ -65,7 +65,7 @@
     if (h1) h1.innerHTML = `${esc(t.h1a)} <em>${esc(t.h1b)}</em>`;
     document.title = state.city && cityById(state.city)
       ? `${cityById(state.city).name[state.lang]} · ${state.lang === 'ko' ? '방방곡곡 대한민국' : 'Korea, Corner by Corner'}`
-      : (state.lang === 'ko' ? '방방곡곡 대한민국 · Korea, Corner by Corner' : 'Korea, Corner by Corner · 방방곡곡 대한민국');
+      : (state.lang === 'ko' ? '방방곡곡 대한민국 · Korea, Corner by Corner — 열 곳의 하루 코스' : 'Korea, Corner by Corner · 방방곡곡 대한민국 — ten one-day routes');
     $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang)));
     const dm = document.querySelector('meta[name="description"]');
     if (dm) dm.setAttribute('content', t.lede);
@@ -277,7 +277,7 @@
     panel.innerHTML = '';
     document.body.style.overflow = '';
     state.city = null;
-    document.title = state.lang === 'ko' ? '방방곡곡 대한민국 · Korea, Corner by Corner' : 'Korea, Corner by Corner · 방방곡곡 대한민국';
+    document.title = state.lang === 'ko' ? '방방곡곡 대한민국 · Korea, Corner by Corner — 열 곳의 하루 코스' : 'Korea, Corner by Corner · 방방곡곡 대한민국 — ten one-day routes';
     if (!viaHistory && location.hash) history.pushState(null, '', location.pathname + location.search);
     requestAnimationFrame(() => window.scrollTo({ top: state.scrollY, behavior: 'instant' in window ? 'instant' : 'auto' }));
   }
