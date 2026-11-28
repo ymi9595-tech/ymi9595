@@ -310,6 +310,12 @@
     }
 
     renderSide();
+    $$('.brand-name').forEach(function (e) { e.textContent = t.brand; });
+    $$('.brand-sub').forEach(function (e) { e.textContent = t.brandSub; });
+    var stx = $('.share-tx');
+    if (stx) stx.textContent = t.share;
+    var shr = $('.share');
+    if (shr) shr.setAttribute('aria-label', t.share);
     if (push !== false) {
       var crumb = $('#crumb');
       if (crumb) {
