@@ -1,0 +1,25 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>layout check</title>
+<style>html,body{margin:0;background:#ded8e2;font:12px/1.5 system-ui}#stage{padding:10px}
+iframe{border:0;background:#fff;display:block;box-shadow:0 6px 20px rgba(0,0,0,.12)}pre{position:fixed;right:8px;bottom:8px;background:#fff;padding:8px;border-radius:8px;font-size:11px;max-width:420px;white-space:pre-wrap;opacity:.92}</style></head>
+<body><div id="stage"><iframe id="f"></iframe></div><pre id="out">…</pre>
+<script>
+var q=new URLSearchParams(location.search);
+var w=+(q.get('w')||1280),h=+(q.get('h')||800),hash=q.get('hash')||'';
+var errs=[],f=document.getElementById('f');
+f.style.width=w+'px';f.style.height=h+'px';f.src='../index.html'+(hash?('?'+hash):'');
+function report(){try{var d=f.contentDocument,win=f.contentWindow,de=d.documentElement,o=[];
+o.push('frame '+win.innerWidth+'x'+win.innerHeight);
+o.push('overflow '+(de.scrollWidth-de.clientWidth)+' (scrollW '+de.scrollWidth+')');
+var wide=[].slice.call(d.querySelectorAll('body *')).filter(function(el){var r=el.getBoundingClientRect();return r.width>0&&(r.right>win.innerWidth+1||r.left<-1);}).slice(0,4).map(function(el){return el.tagName+'.'+(el.className||'')+'@'+Math.round(el.getBoundingClientRect().right);});
+o.push('wide: '+(wide.length?wide.join(' | '):'none'));
+var im=d.images,br=[].slice.call(im).filter(function(i){return i.complete&&i.naturalWidth===0;});
+o.push('images '+im.length+' broken '+br.length);
+var body=d.body.innerText;
+var bad=['스타벅스','이디야','투썸','메가커피','빽다방','학림다방','을지다방','터방내','조양방직','오설록','스태픽스','하남돼지집','명동교자'].filter(function(n){return body.indexOf(n)>=0;});
+o.push('shop names: '+(bad.length?bad.join(','):'0'));
+o.push('lang '+(d.querySelector('[data-lang][aria-pressed=true]')||{}).textContent+'  hash '+win.location.hash+'  h1 '+(d.querySelector('h2')||d.querySelector('h1')||{}).textContent);
+o.push('console errors '+errs.length+(errs.length?' :: '+errs.slice(0,2).join(' / '):''));
+document.getElementById('out').textContent=o.join('\n');document.title='layout check';}catch(e){document.getElementById('out').textContent='ERR '+e.message;}}
+f.addEventListener('load',function(){var win=f.contentWindow;win.addEventListener('error',function(e){errs.push(e.message);});setTimeout(report,1200);});
+setInterval(report,2500);
+</script></body></html>
