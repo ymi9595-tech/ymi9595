@@ -110,7 +110,7 @@ const UI = {
     home: 'Home',
     notFound: 'No such city',
     moved: 'Getting there',
-    phase: { start: 'Start', morning: 'Morning', lunch: 'Lunch', afternoon: 'Afternoon', evening: 'Evening', return: 'Back to the hub' },
+    phase: { start: 'Start', morning: 'Morning', lunch: 'Lunch', afternoon: 'Afternoon', evening: 'Evening', return: 'Return' },
     dayOne: 'One-day course',
     langName: 'English',
     by: 'Danbi Lab',

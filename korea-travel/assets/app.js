@@ -67,6 +67,10 @@
       ? `${cityById(state.city).name[state.lang]} · ${state.lang === 'ko' ? '방방곡곡 대한민국' : 'Korea, Corner by Corner'}`
       : (state.lang === 'ko' ? '방방곡곡 대한민국 · Korea, Corner by Corner — 열 곳의 하루 코스' : 'Korea, Corner by Corner · 방방곡곡 대한민국 — ten one-day routes');
     $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang)));
+    const fg = $('#filters');
+    if (fg) fg.setAttribute('aria-label', state.lang === 'ko' ? '지역' : 'Region');
+    const cl = $('#cluster');
+    if (cl) cl.setAttribute('aria-label', state.lang === 'ko' ? '도시 바로가기' : 'Jump to a city');
     const dm = document.querySelector('meta[name="description"]');
     if (dm) dm.setAttribute('content', t.lede);
   }
