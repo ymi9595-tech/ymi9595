@@ -670,3 +670,6 @@ body.pwa-lock{overflow:hidden}
   .side .brand-txt .brand-name{font-size:15px}
   .side .brand-txt .brand-sub{font-size:8.5px;letter-spacing:.12em}
 }
+/* 홈 책 섹션 머리 — '전체 서가 보기'를 제목 줄에 맞춥니다 */
+.books-home .pick-head{align-items:flex-start}
+@media(max-width:560px){.books-home .pick-head{flex-direction:column;gap:10px;align-items:flex-start}}
