@@ -749,6 +749,52 @@ body.pwa-lock{overflow:hidden}
   .keep-steps{grid-template-columns:1fr}
   .corner-cul{font-size:10.2px}
 }
+/* ---------------- language switch (EN · KR · JP · CN) ---------------- */
+.lang-sw{display:inline-flex;align-items:center;gap:2px;flex:none;margin-left:auto;
+  padding:3px;border-radius:999px;background:#fff;border:1px solid #fff;
+  box-shadow:0 12px 22px -20px rgba(150,100,130,.95),inset 0 -2px 0 rgba(150,110,140,.05)}
+.lang-sw button{appearance:none;border:0;background:transparent;cursor:pointer;
+  min-width:32px;height:27px;padding:0 7px;border-radius:999px;
+  font-family:var(--sans);font-size:10.5px;font-weight:800;letter-spacing:.04em;line-height:1;
+  color:var(--ink-3);transition:background .2s,color .2s,transform .3s var(--spring);
+  -webkit-tap-highlight-color:transparent}
+.lang-sw button:hover{color:var(--coral-deep);background:#FFF1E8}
+.lang-sw button[aria-pressed="true"]{color:#fff;background:linear-gradient(145deg,#FFA98A,#F4704C);
+  box-shadow:0 8px 14px -10px rgba(240,105,72,.95)}
+.lang-sw button:focus-visible{outline:2px solid rgba(255,126,95,.5);outline-offset:2px}
+@media (min-width:821px){.lang-sw{margin-left:0}}
+@media (max-width:560px){
+  .top-in{gap:8px}
+  .brand-name{display:block;font-size:12.4px;overflow:hidden;text-overflow:ellipsis}
+  .lang-sw{padding:2px;gap:1px}
+  .lang-sw button{min-width:24px;height:24px;font-size:9.2px;padding:0 4px;letter-spacing:.02em}
+  .pwa-add{padding:9px 11px 9px 9px}
+  .pwa-add .pwa-em{display:none}
+}
+@media (max-width:400px){
+  .top-in{gap:7px}
+  .brand-name{font-size:11.4px}
+  .lang-sw button{min-width:21px;padding:0 2px;font-size:8.8px}
+  .pwa-add{padding:9px 10px}
+}
+@media (max-width:374px){
+  .brand .seal{display:none}
+}
+
+/* ---------------- Japanese / Chinese typography ---------------- */
+html[lang="ja"] body{font-family:'Plus Jakarta Sans','Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic UI',Meiryo,sans-serif}
+html[lang="zh"] body{font-family:'Plus Jakarta Sans','PingFang SC','Hiragino Sans GB','Noto Sans SC','Microsoft YaHei',sans-serif}
+html[lang="ja"] body,html[lang="zh"] body{line-height:1.72}
+html[lang="ja"] h1,html[lang="zh"] h1{letter-spacing:-.01em;line-height:1.24}
+html[lang="ja"] .lede,html[lang="zh"] .lede{max-width:44ch}
+html[lang="ja"] .kicker,html[lang="zh"] .kicker{letter-spacing:.06em}
+html[lang="ja"] .dice,html[lang="zh"] .dice{font-weight:700}
+html[lang="ja"] .corner-name,html[lang="zh"] .corner-name{letter-spacing:0}
+html[lang="ja"] .dbk-btn,html[lang="zh"] .dbk-btn{font-weight:700}
+/* 읽는 언어가 한국어일 때는 한글 부제가 같은 말을 두 번 보여 주므로 숨깁니다. */
+html[lang="ko"] .zone-titles h2 .ko,
+html[lang="ko"] .chip-cap .ko,
+html[lang="ko"] #todayKo{display:none}
 </style>
 <!-- Google Analytics 4 — one measurement ID for the whole playground site.
      danbi-nav.js loads the same tag on every sub-app and skips itself when a page
@@ -760,9 +806,10 @@ body.pwa-lock{overflow:hidden}
   gtag('js', new Date());
   gtag('config', 'G-2LRGRLEWFW');
 </script>
+<script src="assets/i18n.js"></script>
 </head>
 <body>
-<a class="skip" href="#play">Skip to the corners</a>
+<a class="skip" href="#play" data-i18n="ui.skip">Skip to the corners</a>
 <div class="splash" id="splash" hidden aria-hidden="true">
   <div class="splash-in">
     <span class="splash-seal">단</span>
@@ -783,20 +830,26 @@ body.pwa-lock{overflow:hidden}
       <span class="seal" aria-hidden="true">단</span>
       <span class="brand-txt">
         <span class="brand-name">Danbi K-Culture Playground</span>
-        <span class="brand-sub">단비 놀이터 · free, no sign-up</span>
+        <span class="brand-sub" data-i18n="brand.sub">단비 놀이터 · free, no sign-up</span>
       </span>
     </a>
     <nav class="top-nav" aria-label="Jump to a zone">
-      <a href="#play">Play</a>
-      <a href="#words">Words</a>
-      <a href="#cozy">Cozy</a>
-      <a href="#kitchen">Kitchen</a>
-      <a class="today-link" href="#today">Today&rsquo;s pick ↓</a>
+      <a href="#play" data-i18n="nav.play">Play</a>
+      <a href="#words" data-i18n="nav.words">Words</a>
+      <a href="#cozy" data-i18n="nav.cozy">Cozy</a>
+      <a href="#kitchen" data-i18n="nav.kitchen">Kitchen</a>
+      <a class="today-link" href="#today" data-i18n="nav.today">Today&rsquo;s pick ↓</a>
     </nav>
-    <button class="pwa-add" id="pwaBtn" type="button" aria-haspopup="dialog" aria-label="Add to Home — Danbi Playground">
+    <div class="lang-sw" role="group" aria-label="Language" data-i18n-aria="ui.lang">
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-set-lang="ko" aria-pressed="false" lang="ko">KR</button>
+      <button type="button" data-set-lang="ja" aria-pressed="false" lang="ja">JP</button>
+      <button type="button" data-set-lang="zh" aria-pressed="false" lang="zh-CN">CN</button>
+    </div>
+    <button class="pwa-add" id="pwaBtn" type="button" aria-haspopup="dialog" aria-label="Add to Home — Danbi Playground" data-i18n-aria="pwa.aria">
       <span class="pwa-em" aria-hidden="true">📱</span>
-      <span class="pwa-tx pwa-tx-l">Add to Home</span>
-      <span class="pwa-tx pwa-tx-s">Add</span>
+      <span class="pwa-tx pwa-tx-l" data-i18n="pwa.l">Add to Home</span>
+      <span class="pwa-tx pwa-tx-s" data-i18n="pwa.s">Add</span>
     </button>
   </div>
 </header>
@@ -806,11 +859,11 @@ body.pwa-lock{overflow:hidden}
 <section class="hero" id="top">
   <div class="hero-in">
     <div class="hero-copy">
-      <p class="kicker"><span class="ko">단비 놀이터</span><span>seoul select · sixteen corners</span></p>
-      <h1>Come <em>float</em> through<br>tiny little Korea.</h1>
-      <p class="lede">A lantern wish, a hanbok to dress, your name in hangul, Seoul colours and recipe cards to print — sixteen small corners, all free.</p>
+      <p class="kicker"><span class="ko">단비 놀이터</span><span data-i18n="hero.kicker">seoul select · sixteen corners</span></p>
+      <h1 data-i18n-html="hero.h1">Come <em>float</em> through<br>tiny little Korea.</h1>
+      <p class="lede" data-i18n="hero.lede">A lantern wish, a hanbok to dress, your name in hangul, Seoul colours and recipe cards to print — sixteen small corners, all free.</p>
       <div class="hero-acts">
-        <button class="dice" id="surpriseBtn" type="button" title="Open a random corner">
+        <button class="dice" id="surpriseBtn" type="button" title="Open a random corner" data-i18n-title="hero.randomTitle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3.6" y="3.6" width="16.8" height="16.8" rx="4.4"/>
             <circle cx="8.6" cy="8.6" r="1.05" fill="currentColor" stroke="none"/>
@@ -819,19 +872,19 @@ body.pwa-lock{overflow:hidden}
             <circle cx="8.6" cy="15.4" r="1.05" fill="currentColor" stroke="none"/>
             <circle cx="15.4" cy="15.4" r="1.05" fill="currentColor" stroke="none"/>
           </svg>
-          <span class="dice-tx">Surprise me</span>
-          <span class="dice-cap" id="diceCap">or let the die choose</span>
+          <span class="dice-tx" data-i18n="hero.surprise">Surprise me</span>
+          <span class="dice-cap" id="diceCap" data-i18n="hero.diceCap">or let the die choose</span>
         </button>
-        <button class="share" id="shareBtn" type="button" aria-label="Share the playground with a friend">
+        <button class="share" id="shareBtn" type="button" aria-label="Share the playground with a friend" data-i18n-aria="hero.shareAria">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15.4V4.2"/><path d="M8 8.2 12 4.2l4 4"/><path d="M5.6 13.6v4.6a1.8 1.8 0 0 0 1.8 1.8h9.2a1.8 1.8 0 0 0 1.8-1.8v-4.6"/></svg>
-          <span class="share-tx">Share</span>
+          <span class="share-tx" data-i18n="hero.share">Share</span>
         </button>
-        <a class="browse" href="#play">Browse the corners <span class="ar" aria-hidden="true">↓</span></a>
+        <a class="browse" href="#play"><span data-i18n="hero.browse">Browse the corners</span> <span class="ar" aria-hidden="true">↓</span></a>
       </div>
-      <p class="hero-free"><span class="dot" aria-hidden="true"></span>Everything is free — no account, no ads</p>
+      <p class="hero-free"><span class="dot" aria-hidden="true"></span><span data-i18n="hero.free">Everything is free — no account, no ads</span></p>
     </div>
 
-    <div class="hero-float" aria-label="Six corners, floating">
+    <div class="hero-float" aria-label="Six corners, floating" data-i18n-aria="hero.floatAria">
       <a class="chip" href="../hanok-lantern/" style="--r:-5deg;--y:3px">
         <span class="chip-tile">
           <svg viewBox="0 0 80 80" aria-hidden="true">
@@ -847,7 +900,7 @@ body.pwa-lock{overflow:hidden}
             <path d="M35 72h10" stroke="#E8A88C" stroke-width="3" stroke-linecap="round"/>
           </svg>
         </span>
-        <span class="chip-cap"><span class="ko">등</span>lantern</span>
+        <span class="chip-cap"><span class="ko">등</span><span data-i18n="chip.lantern">lantern</span></span>
       </a>
 
       <a class="chip" href="../hanbok-studio/" style="--r:4deg;--y:-4px">
@@ -863,7 +916,7 @@ body.pwa-lock{overflow:hidden}
             <path d="M46 47v12" stroke="#FF9E7D" stroke-width="3" stroke-linecap="round"/>
           </svg>
         </span>
-        <span class="chip-cap"><span class="ko">옷</span>hanbok</span>
+        <span class="chip-cap"><span class="ko">옷</span><span data-i18n="chip.hanbok">hanbok</span></span>
       </a>
 
       <a class="chip" href="../korean-fortune/" style="--r:-2deg;--y:6px">
@@ -877,7 +930,7 @@ body.pwa-lock{overflow:hidden}
             <path d="M63 18l1.8 3.7 3.7 1.8-3.7 1.8L63 29l-1.8-3.7-3.7-1.8 3.7-1.8z" fill="#FFD88A"/>
           </svg>
         </span>
-        <span class="chip-cap"><span class="ko">복</span>fortune</span>
+        <span class="chip-cap"><span class="ko">복</span><span data-i18n="chip.fortune">fortune</span></span>
       </a>
 
       <a class="chip" href="../sketch-studio/" style="--r:3deg;--y:-3px">
@@ -894,7 +947,7 @@ body.pwa-lock{overflow:hidden}
             <circle cx="22" cy="22" r="4" fill="#C4E3FF"/>
           </svg>
         </span>
-        <span class="chip-cap"><span class="ko">붓</span>brush</span>
+        <span class="chip-cap"><span class="ko">붓</span><span data-i18n="chip.brush">brush</span></span>
       </a>
 
       <a class="chip" href="../seoul-palette/" style="--r:-3deg;--y:5px">
@@ -909,7 +962,7 @@ body.pwa-lock{overflow:hidden}
             <circle cx="53" cy="58" r="7" fill="#FFF7F0"/>
           </svg>
         </span>
-        <span class="chip-cap"><span class="ko">색</span>colours</span>
+        <span class="chip-cap"><span class="ko">색</span><span data-i18n="chip.colours">colours</span></span>
       </a>
 
       <a class="chip" href="../kfood-pdf/en/" style="--r:5deg;--y:2px">
@@ -925,7 +978,7 @@ body.pwa-lock{overflow:hidden}
             <path d="M63 17l1.6 3.4 3.4 1.6-3.4 1.6L63 27l-1.6-3.4L58 22l3.4-1.6z" fill="#FFD88A"/>
           </svg>
         </span>
-        <span class="chip-cap"><span class="ko">차</span>recipe</span>
+        <span class="chip-cap"><span class="ko">차</span><span data-i18n="chip.recipe">recipe</span></span>
       </a>
     </div>
   </div>
@@ -935,11 +988,11 @@ body.pwa-lock{overflow:hidden}
 <section class="today" id="today" aria-labelledby="todayTitle">
   <a class="today-card" id="todayCard" href="../hanok-lantern/">
     <div class="today-body">
-      <p class="today-eyebrow"><span class="spark" aria-hidden="true">✦</span>Today&rsquo;s pick <span class="ko" id="todayKo">오늘의 추천</span></p>
+      <p class="today-eyebrow"><span class="spark" aria-hidden="true">✦</span><span data-i18n="today.eyebrow">Today&rsquo;s pick</span> <span class="ko" id="todayKo">오늘의 추천</span></p>
       <h2 class="today-title" id="todayTitle">Wish Before It Flies</h2>
       <p class="today-desc" id="todayDesc">Write a wish in one minute and send up a lantern over a hanok stone bridge. One lantern up there is a dokkaebi in disguise.</p>
       <div class="today-foot">
-        <span class="today-go">Open this corner <span class="ar" aria-hidden="true">→</span></span>
+        <span class="today-go"><span data-i18n="today.open">Open this corner</span> <span class="ar" aria-hidden="true">→</span></span>
         <span class="today-tag" id="todayTag">one-minute game</span>
       </div>
     </div>
@@ -951,38 +1004,38 @@ body.pwa-lock{overflow:hidden}
   </a>
 
   <div class="playbar">
-    <p class="playbar-note">16 free corners<span class="sep">·</span>no sign-up<span class="sep">·</span>nothing to install<span class="wide-only"><span class="sep">·</span>tap the star to keep one</span></p>
+    <p class="playbar-note" data-i18n-html="today.note">16 free corners<span class="sep">·</span>no sign-up<span class="sep">·</span>nothing to install<span class="wide-only"><span class="sep">·</span>tap the star to keep one</span></p>
   </div>
 </section>
 
 <!-- ---------------- why these corners ---------------- -->
 <section class="culture" id="culture" aria-labelledby="culTitle">
   <div class="cul-head">
-    <p class="cul-eyebrow">한국 문화 배경 · why these corners</p>
-    <h2 id="culTitle">Every corner starts with one Korean word.</h2>
-    <p class="cul-lead">정 (jeong) is the affection that grows from sitting together; 한글 is an alphabet made to be learned in a morning; 복 (bok) is a wish for ordinary luck. Open any corner and a short note under it says which word it carries — and why a Korean would smile at it.</p>
+    <p class="cul-eyebrow" data-i18n="cul.eyebrow">한국 문화 배경 · why these corners</p>
+    <h2 id="culTitle" data-i18n="cul.title">Every corner starts with one Korean word.</h2>
+    <p class="cul-lead" data-i18n="cul.lead">정 (jeong) is the affection that grows from sitting together; 한글 is an alphabet made to be learned in a morning; 복 (bok) is a wish for ordinary luck. Open any corner and a short note under it says which word it carries — and why a Korean would smile at it.</p>
   </div>
   <ul class="cul-list">
-    <li><b>정</b><span>jeong — the warmth of being together</span></li>
-    <li><b>한</b><span>han — a quiet, held-back sorrow</span></li>
-    <li><b>복</b><span>bok — luck in small, ordinary things</span></li>
-    <li><b>눈치</b><span>nunchi — reading the room</span></li>
+    <li><b>정</b><span data-i18n="cul.i1">jeong — the warmth of being together</span></li>
+    <li><b>한</b><span data-i18n="cul.i2">han — a quiet, held-back sorrow</span></li>
+    <li><b>복</b><span data-i18n="cul.i3">bok — luck in small, ordinary things</span></li>
+    <li><b>눈치</b><span data-i18n="cul.i4">nunchi — reading the room</span></li>
   </ul>
 </section>
 
 <!-- ---------------- keep & share ---------------- -->
 <section class="keep" id="keep" aria-labelledby="keepTitle">
   <div class="keep-head">
-    <p class="keep-eyebrow">저장과 공유 · keep &amp; share</p>
-    <h2 id="keepTitle">Keep what you make.</h2>
-    <p>Everything here runs in your own browser — nothing is uploaded and nothing needs an account. So keep it the same way:</p>
+    <p class="keep-eyebrow" data-i18n="keep.eyebrow">저장과 공유 · keep &amp; share</p>
+    <h2 id="keepTitle" data-i18n="keep.title">Keep what you make.</h2>
+    <p data-i18n="keep.lead">Everything here runs in your own browser — nothing is uploaded and nothing needs an account. So keep it the same way:</p>
   </div>
   <ol class="keep-steps">
-    <li><b>1 · It saves itself</b><span>Your wish, hanbok, name card and lists stay in this browser. Come back tomorrow on the same device and they are still there.</span></li>
-    <li><b>2 · Save the picture</b><span>On a phone, press and hold a finished card → “Save image”, or take a screenshot. On a computer, right-click → “Save image as…”. Recipe cards and colouring sheets print cleanly on A4.</span></li>
-    <li><b>3 · Share it</b><span>“Share” copies a link to this corner. “Invite” adds your name to the link, so a friend is greeted by it and you can compare what you both made.</span></li>
+    <li><b data-i18n="keep.s1b">1 · It saves itself</b><span data-i18n="keep.s1p">Your wish, hanbok, name card and lists stay in this browser. Come back tomorrow on the same device and they are still there.</span></li>
+    <li><b data-i18n="keep.s2b">2 · Save the picture</b><span data-i18n="keep.s2p">On a phone, press and hold a finished card → “Save image”, or take a screenshot. On a computer, right-click → “Save image as…”. Recipe cards and colouring sheets print cleanly on A4.</span></li>
+    <li><b data-i18n="keep.s3b">3 · Share it</b><span data-i18n="keep.s3p">“Share” copies a link to this corner. “Invite” adds your name to the link, so a friend is greeted by it and you can compare what you both made.</span></li>
   </ol>
-  <p class="keep-note">No account, no ads, no upload — the link is the only thing that leaves your device.</p>
+  <p class="keep-note" data-i18n="keep.note">No account, no ads, no upload — the link is the only thing that leaves your device.</p>
 </section>
 
 <div class="zones">
@@ -992,36 +1045,36 @@ body.pwa-lock{overflow:hidden}
   <div class="zone-head">
     <span class="zone-no">01</span>
     <div class="zone-titles">
-      <h2 id="z1">Play &amp; Explore<span class="ko">놀며 둘러보기</span></h2>
+      <h2 id="z1"><span data-i18n="z1.t">Play &amp; Explore</span><span class="ko">놀며 둘러보기</span></h2>
     </div>
-    <p class="zone-note">Games and small journeys. Nothing to sign up for, nothing to lose — start one and see where it goes.</p>
+    <p class="zone-note" data-i18n="z1.n">Games and small journeys. Nothing to sign up for, nothing to lose — start one and see where it goes.</p>
   </div>
 
   <div class="cards">
     <a class="corner corner--lead corner--pic" href="../hanok-lantern/">
       <span class="shot">
         <img src="./assets/corner-hanok-lantern.webp" width="1400" height="721" loading="lazy" decoding="async"
-             alt="Wish Before It Flies: lanterns drifting over a hanok stone bridge at night">
+             alt="Wish Before It Flies: lanterns drifting over a hanok stone bridge at night" data-i18n-alt="alt.lantern">
       </span>
       <span class="corner-body">
-        <span class="corner-eyebrow">✦ Start here</span>
-        <span class="corner-name">Wish Before It Flies</span>
-        <span class="corner-desc">A hanok stone bridge at night, seven lanterns, one minute. Write your wish fast and send it up — pick the dokkaebi&rsquo;s lantern and the sky flies a silly wish instead.</span>
-        <span class="corner-cul"><b>도깨비 dokkaebi</b> Korean goblins are tricksters who test you — and who love a wish made with a grin. A low stone bridge at a village mouth is an old hanok-day greeting: bow your head as you cross.</span>
-        <span class="corner-meta"><span class="tag">1-minute game</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-eyebrow" data-i18n="c1.eyebrow">✦ Start here</span>
+        <span class="corner-name" data-i18n="c1.name">Wish Before It Flies</span>
+        <span class="corner-desc" data-i18n="c1.desc">A hanok stone bridge at night, seven lanterns, one minute. Write your wish fast and send it up — pick the dokkaebi&rsquo;s lantern and the sky flies a silly wish instead.</span>
+        <span class="corner-cul" data-i18n-html="c1.cul"><b>도깨비 dokkaebi</b> Korean goblins are tricksters who test you — and who love a wish made with a grin. A low stone bridge at a village mouth is an old hanok-day greeting: bow your head as you cross.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c1.tag">1-minute game</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
     <a class="corner corner--third corner--pic" href="../korea-vibe/">
       <span class="shot">
         <img src="./assets/corner-korea-vibe.webp" width="800" height="412" loading="lazy" decoding="async"
-             alt="Jeong 4-in-1: a pastel welcome page for four small Korean tools">
+             alt="Jeong 4-in-1: a pastel welcome page for four small Korean tools" data-i18n-alt="alt.vibe">
       </span>
       <span class="corner-body">
-        <span class="corner-name">Jeong (정) 4-in-1</span>
-        <span class="corner-desc">Four little tools in one page: your Korean name with this year&rsquo;s 띠 luck, rain on a hanok café with a focus timer, one warm Korean phrase, and eight home recipes.</span>
-        <span class="corner-cul"><b>정 jeong</b> The affection that grows from being together for a while, not from liking each other first. It is the word this whole playground is built on.</span>
-        <span class="corner-meta"><span class="tag">4 tools in one</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c2.name">Jeong (정) 4-in-1</span>
+        <span class="corner-desc" data-i18n="c2.desc">Four little tools in one page: your Korean name with this year&rsquo;s 띠 luck, rain on a hanok café with a focus timer, one warm Korean phrase, and eight home recipes.</span>
+        <span class="corner-cul" data-i18n-html="c2.cul"><b>정 jeong</b> The affection that grows from being together for a while, not from liking each other first. It is the word this whole playground is built on.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c2.tag">4 tools in one</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1030,10 +1083,10 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.4" width="10.4" height="14" rx="2"/><path d="M8 20.6h6.6a2 2 0 0 0 2-2V6.4"/><path d="M7 8h4.4M7 11h4.4"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">Today&rsquo;s Korean Fortune Card</span>
-        <span class="corner-desc">Draw a card for the day: one kind Korean line with how to say it, what it means, and a lucky charm to carry. Listen to it, then keep the card.</span>
-        <span class="corner-cul"><b>복 bok</b> In Korea a fortune is often a wish for small, ordinary luck — a full table, a quiet day — rather than anything grand.</span>
-        <span class="corner-meta"><span class="tag">draw · listen</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c3.name">Today&rsquo;s Korean Fortune Card</span>
+        <span class="corner-desc" data-i18n="c3.desc">Draw a card for the day: one kind Korean line with how to say it, what it means, and a lucky charm to carry. Listen to it, then keep the card.</span>
+        <span class="corner-cul" data-i18n-html="c3.cul"><b>복 bok</b> In Korea a fortune is often a wish for small, ordinary luck — a full table, a quiet day — rather than anything grand.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c3.tag">draw · listen</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1042,10 +1095,10 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20.4h16"/><path d="M6.4 20.4V9.2l5.6-3.6 5.6 3.6v11.2"/><path d="M12 20.4v-4.6"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">Modern Seoul Playbook</span>
-        <span class="corner-desc">Four field-note courses through everyday Seoul: convenience-store combos, how to order in a café, Seongsu photo booths, and late nights by the Han River.</span>
-        <span class="corner-cul"><b>편의점 · 카페</b> The convenience store works as a pantry and the café as a living room. Nobody minds if you sit two hours over one coffee.</span>
-        <span class="corner-meta"><span class="tag">4 courses</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c4.name">Modern Seoul Playbook</span>
+        <span class="corner-desc" data-i18n="c4.desc">Four field-note courses through everyday Seoul: convenience-store combos, how to order in a café, Seongsu photo booths, and late nights by the Han River.</span>
+        <span class="corner-cul" data-i18n-html="c4.cul"><b>편의점 · 카페</b> The convenience store works as a pantry and the café as a living room. Nobody minds if you sit two hours over one coffee.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c4.tag">4 courses</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1054,10 +1107,10 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.6" y="3.4" width="12.8" height="17.2" rx="2.2"/><path d="M8.4 3.4v17.2"/><circle cx="14" cy="9.6" r="2.2"/><path d="M11.8 9.6h4.4M14 7.4v4.4"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">Korea 5-Day Journey Mission</span>
-        <span class="corner-desc">A pocket travel passport: eleven five-day courses, six stops a day — breakfast, an experience, lunch, a café and photo stop, dinner and a night out, with a real local choice at every stop.</span>
-        <span class="corner-cul"><b>밥 먹었어?</b> Koreans ask ‘have you eaten?’ the way others ask how you are. The six stops a day — breakfast to night out — follow that rhythm.</span>
-        <span class="corner-meta"><span class="tag">11 courses</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c5.name">Korea 5-Day Journey Mission</span>
+        <span class="corner-desc" data-i18n="c5.desc">A pocket travel passport: eleven five-day courses, six stops a day — breakfast, an experience, lunch, a café and photo stop, dinner and a night out, with a real local choice at every stop.</span>
+        <span class="corner-cul" data-i18n-html="c5.cul"><b>밥 먹었어?</b> Koreans ask ‘have you eaten?’ the way others ask how you are. The six stops a day — breakfast to night out — follow that rhythm.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c5.tag">11 courses</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
   </div>
@@ -1068,35 +1121,35 @@ body.pwa-lock{overflow:hidden}
   <div class="zone-head">
     <span class="zone-no">02</span>
     <div class="zone-titles">
-      <h2 id="z2">Words &amp; Mood<span class="ko">말과 마음</span></h2>
+      <h2 id="z2"><span data-i18n="z2.t">Words &amp; Mood</span><span class="ko">말과 마음</span></h2>
     </div>
-    <p class="zone-note">Korean to look at, listen to, and keep — a word for the day, your name in red ink, a colour card, a slow letter.</p>
+    <p class="zone-note" data-i18n="z2.n">Korean to look at, listen to, and keep — a word for the day, your name in red ink, a colour card, a slow letter.</p>
   </div>
 
   <div class="cards">
     <a class="corner corner--half corner--pic" href="../korean-mood/">
       <span class="shot">
         <img src="./assets/corner-korean-mood.webp" width="1000" height="515" loading="lazy" decoding="async"
-             alt="Today’s Korean Mood: a soft page asking how you feel, with eight mood cards">
+             alt="Today’s Korean Mood: a soft page asking how you feel, with eight mood cards" data-i18n-alt="alt.mood">
       </span>
       <span class="corner-body">
-        <span class="corner-name">Today&rsquo;s Korean Mood</span>
-        <span class="corner-desc">Eighty Korean words and lines, sorted into eight moods and matched to the weather in Seoul. Hear it, read the note behind it, keep the card as a poster.</span>
-        <span class="corner-cul"><b>정 · 한 · 눈치</b> Korean has single words for feelings English needs a sentence for: 정 (jeong), 한 (han), 눈치 (nunchi). Each card picks one for the day.</span>
-        <span class="corner-meta"><span class="tag">80 cards · poster</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c6.name">Today&rsquo;s Korean Mood</span>
+        <span class="corner-desc" data-i18n="c6.desc">Eighty Korean words and lines, sorted into eight moods and matched to the weather in Seoul. Hear it, read the note behind it, keep the card as a poster.</span>
+        <span class="corner-cul" data-i18n-html="c6.cul"><b>정 · 한 · 눈치</b> Korean has single words for feelings English needs a sentence for: 정 (jeong), 한 (han), 눈치 (nunchi). Each card picks one for the day.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c6.tag">80 cards · poster</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
     <a class="corner corner--half corner--pic" href="../hangul-name/">
       <span class="shot">
         <img src="./assets/corner-hangul-name.webp" width="1000" height="515" loading="lazy" decoding="async"
-             alt="Your Name in Hangul: a handwritten Korean name card beside four handwriting styles">
+             alt="Your Name in Hangul: a handwritten Korean name card beside four handwriting styles" data-i18n-alt="alt.hangul">
       </span>
       <span class="corner-body">
-        <span class="corner-name">Your Name in Hangul</span>
-        <span class="corner-desc">Type your name and get it back in Korean handwriting, sealed with red ink — a postcard for your wall, or a 9:16 card for your story.</span>
-        <span class="corner-cul"><b>한글 · 낙관</b> Hangul is a 600-year-old alphabet made to be learned in a morning. The red seal (낙관) marks a finished piece, the way a painter signs a page.</span>
-        <span class="corner-meta"><span class="tag">postcard · seal</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c7.name">Your Name in Hangul</span>
+        <span class="corner-desc" data-i18n="c7.desc">Type your name and get it back in Korean handwriting, sealed with red ink — a postcard for your wall, or a 9:16 card for your story.</span>
+        <span class="corner-cul" data-i18n-html="c7.cul"><b>한글 · 낙관</b> Hangul is a 600-year-old alphabet made to be learned in a morning. The red seal (낙관) marks a finished piece, the way a painter signs a page.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c7.tag">postcard · seal</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1105,10 +1158,10 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.6" width="18" height="9.4" rx="1.8"/><path d="M6.6 11h10.8M6.6 13.4h6.4"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">Slow Seoul Typewriter</span>
-        <span class="corner-desc">Write a letter the slow way — pick the paper, choose a stamp, hear the keys, and keep the page as a small keepsake from Seoul.</span>
-        <span class="corner-cul"><b>손편지</b> A handwritten letter is still the warmest thing you can send in Korea — paper, a stamp, and a little delay are the whole point.</span>
-        <span class="corner-meta"><span class="tag">letter · keepsake</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c8.name">Slow Seoul Typewriter</span>
+        <span class="corner-desc" data-i18n="c8.desc">Write a letter the slow way — pick the paper, choose a stamp, hear the keys, and keep the page as a small keepsake from Seoul.</span>
+        <span class="corner-cul" data-i18n-html="c8.cul"><b>손편지</b> A handwritten letter is still the warmest thing you can send in Korea — paper, a stamp, and a little delay are the whole point.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c8.tag">letter · keepsake</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1117,10 +1170,10 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><circle cx="9" cy="9.6" r="1.1" fill="currentColor" stroke="none"/><circle cx="14.6" cy="9.2" r="1.1" fill="currentColor" stroke="none"/><circle cx="8.4" cy="14.4" r="1.1" fill="currentColor" stroke="none"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">Seoul Color Studio</span>
-        <span class="corner-desc">Six Seoul moods, each a palette of five colours. Tune them, name them, copy a HEX with one tap, and save the card as a moodboard.</span>
-        <span class="corner-cul"><b>오방색</b> Obangsaek, the five traditional colours — blue, red, yellow, white and black — sit under most Korean colour choices, hanbok included.</span>
-        <span class="corner-meta"><span class="tag">palette · moodboard</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c9.name">Seoul Color Studio</span>
+        <span class="corner-desc" data-i18n="c9.desc">Six Seoul moods, each a palette of five colours. Tune them, name them, copy a HEX with one tap, and save the card as a moodboard.</span>
+        <span class="corner-cul" data-i18n-html="c9.cul"><b>오방색</b> Obangsaek, the five traditional colours — blue, red, yellow, white and black — sit under most Korean colour choices, hanbok included.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c9.tag">palette · moodboard</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
   </div>
@@ -1131,48 +1184,48 @@ body.pwa-lock{overflow:hidden}
   <div class="zone-head">
     <span class="zone-no">03</span>
     <div class="zone-titles">
-      <h2 id="z3">Cozy &amp; Craft<span class="ko">소소한 만들기</span></h2>
+      <h2 id="z3"><span data-i18n="z3.t">Cozy &amp; Craft</span><span class="ko">소소한 만들기</span></h2>
     </div>
-    <p class="zone-note">Slow hands, quiet screens. Colour a page, trace a scene, sit at a rainy desk, write a list you might keep.</p>
+    <p class="zone-note" data-i18n="z3.n">Slow hands, quiet screens. Colour a page, trace a scene, sit at a rainy desk, write a list you might keep.</p>
   </div>
 
   <div class="cards">
     <a class="corner corner--third corner--pic" href="../korean-coloring/">
       <span class="shot">
         <img src="./assets/corner-korean-coloring.webp" width="800" height="412" loading="lazy" decoding="async"
-             alt="Free Korean Coloring Pages: line drawings of a hanok tea room, onggi jars and a persimmon tree">
+             alt="Free Korean Coloring Pages: line drawings of a hanok tea room, onggi jars and a persimmon tree" data-i18n-alt="alt.coloring">
       </span>
       <span class="corner-body">
-        <span class="corner-name">Free Korean Coloring Pages</span>
-        <span class="corner-desc">Three pages from the Cozy Korean Countryside coloring book — a hanok tea room, a row of jangdokdae jars, an autumn field. Colour them on screen or print them.</span>
-        <span class="corner-cul"><b>장독대</b> A jangdokdae is the row of jars on a raised terrace where soy and gochujang mature — the quiet centre of an old Korean house.</span>
-        <span class="corner-meta"><span class="tag">colour · print</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c10.name">Free Korean Coloring Pages</span>
+        <span class="corner-desc" data-i18n="c10.desc">Three pages from the Cozy Korean Countryside coloring book — a hanok tea room, a row of jangdokdae jars, an autumn field. Colour them on screen or print them.</span>
+        <span class="corner-cul" data-i18n-html="c10.cul"><b>장독대</b> A jangdokdae is the row of jars on a raised terrace where soy and gochujang mature — the quiet centre of an old Korean house.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c10.tag">colour · print</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
     <a class="corner corner--third corner--pic" href="../hanbok-coloring/">
       <span class="shot">
         <img src="./assets/corner-hanbok-coloring.webp" width="800" height="412" loading="lazy" decoding="async"
-             alt="Hanbok Coloring Studio: four hanbok line drawings ready to colour">
+             alt="Hanbok Coloring Studio: four hanbok line drawings ready to colour" data-i18n-alt="alt.hanbokcol">
       </span>
       <span class="corner-body">
-        <span class="corner-name">Hanbok Coloring Studio</span>
-        <span class="corner-desc">Thirteen hanbok looks drawn as line art — jeogori and chima, a dang-ui under the moon, a hwarot bride, a king in dragon robes. Fill the shapes with traditional silk colours, then keep a postcard or print the sheets.</span>
-        <span class="corner-cul"><b>한복 colors</b> Hanbok colour followed season and rank: a bride in hwarot red, a king in dragon robes, a scholar in plain white. The line art keeps those shapes.</span>
-        <span class="corner-meta"><span class="tag">13 pages</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c11.name">Hanbok Coloring Studio</span>
+        <span class="corner-desc" data-i18n="c11.desc">Thirteen hanbok looks drawn as line art — jeogori and chima, a dang-ui under the moon, a hwarot bride, a king in dragon robes. Fill the shapes with traditional silk colours, then keep a postcard or print the sheets.</span>
+        <span class="corner-cul" data-i18n-html="c11.cul"><b>한복 colors</b> Hanbok colour followed season and rank: a bride in hwarot red, a king in dragon robes, a scholar in plain white. The line art keeps those shapes.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c11.tag">13 pages</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
     <a class="corner corner--third corner--pic" href="../hanbok-studio/">
       <span class="shot">
         <img src="./assets/corner-hanbok-studio.webp" width="800" height="412" loading="lazy" decoding="async"
-             alt="Dress Your Hanbok: three illustrated hanbok looks on a warm page">
+             alt="Dress Your Hanbok: three illustrated hanbok looks on a warm page" data-i18n-alt="alt.hanbokstudio">
       </span>
       <span class="corner-body">
-        <span class="corner-name">Dress Your Hanbok</span>
-        <span class="corner-desc">Thirteen illustrated hanbok looks. Dye the jeogori and the chima in two colours, change the light, put on hwagwan, binyeo, norigae and gat, then keep the card as a photo print.</span>
-        <span class="corner-cul"><b>노리개 · 비녀</b> The norigae pendant, binyeo hairpin and hwagwan crown finish the look. Hanbok is worn at Seollal, Chuseok and weddings — not as a costume.</span>
-        <span class="corner-meta"><span class="tag">13 looks</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c12.name">Dress Your Hanbok</span>
+        <span class="corner-desc" data-i18n="c12.desc">Thirteen illustrated hanbok looks. Dye the jeogori and the chima in two colours, change the light, put on hwagwan, binyeo, norigae and gat, then keep the card as a photo print.</span>
+        <span class="corner-cul" data-i18n-html="c12.cul"><b>노리개 · 비녀</b> The norigae pendant, binyeo hairpin and hwagwan crown finish the look. Hanbok is worn at Seollal, Chuseok and weddings — not as a costume.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c12.tag">13 looks</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1181,10 +1234,10 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.6c2.6-.6 4.4-1.4 6.6-3.4 2-1.8 4-4.6 4.6-6.2"/><path d="M16.4 4.6l3 3-2.2 2.2-3-3z"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">K-Vibe Sketch &amp; Calligraphy Studio</span>
-        <span class="corner-desc">Six scenes to trace with a finger or a stylus, a Korean line to copy by hand, a voice to read it aloud — then stamp the page and keep it.</span>
-        <span class="corner-cul"><b>서예 · 낙관</b> In calligraphy the brush is loaded once and the line is kept. The red stamp at the end is what makes a page finished.</span>
-        <span class="corner-meta"><span class="tag">trace · lettering</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c13.name">K-Vibe Sketch &amp; Calligraphy Studio</span>
+        <span class="corner-desc" data-i18n="c13.desc">Six scenes to trace with a finger or a stylus, a Korean line to copy by hand, a voice to read it aloud — then stamp the page and keep it.</span>
+        <span class="corner-cul" data-i18n-html="c13.cul"><b>서예 · 낙관</b> In calligraphy the brush is loaded once and the line is kept. The red stamp at the end is what makes a page finished.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c13.tag">trace · lettering</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1193,10 +1246,10 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8.2a4.6 4.6 0 0 1 9 1.2 3.4 3.4 0 0 1-.8 6.7H8a3.7 3.7 0 0 1-1-7.9z"/><path d="M8.6 19.4l-.7 1.6M12 19.4l-.7 1.6M15.4 19.4l-.7 1.6"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">Cozy Seoul Desk</span>
-        <span class="corner-desc">Rain, firelight, night air and one blank line of paper. A quiet desk to sit at for a while — no streaks, no list, nothing to finish.</span>
-        <span class="corner-cul"><b>비 오는 날</b> Rain on a window is a mood of its own in Korea — rainy-day cafés, rainy-day songs. Nothing to finish is the point.</span>
-        <span class="corner-meta"><span class="tag">ambience · focus</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c14.name">Cozy Seoul Desk</span>
+        <span class="corner-desc" data-i18n="c14.desc">Rain, firelight, night air and one blank line of paper. A quiet desk to sit at for a while — no streaks, no list, nothing to finish.</span>
+        <span class="corner-cul" data-i18n-html="c14.cul"><b>비 오는 날</b> Rain on a window is a mood of its own in Korea — rainy-day cafés, rainy-day songs. Nothing to finish is the point.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c14.tag">ambience · focus</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1205,10 +1258,10 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 7.4l1.8 1.8 3-3.4"/><path d="M4.4 15.2l1.8 1.8 3-3.4"/><path d="M12.4 7.6h7.2M12.4 15.4h7.2"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">My Korea &amp; Cozy Checklist Maker</span>
-        <span class="corner-desc">Make a soft checklist or bucket list in a few minutes — a Korea list, a rainy-day list, a small-things list — then save it as a pin card or a printable A4 page.</span>
-        <span class="corner-cul"><b>버킷리스트</b> A bucket list or new-year plan written by hand and ticked off is a small Korean ritual: paper on the fridge, not an app.</span>
-        <span class="corner-meta"><span class="tag">list · A4 print</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c15.name">My Korea &amp; Cozy Checklist Maker</span>
+        <span class="corner-desc" data-i18n="c15.desc">Make a soft checklist or bucket list in a few minutes — a Korea list, a rainy-day list, a small-things list — then save it as a pin card or a printable A4 page.</span>
+        <span class="corner-cul" data-i18n-html="c15.cul"><b>버킷리스트</b> A bucket list or new-year plan written by hand and ticked off is a small Korean ritual: paper on the fridge, not an app.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c15.tag">list · A4 print</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
   </div>
@@ -1219,22 +1272,22 @@ body.pwa-lock{overflow:hidden}
   <div class="zone-head">
     <span class="zone-no">04</span>
     <div class="zone-titles">
-      <h2 id="z4">Kitchen &amp; Books<span class="ko">부엌과 책</span></h2>
+      <h2 id="z4"><span data-i18n="z4.t">Kitchen &amp; Books</span><span class="ko">부엌과 책</span></h2>
     </div>
-    <p class="zone-note">Free recipes you can print and stick on the fridge — and the books they came out of, if you want more.</p>
+    <p class="zone-note" data-i18n="z4.n">Free recipes you can print and stick on the fridge — and the books they came out of, if you want more.</p>
   </div>
 
   <div class="cards">
     <a class="corner corner--half corner--pic" href="../kfood-pdf/en/">
       <span class="shot">
         <img src="./assets/corner-kfood-pdf.webp" width="1100" height="566" loading="lazy" decoding="async"
-             alt="K-Food Free Recipe Cards: a green header and rows of numbered printable recipe cards">
+             alt="K-Food Free Recipe Cards: a green header and rows of numbered printable recipe cards" data-i18n-alt="alt.kfood">
       </span>
       <span class="corner-body">
-        <span class="corner-name">K-Food Free Recipe Cards</span>
-        <span class="corner-desc">Twenty one-page kitchen cards: what to buy outside Korea, the three steps that matter, how Koreans actually eat it, and how long it keeps. Print, cook, keep.</span>
-        <span class="corner-cul"><b>밥상 · 반찬</b> A Korean meal is bapsang — rice, soup and a spread of banchan side dishes shared in the middle. The cards keep that order.</span>
-        <span class="corner-meta"><span class="tag">20 PDFs · free</span><span class="go">Open <span class="ar" aria-hidden="true">→</span></span></span>
+        <span class="corner-name" data-i18n="c16.name">K-Food Free Recipe Cards</span>
+        <span class="corner-desc" data-i18n="c16.desc">Twenty one-page kitchen cards: what to buy outside Korea, the three steps that matter, how Koreans actually eat it, and how long it keeps. Print, cook, keep.</span>
+        <span class="corner-cul" data-i18n-html="c16.cul"><b>밥상 · 반찬</b> A Korean meal is bapsang — rice, soup and a spread of banchan side dishes shared in the middle. The cards keep that order.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c16.tag">20 PDFs · free</span><span class="go"><span data-i18n="ui.open">Open</span> <span class="ar" aria-hidden="true">→</span></span></span>
       </span>
     </a>
 
@@ -1243,16 +1296,16 @@ body.pwa-lock{overflow:hidden}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.6C10.4 4.4 8.4 4 6 4v14c2.4 0 4.4.4 6 1.6 1.6-1.2 3.6-1.6 6-1.6V4c-2.4 0-4.4.4-6 1.6z"/><path d="M12 5.6v14"/></svg></span>
       </span>
       <span class="corner-body">
-        <span class="corner-name">The books behind the corners</span>
-        <span class="corner-desc">Coloring books, Seoul field notes and kitchen books from the same small studio — paperbacks and PDFs, for anyone who wants to go a little further than a web page.</span>
-        <span class="corner-meta"><span class="tag">books · Payhip</span><span class="go">Visit <span class="ar" aria-hidden="true">↗</span></span></span>
+        <span class="corner-name" data-i18n="c17.name">The books behind the corners</span>
+        <span class="corner-desc" data-i18n="c17.desc">Coloring books, Seoul field notes and kitchen books from the same small studio — paperbacks and PDFs, for anyone who wants to go a little further than a web page.</span>
+        <span class="corner-meta"><span class="tag" data-i18n="c17.tag">books · Payhip</span><span class="go"><span data-i18n="ui.visit">Visit</span> <span class="ar" aria-hidden="true">↗</span></span></span>
       </span>
     </a>
 
     <div class="soon corner--narrow" aria-label="A new corner is being made">
-      <span class="s-eyebrow">Being made</span>
-      <h3>A countryside corner is on its way.</h3>
-      <p>The Korea outside Seoul — a slow road, a field in late afternoon, a kitchen with the door left open. When it is ready it will sit here, still free.</p>
+      <span class="s-eyebrow" data-i18n="soon.eyebrow">Being made</span>
+      <h3 data-i18n="soon.h3">A countryside corner is on its way.</h3>
+      <p data-i18n="soon.p">The Korea outside Seoul — a slow road, a field in late afternoon, a kitchen with the door left open. When it is ready it will sit here, still free.</p>
       <span class="s-ko">곧 이 자리에 놓일게요 · 시골 쪽 코너</span>
     </div>
   </div>
@@ -1267,12 +1320,12 @@ body.pwa-lock{overflow:hidden}
   <div class="foot-in">
     <div class="foot-grid">
       <div class="foot-links" style="order:2">
-        <h5>Wander further</h5>
+        <h5 data-i18n="foot.h5">Wander further</h5>
         <div class="foot-list">
-          <a href="https://danbilab.substack.com" target="_blank" rel="noopener noreferrer">Danbi Lab letters <span>Substack</span></a>
+          <a href="https://danbilab.substack.com" target="_blank" rel="noopener noreferrer"><span data-i18n="foot.l1">Danbi Lab letters</span> <span>Substack</span></a>
           <a href="https://www.youtube.com/@KFoodFarmKitchen" target="_blank" rel="noopener noreferrer">K-Food Farm Kitchen <span>YouTube</span></a>
           <a href="https://www.youtube.com/@SeoulStudyCafeBGM" target="_blank" rel="noopener noreferrer">Seoul Study Café Ambience <span>YouTube</span></a>
-          <a href="https://payhip.com/DanbiLab" target="_blank" rel="noopener noreferrer">Books &amp; printables <span>Payhip</span></a>
+          <a href="https://payhip.com/DanbiLab" target="_blank" rel="noopener noreferrer"><span data-i18n="foot.l4">Books &amp; printables</span> <span>Payhip</span></a>
         </div>
       </div>
 
@@ -1281,21 +1334,21 @@ body.pwa-lock{overflow:hidden}
           <span class="seal" aria-hidden="true">단</span>
           <div>
             <h4>Danbi Lab · 단비랩</h4>
-            <p>A small studio in Korea making quiet things for slow days: printable cards, coloring pages, field notes, and this playground.</p>
-            <p>Everything on this page is free to use, with no sign-up, no ads, and anonymous visit counts only. Nothing you type is sent anywhere — it stays in your own browser.</p>
+            <p data-i18n="foot.p1">A small studio in Korea making quiet things for slow days: printable cards, coloring pages, field notes, and this playground.</p>
+            <p data-i18n="foot.p2">Everything on this page is free to use, with no sign-up, no ads, and anonymous visit counts only. Nothing you type is sent anywhere — it stays in your own browser.</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="foot-bottom">
-      <span class="jeong">Free, for everyone · made in Korea with warm <b>정</b></span>
-      <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to the top ↑</a>
+      <span class="jeong" data-i18n-html="foot.jeong">Free, for everyone · made in Korea with warm <b>정</b></span>
+      <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" data-i18n="foot.top">Back to the top ↑</a>
     </div>
   </div>
 </footer>
 
-<div class="toast" id="shareToast" role="status" aria-live="polite"><span class="t-emoji">💌</span><span class="t-tx">Link copied! Share it with a friend</span></div>
+<div class="toast" id="shareToast" role="status" aria-live="polite"><span class="t-emoji">💌</span><span class="t-tx" data-i18n="share.initial">Link copied! Share it with a friend</span></div>
 </div><!-- /shell -->
 
 <script>
@@ -1311,6 +1364,8 @@ body.pwa-lock{overflow:hidden}
   var TITLE = 'Danbi K-Culture Playground \u00b7 \ub2e8\ube44 \ub180\uc774\ud130';
   var TEXT = 'Sixteen tiny corners of Korea \u2014 a lantern wish, a hanbok to dress, your name in hangul. All free, no sign-up.';
   var timer = null;
+  var I = window.DanbiI18n;
+  function T(key, en) { return I ? I.t(key, en) : en; }
 
   function showToast(msg, emoji, done) {
     if (!toast) return;
@@ -1320,14 +1375,14 @@ body.pwa-lock{overflow:hidden}
     if (done) {
       btn.classList.add('is-done');
       var tx = btn.querySelector('.share-tx');
-      if (tx) tx.textContent = 'Copied';
+      if (tx) tx.textContent = T('share.copied', 'Copied');
     }
     window.clearTimeout(timer);
     timer = window.setTimeout(function () {
       toast.classList.remove('is-in');
       btn.classList.remove('is-done');
       var tx = btn.querySelector('.share-tx');
-      if (tx) tx.textContent = 'Share';
+      if (tx) tx.textContent = T('hero.share', 'Share');
     }, 3400);
   }
 
@@ -1348,21 +1403,21 @@ body.pwa-lock{overflow:hidden}
   function copyLink() {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(link).then(function () {
-        showToast('Link copied \u2014 send it to a friend', '\ud83d\udc8c', true);
+        showToast(T('share.toast', 'Link copied \u2014 send it to a friend'), '\ud83d\udc8c', true);
       }, function () {
-        if (legacyCopy()) showToast('Link copied \u2014 send it to a friend', '\ud83d\udc8c', true);
-        else showToast('Copy this link: ' + link, '\ud83d\udd17', false);
+        if (legacyCopy()) showToast(T('share.toast', 'Link copied \u2014 send it to a friend'), '\ud83d\udc8c', true);
+        else showToast(T('share.ask', 'Copy this link: ') + link, '\ud83d\udd17', false);
       });
       return;
     }
-    if (legacyCopy()) showToast('Link copied \u2014 send it to a friend', '\ud83d\udc8c', true);
-    else showToast('Copy this link: ' + link, '\ud83d\udd17', false);
+    if (legacyCopy()) showToast(T('share.toast', 'Link copied \u2014 send it to a friend'), '\ud83d\udc8c', true);
+    else showToast(T('share.ask', 'Copy this link: ') + link, '\ud83d\udd17', false);
   }
 
   btn.addEventListener('click', function () {
     if (navigator.share) {
-      navigator.share({ title: TITLE, text: TEXT, url: link }).then(function () {
-        showToast('Thanks for sharing the playground', '\ud83c\udf80', false);
+      navigator.share({ title: TITLE, text: T('share.text', TEXT), url: link }).then(function () {
+        showToast(T('share.thanks', 'Thanks for sharing the playground'), '\ud83c\udf80', false);
       }).catch(function (err) {
         if (err && err.name === 'AbortError') return;
         copyLink();
@@ -1453,9 +1508,20 @@ body.pwa-lock{overflow:hidden}
 
   card.setAttribute('href', pick.h);
   card.style.setProperty('--tint', pick.tint);
-  document.getElementById('todayTitle').textContent = pick.t;
-  document.getElementById('todayDesc').textContent = pick.d;
-  document.getElementById('todayTag').textContent = pick.tag;
+
+  /* today's pick follows the chosen language: English stays in the table
+     below, the other three come from assets/i18n.js (pick0 … pick13). */
+  var pickIndex = PICKS.indexOf(pick);
+  function paintPick() {
+    var I = window.DanbiI18n;
+    function T(key, en) { return I ? I.t(key, en) : en; }
+    document.getElementById('todayTitle').textContent = T('pick' + pickIndex + '.t', pick.t);
+    document.getElementById('todayDesc').textContent = T('pick' + pickIndex + '.d', pick.d);
+    document.getElementById('todayTag').textContent = T('pick' + pickIndex + '.tag', pick.tag);
+  }
+  paintPick();
+  document.addEventListener('danbi:lang', paintPick);
+
   var glyph = document.getElementById('todayGlyph');
   if (glyph) glyph.textContent = pick.g;
   var pickNo = PICKS.indexOf(pick) + 1;
@@ -1498,26 +1564,27 @@ body.pwa-lock{overflow:hidden}
     'korea-vibe':         ['calm']
   };
 
-  /* Order matters: the first tab is the one the page opens on. */
+  /* Order matters: the first tab is the one the page opens on.
+     Labels live in assets/i18n.js under tab.<id> / tab.<sk>. */
   var TABS = [
     { id: 'all',      icon: '\u2728',                full: 'All',               short: 'All',      aria: 'Show every corner' },
     { id: 'featured', icon: '\uD83D\uDC96',          full: 'Featured',          short: 'Featured', aria: 'Show featured corners' },
-    { id: 'dress',    icon: '\uD83C\uDF3F',          full: 'Dress & Art',       short: 'Dress',    aria: 'Show dress and art corners' },
-    { id: 'travel',   icon: '\uD83C\uDF6E',          full: 'Travel & Seoul',    short: 'Travel',   aria: 'Show travel and Seoul corners' },
-    { id: 'calm',     icon: '\u2615',                full: 'Calm & Words',      short: 'Calm',     aria: 'Show calm and words corners' },
-    { id: 'friends',  icon: '\uD83D\uDC6F\u200D\u2640\uFE0F', full: 'Play with Friends', short: 'Friends',  aria: 'Show corners to play with a friend' },
+    { id: 'dress',    icon: '\uD83C\uDF3F',          full: 'Dress & Art',       short: 'Dress',    aria: 'Show dress and art corners', sk: 'dressShort' },
+    { id: 'travel',   icon: '\uD83C\uDF6E',          full: 'Travel & Seoul',    short: 'Travel',   aria: 'Show travel and Seoul corners', sk: 'travelShort' },
+    { id: 'calm',     icon: '\u2615',                full: 'Calm & Words',      short: 'Calm',     aria: 'Show calm and words corners', sk: 'calmShort' },
+    { id: 'friends',  icon: '\uD83D\uDC6F\u200D\u2640\uFE0F', full: 'Play with Friends', short: 'Friends',  aria: 'Show corners to play with a friend', sk: 'friendsShort' },
     { id: 'saved',    icon: '\u2B50',                full: 'Saved',             short: 'Saved',    aria: 'Show the corners you saved' },
   ];
 
   /* The four corners that are better with two people. */
   var FRIENDS = [
-    { href: 'hanbok-studio', glyph: '옷', name: 'Dress each other’s hanbok',
+    { k: 1, href: 'hanbok-studio', glyph: '옷', name: 'Dress each other’s hanbok',
       desc: 'Pick a jeogori colour for your friend and let them pick yours — then keep both photo cards side by side.' },
-    { href: 'korean-fortune', glyph: '복', name: 'Draw each other’s fortune',
+    { k: 2, href: 'korean-fortune', glyph: '복', name: 'Draw each other’s fortune',
       desc: 'Both draw a card for the day, read the line out loud and compare lucky charms.' },
-    { href: 'slow-typewriter', glyph: '편', name: 'Write a slow letter',
+    { k: 3, href: 'slow-typewriter', glyph: '편', name: 'Write a slow letter',
       desc: 'One page on paper, a stamp of your choosing, and a keepsake waiting in their messages.' },
-    { href: 'korea-5day-mission', glyph: '길', name: 'Walk the same five days',
+    { k: 4, href: 'korea-5day-mission', glyph: '길', name: 'Walk the same five days',
       desc: 'Take the same course, stop at the same six spots, and compare the diary cards at night.' }
   ];
 
@@ -1674,6 +1741,18 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
 
   /* ---------------------------------------------------------------- pieces */
 
+  function element(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  function tr(key, en, vars) {
+    var I = window.DanbiI18n;
+    return I ? I.tf(key, en, vars || {}) : en;
+  }
+
   var HOME = (window.DanbiKit && window.DanbiKit.home) || '/playground/';
   var tabBar = null;
   var count = null;
@@ -1708,6 +1787,7 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
       button.setAttribute('data-dbk-tab', tab.id);
       button.setAttribute('aria-pressed', 'false');
       button.setAttribute('aria-label', tab.aria);
+      button.setAttribute('data-i18n-aria', 'tab.' + tab.id + 'Aria');
 
       if (tab.icon) {
         var ico = document.createElement('span');
@@ -1716,14 +1796,12 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
         ico.textContent = tab.icon;
         button.appendChild(ico);
       }
-      var full = document.createElement('span');
-      full.className = 'dbk-full';
-      full.textContent = tab.full;
+      var full = element('span', 'dbk-full', tab.full);
+      full.setAttribute('data-i18n', 'tab.' + tab.id);
       button.appendChild(full);
 
-      var short = document.createElement('span');
-      short.className = 'dbk-short';
-      short.textContent = tab.short;
+      var short = element('span', 'dbk-short', tab.short);
+      short.setAttribute('data-i18n', 'tab.' + (tab.sk || tab.id));
       button.appendChild(short);
 
       if (tab.id === 'saved') {
@@ -1773,14 +1851,17 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
     var eyebrow = document.createElement('p');
     eyebrow.className = 'dbk-eyebrow';
     eyebrow.textContent = '\uD83D\uDC6F\u200D\u2640\uFE0F Play with Friends';
+    eyebrow.setAttribute('data-i18n', 'fr.eyebrow');
 
     var title = document.createElement('h2');
     title.className = 'dbk-title';
     title.textContent = 'Four corners that are better with two people';
+    title.setAttribute('data-i18n', 'fr.title');
 
     var lede = document.createElement('p');
     lede.className = 'dbk-lede';
     lede.textContent = 'No accounts to link. Send one invite link, and you both land on the same corners — then compare what you made.';
+    lede.setAttribute('data-i18n', 'fr.lede');
 
     var actions = document.createElement('div');
     actions.className = 'dbk-actions';
@@ -1789,6 +1870,7 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
     inviteBtn.type = 'button';
     inviteBtn.className = 'dbk-btn primary';
     inviteBtn.textContent = 'Invite a friend';
+    inviteBtn.setAttribute('data-i18n', 'fr.invite');
     inviteBtn.addEventListener('click', function () {
       if (window.DanbiKit && window.DanbiKit.invite) {
         window.DanbiKit.invite();
@@ -1801,6 +1883,7 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
     shareBtn.type = 'button';
     shareBtn.className = 'dbk-btn';
     shareBtn.textContent = 'Share the playground';
+    shareBtn.setAttribute('data-i18n', 'fr.share');
     shareBtn.addEventListener('click', function () {
       if (window.DanbiKit && window.DanbiKit.share) {
         window.DanbiKit.share();
@@ -1808,13 +1891,13 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
       }
       var url = window.location.href.split('?')[0];
       if (navigator.share) {
-        navigator.share({ title: 'Danbi K-Culture Playground', text: 'Try this cute Korean culture playground! \u2728', url: url }).catch(function () {});
+        navigator.share({ title: 'Danbi K-Culture Playground', text: tr('share.tryText', 'Try this cute Korean culture playground! \u2728'), url: url }).catch(function () {});
         return;
       }
       if (navigator.clipboard) {
         navigator.clipboard.writeText(url).then(function () {
-          shareBtn.textContent = 'Link copied!';
-          window.setTimeout(function () { shareBtn.textContent = 'Share the playground'; }, 2000);
+          shareBtn.textContent = tr('fr.copied', 'Link copied!');
+          window.setTimeout(function () { shareBtn.textContent = tr('fr.share', 'Share the playground'); }, 2000);
         });
       }
     });
@@ -1837,9 +1920,11 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
       var n = document.createElement('span');
       n.className = 'dbk-friend-n';
       n.textContent = item.name;
+      n.setAttribute('data-i18n', 'fr' + item.k + '.name');
       var d = document.createElement('span');
       d.className = 'dbk-friend-d';
       d.textContent = item.desc;
+      d.setAttribute('data-i18n', 'fr' + item.k + '.desc');
       b.appendChild(n);
       b.appendChild(d);
       a.appendChild(g);
@@ -1882,7 +1967,7 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
 
   function nameOf(card) {
     var n = card.querySelector('.corner-name');
-    return (n && n.textContent.replace(/\s+/g, ' ').trim()) || card.__dbkSlug || 'this corner';
+    return (n && n.textContent.replace(/\s+/g, ' ').trim()) || card.__dbkSlug || tr('misc.corner', 'this corner');
   }
 
   function addStar(card) {
@@ -1914,8 +1999,10 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
     var name = nameOf(card);
     star.textContent = on ? '\u2605' : '\u2606';
     star.setAttribute('aria-pressed', on ? 'true' : 'false');
-    star.setAttribute('aria-label', (on ? 'Remove ' + name + ' from saved corners' : 'Save ' + name));
-    star.title = on ? 'Saved — tap to remove' : 'Save this corner';
+    star.setAttribute('aria-label', on
+      ? tr('star.remove', 'Remove {name} from saved corners', { name: name })
+      : tr('star.save', 'Save {name}', { name: name }));
+    star.title = on ? tr('star.titleSaved', 'Saved — tap to remove') : tr('star.titleSave', 'Save this corner');
   }
 
   function toggleFav(card) {
@@ -1970,7 +2057,9 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
       flat.hidden = true;
       empty.hidden = true;
       if (friends) friends.hidden = false;
-      count.textContent = friends ? (friends.querySelectorAll('a.dbk-friend').length + ' ways to play together') : '';
+      count.textContent = friends
+        ? tr('count.friends', '{n} ways to play together', { n: friends.querySelectorAll('a.dbk-friend').length })
+        : '';
       return;
     }
 
@@ -2001,19 +2090,23 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
       } else {
         empty.hidden = false;
         empty.innerHTML = tab === 'saved'
-          ? 'Tap <b>\u2605</b> on any corner to save your favorites here — they stay on this device.'
-          : 'Nothing in this corner yet — try another tab.';
+          ? tr('empty.saved', 'Tap <b>\u2605</b> on any corner to save your favorites here — they stay on this device.')
+          : tr('empty.other', 'Nothing in this corner yet — try another tab.');
       }
     }
 
     if (tab === 'all') {
       var cornersOnly = 0;
       for (var k = 0; k < cards.length; k++) { if (cards[k].__dbkSlug) cornersOnly++; }
-      count.textContent = 'Everything · ' + cornersOnly + ' corners';
+      count.textContent = tr('count.all', 'Everything · {n} corners', { n: cornersOnly });
     } else if (tab === 'saved') {
-      count.textContent = shown ? shown + (shown === 1 ? ' saved corner' : ' saved corners') : '';
+      count.textContent = shown
+        ? tr(shown === 1 ? 'count.savedOne' : 'count.savedMany', shown === 1 ? '{n} saved corner' : '{n} saved corners', { n: shown })
+        : '';
     } else {
-      count.textContent = shown ? shown + (shown === 1 ? ' corner' : ' corners') : '';
+      count.textContent = shown
+        ? tr(shown === 1 ? 'count.cornerOne' : 'count.cornerMany', shown === 1 ? '{n} corner' : '{n} corners', { n: shown })
+        : '';
     }
   }
 
@@ -2031,6 +2124,7 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
     var pill = document.createElement('span');
     pill.className = 'dbk-pick';
     pill.textContent = '\u2728 Today\u2019s pick';
+    pill.setAttribute('data-i18n', 'pick.pill');
     var meta = match.querySelector('.corner-meta');
     if (meta && meta.firstChild) meta.insertBefore(pill, meta.firstChild);
     else match.appendChild(pill);
@@ -2049,6 +2143,11 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
     }, 400);
     window.addEventListener('load', function () {
       if (markToday() && current === 'all') apply('all');
+    });
+    /* the language can change at any time: repaint what is not attribute-driven */
+    document.addEventListener('danbi:lang', function () {
+      for (var i = 0; i < cards.length; i++) paintStar(cards[i]);
+      if (tabBar) apply(current);
     });
   }
 
@@ -2073,7 +2172,8 @@ a.corner.dbk-today{box-shadow:0 0 0 3px rgba(255,158,125,.45),0 16px 32px -26px 
     var href = all[i].getAttribute('href') || '';
     if (href.indexOf('../') !== 0) continue;           /* the shop link stays out */
     var n = all[i].querySelector('.corner-name');
-    links.push({ href: href, name: n ? n.textContent.replace(/\s+/g, ' ').replace(/&amp;/g, '&').trim() : 'a corner' });
+    var fallback = window.DanbiI18n ? DanbiI18n.t('dice.corner', 'a corner') : 'a corner';
+    links.push({ href: href, name: n ? n.textContent.replace(/\s+/g, ' ').replace(/&amp;/g, '&').trim() : fallback });
   }
   if (!links.length) return;
   btn.addEventListener('click', function () {
