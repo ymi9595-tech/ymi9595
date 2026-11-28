@@ -12,3 +12,7 @@ Ten Korean destinations, each with one practical one-day course that starts at t
 
 식당 이름은 넣지 않았습니다. 그 동네의 대표 음식만 소개합니다.
 No restaurant names — only the dishes each town is known for.
+
+`tools/` holds the small scripts used to fetch the photographs from Wikimedia Commons
+(`commons.py` searches, `download.py` fetches with the licence metadata, `spec*.json` records
+which file each slot came from). They are not needed to serve the site.
