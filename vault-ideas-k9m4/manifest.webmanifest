@@ -1,0 +1,35 @@
+{
+  "name": "나만의 아이디어 창고",
+  "short_name": "아이디어 창고",
+  "description": "매일 아침 자동으로 모은 사업 아이디어 — 분야별로 골라 보고, 별표를 누르면 실행 메모장에 담깁니다.",
+  "id": "/ymi9595/vault-ideas-k9m4/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FBF6EE",
+  "theme_color": "#FBF6EE",
+  "lang": "ko",
+  "dir": "ltr",
+  "categories": ["productivity", "business"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
