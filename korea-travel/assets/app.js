@@ -109,8 +109,8 @@
       <span class="body">
         <span class="cname">${esc(c.name[state.lang])}<span class="cen">${esc(c.name[state.lang === 'ko' ? 'en' : 'ko'])}</span></span>
         <span class="tagline">${esc(c.tag[state.lang])}</span>
+        <span class="meta">${esc(t.courseMeta(stops, c.duration[state.lang]))}</span>
         <span class="foot">
-          <span class="meta">${esc(t.courseMeta(stops, c.duration[state.lang]))}</span>
           <span class="go">${esc(t.viewCourse)} <span class="ar">&rarr;</span></span>
         </span>
       </span>

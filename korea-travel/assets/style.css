@@ -153,7 +153,7 @@ h1 em::after{content:"";position:absolute;left:1%;right:1%;bottom:-.05em;height:
 
 .grid{display:grid;gap:clamp(14px,2vw,20px);margin:20px 0 0;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 @media(max-width:680px){.grid{grid-template-columns:1fr}}
-.card{position:relative;display:flex;flex-direction:column;text-align:left;padding:9px;border:1px solid rgba(255,255,255,.95);border-radius:28px;
+.card{position:relative;display:flex;flex-direction:column;align-items:stretch;text-align:left;padding:9px;border:1px solid rgba(255,255,255,.95);border-radius:28px;
   background:#fff;box-shadow:var(--sh);cursor:pointer;overflow:hidden;
   transition:transform .42s var(--spring),box-shadow .3s;animation:rise .6s var(--spring) both}
 .card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
@@ -170,8 +170,8 @@ h1 em::after{content:"";position:absolute;left:1%;right:1%;bottom:-.05em;height:
 .card .cname{font-size:21px;font-weight:800;letter-spacing:-.036em;line-height:1.15;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .card .cname .cen{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .card .tagline{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.55;min-height:2.6em}
-.card .foot{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:6px}
-.card .meta{font-size:10.5px;letter-spacing:.04em;color:var(--ink-3);font-weight:700}
+.card .foot{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:auto;padding-top:8px}
+.card .meta{font-size:10.5px;letter-spacing:.04em;color:var(--ink-3);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card .go{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;
   background:#FFF3EC;color:var(--coral-deep);font-size:11px;font-weight:800;white-space:nowrap}
 .card:hover .go{background:#FFE7DA}
