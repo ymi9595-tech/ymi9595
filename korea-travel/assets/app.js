@@ -636,7 +636,19 @@
       toast(t.shareDone, '🔗');
       if (btn) { btn.classList.add('is-done'); setTimeout(() => btn.classList.remove('is-done'), 1600); }
     } catch (e) {
-      toast(t.shareFail, '⚠️');
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        ta.remove();
+        toast(ok ? t.shareDone : t.shareFail, ok ? '🔗' : '⚠️');
+      } catch (e2) {
+        toast(t.shareFail, '⚠️');
+      }
     }
   }
 
