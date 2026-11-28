@@ -540,3 +540,7 @@ body.is-detail .hero{display:none}
   .top .lang button{padding:0 10px;min-height:36px}
   .top .brand-mini .seal{width:34px;height:34px;font-size:13px}
 }
+@media(max-width:560px){
+  .cluster{row-gap:24px}
+  .sticker .nm{font-size:11px}
+}

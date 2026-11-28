@@ -206,7 +206,6 @@
 
   function themeCard(th) {
     const t = T();
-    const c0 = themeCourse(th);
     return `<a class="card tcard" href="${themeHash(th.id)}" data-open="theme:${th.id}" style="--tint:${th.tint}">
       <span class="ph">
         <img src="images/th-${th.id}.jpg" alt="${esc(th.name[state.lang])}" loading="lazy" decoding="async" width="1600" height="1000">
@@ -216,7 +215,7 @@
         <span class="cname">${esc(th.name[state.lang])}<span class="cen">${esc(th.name[state.lang === 'ko' ? 'en' : 'ko'])}</span></span>
         <span class="tagline">${esc(th.tag[state.lang])}</span>
         <span class="foot">
-          <span class="meta">${esc(t.courseMeta(c0 ? c0.steps.length : 0, th.duration[state.lang]))}</span>
+          <span class="meta">${esc(t.courseMeta(placeCount(th), th.duration[state.lang]))}</span>
           <span class="go">${esc(t.viewCourse)} <span class="ar">&rarr;</span></span>
         </span>
       </span>
