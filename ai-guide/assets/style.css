@@ -158,7 +158,9 @@ main { flex: 1; padding: 0 clamp(16px, 4vw, 44px) 64px; }
 /* 히어로 */
 .hero { position: relative; padding: clamp(30px, 5vw, 58px) 0 8px; max-width: 780px; }
 .hero-blob {
-  position: absolute; right: -8%; top: -18%; width: 380px; height: 380px; border-radius: 46% 54% 62% 38% / 48% 42% 58% 52%;
+  position: absolute; right: 0; top: -14%;
+  width: clamp(180px, 34vw, 360px); height: clamp(180px, 34vw, 360px);
+  border-radius: 46% 54% 62% 38% / 48% 42% 58% 52%;
   background: linear-gradient(140deg, #FFE2D2 0%, #F7E7F5 55%, #DCEFE6 100%);
   filter: blur(2px); opacity: .72; z-index: -1;
 }
@@ -434,7 +436,7 @@ main { flex: 1; padding: 0 clamp(16px, 4vw, 44px) 64px; }
   .card-meta { grid-column: 2; }
   .chip { font-size: 11.5px; padding: 4px 10px; }
   .prompt-body { font-size: 12.6px; }
-  .hero-blob { width: 260px; height: 260px; right: -20%; }
+  .hero-blob { width: 240px; height: 240px; opacity: .6; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
