@@ -357,18 +357,18 @@ const PHOTO_CREDITS = {
   "page": "https://commons.wikimedia.org/wiki/File:In_Glamping_(Marineping)_dome_-_2.jpg"
  },
  "th-coast":  {
-  "title": "File:Korea-Tongyeong-Hallyeo Waterway Observation Cable Car-02.jpg",
-  "author": "by Junho Jung at Flickr from South Korea",
-  "license": "CC BY-SA 3.0",
-  "licenseurl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "page": "https://commons.wikimedia.org/wiki/File:Korea-Tongyeong-Hallyeo_Waterway_Observation_Cable_Car-02.jpg"
+  "title": "File:Gacheon Daraengi Village, Namhae on September 1st, 2019.jpg",
+  "author": "Choi2451",
+  "license": "CC0",
+  "licenseurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Gacheon_Daraengi_Village,_Namhae_on_September_1st,_2019.jpg"
  },
  "th-coast-p2":  {
-  "title": "File:A bus stop on the coastal road of Yokjido Island.jpg",
-  "author": "Pranay chakraborty 2004",
-  "license": "CC BY 4.0",
-  "licenseurl": "https://creativecommons.org/licenses/by/4.0",
-  "page": "https://commons.wikimedia.org/wiki/File:A_bus_stop_on_the_coastal_road_of_Yokjido_Island.jpg"
+  "title": "File:Saryang Island, South Korea.jpg",
+  "author": "Ryuch",
+  "license": "CC0",
+  "licenseurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Saryang_Island,_South_Korea.jpg"
  },
  "th-dog":  {
   "title": "File:Korean Jindo dog.jpg",

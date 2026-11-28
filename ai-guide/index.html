@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>단비랩 AI 활용·응용 가이드 — AI 도구 8종 · 목적별 레시피 6종</title>
+<meta name="description" content="ChatGPT·Claude·Gemini·Perplexity·이미지·영상·음악 AI와 업무 자동화까지, 여덟 가지 AI를 언제 어떻게 쓰는지 정리한 무료 가이드. 블로그·매장·부동산·농장·전자책·영어까지 목적별 레시피 6종과 바로 복사하는 프롬프트, 단비랩 전자책에서 뽑은 핵심 노하우를 담았습니다.">
+<meta name="keywords" content="AI 활용, ChatGPT 사용법, Claude, Gemini, Perplexity, 이미지 AI, 영상 AI, 음악 AI, 업무 자동화, AI 프롬프트, 소상공인 AI, 공인중개사 AI, 체험농장, 전자책, 단비랩, AI guide, prompts">
+<meta name="author" content="단비랩 DanbiLab">
+<meta name="theme-color" content="#FFF8F2">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://ymi9595-tech.github.io/ymi9595/ai-guide/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23FFD9C4'/%3E%3Ctext x='32' y='45' font-family='Apple SD Gothic Neo,Malgun Gothic,sans-serif' font-size='32' font-weight='700' fill='%237A4130' text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="og-ai-guide.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="단비랩 AI 활용·응용 가이드">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="단비랩 AI 활용·응용 가이드 — AI별로, 목적별로 바로 쓰는 법">
+<meta property="og:description" content="여덟 가지 AI와 여섯 가지 목적을 실제 매장·농장·책 만들기 현장의 순서대로. 복사해서 쓰는 프롬프트와 단비랩 전자책 속 핵심 노하우를 함께 담았습니다.">
+<meta property="og:url" content="https://ymi9595-tech.github.io/ymi9595/ai-guide/">
+<meta property="og:image" content="https://ymi9595-tech.github.io/ymi9595/ai-guide/og-ai-guide.png">
+<meta property="og:image:secure_url" content="https://ymi9595-tech.github.io/ymi9595/ai-guide/og-ai-guide.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="파스텔 배경 위에 '단비랩 AI 활용·응용 가이드 — 여덟 가지 AI, 여섯 가지 목적' 글자와 작은 배지들">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="단비랩 AI 활용·응용 가이드">
+<meta name="twitter:description" content="Eight AI tools and six real jobs, with copy-ready prompts and know-how from DanbiLab's own books.">
+<meta name="twitter:image" content="https://ymi9595-tech.github.io/ymi9595/ai-guide/og-ai-guide.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "name": "단비랩 AI 활용·응용 가이드",
+      "alternateName": "DanbiLab AI Guide",
+      "url": "https://ymi9595-tech.github.io/ymi9595/ai-guide/",
+      "description": "Eight AI tools and six real jobs, with copy-ready prompts and excerpts from DanbiLab e-books.",
+      "inLanguage": ["ko", "en"],
+      "isAccessibleForFree": true,
+      "publisher": { "@type": "Organization", "name": "단비랩 DanbiLab", "url": "https://smartstore.naver.com/danbilab" }
+    },
+    {
+      "@type": "WebSite",
+      "name": "단비랩 DanbiLab",
+      "url": "https://ymi9595-tech.github.io/ymi9595/",
+      "publisher": { "@type": "Organization", "name": "단비랩 DanbiLab" }
+    }
+  ]
+}
+</script>
+
+<!-- 방문자 수 집계 (GA4) — 회원가입·로그인 없이 익명으로 집계됩니다. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2LRGRLEWFW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2LRGRLEWFW');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/style.css?v=1">
+</head>
+<body>
+<a class="skip" href="#view">본문으로 건너뛰기</a>
+
+<button class="scrim" id="scrim" type="button" aria-label="메뉴 닫기" tabindex="-1" hidden></button>
+
+<aside class="side" id="side" aria-label="가이드 메뉴">
+  <div class="side-top">
+    <a class="brand" href="#home" aria-label="단비랩 AI 가이드 — 처음으로">
+      <span class="seal" aria-hidden="true">AI</span>
+      <span class="brand-txt">
+        <span class="brand-name" data-t="brand">단비랩 AI 가이드</span>
+        <span class="brand-sub" data-t="brandSub">AI별로, 목적별로 바로 쓰는 법</span>
+      </span>
+    </a>
+    <button class="side-x" id="sideClose" type="button" aria-label="메뉴 닫기">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="side-body" id="sideBody">
+    <p class="side-hint">왼쪽에서 궁금한 항목을 누르면 바로 열립니다.</p>
+  </div>
+
+  <div class="side-foot">
+    <span class="lang" role="group" aria-label="Language / 언어">
+      <button type="button" data-lang="ko" aria-pressed="true">KR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+    <span class="side-by">단비랩</span>
+  </div>
+</aside>
+
+<div class="wrap">
+  <header class="top">
+    <button class="navbtn" id="navBtn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="side">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="brand brand-mini" href="#home" aria-label="단비랩 AI 가이드 — 처음으로">
+      <span class="seal" aria-hidden="true">AI</span>
+      <span class="brand-txt">
+        <span class="brand-name">단비랩 AI 가이드</span>
+        <span class="brand-sub">AI별로, 목적별로</span>
+      </span>
+    </a>
+    <span class="top-crumb" id="crumb"></span>
+    <div class="top-tools">
+      <span class="lang" role="group" aria-label="Language / 언어">
+        <button type="button" data-lang="ko" aria-pressed="true">KR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </span>
+      <button class="share" type="button" data-share aria-label="공유">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4"/><path d="m8 7.5 4-3.5 4 3.5"/><path d="M5 13v5.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V13"/></svg>
+        <span class="share-tx">공유</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="notice">
+      <span class="nb" aria-hidden="true">안내</span>
+      <p>
+        <b>단비랩(DanbiLab)이 제작한 독립 AI 활용·프롬프트 가이드입니다. 각 AI 서비스의 공식 사이트가 아닙니다.</b>
+        <span class="en">An independent AI usage &amp; prompt guide by DanbiLab. This is not an official site of any AI service.</span>
+        2026년 11월 기준 안내 · 기능과 요금제는 각 서비스 정책에 따라 변동될 수 있습니다.
+      </p>
+    </div>
+
+    <div id="view" aria-live="polite">
+      <noscript>
+        <p style="padding:24px 0">이 가이드는 프롬프트 복사와 KR/EN 전환에 자바스크립트를 사용합니다. 브라우저에서 자바스크립트를 켜 주세요.</p>
+      </noscript>
+    </div>
+
+    <div class="disclosure">
+      <p><span class="dl">단비랩(DanbiLab)이 제작한 독립 AI 활용·프롬프트 가이드입니다.</span> 각 AI 서비스의 공식 사이트가 아닙니다.<br>
+        An independent AI usage &amp; prompt guide by DanbiLab. This is not an official site of any AI service.</p>
+      <p>2026년 11월 기준 안내. 기능과 요금제는 각 서비스 정책에 따라 변동될 수 있습니다. 책 속 인용은 단비랩이 지은 전자책에서 옮긴 것으로, 인용할 때는 출처를 밝혀 주세요.</p>
+      <p>서비스 이름과 상표는 각 권리자에게 있습니다. 이 사이트는 어떤 서비스와도 제휴·후원·보증 관계가 없으며, 공식 로고나 캐릭터를 쓰지 않습니다.</p>
+    </div>
+
+    <footer class="foot">
+      <span>© 단비랩 DanbiLab</span>
+      <span class="dot">·</span>
+      <a href="https://smartstore.naver.com/danbilab" target="_blank" rel="noopener">스마트스토어</a>
+      <a href="https://payhip.com/DanbiLab" target="_blank" rel="noopener">Payhip</a>
+      <a href="../playground/">단비랩 놀이터</a>
+      <span class="dot">·</span>
+      <span>무료로 나눕니다. 출처를 밝히고 자유롭게 공유해 주세요.</span>
+    </footer>
+  </main>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/data.js?v=1"></script>
+<script src="assets/app.js?v=1"></script>
+</body>
+</html>

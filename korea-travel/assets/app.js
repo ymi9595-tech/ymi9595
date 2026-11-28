@@ -279,16 +279,6 @@
     return `<div class="city-bar">
       <button class="back" type="button" data-back>&larr; ${esc(backLabel)}</button>
       <span class="bar-name">${esc(name)}</span>
-      <span class="bar-tools">
-        <span class="lang" role="group" aria-label="Language">
-          <button type="button" data-lang="ko" aria-pressed="${state.lang === 'ko'}">KR</button>
-          <button type="button" data-lang="en" aria-pressed="${state.lang === 'en'}">EN</button>
-        </span>
-        <button class="share" type="button" data-share aria-label="${esc(t.share)}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4"/><path d="m8 7.5 4-3.5 4 3.5"/><path d="M5 13v5.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V13"/></svg>
-          <span class="share-tx">${esc(t.share)}</span>
-        </button>
-      </span>
     </div>`;
   }
 
@@ -567,6 +557,7 @@
     const wasHome = state.route.type === 'home';
     routeFromHash();
     const isHome = state.route.type === 'home';
+    if (!isHome) state.tab = state.route.type === 'theme' ? 'themes' : 'cities';
     if (wasHome && !isHome) state.homeScroll = window.scrollY;
     render();
     if (!isHome) {

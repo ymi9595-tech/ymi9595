@@ -430,7 +430,7 @@ h1 em::after{content:"";position:absolute;left:1%;right:1%;bottom:-.05em;height:
 .side-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 14px 16px;
   border-top:1px solid rgba(160,120,150,.12)}
 .side-by{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:800}
-.wrap{margin-left:288px;min-width:0}
+.wrap{position:relative;z-index:1;margin-left:288px;min-width:0}
 .navbtn{display:none;width:40px;height:40px;flex:none;border-radius:13px;border:1px solid #fff;background:#fff;color:var(--ink);cursor:pointer;
   align-items:center;justify-content:center;box-shadow:0 10px 18px -18px rgba(150,100,130,.9)}
 .navbtn svg{width:18px;height:18px}

@@ -56,8 +56,8 @@
 | `images/th-beauty-p2.jpg` | File:Seoul Night Skyline 2022.jpg | Takipoint123 | CC BY-SA 4.0 |
 | `images/th-camp.jpg` | File:In Glamping (Marineping) dome - 1.jpg | DONANENTHUSIAST | CC BY-SA 4.0 |
 | `images/th-camp-p2.jpg` | File:In Glamping (Marineping) dome - 2.jpg | DONANENTHUSIAST | CC BY-SA 4.0 |
-| `images/th-coast.jpg` | File:Korea-Tongyeong-Hallyeo Waterway Observation Cable Car-02.jpg | by Junho Jung at Flickr from South Korea | CC BY-SA 3.0 |
-| `images/th-coast-p2.jpg` | File:A bus stop on the coastal road of Yokjido Island.jpg | Pranay chakraborty 2004 | CC BY 4.0 |
+| `images/th-coast.jpg` | File:Gacheon Daraengi Village, Namhae on September 1st, 2019.jpg | Choi2451 | CC0 |
+| `images/th-coast-p2.jpg` | File:Saryang Island, South Korea.jpg | Ryuch | CC0 |
 | `images/th-dog.jpg` | File:Korean Jindo dog.jpg | bein_korean | CC BY 2.0 |
 | `images/th-dog-p2.jpg` | File:Korea-Jeonju-Sapsal dog in front of a Hanok Village-01.jpg | Sungdo Cho from Seoul | CC BY 2.0 |
 | `images/th-drama.jpg` | File:Suncheon Open Film Set 02 (25138957781).jpg | Republic of  Korea from Seoul, Republic of Korea | CC BY-SA 2.0 |
