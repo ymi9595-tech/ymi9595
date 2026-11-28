@@ -401,6 +401,7 @@ main { flex: 1; padding: 0 clamp(16px, 4vw, 44px) 64px; }
     display: block; position: fixed; inset: 0; z-index: 35; border: 0; padding: 0;
     background: rgba(58, 44, 38, .32); backdrop-filter: blur(1.5px);
   }
+  .scrim[hidden] { display: none; }
   .wrap { margin-left: 0; }
   .navbtn { display: grid; place-items: center; }
   .top .brand { display: flex; }
