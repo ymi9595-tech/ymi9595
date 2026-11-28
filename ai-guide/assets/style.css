@@ -425,8 +425,10 @@ main { flex: 1; padding: 0 clamp(16px, 4vw, 44px) 64px; }
   .shelf { grid-template-columns: 1fr; }
   .detail-head { gap: 12px; }
   .d-em { width: 54px; height: 54px; border-radius: 18px; font-size: 25px; }
-  .book-row { flex-wrap: wrap; }
-  .book-row .btn-store { width: 100%; justify-content: center; }
+  .book-row { display: grid; grid-template-columns: 26px 1fr; gap: 2px 8px; align-items: start; }
+  .br-em { grid-row: 1 / span 3; align-self: start; padding-top: 2px; }
+  .br-tx { grid-column: 2; }
+  .book-row .btn-store { grid-column: 1 / -1; justify-content: center; margin-top: 6px; }
   .pager .pg { max-width: 48%; }
   .top-crumb { display: none; }
 }
