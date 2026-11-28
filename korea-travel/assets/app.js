@@ -346,7 +346,9 @@
         if (seen.has(f)) return;
         seen.add(f);
         const cr = (typeof PHOTO_CREDITS !== 'undefined' && PHOTO_CREDITS[f]) || null;
-        items.push({ f, cr, cap: (c.photos.find((p) => p.file === f) || {}).cap });
+        const hit = c.photos.find((p) => p.file === f);
+        const cap = hit ? hit.cap : { ko: c.name.ko + ' 대표 사진', en: c.name.en + ' — cover photograph' };
+        items.push({ f, cr, cap });
       });
     });
     $('#creditsList').innerHTML = items.map(({ f, cr, cap }) => `
